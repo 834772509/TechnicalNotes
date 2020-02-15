@@ -10,7 +10,7 @@ module.exports = {
   themeConfig: {
     // 添加导航栏
     nav: [
-      { text: '首页', link: '/' },
+      { text: '首页', link: '/technicalnotes/' },
       {
         text: '前端',
         items: [
