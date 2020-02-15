@@ -14,7 +14,7 @@ module.exports = {
       {
         text: '前端',
         items: [
-          { text: 'HTML5', link: '/front-end/HTML5/' },
+          { text: 'HTML5', link: './front-end/HTML5/' },
           { text: 'Vue', link: '/front-end/Vue/' },
           { text: 'MDUI', link: '/front-end/MDUI/' },
         ]
