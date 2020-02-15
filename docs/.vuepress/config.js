@@ -4,7 +4,7 @@ module.exports = {
   head: [
     ['link', { rel: 'icon', href: '/img/LOGO.ico' }]
   ],
-  base: '/technicalnotes', // 设置站点根路径
+  base: '/technicalnotes/', // 设置站点根路径
   //repo: 'https://github.com/txs1992/mt-blog' // 添加 github 链接
   theme: 'vuepress-theme-yilia-plus',
   themeConfig: {
@@ -14,7 +14,7 @@ module.exports = {
       {
         text: '前端',
         items: [
-          { text: 'HTML5', link: './front-end/HTML5/' },
+          { text: 'HTML5', link: '/front-end/HTML5/' },
           { text: 'Vue', link: '/front-end/Vue/' },
           { text: 'MDUI', link: '/front-end/MDUI/' },
         ]
