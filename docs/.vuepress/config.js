@@ -10,7 +10,7 @@ module.exports = {
   themeConfig: {
     // 添加导航栏
     nav: [
-      { text: '首页', link: 'http://fir834772509.gitee.io/technicalnotes/' },
+      { text: '首页', link: '/' },
       {
         text: '前端',
         items: [
