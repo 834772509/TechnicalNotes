@@ -1,4 +1,5 @@
 module.exports = {
+  //每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
   title: '杉-技术笔记',  // 设置网站标题
   dest: './dist',    // 设置输出目录
   head: [
