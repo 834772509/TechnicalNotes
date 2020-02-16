@@ -312,6 +312,89 @@ const routes = [
     })
 ```
 
+## Vuex
+
+### 介绍
+
+Vuex用于管理各个组件之间的共享变量
+
+### 安装
+
+```npm install vuex --save```
+
+### 设置共享变量
+
+\store\index.js
+
+``` js
+export default new Vuex.Store({
+  state: {
+    变量名: 值,
+  },
+})
+```
+
+### 使用共享变量
+
+``` $store.state.变量名```
+
+### 修改共享变量
+
+\store\index.js
+
+``` js
+export default new Vuex.Store({
+  mutations: {
+    方法名(state) {
+      state.变量名 = 0
+    },
+    方法名(state,参数名) {
+        state.变量名 = 0
+    },
+  }
+})
+```
+
+使用修改方法：
+
+``` js
+this.$store.commit('方法名')
+this.$store.commit('方法名,参数名')
+//传递多个参数
+const test = {id:01,name:"a",age:18}
+this.$store.commit('方法名,test')
+```
+
+::: tip 提示
+不推荐使用 ```$store.state.变量名 = XXX``` 修改变量，跳过了很多流程
+:::
+
+
+### getter方法（类似计算属性）
+
+\store\index.js
+
+``` js
+export default new Vuex.Store({
+  getters: {
+      计算属性名(state){
+          return state.变量名
+      },
+      计算属性名(state){
+          return function(参数1[,参数2]{
+              return state.变量名 + 参数1
+        }
+      },
+  }
+```
+
+使用getter方法：
+
+``` js
+{{$store.getters.计算属性名}}
+{{$store.getters.计算属性名(1)}}
+```
+
 ## 常用组件使用实例
 
 ### 单选框
