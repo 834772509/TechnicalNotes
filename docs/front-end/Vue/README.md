@@ -341,7 +341,6 @@ export default new Vuex.Store({
 ### 修改共享变量
 
 \store\index.js
-
 ``` js
 export default new Vuex.Store({
   mutations: {
@@ -394,6 +393,9 @@ export default new Vuex.Store({
 {{$store.getters.计算属性名}}
 {{$store.getters.计算属性名(1)}}
 ```
+
+### Vue-modueles
+ 
 
 ## 常用组件使用实例
 
