@@ -545,3 +545,103 @@ app = new Vue({
 ```
 
 :::
+
+## axios
+
+测试请求网站
+<http://httpbin.org>
+
+### 封装
+
+为防止第三方请求框架凉凉，需要封装自己的NetWork库，以便凉凉时更换框架
+
+#### 目录结构
+
+``` 
+├─ src
+├── network
+│     ├─ request.js
+```
+
+#### 封装代码
+
+* request.js
+
+``` js
+import axios from 'axios'
+
+export function request(config) { 
+  return new Promise((resolve, reject) => { 
+    //创建axios实例
+    const instance = axios.create({
+      baseURL: '',
+      timeout: 5000
+    })
+    //发送网络请求
+    return instance(config)
+  })
+}
+```
+
+使用：
+
+``` js
+request({
+  url: '/',
+}).then(res => {
+  console.log(res)
+}).catch(err => {
+  console.log(err)
+})
+```
+
+### 全局配置
+
+#### 设置全局URL
+
+``` js
+axios.defaults.baseURL=''
+```
+
+#### 超时时间（毫秒）
+
+``` js
+axios.defaults.timeot=5000
+```
+
+### 创建axios实例
+
+``` js
+const axios1 = axios.create({
+  baseURL: 'URL链接',
+  timeout: 超时时间（毫秒）
+})
+```
+
+### 请求数据
+
+``` js
+axios({
+  url: '指定的URL',
+  //指定请求方式（默认为get）
+  methods: 'get',
+  //指定请求get方式的参数拼接(?)
+  params: {
+    参数: 值,
+  },
+}).then(res => { 
+  console.log(res);
+})
+```
+
+### 并发请求
+
+``` js
+axios.all([axios(){
+  url:''
+},axios({
+  url:''
+})]).then(res => {
+  console.log(res)
+}
+```
