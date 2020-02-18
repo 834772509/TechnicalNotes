@@ -1,5 +1,31 @@
 # Java 笔记
 
+## 文本读写
+
+### 读取
+
+``` Java
+File file = new File("要读取的文本路径");
+try {
+  BufferedReader bReader = new BufferedReader(new FileReader(file.getPath()));
+  System.out.println(bReader.readLine());
+  bReader.close();
+  } catch (IOException e) {}
+```
+
+### 写入
+
+``` Java
+File file = new File("要写入的文本路径");
+try {
+  file.createNewFile();
+  BufferedWriter bWriter = new BufferedWriter(new FileWriter(file.getPath()));
+  bWriter.write("要写入的文本");
+  bWriter.flush();
+  bWriter.close();
+  } catch (IOException e) {}
+```
+
 ## 常用Swing组件
 
 ### 窗口
