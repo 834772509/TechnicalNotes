@@ -1,6 +1,5 @@
 # Vue笔记
 
-
 ## 基本概念
 
 ### 后端渲染 后端路由
@@ -50,7 +49,6 @@ publicPath: './'
 ```
 
 ## 基本语法
-
 
 ### v-for
 
@@ -110,7 +108,6 @@ v-for为循环，后接表达式：变量 in 列表
 <input type="text" v-model="message">
 ```
 
-
 ### v-bind
 
 #### 动态绑定属性
@@ -134,7 +131,6 @@ v-bind用于动态绑定属性，例如图片等
 
 后接表达式：{属性名 : 属性值}  
 
-
 ``` HTML
 <h2 :style="{fontSize: '50px',color: color}">{{message}}</h2>
 <h2 v-bind:class="getclass()">{{message}}</h2>
@@ -145,11 +141,10 @@ getclass() {
     return { active: this.isactive, line12: this.isline
     }
 ```
+
 ::: tip 提示
 属性值注意增加单引号，否则会解析为变量
 :::
-
-
 
 ### v-html
 
@@ -211,7 +206,6 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
 只是给元素增加display:none，适合切换频率高的环境
 :::
 
-
 ## 路由
 
 ### 创建路由
@@ -221,7 +215,7 @@ views\XXX.vue
 
 ``` HTML
 <template>
-  <div class="XXX"">
+  <div class="XXX">
 
   </div>
 </template>
@@ -257,7 +251,6 @@ const routes = [
 this.$router.push('/XXX')
 ```
 
-
 ### 路由传参
 
 1. 方法一
@@ -265,7 +258,7 @@ this.$router.push('/XXX')
 
     ``` HTML
     <router-link :to="'/XXX/'+变量名">用户</router-link>
-    ``` 
+    ```
 
     代码传参：
     this.$router.push('/XXX' + this.变量名)  
@@ -275,7 +268,7 @@ this.$router.push('/XXX')
 
     ``` HTML
     <router-link :to="{path: '/跳转页面',query: {参数1: 值1[,参数2: 值2]}}">页面名</router-link>
-    ``` 
+    ```
 
     代码传参：
 
@@ -305,7 +298,7 @@ const routes = [
         meta: {
             title: "页面名"
     }
- router.beforeEach((to, from, next) => { 
+ router.beforeEach((to, from, next) => {
      //从form跳转到to
      document.title=to.matched[0].meta.title
      next()
@@ -322,6 +315,47 @@ Vuex用于管理各个组件之间的共享变量
 
 ```npm install vuex --save```
 
+### 目录结构
+
+```
+├─ store
+│  ├─ actions.js
+│  ├─ getters.js
+│  └─ index.js
+│  └─ mutations.js
+├── modules
+│  └─ moduleA.js
+```
+
+``` js
+import mutations from './mutations'
+import getters from './getters'
+import actions from './actions'
+import moduleA from './modules/moduleA'
+
+const state = {
+  counter: 0,
+}
+
+export default new Vuex.Store({
+  state: state,
+  mutations: mutations,
+  getters: getters,
+  actions: actions,
+  modules: {
+    a: moduleA
+  }
+})
+```
+
+getters.js、actions.js、moduleA.js
+
+``` js
+export default {
+
+}
+```
+
 ### 设置共享变量
 
 \store\index.js
@@ -336,11 +370,12 @@ export default new Vuex.Store({
 
 ### 使用共享变量
 
-``` $store.state.变量名```
+```$store.state.变量名```
 
-### 修改共享变量
+### 修改共享变量（mutations）
 
 \store\index.js
+
 ``` js
 export default new Vuex.Store({
   mutations: {
@@ -368,7 +403,6 @@ this.$store.commit('方法名,test')
 不推荐使用 ```$store.state.变量名 = XXX``` 修改变量，跳过了很多流程
 :::
 
-
 ### getter方法（类似计算属性）
 
 \store\index.js
@@ -380,11 +414,12 @@ export default new Vuex.Store({
           return state.变量名
       },
       计算属性名(state){
-          return function(参数1[,参数2]{
+          return function(参数1[,参数2]){
               return state.变量名 + 参数1
         }
       },
   }
+})
 ```
 
 使用getter方法：
@@ -395,7 +430,38 @@ export default new Vuex.Store({
 ```
 
 ### Vue-modueles
- 
+
+ \store\index.js
+
+``` js
+//创建对象
+const 模块对象名称 = {
+      state: {
+      },
+      mutations: {
+      },
+      getters: {
+      },
+      actions: {
+      }
+}
+//
+export default new Vuex.Store({
+  modules: {
+    模块名称: 模块对象名称,
+  }
+})
+```
+
+使用modules：
+
+``` js
+{{$store.state.模块名称.name}}
+```
+
+::: tip 提示
+mutations、getters可以常规使用
+:::
 
 ## 常用组件使用实例
 
@@ -459,7 +525,7 @@ export default new Vuex.Store({
 app = new Vue({
     //声明要绑定的id
     el: '#app',
-    //数据对象 
+    //数据对象
     data: {
 
     },

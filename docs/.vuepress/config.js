@@ -25,7 +25,7 @@ module.exports = {
         items: [
           { text: 'Andorid', link: '/back-end/Andorid/' },
           { text: 'Java', link: '/back-end/Java/'},
-          { text: 'Java', link: '/back-end/JavaWeb/'},
+          { text: 'JavaWeb', link: '/back-end/JavaWeb/'},
           { text: 'Python', link: '/back-end/Python/'},
           { text: 'SQL数据库', link: '/back-end/SQL/'},
           { text: 'PHP', link: '/back-end/PHP/'},
