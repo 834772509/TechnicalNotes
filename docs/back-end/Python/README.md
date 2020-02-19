@@ -1,10 +1,22 @@
 # Python 笔记
 
-
 ## Python简介
+
 Python是脚本语言  
 脚本语言(Scripting language)是电脑编程语言，因此也能让开发者藉以编写出让电脑听命行事的程序。以简单的方式快速完成某些复杂的事情通常是创造脚本语言的重要原则，基于这项原则，使得脚本语言通常比 C语言、C++语言或 Java 之类的系统编程语言要简单容易
 
+## 解决pip速度慢的问题
+
+1. 在user目录中新建pip目录
+2. 新建文件pip.ini
+3. 内容如下：
+
+``` ini
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+[install]
+trusted-host=mirrors.aliyun.com
+```
 
 ## 数据类型
 
@@ -136,25 +148,35 @@ def 函数名(参数1[,参数2]):
   return
 ```
 
-## 文件
+## 文件和目录操作
 
+### 创建目录
 
+os.makedirs 可以递归的创建目录结构，比如
+
+``` python
+import os
+os.makedirs('tmp/python/fileop',exist_ok=True)
+```
+
+会在当前工作目录下面创建 tmp目录，在tmp目录下面再创建 python目录，在Python目录下面再创建fileop目录  
+```exist_ok=True```指定了，如果某个要创建的目录已经存在，也不报错
 
 ## 常用BIF（方法）
 
 ### print
+
 打印指定的内容
 ``` Python
 print()
 ```
 
 ### input
+
 接收用户的输入并返回
 ``` Python
 temp = input("请输入：")
 ```
-
-
 
 ## 爬虫
 
@@ -167,6 +189,7 @@ temp = input("请输入：")
 ```pip install bs4```
 
 ### 请求网址
+
 ``` Python
 def open_url(url):
     headers = {
@@ -176,57 +199,65 @@ def open_url(url):
     return res
 ```
 
-
 ## Tkinter
 
 
 ### 窗口
+
 ``` Python
 from tkinter import *
 root = Tk()
 root.mainloop()
 ```
 
-
 ### 标签
+
 ``` Python
 标签 = Label(root, text="标签")
 标签.pack()
 ```
 
 ### 图片框
+
 ``` Python
 图片框 = Label(root, image=PhotoImage(file=""))
 图片框.pack()
 ```
+
 ### 按钮
+
 ``` Python
 按钮 = Button(root, text="按钮",command=调用的方法名)
 BeautifyButton(按钮)
 按钮.pack()
-``` 
+```
 
 ### 编辑框
+
 ``` Python
 编辑框 = Text(root, wrap=NONE)
 编辑框.insert(END, '编辑框默认内容')
 编辑框.pack()
-``` 
+```
 
 ### 组合框
+
 ``` Python
 组合框 = ttk.Combobox(root, values=(
     '1', '2', '3', '4', '5'), state='readonly')
 组合框.current(0)
 组合框.pack()
-``` 
+```
 
 ### 下拉列表框
+
 ``` Python
 w = Spinbox(root, values=("1", "2", "3", "4", "5"))
 w.pack()
-``` 
+```
+
 ### 窗口Demo
+
 ``` Python
 import os
 import subprocess
@@ -341,4 +372,19 @@ w.pack()
 
 
 root.mainloop()
+```
+
+## QT界面
+
+* PyQt是GPLv3协议，大意是你的程序中用了它，你的程序就要开源，如果闭源商用就会违反协议（后果自负，脸皮够厚无所谓）。除非你搞封装动态加载那一套来强行规避。
+* PySide是LGPL协议，如果你只是作为库用用它，你的程序还是可以闭源商用。
+
+### 安装 PySide2
+
+```pip install pyside2```
+
+### 按钮事件
+
+``` Python
+button.clicked.connect(事件函数名)
 ```
