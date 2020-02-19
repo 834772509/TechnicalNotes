@@ -30,13 +30,15 @@ trusted-host=mirrors.aliyun.com
 | float  | 浮点型|
 
 ### 数据类型的转换
-转字符串：```str()  ```  
-转整数：```int()  ```  
-转浮点数：```float()  ```  
+
+转字符串：```str()```  
+转整数：```int()```  
+转浮点数：```float()```  
 
 ## 基本语法
 
 ### 三元运算符
+
 ``` Python
 small = x if x < y else y
 ```
@@ -44,12 +46,14 @@ small = x if x < y else y
 ### 循环语句
 
 * while循环语句
+
 ``` Python
 while 条件:
   循环体
 ```
 
 * for循环语句
+
 ``` Python
 for 目标 in 表达式:
     循环体
@@ -58,28 +62,35 @@ for 目标 in 表达式:
 for 目标 in range(5):
   循环体
 ```
+
 * range()函数：range([start],stop[,step=1])，有三个参数，中括号中的内容可选，step是步进，这个BIF的作用是生成一个从start参数的值开始到stop参数的值结束的数字序列，经常与for循环联合使用。记住，是左闭右开区间
 * break：跳出循环体
 * continue：终止本轮 循环，并开始下一轮循环（如果下一轮循环的条件为真）
 
 ### lambda表达式
+
 ``` Python
 lambda 参数1[,参数2] : 表达式
 ```
 
 ## 列表
+
 列表可以存放任何的数据类型
+
 ``` Python
 mix = [1, ‘小甲鱼’, 3.14, [1, 2, 3]]
 ```
+
 * 向列表中添加元素（设列表的名称为member）：
 * append()：member.append(要添加的元素)，注意每次只能添加一个元素，被添加的元素自动添加到列表末尾
 * extend()：member.extend([元素1,元素2])，以列表的形式追加新元素到原列表，每次可以添加多个元素，被添加的元素自动添加到列表末尾
 * 插入元素：insert()：member.insert(a,b)a表示要追加的位置（注意起始位置为0），b表示被插入的元素
 
 ## 元组
+
 封闭的列表，一旦定义，就不可改变（不能添加、删除或修改）  
 当我们希望内容不被轻易改写的时候，我们使用元组（把权力关进牢笼）。当我们需要频繁修改数据，我们使用列表。
+
 ``` Python
 temp = (1,2,3)
 ```
@@ -95,57 +106,75 @@ temp = (1,2,3)
 index：这个方法返回某个参数在元组中的位置  
 count：这个方法用来计算某个参数在元组中出现的次数
 
-
 ## 字符串
+
 | 方法        |           含义              |
 | ------- |:---------------------------------:|
-| capitalize()|	把字符串的第一个字符改为大写
-| casefold()|	把整个字符串的所有字符改为小写
-| center(width)	|将字符串居中，并使用空格填充至长度width的新字符串
-| count(sub[,start[,end]])	|返回sub在字符串里边出现的次数，start和end参数表示范围，可选
-| encode(encoding='utf-8', errors='strict')	|以encoding指定的编码格式对字符串进行编码
-| endswith(sub[,start[,end]])	|检查字符串是否以sub子字符串结束，如果是返回True，否则返回False。start和end参数表示范围，可选
-| expandtabs([tabsize=8])	|把字符串中的tab符号（\t）转换为空格，如不指定参数，默认的空格数是tabsize=8
-| find(sub[,start[,end]])	|检测sub是否包含在字符串中，如果有则返回索引值，否则返回-1，start和end参数表示范围，可选
-| index(sub[,start[,end]])	|跟find方法一样，不过如果sub不在string中会产生一个异常
-| isalnum()|	如果字符串至少有一个字符并且所有字符都是字母或数字则返回True，否则返回False
-| isalpha()|	如果字符串至少有一个字符并且所有字符都是字母则返回True，否则返回False
-| isdecimal()|	如果字符串只包含十进制数字则返回True，否则返回False
-| isdigit()|	如果字符串只包含数字则返回True，否则返回False
-| islower()|	如果字符串中至少包含一个区分大小写的字符，并且这些字符都是小写，则返回True，否则返回False
-| isnumeric()|	如果字符串中只包含数字字符，则返回True，否则返回False
-| isspace()|	如果字符串中只包含空格，则返回True，否则返回False
-| istitle()|	如果字符串是标题化（所有的单词都是以大写开始，其余字母均小写），则返回True，否则返回False
-| isupper()|	如果字符串中至少包含一个区分大小写的字符，并且这些字符都是大写，则返回True，否则返回False
-| join(sub)|	以字符串作为分隔符，插入到sub中所有的字符之间。>>> str5 = 'Fishc' >>> str5.join('12345') '1Fishc2Fishc3Fishc4Fishc5'
-| ljust(width)	|返回一个左对齐的字符串，并使用空格填充至长度为width的新字符串
-| lower()|	转换字符串中所有大写字符为小写
-| lstrip()|	去掉字符串左边的所有空格
-| partition(sub) |	找到子字符串sub，把字符串分成一个3元组（pre_sub,sub,fol_sub），如果字符串中不包含sub则返回(‘原字符串’, ’’, ’’)
-| replace(old,new[,count])	|把字符串中的old子字符串替换成new子字符串，如果count指定，则替换不超过count次。>>> str7 = 'i love fishdm and seven' >>> str7.replace('e','E',2) 输出'i lovE fishdm and sEven'
+| capitalize()|把字符串的第一个字符改为大写
+| casefold()|把整个字符串的所有字符改为小写
+| center(width)|将字符串居中，并使用空格填充至长度width的新字符串
+| count(sub[,start[,end]])|返回sub在字符串里边出现的次数，start和end参数表示范围，可选
+| encode(encoding='utf-8', errors='strict')|以encoding指定的编码格式对字符串进行编码
+| endswith(sub[,start[,end]])|检查字符串是否以sub子字符串结束，如果是返回True，否则返回False。start和end参数表示范围，可选
+| expandtabs([tabsize=8])|把字符串中的tab符号（\t）转换为空格，如不指定参数，默认的空格数是tabsize=8
+| find(sub[,start[,end]])|检测sub是否包含在字符串中，如果有则返回索引值，否则返回-1，start和end参数表示范围，可选
+| index(sub[,start[,end]])|跟find方法一样，不过如果sub不在string中会产生一个异常
+| isalnum()|如果字符串至少有一个字符并且所有字符都是字母或数字则返回True，否则返回False
+| isalpha()|如果字符串至少有一个字符并且所有字符都是字母则返回True，否则返回False
+| isdecimal()|如果字符串只包含十进制数字则返回True，否则返回False
+| isdigit()|如果字符串只包含数字则返回True，否则返回False
+| islower()|如果字符串中至少包含一个区分大小写的字符，并且这些字符都是小写，则返回True，否则返回False
+| isnumeric()|如果字符串中只包含数字字符，则返回True，否则返回False
+| isspace()|如果字符串中只包含空格，则返回True，否则返回False
+| istitle()|如果字符串是标题化（所有的单词都是以大写开始，其余字母均小写），则返回True，否则返回False
+| isupper()|如果字符串中至少包含一个区分大小写的字符，并且这些字符都是大写，则返回True，否则返回False
+| join(sub)|以字符串作为分隔符，插入到sub中所有的字符之间。>>> str5 = 'Fishc' >>> str5.join('12345') '1Fishc2Fishc3Fishc4Fishc5'
+| ljust(width)|返回一个左对齐的字符串，并使用空格填充至长度为width的新字符串
+| lower()|转换字符串中所有大写字符为小写
+| lstrip()|去掉字符串左边的所有空格
+| partition(sub) |找到子字符串sub，把字符串分成一个3元组（pre_sub,sub,fol_sub），如果字符串中不包含sub则返回(‘原字符串’, ’’, ’’)
+| replace(old,new[,count])|把字符串中的old子字符串替换成new子字符串，如果count指定，则替换不超过count次。>>> str7 = 'i love fishdm and seven' >>> str7.replace('e','E',2) 输出'i lovE fishdm and sEven'
 | rfind(sub[,start[,end]]) | 类似于find()|方法，不过是从右边开始查找
 | rindex(sub[,start[,end]]) | 类似于index()|方法，不过是从右边开始
 | rjust(width) | 返回一个右对齐的字符串，并使用空格填充至长度为width的新字符串
-| rpartition(sub)	|类似于partition()|方法，不过是从右边开始查找
-| rstrip()|	删除字符串末尾的空格
-| split(sep=None, maxsplit=-1)|	不带参数默认是以空格为分隔符切片字符串，如果maxsplit参数有设置，则仅分隔maxsplit个子字符串，返回切片后的子字符串拼接的列表。>>> str7.split ()| ['i', 'love', 'fishdm', 'and', 'seven']
-| splitlines(([keepends]))	|按照‘\n’分隔，返回一个包含各行作为元素的列表，如果keepends参数指定，则返回前keepends行
-| startswith(prefix[,start[,end]])|	检查字符串是否以prefix开头，是则返回True，否则返回False。start和end参数可以指定范围检查，可选
-| strip([chars])	|删除字符串前边和后边所有的空格，chars参数可以定制删除的字符，可选
-| swapcase()|	翻转字符串中的大小写
-| title()|	返回标题化（所有的单词都是以大写开始，其余字母均小写）的字符串
-| translate(table)	|根据table的规则（可以由str.maketrans(‘a’,‘b’)定制）转换字符串中的字符。>>> str8 = 'aaasss sssaaa' >>> str8.translate(str.maketrans('s','b')) 'aaabbb bbbaaa'
-| upper()|	转换字符串中的所有小写字符为大写
-| zfill(width)	|返回长度为width的字符串，原字符串右对齐，前边用0填充
-
+| rpartition(sub)|类似于partition()|方法，不过是从右边开始查找
+| rstrip()|删除字符串末尾的空格
+| split(sep=None, maxsplit=-1)|不带参数默认是以空格为分隔符切片字符串，如果maxsplit参数有设置，则仅分隔maxsplit个子字符串，返回切片后的子字符串拼接的列表。>>> str7.split ()| ['i', 'love', 'fishdm', 'and', 'seven']
+| splitlines(([keepends]))|按照‘\n’分隔，返回一个包含各行作为元素的列表，如果keepends参数指定，则返回前keepends行
+| startswith(prefix[,start[,end]])|检查字符串是否以prefix开头，是则返回True，否则返回False。start和end参数可以指定范围检查，可选
+| strip([chars])|删除字符串前边和后边所有的空格，chars参数可以定制删除的字符，可选
+| swapcase()|翻转字符串中的大小写
+| title()|返回标题化（所有的单词都是以大写开始，其余字母均小写）的字符串
+| translate(table)|根据table的规则（可以由str.maketrans(‘a’,‘b’)定制）转换字符串中的字符。>>> str8 = 'aaasss sssaaa' >>> str8.translate(str.maketrans('s','b')) 'aaabbb bbbaaa'
+| upper()|转换字符串中的所有小写字符为大写
+| zfill(width)|返回长度为width的字符串，原字符串右对齐，前边用0填充
 
 ## 函数
 
 ### 声明
+
 ``` Python
 def 函数名(参数1[,参数2]):
   函数体
   return
+```
+
+## 常用BIF（方法）
+
+### print
+
+打印指定的内容
+
+``` Python
+print()
+```
+
+### input
+
+接收用户的输入并返回
+
+``` Python
+temp = input("请输入：")
 ```
 
 ## 文件和目录操作
@@ -162,21 +191,34 @@ os.makedirs('tmp/python/fileop',exist_ok=True)
 会在当前工作目录下面创建 tmp目录，在tmp目录下面再创建 python目录，在Python目录下面再创建fileop目录  
 ```exist_ok=True```指定了，如果某个要创建的目录已经存在，也不报错
 
-## 常用BIF（方法）
+## 删除文件或目录
 
-### print
+os.remove 可以删除一个文件，比如
 
-打印指定的内容
 ``` Python
-print()
+os.remove('sdf.py')
 ```
 
-### input
+shutil.rmtree() 可以递归的删除某个目录所有的子目录和子文件 比如
 
-接收用户的输入并返回
 ``` Python
-temp = input("请输入：")
+import shutil
+shutil.rmtree('tmp')
 ```
+
+## 复制文件
+
+shutil 模块里面有很多 目录文件操作的函数
+复制文件，可以使用shutil模块的copyfile函数。
+比如
+
+``` Python
+from shutil import copyfile
+# 拷贝 d:/tools/first.py 到 e:/first.py
+copyfile('d:/tools/first.py', 'e:/first.py')
+```
+
+注意，如果复制前，e:/first.py 已经存在，则会被复制覆盖，所以使用该函数一定要小心。
 
 ## 爬虫
 
@@ -200,7 +242,6 @@ def open_url(url):
 ```
 
 ## Tkinter
-
 
 ### 窗口
 
@@ -382,6 +423,32 @@ root.mainloop()
 ### 安装 PySide2
 
 ```pip install pyside2```
+
+### 界面设计师 Qt Designer
+
+路径:```\Pyhton\Lib\site-packages\PySide2\designer.exe```
+
+### 动态加载UI文件
+
+有了界面定义文件，我们的Python程序就可以从文件中加载UI定义，并且动态 创建一个相应的窗口对象。
+
+``` Python
+from PySide2.QtWidgets import QApplication, QMessageBox
+from PySide2.QtUiTools import QUiLoader
+
+class Stats:
+    def __init__(self):
+        # 从文件中加载UI定义
+
+        # 从 UI 定义中动态 创建一个相应的窗口对象
+        # 注意：里面的控件对象也成为窗口对象的属性了
+        # 比如 self.ui.button , self.ui.textEdit
+        self.ui = QUiLoader().load('main.ui')
+app = QApplication([])
+stats = Stats()
+stats.ui.show()
+app.exec_()
+```
 
 ### 按钮事件
 
