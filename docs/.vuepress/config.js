@@ -1,10 +1,11 @@
 module.exports = {
+  //每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
   title: '杉-技术笔记',  // 设置网站标题
   dest: './dist',    // 设置输出目录
   head: [
     ['link', { rel: 'icon', href: '/img/LOGO.ico' }]
   ],
-  base: '/', // 设置站点根路径
+  base: '/technicalnotes/', // 设置站点根路径
   //repo: 'https://github.com/txs1992/mt-blog' // 添加 github 链接
   theme: 'vuepress-theme-yilia-plus',
   themeConfig: {
@@ -24,6 +25,7 @@ module.exports = {
         items: [
           { text: 'Andorid', link: '/back-end/Andorid/' },
           { text: 'Java', link: '/back-end/Java/'},
+          { text: 'JavaWeb', link: '/back-end/JavaWeb/'},
           { text: 'Python', link: '/back-end/Python/'},
           { text: 'SQL数据库', link: '/back-end/SQL/'},
           { text: 'PHP', link: '/back-end/PHP/'},

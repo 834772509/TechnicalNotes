@@ -4,7 +4,7 @@ heroImage: /img/LOGO.ico
 heroText: 杉-技术笔记
 tagline: 记录工作和学习过程中的笔记：Java、Python、Vue
 actionText: 了解更多 →
-actionLink: /zh/guide/
+
 features:
 - title: 个人介绍
   details: 主要涉及技术：Java、Python后端开发、Vue前端开发、开源爱好者、FirPE作者
