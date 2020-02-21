@@ -38,6 +38,28 @@
 \config\index.js\
 ```useEslint: false```
 
+### 配置目录别名
+
+新建文件 ```项目目录\vue.config.js```
+
+``` js
+module.exports = {
+  configureWebpack: {
+    resolve: {
+      alias: {
+        'assets': '@/assets',
+        'components': '@/components',
+        'views': '@/views',
+      }
+    }
+  }
+}
+```
+
+::: tip 提示
+不用配置```router```和```store```，因为可以全局访问
+:::
+
 ### 解决build后打开空白问题
 
 新建vue.config.js，内容：
@@ -537,6 +559,10 @@ app = new Vue({
     //当前对象内需要加this
     methods: {
 
+    },
+    //页面加载完毕后执行的方法
+    created(){
+
     }
     })
 </script>
@@ -571,16 +597,14 @@ app = new Vue({
 import axios from 'axios'
 
 export function request(config) { 
-  return new Promise((resolve, reject) => { 
     //创建axios实例
     const instance = axios.create({
       baseURL: '',
-      timeout: 5000
+      timeout: 3000
     })
     //发送网络请求
     return instance(config)
-  })
-}
+  }
 ```
 
 使用：
