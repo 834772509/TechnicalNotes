@@ -228,6 +228,59 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
 只是给元素增加display:none，适合切换频率高的环境
 :::
 
+## 组件
+
+### 创建组件
+
+.Vue
+
+``` HTML
+<template>
+  <div>
+
+  </div>
+</template>
+
+<style>
+</style>
+
+<script>
+  export default {
+    name: '',
+    data(){
+      return {
+
+      }
+    },
+    components: {
+
+    },
+    methods: {
+
+    },
+    props: {
+    }
+  }
+</script>
+```
+
+### 注册组件
+
+``` js
+import 组件名称 from '@/components/组件路径名称'
+
+export default {
+components: {
+  组件名称,
+},
+```
+
+### 使用组件
+
+``` HTML
+<组件名称></组件名称>
+```
+
 ## 路由
 
 ### 创建路由
@@ -271,6 +324,14 @@ const routes = [
 
 ``` js
 this.$router.push('/XXX')
+```
+
+### 保持页面状态
+
+``` HTML
+<keep-alive>
+  <router-view />
+</keep-alive>
 ```
 
 ### 路由传参
@@ -572,6 +633,49 @@ app = new Vue({
 
 :::
 
+## swiper（触摸框架）
+
+### 安装
+
+```npm install swiper --save-dev```
+
+### 图片轮播
+
+``` HTML
+<swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+<swiper-slide>页面1</swiper-slide>
+<swiper-slide>页面2</swiper-slide>
+<swiper-slide>页面3</swiper-slide>
+<div class="swiper-pagination" slot="pagination"></div>
+<div class="swiper-button-prev" slot="button-prev"></div>
+<div class="swiper-button-next" slot="button-next"></div>
+</swiper>
+```
+
+``` js
+export default {
+    data() {
+        // swiper轮播的参数
+        swiperOption: {
+          // 滚动条
+          scrollbar: {
+            el: '.swiper-scrollbar',
+          },
+          // 上一张，下一张
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          //开启循环切换
+          loop: true,
+          //设置自动切换图片
+          autoplay: true,
+          //设置触碰后自动切换停止
+          disableOnInteraction: true,
+        }
+      }
+```
+
 ## axios
 
 测试请求网站
@@ -596,7 +700,7 @@ app = new Vue({
 ``` js
 import axios from 'axios'
 
-export function request(config) { 
+export function request(config) {
     //创建axios实例
     const instance = axios.create({
       baseURL: '',
@@ -653,7 +757,7 @@ axios({
   params: {
     参数: 值,
   },
-}).then(res => { 
+}).then(res => {
   console.log(res);
 })
 ```
