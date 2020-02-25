@@ -70,6 +70,18 @@ publicPath: './'
 }
 ```
 
+### 解决build后路由跳转404
+
+index.js  
+取消history
+
+``` js
+const router = new VueRouter({
+  //mode: 'history',
+})
+```
+
+
 ## 基本语法
 
 ### v-for
@@ -258,6 +270,9 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
     methods: {
 
     },
+    created(){
+
+    }
     props: {
     }
   }
