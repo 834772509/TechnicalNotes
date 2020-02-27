@@ -444,14 +444,126 @@ class Stats:
         # 注意：里面的控件对象也成为窗口对象的属性了
         # 比如 self.ui.button , self.ui.textEdit
         self.ui = QUiLoader().load('main.ui')
+        self.ui.pushButton.clicked.connect(self.事件方法)
+
+    def 事件方法(self):
+        #事件方法
 app = QApplication([])
 stats = Stats()
 stats.ui.show()
 app.exec_()
 ```
 
-### 按钮事件
+### 按钮 QPushButton 
 
-``` Python
+**信号：被点击**
+```
 button.clicked.connect(事件函数名)
 ```
+
+**方法：改变文本**
+```
+button.setText(文本内容)
+```
+
+### 单行文本框 QLineEdit
+
+**信号：文本被修改**
+当文本框中的内容被键盘编辑，被点击就会发出 textChanged 信号，可以这样指定处理该信号的函数
+
+```
+edit.textChanged.connect(事件方法)
+```
+
+**方法：获取文本**
+通过 text 方法获取编辑框内的文本内容
+
+```
+text = edit.text()
+```
+
+**方法：设置提示**
+通过 setPlaceholderText 方法可以设置提示文本内容
+
+```
+edit.setPlaceholderText('提示内容')
+```
+
+**方法：设置文本**
+通过 setText 方法设置编辑框内的文本内容为参数里面的文本字符串
+
+```
+edit.setText('你好，白月黑羽')
+```
+原来的所有内容会被清除
+
+**方法：清除所有文本**
+clear 方法可以清除编辑框内所有的文本内容
+
+```
+edit.clear()
+```
+
+**方法：拷贝文本到剪贴板**
+copy 方法可以清除编辑框内所有的文本内容
+
+```
+edit.copy()
+```
+
+**方法：粘贴剪贴板文本**
+paste 方法可以把剪贴板内容，拷贝到编辑框当前光标所在处
+
+```
+edit.paste()
+```
+
+### 多行纯文本框 QPlainTextEdit
+
+**信号：文本被修改**
+当文本框中的内容被键盘编辑，被点击就会发出 textChanged 信号，可以这样指定处理该信号的函数
+```
+edit.textChanged.connect(handleTextChange)
+```
+
+**信号：光标位置改变**
+当文本框中的光标位置变动，就会发出 cursorPositionChanged 信号，可以这样指定处理该信号的函数
+```
+edit.cursorPositionChanged.connect(handleChanged)
+```
+
+**方法：获取文本**
+通过 toPlainText 方法获取编辑框内的文本内容，比如
+
+text = edit.toPlainText()
+**方法：设置提示**
+通过 setPlaceholderText 方法可以设置提示文本内容，比如
+```
+edit.setPlaceholderText('请在这里输入薪资表')
+```
+**方法：设置文本**
+通过 setPlainText 方法设置编辑框内的文本内容为参数里面的文本字符串，比如
+
+```
+edit.setPlainText('''你好，白月黑羽
+hello byhy''')
+```
+原来的所有内容会被清除
+
+**方法：在末尾添加文本**
+通过 appendPlainText 方法在编辑框末尾添加文本内容，比如
+```
+edit.appendPlainText('你好，白月黑羽')
+```
+**方法：清除所有文本**
+clear 方法可以清除编辑框内所有的文本内容，比如
+
+edit.clear()
+**方法：拷贝文本到剪贴板**
+copy 方法可以清除编辑框内所有的文本内容，比如
+
+edit.copy()
+**方法：粘贴剪贴板文本**
+paste 方法可以把剪贴板内容，拷贝到编辑框当前光标所在处，比如
+
+edit.paste()
