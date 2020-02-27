@@ -81,7 +81,6 @@ const router = new VueRouter({
 })
 ```
 
-
 ## 基本语法
 
 ### v-for
@@ -294,6 +293,73 @@ components: {
 
 ``` HTML
 <组件名称></组件名称>
+```
+
+### 组件传参
+
+* 父传子
+
+``` JS
+export default {
+  //传参：父传子，写法：["形参1"[,"形参2"]]
+  props: ["参数1", "参数2"],
+  //限制数据类型传参
+    props: {
+    参数1: Array,
+    参数2: String,
+    },
+  /*
+  支持验证以下类型：
+  String
+  Number
+  Boolean
+  Array
+  Object
+  Date
+  Function
+  Symbol
+  */
+}
+```
+
+``` HTML
+<组件 参数1="" [参数2=""]...></组件>
+```
+
+* 子传父
+
+``` JS
+export default {
+  template: "#cpn",
+  methods: {
+    btnClick([参数]){
+      //发射事件：自定义事件
+      this.$emit("事件名称" [,参数])
+      }
+      },
+}
+```
+
+``` HTML
+<组件 @事件名称="事件方法()"></组件>
+```
+
+## 插槽
+
+``` HTML
+<template>
+<div>
+  <slot name="插槽名称"><span>插槽</span></slot>
+</div>
+</template>
+```
+
+``` HTML
+<组件>
+  <template v-slot:插槽名称> 
+    <h2>这是left插槽</h2>
+  </template>
+</组件>
 ```
 
 ## 路由

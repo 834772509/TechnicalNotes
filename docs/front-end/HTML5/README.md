@@ -104,6 +104,17 @@
 <iframe src="网页链接"></iframe>
 ```
 
+## Flex布局
+
+[30分钟彻底弄懂flex布局](https://www.cnblogs.com/qcloud1001/p/9848619.html)
+
+``` CSS
+#box{
+  display:flex;
+  justify-content:center;
+}
+```
+
 ## CSS
 
 ### 选择器
