@@ -297,8 +297,17 @@ w = Spinbox(root, values=("1", "2", "3", "4", "5"))
 w.pack()
 ```
 
+
+### 信息框
+``` Python
+# 确认提示框
+messagebox.showinfo(root.title() + " - 提示", message="内容")
+# 是否提示框，选择是返回YES，选择否返回NO
+    messagebox.askquestion(title=root.title() + " - 提示", message="内容")
+```
 ### 窗口Demo
 
+::: details 点击查看代码
 ``` Python
 import os
 import subprocess
@@ -360,7 +369,7 @@ def BeautifyButton(Button):
     Button.bind('<Leave>', lambda self: Button.config(bg="#0083EE"))
 
 def hi():
-    # 确实提示框
+    # 确认提示框
     messagebox.showinfo(root.title() + " - 提示", message="内容")
     # 是否提示框，选择是返回YES，选择否返回NO
     messagebox.askquestion(title=root.title() + " - 提示", message="内容")
@@ -414,6 +423,7 @@ w.pack()
 
 root.mainloop()
 ```
+:::
 
 ## QT界面
 
@@ -453,6 +463,36 @@ stats = Stats()
 stats.ui.show()
 app.exec_()
 ```
+
+### 转化UI文件为Python代码
+
+```
+pyside2-uic main.ui > ui_main.py
+```
+
+::: details 点击查看代码
+``` Python
+from PySide2.QtWidgets import QApplication,QMainWindow
+from ui_main import Ui_MainWindow
+
+class MainWindow(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        # 使用ui文件导入定义界面类
+        self.ui = Ui_MainWindow()
+        # 初始化界面
+        self.ui.setupUi(self)
+
+        # 使用界面定义的控件，也是从ui里面访问
+        self.ui.webview.load('http://www.baidu.com')
+
+app = QApplication([])
+mainw = MainWindow()
+mainw.show()
+app.exec_()
+```
+:::
 
 ### 按钮 QPushButton 
 
@@ -566,7 +606,7 @@ edit.setPlainText('''文本内容''')
 通过 appendPlainText 方法在编辑框末尾添加文本内容
 
 ```
-edit.appendPlainText('你好，白月黑羽')
+edit.appendPlainText('文本内容')
 ```
 **方法：清除所有文本**
 clear 方法可以清除编辑框内所有的文本内容
@@ -768,6 +808,8 @@ progressBar.setValue(3)
 这时，可以把range 范围都设置为0，这样，进度条会显示忙碌指示符，而不是显示进度百分比。
 
 下面是一个进度条程序的示例代码
+
+::: details 点击查看代码
 ``` Python
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton,  QProgressBar,QMessageBox
 from time import sleep
@@ -831,3 +873,4 @@ stats = Stats()
 stats.window.show()
 app.exec_()
 ```
+:::
