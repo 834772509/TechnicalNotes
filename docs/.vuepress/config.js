@@ -45,8 +45,8 @@ module.exports = {
     sidebar: 'auto',
     // 为以下路由添加侧边栏
     //sidebar: ['/Docs'],
-    //隐藏搜索框
-    search: false,
+    //搜索框
+    search: true,
     //显示所有页面的标题链接
     displayAllHeaders: true,
     //开启页面滚动效果
