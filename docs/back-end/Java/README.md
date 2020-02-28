@@ -97,31 +97,83 @@
 
   ---  
 
-### 读取
+### **其他流**
+
+#### 缓存流
+
+```Java
+  //带缓冲的字节输入/输出流
+  BufferedInputStream
+  BufferedOutputStream
+
+  //带缓冲的字符输入/输出流
+  BufferedWriter
+  BufferedReader
+```
+
+:::tip  
+  相关链接: [关于缓存流的用法](https://blog.csdn.net/qq_20610631/article/details/81113794)  
+:::
+
+#### 数据流
+
+```Java
+  //数据输入/输出流
+  DataInputStream
+  DataOutputStream
+
+```
+
+:::warning  
+  数据流必须成对使用,比如你是用 **DataOutputStream** 写入数据就必须用 **DataInputStream** 读取数据,否则会出现**EOFException**
+  这相对当于是一种规则  
+:::
+
+#### 对象流(序列化)
+
+```Java
+  ObjectInputStream
+  ObjectOutputStream
+```
+
+:::tip  
+  对于序列化的讲解 慕课网有相关的视频(进入见第六章) [点这里进入](https://www.imooc.com/learn/123)  
+:::
+
+---
+
+### **读写文件的用法**
+
+#### 读取
 
 ``` Java
 File file = new File("要读取的文本路径");
-try {
-  BufferedReader bReader = new BufferedReader(new FileReader(file.getPath()));
+try( BufferedReader bReader = new BufferedReader(new FileReader(file))) {
   System.out.println(bReader.readLine());
-  bReader.close();
   } catch (IOException e) {}
 ```
 
 ---
 
-### 写入
+#### 写入
 
 ``` Java
 File file = new File("要写入的文本路径");
 try {
   file.createNewFile();
-  BufferedWriter bWriter = new BufferedWriter(new FileWriter(file.getPath()));
+  BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
   bWriter.write("要写入的文本");
   bWriter.flush();
   bWriter.close();
   } catch (IOException e) {}
 ```
+
+:::tip  
+  有没有发现 读取和写入的的try-catch方式不一样呢
+  读取的try-catch方式是JDK7开始支持的写法 这种写法称为try-with-resources  
+  所有的流，都实现了一个接口叫做 AutoCloseable，任何类实现了这个接口，都可以在try()中进行实例化。 并且在try, catch, finally结束的时候自动关闭，回收相关资源。  
+  **友情提示:** 连接数据库的时候也可以这么写哦,避免使用完数据库忘记关闭连接,浪费资源.比如我自己 ^_^  
+:::
 
 ---
 
