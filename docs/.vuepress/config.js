@@ -47,8 +47,8 @@ module.exports = {
     //sidebar: ['/Docs'],
     //搜索框
     search: true,
-    //显示所有页面的标题链接
-    displayAllHeaders: true,
+    //不显示所有页面的标题链接
+    displayAllHeaders: false,
     //开启页面滚动效果
     smoothScroll: true,
     yilia_plus: {
