@@ -258,22 +258,24 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
 <script>
   export default {
     name: '',
-    data(){
-      return {
-
-      }
-    },
-    components: {
-
-    },
-    methods: {
+    //传参：父传子，写法：["形参1"[,"形参2"]]
+    props: {
 
     },
     created(){
 
     },
-    props: {
-    }
+    data(){
+      return {
+
+      }
+    },
+    methods: {
+
+    },
+    components: {
+
+    },
   }
 </script>
 ```

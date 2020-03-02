@@ -128,24 +128,24 @@ count：这个方法用来计算某个参数在元组中出现的次数
 | isspace()|如果字符串中只包含空格，则返回True，否则返回False
 | istitle()|如果字符串是标题化（所有的单词都是以大写开始，其余字母均小写），则返回True，否则返回False
 | isupper()|如果字符串中至少包含一个区分大小写的字符，并且这些字符都是大写，则返回True，否则返回False
-| join(sub)|以字符串作为分隔符，插入到sub中所有的字符之间。>>> str5 = 'Fishc' >>> str5.join('12345') '1Fishc2Fishc3Fishc4Fishc5'
+| join(sub)|以字符串作为分隔符，插入到sub中所有的字符之间。str5 = 'Fishc' str5.join('12345') '1Fishc2Fishc3Fishc4Fishc5'
 | ljust(width)|返回一个左对齐的字符串，并使用空格填充至长度为width的新字符串
 | lower()|转换字符串中所有大写字符为小写
 | lstrip()|去掉字符串左边的所有空格
 | partition(sub) |找到子字符串sub，把字符串分成一个3元组（pre_sub,sub,fol_sub），如果字符串中不包含sub则返回(‘原字符串’, ’’, ’’)
-| replace(old,new[,count])|把字符串中的old子字符串替换成new子字符串，如果count指定，则替换不超过count次。>>> str7 = 'i love fishdm and seven' >>> str7.replace('e','E',2) 输出'i lovE fishdm and sEven'
+| replace(old,new[,count])|把字符串中的old子字符串替换成new子字符串，如果count指定，则替换不超过count次。str7 = 'i love fishdm and seven' str7.replace('e','E',2) 输出'i lovE fishdm and sEven'
 | rfind(sub[,start[,end]]) | 类似于find()|方法，不过是从右边开始查找
 | rindex(sub[,start[,end]]) | 类似于index()|方法，不过是从右边开始
 | rjust(width) | 返回一个右对齐的字符串，并使用空格填充至长度为width的新字符串
 | rpartition(sub)|类似于partition()|方法，不过是从右边开始查找
 | rstrip()|删除字符串末尾的空格
-| split(sep=None, maxsplit=-1)|不带参数默认是以空格为分隔符切片字符串，如果maxsplit参数有设置，则仅分隔maxsplit个子字符串，返回切片后的子字符串拼接的列表。>>> str7.split ()| ['i', 'love', 'fishdm', 'and', 'seven']
+| split(sep=None, maxsplit=-1)|不带参数默认是以空格为分隔符切片字符串，如果maxsplit参数有设置，则仅分隔maxsplit个子字符串，返回切片后的子字符串拼接的列表。str7.split ()| ['i', 'love', 'fishdm', 'and', 'seven']
 | splitlines(([keepends]))|按照‘\n’分隔，返回一个包含各行作为元素的列表，如果keepends参数指定，则返回前keepends行
 | startswith(prefix[,start[,end]])|检查字符串是否以prefix开头，是则返回True，否则返回False。start和end参数可以指定范围检查，可选
 | strip([chars])|删除字符串前边和后边所有的空格，chars参数可以定制删除的字符，可选
 | swapcase()|翻转字符串中的大小写
 | title()|返回标题化（所有的单词都是以大写开始，其余字母均小写）的字符串
-| translate(table)|根据table的规则（可以由str.maketrans(‘a’,‘b’)定制）转换字符串中的字符。>>> str8 = 'aaasss sssaaa' >>> str8.translate(str.maketrans('s','b')) 'aaabbb bbbaaa'
+| translate(table)|根据table的规则（可以由str.maketrans(‘a’,‘b’)定制）转换字符串中的字符。str8 = 'aaasss sssaaa' str8.translate(str.maketrans('s','b')) 'aaabbb bbbaaa'
 | upper()|转换字符串中的所有小写字符为大写
 | zfill(width)|返回长度为width的字符串，原字符串右对齐，前边用0填充
 
@@ -177,6 +177,11 @@ print()
 temp = input("请输入：")
 ```
 
+## 文件读写
+
+### 文本模式
+
+
 ## 文件和目录操作
 
 ### 创建目录
@@ -185,13 +190,14 @@ os.makedirs 可以递归的创建目录结构
 
 ``` python
 import os
+
 os.makedirs('tmp/python/fileop',exist_ok=True)
 ```
 
 会在当前工作目录下面创建 tmp目录，在tmp目录下面再创建 python目录，在Python目录下面再创建fileop目录  
 ```exist_ok=True```指定了，如果某个要创建的目录已经存在，也不报错
 
-## 删除文件或目录
+### 删除文件或目录
 
 os.remove 可以删除一个文件
 
@@ -206,7 +212,7 @@ import shutil
 shutil.rmtree('tmp')
 ```
 
-## 复制文件
+### 复制文件
 
 shutil 模块里面有很多 目录文件操作的函数
 复制文件，可以使用shutil模块的copyfile函数。
@@ -221,6 +227,167 @@ copyfile('d:/tools/first.py', 'e:/first.py')
 ::: tip 提示
 如果复制前，e:/first.py 已经存在，则会被复制覆盖，所以使用该函数一定要小心。
 :::
+
+### 复制目录
+如果我们要拷贝一个目录里面所有的内容（包括子目录和文件、子目录里面的子目录和文件，等等）到另外一个目录中，可以使用 shutil的copytree函数。
+
+``` Python
+from shutil import copytree
+# 拷贝 d:/tools/aaa 目录中所有的内容 到 e:/bbb 中
+copytree('d:/tools/aaa', 'e:/new/bbb')
+```
+
+注意拷贝前， 目标目录必须 不存在 ，否则会报错。
+
+上面的代码执行前面，如果 e:/new/bbb 已经存在，执行到copytree时，就会报错
+
+上面的代码执行前面，如果 e:/new 这个目录都不存在，执行到copytree时，就会 创建 e:/new 目录，再创建 e:/new/bbb 目录，再拷贝 d:/tools/aaa 目录中所有的内容 到 e:/new/bbb 中。
+
+上面的代码执行前面，如果 e:/new 这个目录存在，但是 e:/new/bbb 不存在，执行到copytree时，就只会 创建 e:/new/bbb ，再拷贝 d:/tools/aaa 目录中所有的内容 到 e:/new/bbb 中。
+
+### 修改文件名、目录名
+
+要修改文件名、目录名，可以使用os模块的rename函数。
+
+``` Python
+import os
+
+# 修改目录名 d:/tools/aaa 为 d:/tools/bbb
+os.rename('d:/tools/aaa','d:/tools/bbb')
+# 修改文件名 d:/tools/first.py 为 d:/tools/second.py
+os.rename('d:/tools/first.py','d:/tools/second.py')
+```
+
+注意，Linux 系统上，如果重命名之前 d:/tools/second.py 已经存在，则会被覆盖，所以使用该函数一定要小心。
+
+### 对文件路径名的操作
+
+对于文件名的操作，比如 获取文件名称，文件所在目录，文件路径的拼接等，都可以使用 os.path 模块。
+
+通常我们喜欢使用格式化字符串的方法来做文件路径的拼接，但是如果你的程序需要在Linux、Windows等多个平台运行，它们的路径的分隔符是不同的，Windows上是 \ , 而 Linux上是 /。
+
+这时，我们应该使用 os.path 模块。 它能够自动处理类似 Data/data.csv 和 Data\data.csv 这样的文件路径差异。
+
+``` Python
+import os
+path = '/Users/beazley/Data/data.csv'
+
+# 获取路径中的文件名部分
+os.path.basename(path)
+'data.csv'
+# 获取路径中的目录部分
+os.path.dirname(path)
+'/Users/beazley/Data'
+# 文件路径的拼接
+os.path.join('tmp', 'data', os.path.basename(path))
+'tmp/data/data.csv'
+```
+
+### 判断文件、目录是否存在
+
+如果我们需要判断一个指定路径的文件或者目录是否存在，可以使用下面的方法
+
+``` Python
+import os
+os.path.exists('d:/systems/cmd.exe')
+os.path.exists('d:/systems')
+```
+
+exists方法返回值为True表示 存在，否则表示不存在。
+
+如果你要判断指定路径是否是文件，可以这样
+
+``` Python
+import os
+
+# 返回值为True 表示是文件
+os.path.isfile('d:/systems/cmd.exe')
+```
+
+如果你要判断指定路径是否是目录，可以这样
+
+``` Python
+import os
+
+# 返回值为True 表示是目录
+os.path.isdir('d:/systems')
+获取文件的大小和日期
+os.path.getsize('/etc/passwd')
+3669
+os.path.getmtime('/etc/passwd')
+1272478234.0
+import time
+time.ctime(os.path.getmtime('/etc/passwd'))
+'Wed Apr 28 13:10:34 2010'
+```
+
+### 递归的遍历目录下面所有的文件
+
+假如我们要获取某个目录中所有的 文件， 包括子目录里面的文件。 可以使用 os库中的walk方法
+
+比如我们要得到某个目录下面所有的子目录 和所有的文件，存放在两个列表中
+
+``` Python
+import os
+
+# 目标目录
+targetDir = r'd:\tmp\util\dist\check'
+files = []
+dirs  = []
+
+# 下面的三个变量 dirpath, dirnames, filenames
+# dirpath 代表当前遍历到的目录名
+# dirnames 是列表对象，存放当前dirpath中的所有子目录名
+# filenames 是列表对象，存放当前dirpath中的所有文件名
+
+for (dirpath, dirnames, filenames) in os.walk(targetDir):
+   files += filenames
+   dirs += dirnames
+
+print(files)
+print(dirs)
+```
+
+### 得到目录中所有的文件和子目录名
+
+``` Python
+import os
+
+## 目标目录
+targetDir = r'd:\tmp\util\dist\check'
+
+files =  os.listdir(targetDir)
+print(files)
+```
+
+listdir返回的是该目录下面所有的文件和子目录。
+
+如果我们只需要获取目录中所有的文件，或者只需要子目录，可以这样
+
+``` Python
+import os
+from os.path import isfile, join,isdir
+
+## 目标目录
+targetDir = r'd:\tmp\util\dist\check'
+
+## 所有的文件
+print([f for f in os.listdir(targetDir) if isfile(join(targetDir, f))])
+
+## 所有的目录
+print([f for f in os.listdir(targetDir) if isdir(join(targetDir, f))])
+```
+
+### 得到目录中指定扩展名的文件和子目录
+
+可以使用glob库
+
+``` Python
+import glob
+exes = glob.glob(r'd:\tmp\*.txt')
+
+print(exes)
+```
 
 ## 爬虫
 
@@ -518,7 +685,7 @@ button.setText(文本内容)
 ### 标签 QLabel
 
 **方法：改变文本**  
-代码中可以使用 setText 方法来改变标签文本内容，比如
+代码中可以使用 setText 方法来改变标签文本内容
 
 ``` Python
 button.setText(text)
@@ -711,7 +878,7 @@ listWidget.clear()
 ```
 
 **方法：获取当前选项文本**  
-currentItem 方法可以得到列表当前选中项对象（QListWidgetItem） ，再调用这个对象的 text 方法，就可以获取文本内容，比如
+currentItem 方法可以得到列表当前选中项对象（QListWidgetItem） ，再调用这个对象的 text 方法，就可以获取文本内容
 
 ``` Python
 listWidget.currentItem().text()
@@ -743,7 +910,7 @@ method = table.currentRow()
 :::
 
 **方法：插入一行**  
-insertRow 方法可以在指定位置插入一行，比如
+insertRow 方法可以在指定位置插入一行
 
 ``` Python
 table.insertRow(0)
@@ -758,7 +925,7 @@ table.insertRow(2)
 就插入一行到第 3 行这个位置， 表格原来第3行（包括原来的第3行）以后的内容，全部往下移动一行。
 
 **方法：删除一行**  
-removeRow 方法可以删除指定位置的一行，比如
+removeRow 方法可以删除指定位置的一行
 
 ``` Python
 table.removeRow(0)
@@ -773,7 +940,7 @@ table.removeRow(2)
 就删除第 3 行， 表格原来第3行以后的内容，全部往上移动一行。
 
 **方法：获取某个单元格文本的内容**  
-item 方法可以指定位置的单元格对象（QTableWidgetItem） ，再调用这个对象的 text 方法，就可以获取文本内容，比如
+item 方法可以指定位置的单元格对象（QTableWidgetItem） ，再调用这个对象的 text 方法，就可以获取文本内容
 
 ``` Python
 table.item(0,0).text()
@@ -825,18 +992,18 @@ buttongroup.buttonClicked.connect(handleButtonClicked)
 进度条也是一个常用的控件，当程序需要做一件比较耗费时间的任务（比如统计数据，下载文件等）时，可以用来向用户指示操作的进度。
 而且有了进度显示，用户就知道应用程序仍在运行，并没有出问题。
 QProgressBar进度条把每个进度称之为一个step（步骤）。
-我们可以通过它的 setRange 方法设定步骤个数，比如
+我们可以通过它的 setRange 方法设定步骤个数
 
 ``` Python
 progressBar.setRange(0,5)
 ```
 
 就设定了，进度分为5步。
-然后，通过 setValue 方法，指定当前完成到了哪一步，比如
+然后，通过 setValue 方法，指定当前完成到了哪一步
 progressBar.setValue(3)
 就表示完成了 3/5， 也就是 60%， 进度条就会显示60%的进度。
 可以使用reset()将进度条倒退到开头。
-有时候我们的任务没法知道完成了多少，比如下载一个未知大小的文件。
+有时候我们的任务没法知道完成了多少下载一个未知大小的文件。
 这时，可以把range 范围都设置为0，这样，进度条会显示忙碌指示符，而不是显示进度百分比。
 
 下面是一个进度条程序的示例代码
