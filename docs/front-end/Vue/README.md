@@ -29,7 +29,7 @@
 
 ## 启动项目
 
-启动项目：```npm run serve```
+启动项目：```npm run serve```  
 编译项目：```npm run build```
 
 ### 关闭Eslint代码规范检测
@@ -271,7 +271,7 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
     },
     created(){
 
-    }
+    },
     props: {
     }
   }
