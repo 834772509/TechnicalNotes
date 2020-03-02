@@ -1,9 +1,22 @@
 # Android 笔记
 
+## 安装Android Studio
+
+### 下载并安装
+
+[Android Studio](https://developer.android.google.cn/studio)
+
+### 汉化补丁
+
+[JetBrains 系列软件汉化包](https://github.com/pingfangx/TranslatorX)
+
+### 修复没有运行按钮
+
+[安装NDK](https://developer.android.google.cn/ndk/downloads)
+
+解压后将解压目录增加至环境变量即完成安装
 
 ## 基础命令
-
-
 
 ### 绑定按钮事件
 
@@ -51,14 +64,12 @@ handler1.post(new Runnable() {
 
 ### 播放音乐
 
-
 ``` Java
 try {
   mMediaPlayer = MediaPlayer.create(this, R.drawable.音乐资源名称);
   mMediaPlayer.start();
   } catch (Exception e) {}
 ```
-
 
 ## 界面布局
 
