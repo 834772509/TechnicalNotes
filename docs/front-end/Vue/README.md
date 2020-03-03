@@ -252,7 +252,7 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
   </div>
 </template>
 
-<style>
+<style scoped>
 </style>
 
 <script>
@@ -263,6 +263,9 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
 
     },
     created(){
+
+    },
+    mouted(){
 
     },
     data(){
@@ -279,6 +282,10 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
   }
 </script>
 ```
+
+::: tip 提示
+<style scoped></style> 中的scoped表示作用域，不予其他CSS样式相冲突
+:::
 
 ### 注册组件
 
@@ -363,6 +370,21 @@ export default {
   </template>
 </组件>
 ```
+
+## 绑定元素
+
+``` HTML
+<div ref="元素标识"></div>
+```
+
+``` js
+thsi.$ref.元素标识
+```
+
+::: tip 提示
+ref如果是绑定在组件中的,那么通过this.$refs.refname获取到的是一个组件对象
+ref如果是绑定在普通的元素中,那么通过this.$refs.refname获取到的是一个元素对象
+:::
 
 ## 路由
 
@@ -691,6 +713,14 @@ mutations、getters可以常规使用
 app = new Vue({
     //声明要绑定的id
     el: '#app',
+    //页面加载完毕后执行的方法（渲染前）
+    created(){
+
+    },
+    //页面加载完毕后执行的方法（渲染后）
+    mouted(){
+
+    },
     //数据对象
     data: {
 
@@ -704,10 +734,6 @@ app = new Vue({
     methods: {
 
     },
-    //页面加载完毕后执行的方法
-    created(){
-
-    }
     })
 </script>
 </body>
