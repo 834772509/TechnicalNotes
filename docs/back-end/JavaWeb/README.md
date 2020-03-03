@@ -61,7 +61,44 @@ getDate()
 
 ### include指令
 
+向页面插入静态文件（内容）
+
+``` jsp
+<%@ include file="URL"%>
+```
+
+### 动作元素
+
+#### include
+
+在当前页面中加入静态/动态资源
+
+```jsp
+<jsp:include page="URL">
+```
+
+::: tip 提示
+与**include指令**的区别是**include动作**支持动态资源
+:::
+
+#### action
+
+```jsp
+
+```
+
+#### frward
+
+把当前的JSP页面重新定向到另一个页面上
+
+```jsp
+<jsp:forward page="重定向的页面">
+  <jsp:param name="name" value="value"/>
+</jsp:forward>
+```
+
 ### taglib指令
+
 
 ### 注释
 
