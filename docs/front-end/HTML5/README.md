@@ -1,5 +1,22 @@
 # HTML5 笔记
 
+## HTML5结构
+
+``` HTML
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>页面标题</title>
+</head>
+<body>
+
+</body>
+</html>
+```
+
 ## 常用导入语句
 
 ### 导入CSS
@@ -12,6 +29,35 @@
 
 ``` HTML
 <script src="JavaScript路径"></script>
+```
+
+## 常用技巧
+
+### 隐藏a标签下划线
+
+``` CSS
+a {
+  text-decoration:none;
+}
+```
+
+### 隐藏li列表的小点
+
+``` CSS
+li {
+  list-style:none;
+}
+```
+
+### 超出p标签内容自动显示省略号
+
+``` CSS
+p {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 ```
 
 ## 基础标签
@@ -87,14 +133,14 @@
 
 ``` HTML
 <table border="1">
-<tr>
-<td>第一行第一列</td>
-<td>第一行第二列</td>
-</tr>
-<tr>
-<td>第二行第一列</td>
-<td>第二行第二列</td>
-</tr>
+  <tr>
+    <td>第一行第一列（1,1）</td>
+    <td>第一行第二列(1,2)</td>
+  </tr>
+  <tr>
+    <td>第二行第一列(2,1)</td>
+    <td>第二行第二列(2,2)</td>
+  </tr>
 </table>
 ```
 
