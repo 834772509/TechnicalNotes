@@ -336,3 +336,130 @@ JComboBox 组合框1 = new JComboBox();
 组合框1.setBackground(Color.WHITE);
 窗口1.add(组合框1);
 ```
+
+---
+
+## **JDBC**
+
+:::tip  
+  MySQL: [数据库的介绍](http://fir834772509.gitee.io/technicalnotes/back-end/SQL/)  
+:::
+
+### 创建连接
+
+#### 直接的方式
+
+```Java
+  String url ="";  //不同的数据库版本连接方式不相同
+  String user ="";  //用户名
+  String password ="";  //密码
+
+  try(
+    Connection c = DriverManager.getConnection(url,user,password);
+    Statement s = c.createStatement();
+  ){
+     //使用sql语句
+  }catch(SQLException e){
+    e.printStackTrace();
+  }
+```
+
+#### 封装成类的方式
+
+```Java
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+//连接数据库类
+public class DBUtil {
+    static String ip = "127.0.0.1";
+    static int port = 3306;
+    static String database = "数据库名称";
+    static String encoding = "UTC";
+    static String loginName = "用户名";
+    static String password = "密码";
+
+
+    public static Connection getConnection() throws SQLException{
+        String url = String.format(
+                "jdbc:mysql://%s:%d/%s?useSSL=FALSE&serverTimezone=%s",ip,port,database,encoding);  //这是一种 方便修改 这是8.0.12的连接方式
+        //String url = ""; //这种用起来不方便修改
+        return DriverManager.getConnection(url,loginName,password);
+    }
+
+}
+
+```
+
+#### 预编译的方式使用sql语句
+
+```Java
+  /*
+  * 使用预编译的方式 要提前准备号sql语句
+  * 使用try-with-resource的方式 省去手动关闭连接
+  * 以插入为例
+  */
+  String sql = "insert into 表名(字段1,字段2,字段3) values(?,?,?)";
+  try(
+    //这里连接使用封装成类的方式
+    Connection c = BDUtil.getConnection();  
+     PreparedStatement ps = c.prepareStatement(sql);
+  ){
+    /*
+    * 设置要插入的值 注意 这里的参数从1开始 不是从0开始
+    * setXXXX(位置,值);  XXXX为你要插入的值对应的类型
+    */  
+    //举个例子  
+      ps.setString(1, "字符串");
+      ps.setFloat(2, 313.0f);
+      ps.setInt(3, 50);
+      //开始插入
+      ps.execute();
+  }catch(SQLException e){
+    e.printStackTrace();
+  }
+```
+
+### 执行sql语句(execute与executeUpdate的区别)
+
+#### 相同点
+
+  都可以进行 增 删 改
+
+```Java
+  //这里演示的是不使用预编译的方式执行sql语句
+  Statement s = c.createStatement();
+  //创建sql语句
+  String sqlInsert = "insert into Hero values (null,'盖伦',616,100)";
+  String sqlDelete = "delete from Hero where id = 100";
+  String sqlUpdate = "update Hero set hp = 300 where id = 100";
+  // 相同点：都可以执行增加，删除，修改
+  s.execute(sqlInsert);
+  s.execute(sqlDelete);
+  s.execute(sqlUpdate);
+  s.executeUpdate(sqlInsert);
+  s.executeUpdate(sqlDelete);
+  s.executeUpdate(sqlUpdate);
+```
+
+#### 不同点
+  
+  **不同点1:**  
+  execute可以执行查询语句  
+  然后通过getResultSet把结果集取出来  
+  executeUpdate不能执行查询语句.
+
+  **不同点2:**  
+  execute返回boolean类型，true表示执行的是查询语句，false表示执行的是insert,delete,update等等  
+  executeUpdate返回的是int，表示有多少条数据受到了影响
+
+```Java
+  //可以使用executeQuery()语句来查询
+  Statement s = c.createStatement()
+  String sql = "select * from hero";
+  // 执行查询语句，并把结果集返回给ResultSet
+  ResultSet rs = s.executeQuery(sql);
+```
+
+
