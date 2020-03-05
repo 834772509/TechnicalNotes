@@ -961,6 +961,12 @@ table.item(2,4).text()
 如果你有多组单选按钮， 每组都应该有不同的父控件，或者不同的Layout。
 通常建议：多组单选按钮，放到不同的 按钮组 QButtonGroup 中，按钮组就是父控件
 
+**方法：获取是否选中**
+
+``` Python
+radioButton.isChecked()
+```
+
 **信号：选中状态改变**  
 如果用户操作点击了按钮组 QButtonGroup 中的一个按钮， QButtonGroup 就会发出 buttonClicked 信号，可以这样指定处理该信号的函数  
 
