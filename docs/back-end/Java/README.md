@@ -10,14 +10,14 @@
   
 ### **文件对象**
 
-#### 1.文件夹和文件都用File表示
+* 文件夹和文件都用File表示
 
 ``` Java
   //实例化的方法有多种 ,这里用作者最常用的方法 ^_^
   File f = new File("文件路径");
 ```
 
-#### 2.文件常用方法
+* 文件常用方法
 
 ``` Java
   f.exists()       //文件是否存在
@@ -45,32 +45,32 @@
   注意: 因为大部分I/O流的读写方法基本一致,所以这里只在字节流说明其余的流不再说明  ^_^
 :::
 
-#### 1.字节输入流
+* 字节输入流
 
-##### 构造方法
+1. 构造方法
 
 ``` Java
   FileInputStream(File file)   //通过File对象来创建一个字节输入流
   FileInputStream(String name) //通过文件路径名创建一个字节输入流
 ```
 
-##### 读方法
+2. 读方法
 
 ``` Java
   int read()   // 一次读取一个字节,返回 0 -255 范围内的 int 数，如果到达流末尾，则返回值 -1。
   int read(byte[] b)   //从输入流中读取一定数量的字节，并将其存储在缓冲区数组 b 中，以整数形式返回实际读取的字节数，如果到达流末尾，则返回值 -1。
 ```
 
-#### 2.字节输出流
+* 字节输出流
 
-##### 构造方法
+1. 构造方法
 
 ``` Java
   FileOutputStream(File file)   //通过File对象来创建一个字节输出流
   FileInputStream(String name)  //通过文件路径名创建一个字节输出流
 ```
 
-##### 写方法
+2. 写方法
 
 ``` Java
   public void write(int b)  //写一个字节, 写的ASCII字符
@@ -81,25 +81,25 @@
 
 ### **字符流**
 
-#### 1.字符输入流
+* 字符输入流
 
 ``` Java
   FileReader(File file)      //通过File对象来创建一个字符输入流
   FileReader(String name) //通过文件路径来创建一个字符输入流
 ```
 
-#### 2.字符输出流
+* 字符输出流
 
 ``` Java
   FileWriter(File file) //通过File对象来创建一个字符输出流
   FileWriter(String name) //通过文件路径来创建一个字符输出流
 ```  
 
-  ---  
+---  
 
 ### **其他流**
 
-#### 缓存流
+* 缓存流
 
 ```Java
   //带缓冲的字节输入/输出流
@@ -115,7 +115,7 @@
   相关链接: [关于缓存流的用法](https://blog.csdn.net/qq_20610631/article/details/81113794)  
 :::
 
-#### 数据流
+* 数据流
 
 ```Java
   //数据输入/输出流
@@ -129,7 +129,7 @@
   这相对当于是一种规则  
 :::
 
-#### 对象流(序列化)
+* 对象流(序列化)
 
 ```Java
   ObjectInputStream
@@ -144,7 +144,7 @@
 
 ### **读写文件的用法**
 
-#### 读取
+* 读取
 
 ``` Java
 File file = new File("要读取的文本路径");
@@ -155,7 +155,7 @@ try( BufferedReader bReader = new BufferedReader(new FileReader(file))) {
 
 ---
 
-#### 写入
+* 写入
 
 ``` Java
 File file = new File("要写入的文本路径");
@@ -423,9 +423,8 @@ public class DBUtil {
 
 ### 执行sql语句(execute与executeUpdate的区别)
 
-#### 相同点
-
-  都可以进行 增 删 改
+* 相同点:  
+都可以进行 增 删 改
 
 ```Java
   //这里演示的是不使用预编译的方式执行sql语句
@@ -443,16 +442,16 @@ public class DBUtil {
   s.executeUpdate(sqlUpdate);
 ```
 
-#### 不同点
+* 不同点:
   
-  **不同点1:**  
-  execute可以执行查询语句  
-  然后通过getResultSet把结果集取出来  
-  executeUpdate不能执行查询语句.
+  1. 不同点1:  
+  execute()可以执行查询语句  
+  然后通过getResultSet()把结果集取出来  
+  executeUpdate()不能执行查询语句.
 
-  **不同点2:**  
-  execute返回boolean类型，true表示执行的是查询语句，false表示执行的是insert,delete,update等等  
-  executeUpdate返回的是int，表示有多少条数据受到了影响
+  2. 不同点2:  
+  execute()返回boolean类型，true表示执行的是查询语句，false表示执行的是insert,delete,update等等  
+  executeUpdate()返回的是int，表示有多少条数据受到了影响
 
 ```Java
   //可以使用executeQuery()语句来查询
@@ -462,4 +461,83 @@ public class DBUtil {
   ResultSet rs = s.executeQuery(sql);
 ```
 
+### jdbc的特殊操作
+
+* 获取自动ID
+
+```Java
+  //Statement.RETURN_GENERATED_KEYS参数是为了用于获取自增长id
+  PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+  ResultSet rs = ps.getGeneratedKeys(); //获取结果集
+  if(rs.next()){
+    int id = rs.getInt(1);
+  }
+```
+
+* 获取表的元数据
+
+```Java
+  /*  
+  * 查看数据库层面的元数据
+  * 数据库服务器版本
+  * 驱动版本
+  * 都有哪些数据库等等
+  */
+  DatabaseMetaData dbmd = c.getMetaData();
+  // 获取数据库服务器产品名称
+  dbmd.getDatabaseProductName()
+  // 获取数据库服务器产品版本号
+  dbmd.getDatabaseProductVersion()
+  // 获取数据库服务器用作类别和表名之间的分隔符 如test.user
+  dbmd.getCatalogSeparator()
+  // 获取驱动版本
+  dbmd.getDriverVersion()
+  // 获取数据库名称
+  ResultSet rs = dbmd.getCatalogs();
+  while (rs.next()) {
+    System.out.println("数据库名称:\t"+rs.getString(1));
+  }
+```
+
+### 关于jdbc事务的介绍
+
+  1. 前提: 表的类型必须是INNODB类型的  
+  2. 为什么要使用事务: 当使用数据库进行多个操作时 如果某个操作失败 而其他操作成功 可能会引起数据库的数据错误,尤其是某个操作之间的联系非常紧密时,这是非常严重的.所以这时候就要使用 **事务**
+  3. 什么是事务:  在进行多个操作时,如果这些操作都处于一个事务中,那么这些操作要么都成功,要么都失败.
+  4. 怎么使用事务:  
+      连接数据库成功后,关闭自动提交,改为手动提交.代码如下:
+
+  ```java
+    try (
+          Connection c = BDUtil.getConnection();
+          Statement s = c.createStatement();
+        ) {
+            // 有事务的前提下
+            // 在事务中的多个操作，要么都成功，要么都失败
+            //关闭自动提交
+            c.setAutoCommit(false);
+            //修改数据 比如血量加1
+            String sql1 = "update 表名 set hp = hp +1 where id = 22";
+            s.execute(sql1);
+            // 在减1
+            // 不小心写错写成了 updata(而非update)
+            String sql2 = "updata hero set hp = hp -1 where id = 22";
+            s.execute(sql2);
+            // 手动提交
+            c.commit();
+            //因为sql2语句错误,提交失败;所以sql1语句也没有成功提交,这就是使用事务的好处
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+  ```
+
+### ORM与DAO
+  
+* ORM
+  1.先了解什么是"持久化":  
+  持久（Persistence），即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的数据存储在关系型的数据库中，当然也可以存储在磁盘文件中、XML数据文件中等等。
+  2.在了解什么是"持久层":  
+  持久层（Persistence Layer），即专注于实现数据持久化应用领域的某个特定系统的一个逻辑层面，将数据使用者和数据实体相关联
+* DAO
 
