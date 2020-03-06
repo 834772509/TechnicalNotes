@@ -124,6 +124,16 @@ v-for为循环，后接表达式：变量 in 列表
 <button v-on:click="事件方法()">按钮</button>
 ```
 
+#### prevent修饰符
+
+prevent修饰符，用于阻止默认程序事件
+
+``` HTML
+<form>
+    <input type="submit" value="提交" @click.prevent="btnClick()">
+</form>
+```
+
 ### @keyup
 
 监听键盘的按键
@@ -195,16 +205,6 @@ v-once为只渲染一次，不随数据的改变而改变
 <h1 v-once>{{message}}</h1>
 ```
 
-### prevent修饰符
-
-prevent修饰符，用于阻止默认程序事件
-
-``` HTML
-<form>
-    <input type="submit" value="提交" @click.prevent="btnClick()">
-</form>
-```
-
 ### v-pre
 
 v-pre为不解析，原封不动的显示出来
@@ -265,7 +265,7 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
     created(){
 
     },
-    mouted(){
+    mounted(){
 
     },
     data(){
@@ -284,7 +284,7 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
 ```
 
 ::: tip 提示
-<style scoped></style> 中的scoped表示作用域，不予其他CSS样式相冲突
+```<style scoped></style>``` 中的scoped表示作用域，不予其他CSS样式相冲突
 :::
 
 ### 注册组件
@@ -352,6 +352,16 @@ export default {
 ``` HTML
 <组件 @事件名称="事件方法()"></组件>
 ```
+
+### 组件事件
+
+``` HTML
+<组件 @click.native="事件方法()"></组件>
+```
+
+::: tip 提示
+native修饰符用于监听组件根元素的原生组件
+:::
 
 ## 插槽
 
@@ -718,7 +728,7 @@ app = new Vue({
 
     },
     //页面加载完毕后执行的方法（渲染后）
-    mouted(){
+    mounted(){
 
     },
     //数据对象
@@ -746,7 +756,7 @@ app = new Vue({
 
 ### 安装
 
-```npm install swiper --save-dev```
+```npm install swiper --save```
 
 ### 图片轮播
 
@@ -762,18 +772,25 @@ app = new Vue({
 ```
 
 ``` js
+import 'swiper/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
 export default {
+  components: {
+    swiper,
+    swiperSlide,
+    },
     data() {
-        // swiper轮播的参数
-        swiperOption: {
-          // 滚动条
-          scrollbar: {
-            el: '.swiper-scrollbar',
-          },
-          // 上一张，下一张
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+    // swiper轮播的参数
+    swiperOption: {
+      // 滚动条
+      scrollbar: {
+        el: '.swiper-scrollbar',
+        },
+        // 上一张，下一张
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
           },
           //开启循环切换
           loop: true,
@@ -782,7 +799,14 @@ export default {
           //设置触碰后自动切换停止
           disableOnInteraction: true,
         }
-      }
+      },
+}
+```
+
+## Better-Scroll 滚动条插件
+
+``` vue
+
 ```
 
 ## axios
