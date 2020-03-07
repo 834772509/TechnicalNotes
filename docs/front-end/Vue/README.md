@@ -239,6 +239,23 @@ v-show用于控制显现/隐藏，true为显现，false为隐藏
 只是给元素增加display:none，适合切换频率高的环境
 :::
 
+### v-load
+
+v-load用于监听图片是否加载完成
+
+``` HTML
+<img :src="" @load="事件名称">
+```
+
+``` js
+export default {
+  methods: {
+    事件名称(){
+
+    },
+},
+```
+
 ## 组件
 
 ### 创建组件
@@ -352,6 +369,10 @@ export default {
 ``` HTML
 <组件 @事件名称="事件方法()"></组件>
 ```
+
+::: tip 提示
+如提示```$emit```不是一个函数则将父函数写为箭头函数
+:::
 
 ### 组件事件
 
@@ -525,6 +546,8 @@ Vuex用于管理各个组件之间的共享变量
 │  └─ moduleA.js
 ```
 
+main.js
+
 ``` js
 import mutations from './mutations'
 import getters from './getters'
@@ -660,6 +683,28 @@ export default new Vuex.Store({
 ::: tip 提示
 mutations、getters可以常规使用
 :::
+
+### 事件总线
+
+main.js
+
+``` js
+Vue.prototype.$bus = new Vue()
+```
+
+#### 发射事件
+
+``` js
+this.$bus.$emit('事件名称')
+```
+
+#### 接收事件
+
+``` js
+this.$bus.$on('事件名称',()=>{
+  
+})
+```
 
 ## 常用组件使用实例
 
