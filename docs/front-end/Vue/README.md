@@ -493,15 +493,18 @@ this.$router.push('/XXX')
 
     ``` HTML
     <button @click="传参()">用户</button>
+    ```
+
+    ``` js
     传参() {
-        this.$router.push({
-            path: '/跳转页面',
-            query: {
-                参数1: 值1,
-                参数2: 值2,
-                }
-            })
+      this.$router.push({
+        path: '/跳转页面',
+        query: {
+          参数1: 值1,
+          参数2: 值2,
         }
+      })
+    }
     ```
 
     访问参数：{{$route.query.参数名}}
@@ -701,10 +704,33 @@ this.$bus.$emit('事件名称')
 #### 接收事件
 
 ``` js
-this.$bus.$on('事件名称',()=>{
-  
-})
+this.$bus.$on('事件名称',回调函数([参数]))
 ```
+
+## 防抖函数（节流）
+
+``` js
+debounce(func,delay){
+  let timer = null;
+  return function(...args){
+    if(timer) clearTimeout(timer)
+    timer = setTimeout(()=>{
+      func.apply(this,args)
+    }, delay)
+  }
+}
+```
+
+使用防抖函数:
+
+``` js
+const 防抖函数名称 = this.debounce(需要进行防抖处理的函数名称, 200)
+防抖函数名称()
+```
+
+::: tip 提示
+”需要进行防抖处理的函数名称“不能加入()，否则会识别为函数的返回值
+:::
 
 ## 常用组件使用实例
 
