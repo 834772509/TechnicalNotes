@@ -183,6 +183,45 @@ p {
 }
 ```
 
+### 单位
+
+* px：固定的像素
+* em：相对父元素字体的大小
+* rem：相对于根元素（HTML）的大小
+* %：取决于应用的属性(比如字体的百分比相对于父元素的字体,宽度的百分比相对于父元素的宽度)
+
+## 移动端适配
+
+1. 针对不同的手机屏善，设置不同的font-size大小
+2. 将所有需要适配的图片/元素/字体大小，统一使用rem
+
+### 媒体查询
+
+``` css
+/* iphone5 */
+@media screen and (min-width: 320px){
+  font-size: 9px;
+}
+/* iphone6 */
+@media screen and (min-width: 375px){
+  font-size: 10px;
+}
+/* iphone6 plus */
+@media screen and (min-width: 414px){
+  font-size: 11px;
+}
+```
+
+### 通过JS
+
+### 动态计算rem
+
+1. 利用px转rem
+  Visual Studio Code 插件：```px to rem```  
+  热键：Alt + Z
+2. 利用postcss-pxtorem（最优方案）
+3. 利用less/sass/stylus的计算能力
+
 ## CSS动画
 
 ### transition
@@ -263,4 +302,24 @@ transform: skew(X轴倾斜度数deg,Y轴倾斜度数deg);
 
 ``` CSS
 transform: perspective()
+```
+
+## less
+
+less 是 css 的扩展，使css支持变量、计算等功能。  
+less最终会被编译为css  
+Visual Studio Code 插件：```Easy Less```  
+
+### 变量
+
+声明
+
+``` Less
+@变量名: 变量值;
+```
+
+使用
+
+``` Less
+@变量名
 ```
