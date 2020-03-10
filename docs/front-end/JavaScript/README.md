@@ -88,8 +88,12 @@ for(let item of 数组名){
 ### 函数
 
 ``` JavaScript
-function 函数名([参数1,参数2]){
+function 函数名(){
 
+}
+
+function 函数名([参数1,参数2 = 默认值]){
+return 返回值;
 }
 ```
 
@@ -98,6 +102,40 @@ function 函数名([参数1,参数2]){
 ``` JavaScript
 函数名();
 函数名(参数1,参数2);
+```
+
+### 箭头函数
+
+``` JavaScript
+const 箭头函数 = ([参数1,参数2]) =>{
+
+}
+```
+
+### 与或非
+
+* 与：```&&```
+* 或：```||```
+* 非：```!```
+
+### 三元运算符
+
+``` JavaScript
+返回值 = 条件 ? 真-返回值 : 假-返回值
+```
+
+``` JavaScript
+let a = x > 10 ? 'red' : 'blue'
+```
+
+### 类和方法
+
+``` JavaScript
+calss 类名{
+  方法名(){
+
+  }
+}
 ```
 
 ## 常用方法
@@ -118,4 +156,82 @@ alert("提示信息")
 
 ``` JavaScript
 JSON数据 = JSON.stringify(需要转换为JSON的数据)
+```
+
+### setTimeout
+
+延时执行
+
+``` JavaScript
+setTimeout(()=>{
+
+},时间[毫秒])
+```
+
+## ＤＯＭ
+
+### 选择器
+
+#### 查询选择器
+
+``` JavaScript
+document.querySelectorALL(查询名称)
+document.querySelectorALL(.user)
+document.querySelectorALL(h1)
+```
+
+``` JavaScript
+document.querySelector(查询名称)
+document.querySelector(.user)
+document.querySelector(h1)
+```
+
+#### 多元素选择器
+
+``` JavaScript
+document.getElementById(ID名)
+```
+
+### DOM操作
+
+#### 监听事件
+
+点击事件
+
+``` JavaScript
+const btn = document.querySelector('.btn')
+btn.addEventListener('click',(e)=>{
+  //阻止默认事件（如提交按钮）
+  e.preventDefault();
+})
+```
+
+移入事件
+
+``` JavaScript
+const btn = document.querySelector('.btn')
+btn.addEventListener('mouseover',(e)=>{
+
+})
+```
+
+移入事件
+
+``` JavaScript
+const btn = document.querySelector('.btn')
+btn.addEventListener('mouseout',(e)=>{
+
+})
+```
+
+#### 创建元素
+
+``` JavaScript
+const 元素 = document.createElement('元素名称')
+元素.appendChild(documentcreateTextNode(`元素内容`))
+```
+
+``` JavaScript
+const li = document.createElement('li')
+元素.appendChild(documentcreateTextNode(`123`))
 ```
