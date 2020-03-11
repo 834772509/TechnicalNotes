@@ -180,7 +180,7 @@ flex 布局( Flexible布局,弹性布局)
 }
 ```
 
-### 应用在flex container上的CSS属性
+### 应用在flex container上的CSS属性（父）
 
 #### flex-flow
 
@@ -239,7 +239,7 @@ flex-flow是 flex-direction || flex-wrap 的简写
 
 决定了 **多行** flex items在交叉轴（Y轴）上的对齐方式，用法与justify-content类似
 
-* stretch: 与align-items的stretch类似 (默认值)
+* stretch: 自动拉伸 (默认值)
 * flex-start: 与起始位置对齐（依次对齐）
 * center :居中对齐
 * flex-end: 与终止位置对齐
@@ -248,13 +248,50 @@ flex-flow是 flex-direction || flex-wrap 的简写
 * space-evenly: 将item均等分开，item 之间的距离相等
 
 
-### 应用在flex items.上的CSS属性
-* flex
-* flex-grow
-* flex-basis
-* flex-shrink
-* order
-* align-self
+### 应用在flex items上的CSS属性（子）
+
+#### flex
+
+#### flex-grow
+
+决定了flex items如何扩展
+
+可以设置任意非负数字(正小数、正整数、0) , 默认值是0 
+当flex container在main axis方向.上有剩余size时, flex-grow属性才会有效
+* 如果所有flex items的flex-grow总和sum超过1 ,每个flex item扩展的size为：
+  flex container的剩余size * flex-grow / sum
+* 如果所有flex items的flex-grow总和不超过1 ,每个flex item扩展的size为：
+  flex container的剩余size * flex-grow
+
+```CSS
+.box1{
+  flex-grow:1;
+}
+.box2{
+  flex-grow:1;
+}
+.box2{
+  flex-grow:1;
+}
+```
+
+#### flex-basis
+
+#### flex-shrink
+
+#### order
+
+决定flex items的排布顺序
+
+* 可以设置任意整数(正整数、负整数、0) ,值越小就越排在前面
+* 默认值是0
+
+#### align-self
+
+可以通过align-self覆盖flex container设置的align-items
+
+* auto: 遵从flex container的align-items设置(默认值)
+* stretch、flex-start、 flex-end、 center、 baseline ,效果跟align-items- -致
 
 
 [30分钟彻底弄懂flex布局](https://www.cnblogs.com/qcloud1001/p/9848619.html)
