@@ -152,6 +152,111 @@ p {
 
 ## Flex布局
 
+### 基本概念
+
+flex布局是目前web开发中使用最多的布局方案：  
+flex 布局( Flexible布局,弹性布局)  
+目前特别在移动端用的最多，目前PC端也使用越来越多了  
+
+两个重要概念：
+* 开启了 flex 布局的元素叫 ```flex container```
+* flex container 里面的直接子元素叫做```flex items```
+
+### 开启flex布局
+
+块级元素
+
+``` CSS
+.box{
+  display: flex;
+}
+```
+
+行内元素
+
+``` CSS
+.box{
+  display: inline-flex:
+}
+```
+
+### 应用在flex container上的CSS属性
+
+#### flex-flow
+
+flex-flow是 flex-direction || flex-wrap 的简写
+
+``` CSS
+.box{
+  /* 从左到右、多行 */
+  flex-flow: row wrap;
+}
+```
+
+#### flex-direction
+
+决定主轴（X轴）的方向
+
+* row: 从左到右(默认)
+* row-reverse: 从右到左
+* column: 从上到下
+* column-reverse: 从下到上
+
+#### flex-wrap
+
+决定了flex container是单行还是多行
+
+* nowrap: 单行显示（默认）
+* wrap: 多行
+* wrap-reverse: 反转主轴（X轴）和交叉轴（Y轴） 
+
+::: tip 提示
+默认情况下，所有的flex item都会在同一行显示(nowrap)
+:::
+
+#### justify-content
+
+决定了flex items在主轴（X轴）上的对齐方式
+
+* flex-start: 与起始位置对齐
+* center: 居中对齐
+* flex-end: 与终止位置对齐
+* space-evenly: 将item均等分开，item 之间的距离相等
+* space-around: item 之间的距离相等且两边空出一部分（距离是item间距的一半）
+
+#### align-items
+
+决定了flex items在交叉轴（Y轴）上的对齐方式
+
+* flex-start: 与起始位置对齐
+* center: 居中对齐
+* flex-end: 与终止位置对齐
+* baseline: 与基准线对齐
+* stretch: 自动拉伸
+* normal: 自动拉伸
+
+#### align-content
+
+决定了 **多行** flex items在交叉轴（Y轴）上的对齐方式，用法与justify-content类似
+
+* stretch: 与align-items的stretch类似 (默认值)
+* flex-start: 与起始位置对齐（依次对齐）
+* center :居中对齐
+* flex-end: 与终止位置对齐
+* space-between: flex items之间的距离相等，与cross start、 cross end两端对齐
+* space-around: item 之间的距离相等且两边空出一部分（距离是item间距的一半）
+* space-evenly: 将item均等分开，item 之间的距离相等
+
+
+### 应用在flex items.上的CSS属性
+* flex
+* flex-grow
+* flex-basis
+* flex-shrink
+* order
+* align-self
+
+
 [30分钟彻底弄懂flex布局](https://www.cnblogs.com/qcloud1001/p/9848619.html)
 
 ``` CSS
