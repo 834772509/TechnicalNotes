@@ -256,6 +256,23 @@ export default {
 },
 ```
 
+### 过滤器
+
+``` HTML
+{{变量名 | 过滤器名}}
+```
+
+``` javaScript
+export default {
+  filters: {
+    过滤器名(value){
+      return value;
+    }
+  },
+}
+
+```
+
 ## 组件
 
 ### 创建组件
