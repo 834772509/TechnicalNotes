@@ -273,6 +273,20 @@ export default {
 
 ```
 
+### nextTick函数
+
+nextTick函数是待所有DOM组件创建完成后执行的回调函数，此时$ref等可以直接使用
+
+``` JavaScript
+export default {
+  created() {
+  this.$nextTick(()=>{
+
+  })
+  }
+}
+```
+
 ## 组件
 
 ### 创建组件
@@ -476,7 +490,10 @@ const routes = [
 代码跳转：
 
 ``` js
+//跳转指定页面
 this.$router.push('/XXX')
+//返回上一级页面
+this.$router.back();
 ```
 
 ### 保持页面状态
@@ -725,6 +742,8 @@ this.$bus.$on('事件名称',回调函数([参数]))
 ```
 
 ## 防抖函数（节流）
+
+作用是将频繁执行的函数减缓次数，理想情况下只执行一次
 
 ``` js
 debounce(func,delay){
