@@ -504,6 +504,23 @@ this.$router.back();
 </keep-alive>
 ```
 
+排除指定页面不保持状态
+
+``` HTML
+<keep-aliv exclude="页面名称">
+  <router-view />
+</keep-alive>
+```
+
+指定页面需要指定页面名称：
+
+``` JavaScript
+export default {
+  name: '页面名称'
+}
+
+```
+
 ### 路由传参
 
 1. 方法一
@@ -545,17 +562,20 @@ this.$router.back();
 
 ### 导航守卫
 
+路由跳转过程中的一些钩子函数
+
 index.js
 
 ``` js
 const routes = [
-    {
-        path: '/XXX',
-        meta: {
-            title: "页面名"
+  {
+    path: '/XXX',
+    meta: {
+      title: "页面名"
     }
- router.beforeEach((to, from, next) => {
+    router.beforeEach((to, from, next) => {
      //从form跳转到to
+     //改变网页标题
      document.title=to.matched[0].meta.title
      next()
     })
