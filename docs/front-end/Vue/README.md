@@ -324,6 +324,7 @@ export default {
     methods: {
 
     },
+    mixins: [],
     components: {
 
     },
@@ -427,10 +428,19 @@ mixin.js
 import 组件名称 from 'components/组件名称'
 
 export const 混入名称 = {
+  created(){
+
+  },
+  mounted(){
+
+  },
   data() {
     return {
 
     }
+  },
+  methods:{
+
   },
   components: {
     组件名称,
