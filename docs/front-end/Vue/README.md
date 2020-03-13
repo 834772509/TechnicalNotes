@@ -415,6 +415,44 @@ export default {
 native修饰符用于监听组件根元素的原生组件
 :::
 
+## 混入
+
+混入是对重复代码进行封装，与组件类似。但是混入后的组件可之间访问变量（相当于合并代码）
+
+### 声明
+
+mixin.js
+
+``` JavaScript
+import 组件名称 from 'components/组件名称'
+
+export const 混入名称 = {
+  data() {
+    return {
+
+    }
+  },
+  components: {
+    组件名称,
+  }
+}
+```
+
+### 使用
+
+``` HTML
+<组件名称></组件名称>
+```
+
+``` JavaScript
+import { 混入名称 } from 'common/mixin'
+
+export default {
+  //混入
+  mixins: [混入名称],
+}
+```
+
 ## 插槽
 
 ``` HTML
