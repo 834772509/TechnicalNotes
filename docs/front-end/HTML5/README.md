@@ -159,6 +159,7 @@ flex 布局( Flexible布局,弹性布局)
 目前特别在移动端用的最多，目前PC端也使用越来越多了  
 
 两个重要概念：
+
 * 开启了 flex 布局的元素叫 ```flex container```
 * flex container 里面的直接子元素叫做```flex items```
 
@@ -208,7 +209,7 @@ flex-flow是 flex-direction || flex-wrap 的简写
 
 * nowrap: 单行显示（默认）
 * wrap: 多行
-* wrap-reverse: 反转主轴（X轴）和交叉轴（Y轴） 
+* wrap-reverse: 反转主轴（X轴）和交叉轴（Y轴）
 
 ::: tip 提示
 默认情况下，所有的flex item都会在同一行显示(nowrap)
@@ -247,17 +248,38 @@ flex-flow是 flex-direction || flex-wrap 的简写
 * space-around: item 之间的距离相等且两边空出一部分（距离是item间距的一半）
 * space-evenly: 将item均等分开，item 之间的距离相等
 
-
 ### 应用在flex items上的CSS属性（子）
 
-#### flex
+#### flex（了解）
+
+flex-grow || flex-shrink I| flex-basis的简写,flex属性可以指定1个, 2个或3个值
+
+单值语法：值必须为以下其中之一：
+
+* 一个无单位数(```<number>```):它会被当作```<flex-grow>``` 的值
+* 一个有效的宽度(width)值:它会被当作```<flex-basis>```的值
+* 关键字nohe , auto或initial
+
+双值语法：  
+第一个值必须为一个无单位数,并且它会被当作```<flex-grow>```的值
+第二个值必须为以下之一：
+
+* 一个无单位数:它会被当作```<flex-shrink>```的值
+* 一个有效的宽度值:它会被当作< flex-basis> 的值
+
+三值语法:
+
+* 第一个值必须为一个无单位数，并且它会被当作```<flex-grow>```的值
+* 第二个值必须为一个无单位数，并且它会被当作< flex-shrink>的值
+* 第三个值必须为一个有效的宽度值，并且它会被当作```<flex-basis>```的值
 
 #### flex-grow
 
 决定了flex items如何扩展
 
-可以设置任意非负数字(正小数、正整数、0) , 默认值是0 
+可以设置任意非负数字(正小数、正整数、0) , 默认值是0
 当flex container在main axis方向.上有剩余size时, flex-grow属性才会有效
+
 * 如果所有flex items的flex-grow总和sum超过1 ,每个flex item扩展的size为：
   flex container的剩余size * flex-grow / sum
 * 如果所有flex items的flex-grow总和不超过1 ,每个flex item扩展的size为：
@@ -277,22 +299,41 @@ flex-flow是 flex-direction || flex-wrap 的简写
 
 #### flex-basis
 
+设置flex items在main axis方向,上的base size
+
+优先级（高到低）：
+
+* max-width\max-height\min-width\min-height
+* flex-basis
+* width\height
+* 内容本身的size
+
 #### flex-shrink
 
-#### order
+决定flex items如何收缩
+
+* 可以设置任意非负数字(正小数、正整数、0) , 默认值是1
+* 当flex items在main axis方向.上超过了flex container的size , flex-shrink属性才会有效
+* 如果所有flex items的flex-shrink 总和超过1 ,每个flex item收缩的size为：
+  flex items超出flex container的size * 收缩比例/所有flex items的收缩比例之和
+* 如果所有flex items的flex-shrink 总和sum不超过1 ,每个flex item收缩的size为：
+  flex items超出flex container的size *sum *收缩比例/所有flex items的收缩比例之和  
+  收缩比例 = flex-shrink * flex item的base size
+  base size就是flex item放入flex container之前的size
+
+#### order（了解）
 
 决定flex items的排布顺序
 
 * 可以设置任意整数(正整数、负整数、0) ,值越小就越排在前面
 * 默认值是0
 
-#### align-self
+#### align-self（了解）
 
 可以通过align-self覆盖flex container设置的align-items
 
 * auto: 遵从flex container的align-items设置(默认值)
 * stretch、flex-start、 flex-end、 center、 baseline ,效果跟align-items- -致
-
 
 [30分钟彻底弄懂flex布局](https://www.cnblogs.com/qcloud1001/p/9848619.html)
 
