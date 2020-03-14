@@ -373,6 +373,53 @@ flex-grow || flex-shrink I| flex-basis的简写,flex属性可以指定1个, 2个
 * rem：相对于根元素（HTML）的大小
 * %：取决于应用的属性(比如字体的百分比相对于父元素的字体,宽度的百分比相对于父元素的宽度)
 
+### 网络字体
+
+``` CSS
+@font-face {
+  font-family: 字体名称;
+  src: url(字体网址);
+}
+```
+
+加载多个字体格式（适配兼容性）
+
+``` CSS
+@font-face {
+  font-family: 字体名称;
+  src: url(字体网址),
+        url(字体网址),
+        url(字体网址);
+}
+```
+
+### 字体图标
+
+``` CSS
+@font-face {
+  font-family: 字体名称;
+  src: url(字体图标网址),
+        url(字体图标网址),
+        url(字体图标网址);
+}
+```
+
+常规使用
+
+``` HTML
+<span>字体图标代码</span>
+```
+
+伪元素
+
+``` HTML
+<span class="iconfont 字体图标名称"></span>
+```
+
+::: tip 提示
+也可直接引入下载的CSS（注意增加class）
+:::
+
 ## 移动端适配
 
 1. 针对不同的手机屏善，设置不同的font-size大小
