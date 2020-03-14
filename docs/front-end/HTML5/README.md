@@ -160,8 +160,8 @@ flex 布局( Flexible布局,弹性布局)
 
 两个重要概念：
 
-* 开启了 flex 布局的元素叫 ```flex container```
-* flex container 里面的直接子元素叫做```flex items```
+* 开启了 flex 布局的元素叫 **flex container**
+* flex container 里面的直接子元素叫做**flex items**
 
 ### 开启flex布局
 
