@@ -719,10 +719,10 @@ export default new Vuex.Store({
 
 ``` js
 this.$store.commit('方法名')
-this.$store.commit('方法名,参数名')
+this.$store.commit('方法名',参数名)
 //传递多个参数
 const test = {id:01,name:"a",age:18}
-this.$store.commit('方法名,test')
+this.$store.commit('方法名',test)
 ```
 
 ::: tip 提示
