@@ -731,6 +731,8 @@ this.$store.commit('方法名',test)
 
 ### getter方法（类似计算属性）
 
+#### 使用
+
 \store\index.js
 
 ``` js
@@ -753,6 +755,23 @@ export default new Vuex.Store({
 ``` js
 {{$store.getters.计算属性名}}
 {{$store.getters.计算属性名(1)}}
+```
+
+#### mapGetters 辅助函数
+
+将 store 中的 getter 映射到局部计算属性
+
+``` js
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters([
+      '计算属性名',
+      '计算属性名',
+      ])
+    },
+}
 ```
 
 ### Vue-modueles
