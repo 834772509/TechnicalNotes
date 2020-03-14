@@ -85,6 +85,79 @@ for(let item of 数组名){
 }
 ```
 
+#### unshift
+
+在数组最签前面增加元素（支持多个参数）
+
+``` javaScript
+数组名.unshift(元素名称)
+```
+
+#### push
+
+在数组最后增加元素（支持多个参数）
+
+``` javaScript
+数组名.push(元素名称)
+```
+
+#### shift
+
+删除数组第一个元素
+
+``` javaScript
+数组名.shift()
+```
+
+#### pop
+
+删除数组最后的一个元素
+
+``` javaScript
+数组名.pop()
+```
+
+#### splice
+
+``` JavaScript
+//删除元素：
+数组名.splice(位置,删除几个元素)
+//插入元素：
+数组名.splice(位置,0,插入的元素[,插入的元素]...)
+//替换元素：
+数组名.splice(位置,替换几个元素,替换的值[,替换的值]...)
+```
+
+#### 高阶函数
+
+filter函数的使用
+
+``` javaScript
+let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+let newnubs = nums.filter(function (n) {
+    return n < 50
+})
+console.log(newnubs)
+```
+
+map函数的使用
+
+``` javaScript
+let new2nums = newnubs.map(function (n) {
+    return n * 2
+})
+console.log(newnubs)
+```
+
+reduce函数的使用：对数组中的所有内容进行汇总
+
+``` javaScript
+new3nums.reduce(function (prevalue, n) {
+    return prevalue + n
+})
+console.log(new3nums)
+```
+
 ### 函数
 
 ``` JavaScript
@@ -206,6 +279,14 @@ function padLeftZero(str) {
 ```
 
 :::
+
+### 生成随机数
+
+``` javaScript
+randomNum(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+```
 
 ## ＤＯＭ
 
