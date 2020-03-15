@@ -85,6 +85,12 @@ for(let item of 数组名){
 }
 ```
 
+``` JavaScript
+for(let n in 数组名){
+  console.log(数组名[n])
+}
+```
+
 #### unshift
 
 在数组最签前面增加元素（支持多个参数）
@@ -128,36 +134,6 @@ for(let item of 数组名){
 数组名.splice(位置,替换几个元素,替换的值[,替换的值]...)
 ```
 
-#### 高阶函数
-
-filter函数的使用
-
-``` javaScript
-let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-let newnubs = nums.filter(function (n) {
-    return n < 50
-})
-console.log(newnubs)
-```
-
-map函数的使用
-
-``` javaScript
-let new2nums = newnubs.map(function (n) {
-    return n * 2
-})
-console.log(newnubs)
-```
-
-reduce函数的使用：对数组中的所有内容进行汇总
-
-``` javaScript
-new3nums.reduce(function (prevalue, n) {
-    return prevalue + n
-})
-console.log(new3nums)
-```
-
 ### 函数
 
 ``` JavaScript
@@ -180,9 +156,81 @@ return 返回值;
 ### 箭头函数
 
 ``` JavaScript
-const 箭头函数 = ([参数1,参数2]) =>{
+const 箭头函数 = () =>{
 
 }
+const 箭头函数 = (参数1,参数2) =>{
+
+}
+```
+
+### 高阶函数
+
+#### filter
+
+**filter**函数一般用于过滤满足条件的数组数据  
+
+filter中的的回调函数需要返回一个布尔值
+
+* true : 函数内部会自动将这次回调的item加入到新的数组中
+* false : 函数内部会过滤掉这次的item
+
+``` javaScript
+let 新数组名 = 数组名.filter( (item) => {
+
+})
+```
+
+``` javaScript
+//需求：过滤数组中小于50的数字
+let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+let newnubs = nums.filter( (item) => {
+    return item < 50
+})
+console.log(newnubs)
+//结果：[10, 20, 40, 50]
+```
+
+#### map
+
+**map**函数一般用于批量改变数组中的数据
+
+返回值为加入到新的数组中的数据
+
+``` javaScript
+let 新数组名 = 数组.map( (item) => {
+
+})
+```
+
+``` javaScript
+//需求：将数组中的左右数据都乘2
+newnubs = [10, 20, 40, 50]
+let new2nums = newnubs.map( (item) => {
+    return item * 2
+})
+console.log(newnubs)
+//结果：[20, 40, 80, 100]
+```
+
+#### reduce
+
+**reduce**一般对数组中的所有内容进行汇总（例如将数组中的数据相加/相乘，返回一个总和）
+
+``` javaScript
+新数组名称 = 数组名称.reduce((上一次值, item) => {
+
+}, 初始值)
+```
+
+``` javaScript
+//需求：将数组内的所有数字进行求和
+new2Nums = [20, 40, 80, 100]
+total = new2Nums.reduce((preValue, item) => {
+  return preValue + item
+}, 0)
+console.log(total)
+//结果：240
 ```
 
 ### 与或非
