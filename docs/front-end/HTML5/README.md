@@ -1,5 +1,11 @@
 # HTML5 笔记
 
+## 常见问题
+
+### 修复WebStorme一直索引
+
+设置-编辑器-文件类型-忽略文件和文件夹-node_modules
+
 ## HTML5结构
 
 ``` HTML
