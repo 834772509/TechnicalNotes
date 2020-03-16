@@ -638,7 +638,7 @@ const routes = [
 
 ### 介绍
 
-Vuex用于管理各个组件之间的共享变量
+Vuex用于管理各个组件之间的共享变量、事件等
 
 ### 安装
 
@@ -703,7 +703,7 @@ export default new Vuex.Store({
 
 ```$store.state.变量名```
 
-### 修改共享变量（mutations）
+### mutations方法（修改共享变量）
 
 \store\index.js
 
@@ -720,7 +720,7 @@ export default new Vuex.Store({
 })
 ```
 
-使用修改方法：
+使用mutations方法：
 
 ``` js
 this.$store.commit('方法名')
@@ -733,6 +733,52 @@ this.$store.commit('方法名',test)
 ::: tip 提示
 不推荐使用 ```$store.state.变量名 = XXX``` 修改变量，跳过了很多流程
 :::
+
+### actions方法（类似mutations方法）
+
+``` js
+export default new Vuex.Store({
+  actions: {
+
+  }
+})
+```
+
+使用actions方法：
+
+``` js
+this.$store.dispatch('方法名')
+```
+
+::: tip 提示
+
+* Action提交的是Mutation，不能够直接修改state中的状态，而Mutations是可以直接修改state中状态的
+* Action是支持异步操作的，而Mutations只能是同步操作
+:::
+
+#### mapGetters 辅助函数
+
+将 store 中的 actions方法 映射到局部方法
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  methods: {
+    ...mapActions([
+      'actions方法名',
+      'actions方法名',
+      ])
+    },
+}
+```
+
+使用：
+
+``` JavaScript
+this.actions方法名()
+this.actions方法名(参数1,参数2)
+```
 
 ### getter方法（类似计算属性）
 
@@ -779,6 +825,12 @@ export default {
 }
 ```
 
+使用：
+
+``` JavaScript
+this.计算属性名
+```
+
 ### Vue-modueles
 
  \store\index.js
@@ -795,7 +847,7 @@ const 模块对象名称 = {
       actions: {
       }
 }
-//
+//声明模块
 export default new Vuex.Store({
   modules: {
     模块名称: 模块对象名称,
@@ -814,6 +866,8 @@ mutations、getters可以常规使用
 :::
 
 ### 事件总线
+
+事件总线用来共享事件（如子组件向祖父组件发送事件）
 
 main.js
 
