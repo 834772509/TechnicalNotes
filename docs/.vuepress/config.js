@@ -1,5 +1,9 @@
+/*
+ 每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
+ 插入图片：![avatar](/img/front-end/Vue/图片名称.png)
+*/
 module.exports = {
-  //每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
+  lang: 'zh-CN',
   title: '杉-技术笔记',  // 设置网站标题
   dest: './dist',    // 设置输出目录
   head: [
@@ -8,6 +12,7 @@ module.exports = {
   base: '/technicalnotes/', // 设置站点根路径
   //repo: 'https://github.com/txs1992/mt-blog' // 添加 github 链接
   theme: 'vuepress-theme-yilia-plus',
+  plugins: ['@vuepress/back-to-top'],
   themeConfig: {
     // 添加导航栏
     nav: [
@@ -18,19 +23,18 @@ module.exports = {
           { text: 'HTML5', link: '/front-end/HTML5/' },
           { text: 'JavaScript', link: '/front-end/JavaScript/' },
           { text: 'Vue', link: '/front-end/Vue/' },
-          { text: 'MDUI', link: '/front-end/MDUI/' },
         ]
       },
       {
         text: '后端',
         items: [
           { text: 'Andorid', link: '/back-end/Andorid/' },
-          { text: 'Java', link: '/back-end/Java/'},
-          { text: 'JavaWeb', link: '/back-end/JavaWeb/'},
-          { text: 'Python', link: '/back-end/Python/'},
-          { text: 'SQL数据库', link: '/back-end/SQL/'},
-          { text: 'PHP', link: '/back-end/PHP/'},
-          { text: '数据结构', link: '/back-end/DataStructure/'},
+          { text: 'Java', link: '/back-end/Java/' },
+          { text: 'JavaWeb', link: '/back-end/JavaWeb/' },
+          { text: 'Python', link: '/back-end/Python/' },
+          { text: 'SQL数据库', link: '/back-end/SQL/' },
+          { text: 'PHP', link: '/back-end/PHP/' },
+          { text: '数据结构', link: '/back-end/DataStructure/' },
         ]
       },
       {
@@ -39,7 +43,7 @@ module.exports = {
           { text: 'WinPE', link: '/Other/WinPE/' },
         ]
       },
-      { text: '关于', link: 'https://firpe.cn/about'},
+      { text: '关于', link: 'https://firpe.cn/about' },
       { text: '投食 ', link: 'https://firpe.cn/donate' },
     ],
     //设置自动侧边栏
@@ -71,4 +75,4 @@ module.exports = {
       }
     }
   }
-  }
+}

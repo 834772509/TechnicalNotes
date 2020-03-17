@@ -4,7 +4,7 @@
 
 ### 脚本段
 
-``` JavaWeb
+``` jsp
 <%
 
 %>
@@ -12,7 +12,7 @@
 
 ### 声明方法
 
-``` JavaWeb
+``` jsp
 <%!
 public 方法名(){
 
@@ -22,7 +22,7 @@ public 方法名(){
 
 ### 表达式（计算属性）
 
-``` JavaWeb
+``` jsp
 <%=
 1 + 1
 getDate()
@@ -43,7 +43,7 @@ getDate()
 一个JSP文件可以包含多个page指令，指令之间是独立的。
 除了import和pageEncoding属性以外，每个属性只能定义一-次
 
-``` JavaWeb
+``` jsp
 <%@ page info="JPS文件描述信息"%>
 <!--设置编码（比contentType优先级高）-->
 <%@ page pageEncoding="GBK|utf-8" %>
@@ -63,7 +63,7 @@ getDate()
 
 向页面插入静态文件（内容）
 
-``` JavaWeb
+``` jsp
 <%@ include file="URL"%>
 ```
 
@@ -99,9 +99,8 @@ getDate()
 
 ### taglib指令
 
-
 ### 注释
 
-``` JavaWeb
+``` jsp
 <%--注释内容--%>
 ```

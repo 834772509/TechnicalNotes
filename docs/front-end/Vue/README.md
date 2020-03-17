@@ -22,7 +22,19 @@
 * 命令式编程：一步一步命令
 * 函数式编程：先拿到数据，然后再处理
 
+### Vue响应式原理
+
+1. app.message修改数据，Vue是如何监听message数据的改变
+
+* object.defineProperty -> 监听对象属性的改变
+
+2. 当数据发生改变，Vue是如何知道要通知哪些人，界面发生刷新
+
+![avatar](/img/front-end/Vue/响应式原理.png)
+
 ## 创建项目
+
+安装Vue脚手架：```npm install -g @vue/cli```
 
 1. ```vue ui``` 可视化创建项目
 2. ```vue create 命令行项目目录```
@@ -1157,5 +1169,86 @@ axios.all([axios(){
   url:''
 })]).then(res => {
   console.log(res)
+}
+```
+
+## falstclick
+
+解决移动端点击300毫秒延时
+
+### 安装
+
+```npm install fastclick --save```
+
+### 使用
+
+main.js
+
+``` JavaScript
+import FastClick from 'fastclick'
+
+FastClick.attach(document.body)
+```
+
+## 图片懒加载
+
+图片需要显示在屏幕上时，再加载这张图片
+
+### 安装
+
+```npm install vue-lazyload -save```
+
+### 使用
+
+main.js
+
+``` JavaScript
+import VueLazyLoad from 'Vue-lazyload'
+
+Vue.use(VueLazyLoad,{
+  loading: require(占位加载图片路径),
+})
+```
+
+.vue
+
+将src属性替换为v-lazy
+
+``` HTML
+<!-- <img scr=""> -->
+<img v-lazy="">
+```
+
+## css单位转换插件
+
+### 安装
+
+```npm install postcss-px-to-viewport --save-dev```
+
+### 使用
+
+创建\src\postcss.config
+
+``` JavaScript
+module.exports = {
+  plugins: {
+    "postcss-px-to-viewport": {
+      //视窗宽度（设计稿的宽度）
+      viewportWidth: 375,
+      //视窗高度（设计稿的高度）
+      viewportHeight: 667,
+      //指定转换后的单位的小数位数
+      unitProcision: 5,
+      //指定需要转换的单位（建议vw）
+      viewportUnit: 'vw',
+      //指定不需要转换的类
+      selectorBlacckList: ['ignore', 'tab-bar', 'tab-bar-item'],
+      //小于或等于1px不转换px
+      minPixelValue: 1,
+      //允许在媒体查询中转换px
+      mediaQuery: false,
+      exclude: [/TabBar/],
+    }
+  }
 }
 ```
