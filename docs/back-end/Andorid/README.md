@@ -16,6 +16,18 @@
 
 解压后将解压目录增加至环境变量即完成安装
 
+### 一键连接MUMU模拟器
+
+``` bat
+@echo off
+set adbPath=C:\Program Files (x86)\MuMu\emulator\nemu\vmonitor\bin
+cd /d %adbPath%
+taskkill /f /im adb_server.exe
+taskkill /f /im adb.exe
+"%adbPath%\adb_server.exe" connect 127.0.0.1:7555
+goto :eof
+```
+
 ## 基础命令
 
 ### 绑定按钮事件

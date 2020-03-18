@@ -336,6 +336,12 @@ randomNum(min, max) {
 }
 ```
 
+### 跳转页面
+
+``` JavaScript
+location.href='页面路径'
+```
+
 ## ＤＯＭ
 
 ### 选择器
