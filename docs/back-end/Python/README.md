@@ -81,18 +81,33 @@ lambda 参数1[,参数2] : 表达式
 mix = [1, ‘小甲鱼’, 3.14, [1, 2, 3]]
 ```
 
-* 向列表中添加元素（设列表的名称为member）：
-* append()：member.append(要添加的元素)，注意每次只能添加一个元素，被添加的元素自动添加到列表末尾
-* extend()：member.extend([元素1,元素2])，以列表的形式追加新元素到原列表，每次可以添加多个元素，被添加的元素自动添加到列表末尾
-* 插入元素：insert()：member.insert(a,b)a表示要追加的位置（注意起始位置为0），b表示被插入的元素
+### 添加元素
+
+``` Python
+# 注意每次只能添加一个元素，被添加的元素自动添加到列表末尾
+列表名.append(要添加的元素)
+```
+
+``` Python 
+# 以列表的形式追加新元素到原列表，每次可以添加多个元素，被添加的元素自动添加到列表末尾
+列表名.extend([元素1,元素2])，
+```
+
+### 插入元素
+
+``` Python
+member.insert(追加的位置,元素)
+```
+
+## 集合
 
 ## 元组
 
-封闭的列表，一旦定义，就不可改变（不能添加、删除或修改）  
-当我们希望内容不被轻易改写的时候，我们使用元组（把权力关进牢笼）。当我们需要频繁修改数据，我们使用列表。
+封闭的列表，一旦定义，就不可改变
+
 
 ``` Python
-temp = (1,2,3)
+元组名 = (1,2,3)
 ```
 
 * 元组的内置函数：  
@@ -106,48 +121,65 @@ temp = (1,2,3)
 index：这个方法返回某个参数在元组中的位置  
 count：这个方法用来计算某个参数在元组中出现的次数
 
-## 字符串
+::: tip 提示
+* 当内容不被轻易改写的时候，使用元组
+* 当需要频繁修改数据，我们使用列表
+:::
 
-| 方法        |           含义              |
-| ------- |:---------------------------------:|
-| capitalize()|把字符串的第一个字符改为大写
-| casefold()|把整个字符串的所有字符改为小写
-| center(width)|将字符串居中，并使用空格填充至长度width的新字符串
-| count(sub[,start[,end]])|返回sub在字符串里边出现的次数，start和end参数表示范围，可选
-| encode(encoding='utf-8', errors='strict')|以encoding指定的编码格式对字符串进行编码
-| endswith(sub[,start[,end]])|检查字符串是否以sub子字符串结束，如果是返回True，否则返回False。start和end参数表示范围，可选
-| expandtabs([tabsize=8])|把字符串中的tab符号（\t）转换为空格，如不指定参数，默认的空格数是tabsize=8
-| find(sub[,start[,end]])|检测sub是否包含在字符串中，如果有则返回索引值，否则返回-1，start和end参数表示范围，可选
-| index(sub[,start[,end]])|跟find方法一样，不过如果sub不在string中会产生一个异常
-| isalnum()|如果字符串至少有一个字符并且所有字符都是字母或数字则返回True，否则返回False
-| isalpha()|如果字符串至少有一个字符并且所有字符都是字母则返回True，否则返回False
-| isdecimal()|如果字符串只包含十进制数字则返回True，否则返回False
-| isdigit()|如果字符串只包含数字则返回True，否则返回False
-| islower()|如果字符串中至少包含一个区分大小写的字符，并且这些字符都是小写，则返回True，否则返回False
-| isnumeric()|如果字符串中只包含数字字符，则返回True，否则返回False
-| isspace()|如果字符串中只包含空格，则返回True，否则返回False
-| istitle()|如果字符串是标题化（所有的单词都是以大写开始，其余字母均小写），则返回True，否则返回False
-| isupper()|如果字符串中至少包含一个区分大小写的字符，并且这些字符都是大写，则返回True，否则返回False
-| join(sub)|以字符串作为分隔符，插入到sub中所有的字符之间。str5 = 'Fishc' str5.join('12345') '1Fishc2Fishc3Fishc4Fishc5'
-| ljust(width)|返回一个左对齐的字符串，并使用空格填充至长度为width的新字符串
-| lower()|转换字符串中所有大写字符为小写
-| lstrip()|去掉字符串左边的所有空格
-| partition(sub) |找到子字符串sub，把字符串分成一个3元组（pre_sub,sub,fol_sub），如果字符串中不包含sub则返回(‘原字符串’, ’’, ’’)
-| replace(old,new[,count])|把字符串中的old子字符串替换成new子字符串，如果count指定，则替换不超过count次。str7 = 'i love fishdm and seven' str7.replace('e','E',2) 输出'i lovE fishdm and sEven'
-| rfind(sub[,start[,end]]) | 类似于find()|方法，不过是从右边开始查找
-| rindex(sub[,start[,end]]) | 类似于index()|方法，不过是从右边开始
-| rjust(width) | 返回一个右对齐的字符串，并使用空格填充至长度为width的新字符串
-| rpartition(sub)|类似于partition()|方法，不过是从右边开始查找
-| rstrip()|删除字符串末尾的空格
-| split(sep=None, maxsplit=-1)|不带参数默认是以空格为分隔符切片字符串，如果maxsplit参数有设置，则仅分隔maxsplit个子字符串，返回切片后的子字符串拼接的列表。str7.split ()| ['i', 'love', 'fishdm', 'and', 'seven']
-| splitlines(([keepends]))|按照‘\n’分隔，返回一个包含各行作为元素的列表，如果keepends参数指定，则返回前keepends行
-| startswith(prefix[,start[,end]])|检查字符串是否以prefix开头，是则返回True，否则返回False。start和end参数可以指定范围检查，可选
-| strip([chars])|删除字符串前边和后边所有的空格，chars参数可以定制删除的字符，可选
-| swapcase()|翻转字符串中的大小写
-| title()|返回标题化（所有的单词都是以大写开始，其余字母均小写）的字符串
-| translate(table)|根据table的规则（可以由str.maketrans(‘a’,‘b’)定制）转换字符串中的字符。str8 = 'aaasss sssaaa' str8.translate(str.maketrans('s','b')) 'aaabbb bbbaaa'
-| upper()|转换字符串中的所有小写字符为大写
-| zfill(width)|返回长度为width的字符串，原字符串右对齐，前边用0填充
+
+## 字典
+
+键值对的方式存储数据，没有索引
+
+### 声明
+
+``` Python
+字典名 = {
+    "键1":"值1",
+    "键2":"值2",
+    "键3":"值3",
+}
+```
+
+### 使用
+
+``` Python
+字典名["键名"]
+```
+
+### 增加
+
+``` Python
+字典名["键名"] = 值
+```
+
+### 修改
+
+``` Python
+字典名["键名"] = 值
+```
+### 删除
+
+``` Python
+del 字典名["键名"]
+```
+
+### 遍历
+
+遍历键
+
+``` Python
+for key in 字典名.keys():
+    print(key)
+```
+
+遍历值
+
+``` Python
+for value in 字典名.values():
+    print(value)
+```
+
 
 ## 函数
 
