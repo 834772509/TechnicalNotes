@@ -1079,6 +1079,10 @@ export default {
 测试请求网站
 <http://httpbin.org>
 
+### 安装
+
+```npm install axios --save```
+
 ### 封装
 
 为防止第三方请求框架凉凉，需要封装自己的NetWork库，以便凉凉时更换框架
@@ -1103,6 +1107,25 @@ export function request(config) {
     const instance = axios.create({
       baseURL: '',
       timeout: 3000
+    })
+    //拦截发送请求
+    instance.interceptors.request.use(config =>{
+      //此处处理发送请求的数据
+      //返回数据
+      return config;
+    }, err =>{
+      //此处处理发送请求的数据
+      //console.log(err);
+    })
+    //拦截响应
+    instance.interceptors.response.use(res =>{
+      //此处处理请求返回的数据
+      console.log(res);
+      //返回数据
+      return res;
+    }, err =>{
+      //此处处理响应请求失败
+      //config.log(err)
     })
     //发送网络请求
     return instance(config)
@@ -1170,6 +1193,43 @@ axios.all([axios(){
 })]).then(res => {
   console.log(res)
 }
+```
+
+### 拦截器
+
+#### 拦截发送请求
+
+拦截的是发送的请求（发送前的相关配置信息）
+
+使用案例：
+
+* 处理config中的一些不符合服务器的信息
+* 发送网络请求时，显示请求动画
+* 某些网络请求（比如登陆），必须携带一些特殊的信息
+
+``` js
+axios.interceptors.request.use(config =>{
+  //此处处理发送请求的数据
+  //返回数据
+  return config;
+  }, err =>{
+    //此处处理发送请求失败
+    //console.log(err);
+})
+```
+
+#### 拦截响应请求
+
+``` js
+axios.interceptors.response.use(res =>{
+  //此处处理请求返回的数据
+    console.log(res);
+  //返回数据
+  return res;
+  }, err =>{
+    //此处处理响应请求失败
+    //config.log(err)
+})
 ```
 
 ## falstclick
