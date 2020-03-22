@@ -18,6 +18,17 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 trusted-host=mirrors.aliyun.com
 ```
 
+## 打包程序
+
+安装PyInstalle：```pip install pyinstaller```
+
+```  bat
+@echo off
+rem set /p exepath=请输入Python源码的位置：
+set exepath=D:\Homework\Python\_窗口Demo.py
+pyinstaller -F -w --clean "%exepath%"
+```
+
 ## 数据类型
 
 ### 常用数据类型
@@ -349,8 +360,6 @@ os.rename('d:/tools/aaa','d:/tools/bbb')
 # 修改文件名 d:/tools/first.py 为 d:/tools/second.py
 os.rename('d:/tools/first.py','d:/tools/second.py')
 ```
-
-注意，Linux 系统上，如果重命名之前 d:/tools/second.py 已经存在，则会被覆盖，所以使用该函数一定要小心。
 
 ### 对文件路径名的操作
 
