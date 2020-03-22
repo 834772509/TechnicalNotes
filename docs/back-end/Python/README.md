@@ -13,7 +13,7 @@ Python是脚本语言
 
 ``` ini
 [global]
-index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+index-url=http://mirrors.aliyun.com/pypi/simple/
 [install]
 trusted-host=mirrors.aliyun.com
 ```
