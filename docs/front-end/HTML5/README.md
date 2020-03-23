@@ -559,3 +559,90 @@ Visual Studio Code 插件：```Easy Less```
 ``` Less
 @变量名
 ```
+
+## Sass
+
+Visual Studio Code 插件：```Live Sass Compiler```
+
+### 变量
+
+声明：```$变量名: 值;```  
+使用：```$变量名```
+
+### 嵌套
+
+``` CSS
+.nav {
+  /* 样式 */
+  ul {
+    /* 样式 */
+    li {
+      /* 样式 */
+      $:hover{
+        /* 样式 */
+      }
+    }
+  }
+  /*嵌套类*/
+  & 类名 {
+    /* 样式 */
+  }
+}
+```
+
+嵌套属性：
+
+``` CSS
+/* 简化设置字体 */
+body {
+  font: {
+    family: Helvetica,Arial,,sans-serif;
+    size: 15px;
+    weight: normal ;
+  }
+}
+```
+
+### 混合 mixin
+
+混合用于使用重复的样式（混合内部可以嵌套）
+
+``` CSS
+@mixin 混合名称 {
+  /* 样式 */
+}
+@mixin 混合名称($参数1,$参数2) {
+  /* 样式 */
+}
+```
+
+使用：
+
+``` CSS
+.类名 {
+  @include 混合名称;
+}
+.类名 {
+  @include 混合名称(值1,值2);
+}
+```
+
+### 继承样式
+
+用于继承指定的样式
+
+``` CSS
+.类名 {
+  @extend .继承类名;
+}
+```
+
+### 导入样式
+
+创建```_base.scss```，内填写基本样式
+
+导入：
+
+``` CSS
+@import "base";
+```
