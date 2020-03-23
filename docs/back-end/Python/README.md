@@ -1212,3 +1212,60 @@ INSTALLED_APPS = [
 
 创建迁移文件：```python manage.py makemigrations```
 执行迁移文件：```python manage.py  migrate```
+
+## Flask
+
+### 安装
+
+```pip install Flask```
+
+### 传参
+
+``` Python
+@app.route('/路径/<参数名称>')
+def 方法名称(参数名称):
+    return 参数名称
+```
+
+限制数据类型：
+
+``` Python
+@app.route('/路径/<数据类型:参数名称>')
+def 方法名称(参数名称):
+    return 参数名称
+```
+
+### 渲染模板
+
+``` Python
+from flask import render_template
+
+@app.route('/html')
+def HTML():
+    return render_template('HTML5路径', 参数名=参数值)
+```
+
+templates\XXX.html
+
+``` HTML
+<!doctype html>
+<h1>{{参数名}}</h1>
+```
+
+### 模板
+
+``` Python
+from flask import Flask
+app = Flask(__name__)
+# methods用于指定请求方式（默认GET）
+@app.route('/',methods=['GET','POST'])
+def hello_world():
+    return 'Hello, World!'
+
+@app.route('/<参数名称>')
+def 方法名称(参数名称):
+    return 参数名称
+
+if __name__ == "__main__":
+    app.run()
+```
