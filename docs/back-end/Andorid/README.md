@@ -30,17 +30,6 @@ goto :eof
 
 ## 基础命令
 
-### 绑定按钮事件
-
-``` Java
-
-button.setOnClickListener(new OnClickListener() {
-   public void onClick(View arg0) {
-
-   }
-});
-```
-
 ### 页面跳转
 
 ``` Java
@@ -83,6 +72,182 @@ try {
   } catch (Exception e) {}
 ```
 
+### 显示Toast提示
+
+``` Java
+Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
+```
+
 ## 界面布局
 
-### 按钮
+### 按钮 Button
+
+``` xml
+<Button
+  android:id="@+id/按钮ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="按钮标题"
+/>
+```
+
+绑定按钮事件：
+
+``` Java
+Button Button1 = (Button)findViewById(R.id.按钮ID);
+Button1.setOnClickListener(new OnClickListener() {
+   public void onClick(View arg0) {
+
+   }
+});
+```
+
+### 图片按钮 ImageButton
+
+``` xml
+<ImageButton
+  android:id="@+id/按钮ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:src="@mipmap/图片路径"
+  android:background="#0000"
+/>
+```
+
+::: tip 提示
+可使用```android:background="#0000"```将背景设置透明
+:::
+
+### 文本框 TextView
+
+``` xml
+<TextView
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="@string/字符串名称"
+/>
+```
+
+\src\res\values\strings.xml
+
+``` xml
+<resource>
+  <string name="字符串名称">文本框内容</string>
+</resource>
+```
+
+TextView常用属性：
+
+* 字体大小：```android:`textSize="字体大小（单位sp）"``
+* 字体颜色：```android:textColor="#十六进制颜色值"```
+* 背景：```android:background="背景图片路径/#十六进制颜色值"```
+* 设置单行：```android:singleLine="true"```
+
+### 编辑框 EditText
+
+``` xml
+<EditText
+  android:id="@+id/编辑框ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:hint="提示内容"
+/>
+```
+
+TextView常用属性：
+
+* 编辑框类型：```android:`inputType="编辑框类型"``
+* 设置编辑框行数：```android:lines="行数"```
+* 在上侧显示图标：```android:`drawableTop="@mipmap\图标路径"``
+* 在下侧显示图标：```android:`drawableBottom="@mipmap\图标路径"``
+* 在左侧显示图标：```android:`drawableLeft="@mipmap\图标路径"``
+* 在右侧显示图标：```android:`drawableRight="@mipmap\图标路径"``
+
+### 单选按钮 RadioButton
+
+``` xml
+<RadioGroup
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  <RadioButton
+  android:id="@+id/单选按钮ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="单选按钮内容"
+  android:checked="true"
+  />
+</RadioGroup>
+```
+
+获取选择状态：```单选按钮.isCgecked()```
+
+### 多选框 CheckBox
+
+``` xml
+<CheckBox
+  android:id="@+id/多选框ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:hint="多选框内容"
+  android:checked="true"
+/>
+```
+
+获取选择状态：```单选按钮.isCgecked()```
+
+### 日期选择器 DatePicker
+
+``` xml
+<DatePicker
+  android:id="@+id/日期选择器ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+/>
+```
+
+### 时间选择器 TimePicker
+
+``` xml
+<TimePicker
+  android:id="@+id/时间选择器ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+/>
+```
+
+``` Java
+TimePicker TimePicker1= (TimePicker) findViewById(R.id.时间选择器ID);
+//设置24小时制
+TimePicker1.setIs24HourView(true);
+TimePicker1.setOnTimeChangedListener (new TimePicker.OnTimeChangedListener(){
+  @Override
+  public void onTimeChanged (TimePicker view,int hour0fDay, int minute) {
+    String time = hour0fDay+ "时"+minute+"分";
+    //显示当前选择时间
+    Toast.makeText(MainActivity.this,time,Toast.LENGTH_SHORT).show();
+});
+```
+
+### 计时器 Chronometer
+
+``` xml
+<Chronometer
+  android:id="@+id/计时器D"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+/>
+```
+
+``` Java
+Chronometer Chronometer1 = (Chronometer)findViewById(R.id.计时器D);
+ch.setBase(SystemClock.elapsedRealtime());
+ch.setFormat("%s");
+ch.start() ;
+ch.setOnChronometerTickListener (new Chronometer.OnChronometerTickListener() {
+  @Override
+  public void onChr onometer Tick (Chr onometer chr onometer) {
+
+  }
+}
+
+```
