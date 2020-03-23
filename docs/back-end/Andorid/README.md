@@ -80,6 +80,10 @@ Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
 
 ## 界面布局
 
+::: tip 提示
+在Android中，不允许线程更新程序界面，需要使用```Handler```对象来更新UI，充当子线程和UI主线程的信使
+:::
+
 ### 按钮 Button
 
 ``` xml
@@ -232,7 +236,7 @@ TimePicker1.setOnTimeChangedListener (new TimePicker.OnTimeChangedListener(){
 
 ``` xml
 <Chronometer
-  android:id="@+id/计时器D"
+  android:id="@+id/计时器ID"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
 />
@@ -240,14 +244,77 @@ TimePicker1.setOnTimeChangedListener (new TimePicker.OnTimeChangedListener(){
 
 ``` Java
 Chronometer Chronometer1 = (Chronometer)findViewById(R.id.计时器D);
-ch.setBase(SystemClock.elapsedRealtime());
-ch.setFormat("%s");
-ch.start() ;
-ch.setOnChronometerTickListener (new Chronometer.OnChronometerTickListener() {
+Chronometer1.setBase(SystemClock.elapsedRealtime());
+Chronometer1.setFormat("%s");
+Chronometer1.start();
+Chronometer1.setOnChronometerTickListener (new Chronometer.OnChronometerTickListener() {
   @Override
   public void onChr onometer Tick (Chr onometer chr onometer) {
 
   }
 }
+```
 
+### 进度条 ProgressBar
+
+``` XML
+<ProgressBar
+  android:id="@+id/进度条ID"
+  style="?android:attr/progressBarStyleHorizontal"
+  android:max="100"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+/>
+```
+
+::: tip 提示
+可使用```style```属性设置进度条样式（默认旋转圆圈）
+:::
+
+``` Java
+private int mProgress = 0;
+private Handler Handler1;
+@0verride
+protected void onCreate (Bundle savedInstanceState) {
+  super.onCreate (savedInstanceState);
+  setContentView(R.layout.activity_main);
+  progressBar = (ProgressBar)findViewById(进度条ID);
+  Handler1 = new Handler () {
+    @Override
+    public void handleMessage (Message msg) {
+      if(msg.what == 0x111){
+        progressBar.setProgress(mProgress);
+        }else{
+          Toast.makeText(MainActivity.this,"耗时操作已完成",Toast.LENGTH_SHORT).show();
+          progressBar.setVisibility (View.GONE);
+      }
+
+    }
+};
+new Thread (new Runnab1p() {
+  @0verride
+  public void run() {
+    while(true){
+      mProgress = doWork();
+      Message m = new Message ();
+      if (mProgress<100) {
+        m.what=0x111;
+        Handler1.sendMessage(m);
+        }else{
+          m.what = 0x110;
+          Handler1.sendMessage(m);
+          break;
+        }
+    }
+  }
+  private int doWork(){
+    mProgress = mProgress + Math.random() * 10;
+    try{
+      Thread.sleep(200);
+    } catch(InterruptedException e){
+      e.printStackTrace();
+    }
+    return mProgress;
+  }
+}).start();
 ```
