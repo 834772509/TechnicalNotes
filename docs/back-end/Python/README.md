@@ -1269,3 +1269,10 @@ def 方法名称(参数名称):
 if __name__ == "__main__":
     app.run()
 ```
+
+### SQLAlchemy 数据库
+
+#### 安装
+
+```pip install pymysql```
+```pip install flask-sqlalchemy```
