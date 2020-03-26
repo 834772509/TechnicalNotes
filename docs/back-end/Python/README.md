@@ -86,6 +86,12 @@ for 目标 in range(5):
 lambda 参数1[,参数2] : 表达式
 ```
 
+### 格式化字符串
+
+``` Python
+print("内容：{}". format(字符串))
+```
+
 ## 集合
 
 集合中不允许数据重复，且没有索引
@@ -282,151 +288,160 @@ temp = input("请输入：")
 
 ## 文件读写
 
-### 文本模式
+### 打开文件
+
+``` Python
+文件对象 = open(文件路径,打开方式,[encoding=编码])
+```
+
+``` Python
+f = open('tmp.txt','w',encoding='utf8')
+```
+
+打开方式（字符串）
+
+* r : 只读
+* w : 只写
+* a : 在文件末尾附加
+* r+ : 读写
+
+### 写入文件
+
+``` Python
+文件对象.write("内容")
+```
+
+### 读入文件
+
+``` Python
+# 全部读取
+全部内容 = 文件对象.read()
+# 读取文件下一行
+一行内容 = 文件对象.readline()
+# 全部读取（返回列表，以换行符分割）
+全部内容列表 = 文件对象.readlines()
+```
+
+### 关闭文件
+
+``` Python
+文件对象.close()
+```
 
 ## 文件和目录操作
 
 ### 创建目录
 
-os.makedirs 可以递归的创建目录结构
-
 ``` python
 import os
 
-os.makedirs('tmp/python/fileop',exist_ok=True)
+os.makedirs(目录路径,exist_ok=True)
 ```
-
-会在当前工作目录下面创建 tmp目录，在tmp目录下面再创建 python目录，在Python目录下面再创建fileop目录  
-```exist_ok=True```指定了，如果某个要创建的目录已经存在，也不报错
 
 ### 删除文件或目录
 
-os.remove 可以删除一个文件
+* 删除文件
 
 ``` Python
-os.remove('sdf.py')
+os.remove(文件路径)
 ```
 
-shutil.rmtree() 可以递归的删除某个目录所有的子目录和子文件 比如
+* 删除目录
 
 ``` Python
 import shutil
-shutil.rmtree('tmp')
+
+shutil.rmtree(目录路径)
 ```
 
 ### 复制文件
 
-shutil 模块里面有很多 目录文件操作的函数
-复制文件，可以使用shutil模块的copyfile函数。
-比如
-
 ``` Python
 from shutil import copyfile
-# 拷贝 d:/tools/first.py 到 e:/first.py
-copyfile('d:/tools/first.py', 'e:/first.py')
+
+copyfile(源文件路径, 目标文件路径)
 ```
 
 ::: tip 提示
-如果复制前，e:/first.py 已经存在，则会被复制覆盖，所以使用该函数一定要小心。
+如果目标路径存在，则会被复制覆盖
 :::
 
 ### 复制目录
 
-如果我们要拷贝一个目录里面所有的内容（包括子目录和文件、子目录里面的子目录和文件，等等）到另外一个目录中，可以使用 shutil的copytree函数。
-
 ``` Python
 from shutil import copytree
-# 拷贝 d:/tools/aaa 目录中所有的内容 到 e:/bbb 中
-copytree('d:/tools/aaa', 'e:/new/bbb')
+
+copytree(源目录路径,目标目录路径)
 ```
 
-注意拷贝前， 目标目录必须 不存在 ，否则会报错。
-
-上面的代码执行前面，如果 e:/new/bbb 已经存在，执行到copytree时，就会报错
-
-上面的代码执行前面，如果 e:/new 这个目录都不存在，执行到copytree时，就会 创建 e:/new 目录，再创建 e:/new/bbb 目录，再拷贝 d:/tools/aaa 目录中所有的内容 到 e:/new/bbb 中。
-
-上面的代码执行前面，如果 e:/new 这个目录存在，但是 e:/new/bbb 不存在，执行到copytree时，就只会 创建 e:/new/bbb ，再拷贝 d:/tools/aaa 目录中所有的内容 到 e:/new/bbb 中。
+::: tip 提示
+如目标目录路径存在则会报错
+:::
 
 ### 修改文件名、目录名
-
-要修改文件名、目录名，可以使用os模块的rename函数。
 
 ``` Python
 import os
 
-# 修改目录名 d:/tools/aaa 为 d:/tools/bbb
-os.rename('d:/tools/aaa','d:/tools/bbb')
-# 修改文件名 d:/tools/first.py 为 d:/tools/second.py
-os.rename('d:/tools/first.py','d:/tools/second.py')
+# 修改目录名
+os.rename(原目录路径,目标路径+新目录名称)
+# 修改文件名
+os.rename(原文件路径,文件路径+新文件名称)
 ```
 
 ### 对文件路径名的操作
 
-对于文件名的操作，比如 获取文件名称，文件所在目录，文件路径的拼接等，都可以使用 os.path 模块。
-
-通常我们喜欢使用格式化字符串的方法来做文件路径的拼接，但是如果你的程序需要在Linux、Windows等多个平台运行，它们的路径的分隔符是不同的，Windows上是 \ , 而 Linux上是 /。
-
-这时，我们应该使用 os.path 模块。 它能够自动处理类似 Data/data.csv 和 Data\data.csv 这样的文件路径差异。
-
 ``` Python
 import os
-path = '/Users/beazley/Data/data.csv'
 
 # 获取路径中的文件名部分
-os.path.basename(path)
-'data.csv'
+os.path.basename(文件路径)
 # 获取路径中的目录部分
-os.path.dirname(path)
-'/Users/beazley/Data'
-# 文件路径的拼接
-os.path.join('tmp', 'data', os.path.basename(path))
-'tmp/data/data.csv'
+os.path.dirname(文件路径)
 ```
 
 ### 判断文件、目录是否存在
 
-如果我们需要判断一个指定路径的文件或者目录是否存在，可以使用下面的方法
-
 ``` Python
 import os
-os.path.exists('d:/systems/cmd.exe')
-os.path.exists('d:/systems')
+
+os.path.exists(文件路径)
+os.path.exists(目录路径)
 ```
 
-exists方法返回值为True表示 存在，否则表示不存在。
-
-如果你要判断指定路径是否是文件，可以这样
+### 判断路径是否为文件
 
 ``` Python
 import os
 
-# 返回值为True 表示是文件
-os.path.isfile('d:/systems/cmd.exe')
+os.path.isfile(文件路径)
 ```
 
-如果你要判断指定路径是否是目录，可以这样
+### 判断路径是否为目录
 
 ``` Python
 import os
 
-# 返回值为True 表示是目录
-os.path.isdir('d:/systems')
-获取文件的大小和日期
-os.path.getsize('/etc/passwd')
-3669
-os.path.getmtime('/etc/passwd')
-1272478234.0
+os.path.isdir(目录路径)
+```
+
+### 获取目录大小
+
+``` Python
+os.path.getsize(目录路径)
+```
+
+### 获取目录日期
+
+``` Python
 import time
-time.ctime(os.path.getmtime('/etc/passwd'))
-'Wed Apr 28 13:10:34 2010'
+
+os.path.getmtime(目录路径)
+time.ctime(os.path.getmtime(目录路径))
+# 'Wed Apr 28 13:10:34 2010'
 ```
 
 ### 递归的遍历目录下面所有的文件
-
-假如我们要获取某个目录中所有的 文件， 包括子目录里面的文件。 可以使用 os库中的walk方法
-
-比如我们要得到某个目录下面所有的子目录 和所有的文件，存放在两个列表中
 
 ``` Python
 import os
@@ -441,9 +456,9 @@ dirs  = []
 # dirnames 是列表对象，存放当前dirpath中的所有子目录名
 # filenames 是列表对象，存放当前dirpath中的所有文件名
 
-for (dirpath, dirnames, filenames) in os.walk(targetDir):
-   files += filenames
-   dirs += dirnames
+for (dirpath, 所有子目录, 所有文件名) in os.walk(targetDir):
+   files += 所有文件名
+   dirs += 所有子目录
 
 print(files)
 print(dirs)
@@ -457,7 +472,7 @@ import os
 ## 目标目录
 targetDir = r'd:\tmp\util\dist\check'
 
-files =  os.listdir(targetDir)
+files =  os.listdir(目标目录)
 print(files)
 ```
 
@@ -473,20 +488,18 @@ from os.path import isfile, join,isdir
 targetDir = r'd:\tmp\util\dist\check'
 
 ## 所有的文件
-print([f for f in os.listdir(targetDir) if isfile(join(targetDir, f))])
+print([f for f in os.listdir(目标目录) if isfile(join(目标目录, f))])
 
 ## 所有的目录
-print([f for f in os.listdir(targetDir) if isdir(join(targetDir, f))])
+print([f for f in os.listdir(目标目录) if isdir(join(目标目录, f))])
 ```
 
 ### 得到目录中指定扩展名的文件和子目录
 
-可以使用glob库
-
 ``` Python
 import glob
-exes = glob.glob(r'd:\tmp\*.txt')
 
+exes = glob.glob(r'文件路径')
 print(exes)
 ```
 
