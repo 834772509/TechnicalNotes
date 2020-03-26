@@ -40,6 +40,7 @@ module.exports = {
       {
         text: '其他',
         items: [
+          { text: 'Git', link: '/Other/Git/' },
           { text: 'WinPE', link: '/Other/WinPE/' },
         ]
       },
