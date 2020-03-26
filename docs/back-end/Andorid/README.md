@@ -412,3 +412,29 @@ new Thread (new Runnab1p() {
 * 可使用```android:isIndicator="true"```属性设置只读
 * 可使用```星级评分条.getRating()```方法获取当前选择的星级
 :::
+
+### 下拉列表
+
+``` xml
+<Spinner
+  android:id="@+id/下拉列表ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:entries="@array/数组名称"
+/>
+```
+
+新建\src\res\values\arrays.xml
+
+``` XML
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="数组名称">
+        <item>列表项1</item>
+        <item>列表项2</item>
+        <item>列表项3</item>
+    </string-array>
+</resources>
+```
+
+通过适配器指定列表项
