@@ -33,8 +33,7 @@ goto :eof
 ### 页面跳转
 
 ``` Java
-Intent intent = new Intent();
-intent.setClass(当前Activity名.this, 跳转Activity名.class);
+Intent intent = new Intent(this,跳转Activity名.class);
 startActivity(intent);
 ```
 
@@ -438,3 +437,6 @@ new Thread (new Runnab1p() {
 ```
 
 通过适配器指定列表项
+
+## Android与HTML5互调
+
