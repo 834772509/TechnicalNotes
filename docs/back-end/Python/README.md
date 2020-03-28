@@ -92,6 +92,21 @@ lambda 参数1[,参数2] : 表达式
 print("内容：{}". format(字符串))
 ```
 
+### 分割字符串
+
+``` Python
+字符串.split(分割符)
+```
+
+### with语法
+
+with语法用于简化try异常语句
+
+``` Python
+# 捕获异常方式
+with 命令 as 命令返回值
+```
+
 ## 集合
 
 集合中不允许数据重复，且没有索引
@@ -291,6 +306,9 @@ temp = input("请输入：")
 ### 打开文件
 
 ``` Python
+# 捕获异常方式
+with open(文件路径,打开方式,[encoding=编码]) as 文件对象:
+# 普通方式
 文件对象 = open(文件路径,打开方式,[encoding=编码])
 ```
 
@@ -507,21 +525,40 @@ print(exes)
 
 ### 环境搭建
 
-安装Requests：
+安装Requests（网络请求）：
 ```pip install requests```
 
-安装Beautifulsoup4：
+安装Beautifulsoup4（解析网页）：
 ```pip install bs4```
 
 ### 请求网址
 
 ``` Python
+import requests
+
 def open_url(url):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
     }
     res = requests.get(url, headers=headers)
     return res
+```
+
+### 返回数据
+
+``` Python
+res = open_url("网址")
+print(res.text)
+```
+
+### Json解析
+
+``` Python
+import json
+
+解析Json = json.loads(Json字符串)
+print(解析Json['message'])
+print(解析Json['data']['message'])
 ```
 
 ## Tkinter
