@@ -107,6 +107,23 @@ with语法用于简化try异常语句
 with 命令 as 命令返回值
 ```
 
+## 异常
+
+### 语法
+
+``` Python
+try:
+    pass
+except 错误类型:
+    pass
+except Exception as e:
+    print(traceback.format_exc(),"未知异常：",e)
+```
+
+::: tip 提示
+所有异常都是```Exception```的子类，可以匹配所有异常
+:::
+
 ## 集合
 
 集合中不允许数据重复，且没有索引
