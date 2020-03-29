@@ -30,6 +30,12 @@ goto :eof
 
 ## 基础命令
 
+### 打印输出
+
+``` Java
+Log.i("打印内容")
+```
+
 ### 页面跳转
 
 ``` Java
@@ -37,10 +43,61 @@ Intent intent = new Intent(this,跳转Activity名.class);
 startActivity(intent);
 ```
 
-返回页面：
+返回/结束页面：
 
 ``` Java
+finish();
 当前Activity名.this.finish();
+```
+
+### 页面间传递数据
+
+传递：
+
+``` Java
+Bundle bundle = new Bundle();
+bundle.putCharSequence("键1","值1");
+bundle.putCharSequence("键2","值2");
+
+Intent intent = new Intent(this,跳转Activity名.class);
+intent.putExtras(bundle);
+startActivity(intent);
+```
+
+获取：
+
+``` Java
+Intent intent = getIntent();
+Bundle bundle = intent.getExtras();
+String 值1 = bundle.getString("键1");
+String 值2 = bundle.getString("键2");
+```
+
+### 获取页面的返回值
+
+``` Java
+Intent intent = new Intent(this,跳转Activity名.class);
+startActivityForResult(intent,0x11);
+
+@Override
+protected void onActivityResult (int requestCode,int resultCode,Intent data){
+  super.onActivityResult(requestCode,resultCode, data);
+  if (requestCode == 0x11 && resultCode == 0x11) {
+    Bundle bundle = data.getExtras ();
+    int 值 = bundle.getInt("键");
+  }
+}
+```
+
+跳转的页面：
+
+``` Java
+Intent intent = getIntent();
+Bundle bundle = intent.getExtras();
+bundle.putInt("键","值");
+intent.putExtras(bundle);
+setResult(0x11,intent);
+finish();
 ```
 
 ### 多线程
@@ -52,8 +109,8 @@ new Thread(new Runnable() {
   @Override
   public void run() {
   }
-  }
-  ).start();
+}
+).start();
 ```
 
 2. 方法2
@@ -64,7 +121,7 @@ handler1.post(new Runnable() {
   @Override
   public void run() {
     handler1.postDelayed(this, 3000);
-    }
+  }
 });
 ```
 
@@ -436,7 +493,106 @@ new Thread (new Runnab1p() {
 </resources>
 ```
 
-通过适配器指定列表项
+通过适配器设置列表项：
+
+``` Java
+Spinner spinner = (ListView)findViewById(下拉列表ID);
+
+String [] 数组名称 = new String[]{"列表项1","列表项2"}
+ArrayAdpter<String> adapter = new ArrayAdpter<String>(this.android.R.layout.simple.list_item_1,数组名称)
+adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+spinner.setAdapter(adapter)
+```
+
+### 列表视图
+
+``` XML
+<ListView
+  android:id="@+id/列表视图ID"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:entries="@array/数组名称"
+/>
+```
+
+新建\src\res\values\arrays.xml
+
+``` XML
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="数组名称">
+        <item>列表项1</item>
+        <item>列表项2</item>
+    </string-array>
+</resources>
+```
+
+通过适配器设置列表项：
+
+``` Java
+ListView listView = (ListView)findViewById(列表视图ID);
+
+String [] 数组名称 = new String[]{"列表项1","列表项2"}
+ArrayAdpter<String> adapter = new ArrayAdpter<String>(this.android.R.layout.simple.list_item_1,数组名称)
+listView.setAdapter(adapter)
+```
+
+### 滚动视图
+
+::: tip 提示
+滚动视图中只能包含一个组件，一般包含其他布局（如线性布局）
+:::
+
+#### 垂直滚动
+
+``` XML
+<ScrollView
+  android:layout_width="math_parent"
+  android:layout_height="wrap_content">
+</ScrollView>
+```
+
+#### 水平滚动
+
+``` XML
+<HorizontalScrollView
+  android:layout_width="wrap_content"
+  android:layout_height="math_parent">
+</ScrollView>
+```
+
+### 选项卡
+
+将自带的布局改为```TabHost```，并删除padding边距
+
+``` XML
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@android:id/tabhost"
+  android:layout_width="math_parent"
+  android:layout_height="math_parent">
+  <TabWidget
+    android:id="@android:id/tabs"
+    android:layout_width="math_parent"
+    android:layout_height="wrap_content">
+  <TabWidget/>
+  <FrameLayout
+    android:id="@android:id/tabcontent"
+    android:layout_width="math_parent"
+    android:layout_height="math_parent">
+  </FrameLayout>
+</TabHost>
+```
+
+``` Java
+TabHost tabHost = (TabHost)findViewById(Android.R.id.tabhost);
+tabHost.setip();
+LayoutInflater inflater = LayoutInflater.from(this);
+inflater.inflate(R.layout.XML页名1,tabHost.getTabContentView());
+inflater.inflate(R.layout.XML页名2,tabHost.getTabContentView());
+
+tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Tab页面标题1").setContent(R.id.left))
+tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab页面标题2").setContent(R.id.right))
+```
 
 ## Android与HTML5互调
 
@@ -489,10 +645,10 @@ protected void onCreate(Bundle savedInstanceState) {
 <html lang="zh-CN">
 <script>
   function 函数名(){
-   
+
   }
   function 函数名([参数1][,参数2]){
-   
+
   }
 </script>
 </html>
