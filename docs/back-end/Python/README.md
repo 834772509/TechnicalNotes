@@ -1338,6 +1338,28 @@ def 方法名称(参数名称):
     return 参数名称
 ```
 
+### 蓝图
+
+蓝图是用于管理视图的一种方案
+
+``` Python
+from .蓝图名称 import 蓝图名称
+
+def init_view(app):
+    app.register_blueprint(蓝图名称)
+
+```
+
+蓝图名称.py
+
+``` Python
+from flask import Blueprint
+
+@blue.route('/')
+def index():
+    return 'Hello, World'
+```
+
 ### 渲染模板
 
 渲染模板用于后端渲染HTML5页面并返回至客户端
