@@ -1357,6 +1357,32 @@ templates\XXX.html
 <h1>{{参数名}}</h1>
 ```
 
+### Flsak-Script
+
+Flask-Script是用来管理命令行的相关命令
+
+#### 安装
+
+```pip install Flask-Script```
+
+#### 使用
+
+``` Python
+from flask_script import Manager
+
+manager = Manager(app)
+
+@manager.command
+def hello():
+    print "hello"
+
+if __name__ == "__main__":
+    manager.run()
+```
+
+运行 XXX.py hello  
+输出：```hello```
+
 ### SQLAlchemy 数据库
 
 #### 安装
