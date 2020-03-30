@@ -1286,6 +1286,42 @@ INSTALLED_APPS = [
 
 ```pip install Flask```
 
+### 模板
+
+``` Python
+from flask import Flask
+
+app = Flask(__name__)
+
+def hello_world():
+    return 'Hello, World!'
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+::: tip 提示
+
+* 在```app.run()```中加入```debug=True```即可自动刷新修改
+* 在```app.run()```中加入```threaded=True```即可开启多线程
+* 在```app.run()```中加入```post=8000```即可指定端口号
+* 在```app.run()```中加入```host=127.0.0.1```即可指定IP地址
+* 增加```Flask_ENV="develop"```环境变量即可设置生产环境
+:::
+
+### 配置跳转
+
+``` Python
+@app.route('/路径')
+def 方法名称():
+    return "内容"
+
+# methods用于指定请求方式（默认GET）
+@app.route('/路径',methods=['GET','POST'])
+def 方法名称():
+    return "内容"
+```
+
 ### 传参
 
 ``` Python
@@ -1304,6 +1340,8 @@ def 方法名称(参数名称):
 
 ### 渲染模板
 
+渲染模板用于后端渲染HTML5页面并返回至客户端
+
 ``` Python
 from flask import render_template
 
@@ -1317,24 +1355,6 @@ templates\XXX.html
 ``` HTML
 <!doctype html>
 <h1>{{参数名}}</h1>
-```
-
-### 模板
-
-``` Python
-from flask import Flask
-app = Flask(__name__)
-# methods用于指定请求方式（默认GET）
-@app.route('/',methods=['GET','POST'])
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/<参数名称>')
-def 方法名称(参数名称):
-    return 参数名称
-
-if __name__ == "__main__":
-    app.run()
 ```
 
 ### SQLAlchemy 数据库
