@@ -104,3 +104,93 @@ getDate()
 ``` jsp
 <%--注释内容--%>
 ```
+
+## 数据库
+
+### 连接数据库
+
+``` JSP
+<%
+try{
+  Class.forName("com.mysql.cj.jdbc.Driver");
+  } catch(ClassNotFoundException e){
+    out.print("装载驱动程序失败");
+  }
+try {
+  con=DriverManager.getConnection("jdbc:mysql://数据库地址:3306/数据库名?useSSL=FALSE&serverTimezone=UTC","用户名","密码");//3
+  } catch (SQLException e) {
+    out.print("链接数据库失败");
+    out.print("<br>错误信息：" + e);
+    e.printStackTrace();
+}
+%>
+```
+
+### 查询数据
+
+``` JSP
+<%
+try {
+  sql = con.createStatement();//4
+  rs=sql.executeQuery("SELECT * FROM 表名");//5
+} catch (SQLException e) {
+  out.print("<br>运行SQL语句失败");
+  e.printStackTrace();
+}
+while(rs.next()){
+  out.print(rs.getString(1));
+  out.print(rs.getString(2));
+  out.print(rs.getString("字段名"));
+}
+rs.close();
+sql.close();
+%>
+```
+
+### 增加数据
+
+``` JSP
+<%
+	String sql="insert into 表名 values(?,?)";
+	PreparedStatement pstmt = con.prepareStatement(sql);
+	pstmt.setString(1, 字段名1);
+	pstmt.setString(2, 字段名2);
+	if(pstmt.executeUpdate() == 1){
+		//增加成功
+	}
+	pstmt.close();
+	con.close();
+%>
+```
+
+### 修改数据
+
+``` JSP
+<%
+String sql="update 表名 set 字段名=?,字段名=? where 字段名=?";
+PreparedStatement pstmt = con.prepareStatement(sql);
+pstmt.setString(1, 字段值);
+pstmt.setString(2, 字段值);
+pstmt.setString(3, 字段值);
+if(pstmt.executeUpdate() == 1){
+  //修改成功
+}
+pstmt.close();
+con.close();
+%>
+```
+
+### 删除数据
+
+``` JSP
+<%
+String sql="delete from 表名 where 字段名=?";
+PreparedStatement pstmt = con.prepareStatement(sql);
+pstmt.setInt(1, 字段值);
+if(pstmt.executeUpdate() == 1){
+  //删除成功
+}
+pstmt.close();
+con.close();
+%>
+```
