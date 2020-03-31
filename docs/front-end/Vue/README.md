@@ -646,6 +646,23 @@ const routes = [
     })
 ```
 
+### 阻止重复点击报错
+
+\src\router\index.js
+
+``` js
+//重写路由push方法,阻止重复点击报错
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
+//重写路由replace方法,阻止重复点击报错
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err);
+};
+```
+
 ## Vuex
 
 ### 介绍
