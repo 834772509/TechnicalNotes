@@ -1447,6 +1447,56 @@ if __name__ == "__main__":
 ```pip install pymysql```
 ```pip install flask-sqlalchemy```
 
+### 定义模型
+
+App\models.py:
+
+``` Python
+from flask_sqlalchemy import SQLAlchemy
+
+models = SQLAlchemy()
+
+class 模型名称(models.Model):
+    字段名 = models.Column(models.数据类型)
+
+    id = models.Column(models.Integer, primary_key=True)
+    username = models.Column(models.String(16))
+```
+
+### 连接数据库
+
+``` Python
+  app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://数据库用户名:数据库密码@数据库地址:3306/数据库名"
+  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+```
+
+### 创建数据表
+
+``` Python
+from App.models import models
+
+models.create_all()
+```
+
+### 删除数据表
+
+``` Python
+from App.models import models
+
+models.drop_all()
+```
+
+### 增加数据
+
+``` Python
+from App.models import models
+
+user = 模型名称()
+user.字段名 = "字段值"
+models.session.add(user)
+models.session.commit()
+```
+
 ## Django
 
 ### 安装
