@@ -1357,6 +1357,16 @@ def 方法名称():
     return "内容"
 ```
 
+### 返回跳转
+
+``` Python
+from flask import redirect, url_for
+
+@app.route('/路径')
+def 方法名称():
+    return redirect(url_for('blue.get_any', an='a'))
+```
+
 ### 传参
 
 ``` Python
@@ -1372,6 +1382,17 @@ def 方法名称(参数名称):
 def 方法名称(参数名称):
     return 参数名称
 ```
+
+数据类型可取值：
+
+* ```int``` 接收整型
+* ```float``` 接收浮点型
+* ```string``` 接收没有任何斜杠'/'的数据
+* ```path``` 接收从path修饰开始的后面所有内容
+* ```uuid``` 只接收uuid字符串，唯一码
+* ```any``` 可以指定多种路径，进行限定  
+    只能访问/ a、/b 路径：  
+    @app.route('/路径/<any(a,b):参数名称>')
 
 ### 蓝图
 
@@ -1447,7 +1468,7 @@ if __name__ == "__main__":
 ```pip install pymysql```
 ```pip install flask-sqlalchemy```
 
-### 定义模型
+#### 定义模型
 
 App\models.py:
 
@@ -1463,14 +1484,14 @@ class 模型名称(models.Model):
     username = models.Column(models.String(16))
 ```
 
-### 连接数据库
+#### 连接数据库
 
 ``` Python
   app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://数据库用户名:数据库密码@数据库地址:3306/数据库名"
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 ```
 
-### 创建数据表
+#### 创建数据表
 
 ``` Python
 from App.models import models
@@ -1478,7 +1499,7 @@ from App.models import models
 models.create_all()
 ```
 
-### 删除数据表
+#### 删除数据表
 
 ``` Python
 from App.models import models
@@ -1486,7 +1507,7 @@ from App.models import models
 models.drop_all()
 ```
 
-### 增加数据
+#### 增加数据
 
 ``` Python
 from App.models import models
