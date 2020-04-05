@@ -1411,6 +1411,8 @@ def init_view(app):
 ``` Python
 from flask import Blueprint
 
+blue = Blueprint('蓝图名称', __name__)
+
 @blue.route('/')
 def index():
     return 'Hello, World'
