@@ -388,6 +388,53 @@ print()
 temp = input("请输入：")
 ```
 
+## 多线程
+
+### 使用
+
+``` Python
+from threading import Thread
+from time import sleep
+
+def 函数名():
+    pass
+
+线程名 = Thread(target=函数名)
+线程名.start()
+
+def 函数名(参数1,参数2):
+    pass
+
+线程名 = Thread(target=函数名,args=('参数1', '参数2'))
+线程名.start()
+```
+
+::: tip 提示
+
+* 可使用```sleep(时间)```进行延时，单位为秒
+* 可使用```线程名.join()```等待线程执行完成
+:::
+
+### 共享数据访问
+
+解决多个线程操作数据时的冲突问题，在申请获取锁之后其他线程暂时无法访问数据，直到申请释放锁
+
+``` Python
+from threading import Thread,Lock
+from time import sleep
+
+锁对象 = Lock()
+
+def 函数名():
+    # 操作共享数据前，申请获取锁
+    锁对象.acquire()
+
+    # 操作数据
+
+    # 操作完共享数据后，申请释放锁
+    锁对象.release()
+```
+
 ## 文件读写
 
 ::: tip 提示
