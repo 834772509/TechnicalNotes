@@ -642,6 +642,30 @@ res = open_url("网址")
 print(res.text)
 ```
 
+### HTML解析
+
+``` Python
+import bs4
+
+soup = bs4.BeautifulSoup(HTML内容, "html.parser")
+解析列表 = soup.find_all("解析标签名", class_="类名")
+for item in 解析列表:
+    print(item.解析标签名['属性名'])
+```
+
+``` Python
+import bs4
+
+soup = bs4.BeautifulSoup(res.text, "html.parser")
+titles = soup.find_all("li", class_="video-item matrix")
+for item in titles:
+    print(item.a['title'])
+```
+
+::: tip 提示
+可使用```.get_text()```方法获取HTML标签内容
+:::
+
 ### Json解析
 
 ``` Python
