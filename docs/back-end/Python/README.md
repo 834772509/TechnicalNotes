@@ -239,7 +239,7 @@ except Exception as e:
 列表名.append(要添加的元素)
 ```
 
-``` Python 
+``` Python
 # 以列表的形式追加新元素到原列表，每次可以添加多个元素，被添加的元素自动添加到列表末尾
 列表名.extend([元素1,元素2])，
 ```
@@ -250,12 +250,20 @@ except Exception as e:
 列表名.insert(追加的位置,元素)
 ```
 
+### 访问元素
+
+``` Python
+列表名[0]
+```
+
 ## 元组
 
 封闭的列表，一旦定义，就不可改变
 
+### 声明
+
 ``` Python
-元组名 = (1,2,3)
+元组名 = (元素1,元素2,元素3)
 ```
 
 ### 返回元组中元素最大值
@@ -1394,6 +1402,23 @@ def 方法名称(参数名称):
     只能访问/ a、/b 路径：  
     @app.route('/路径/<any(a,b):参数名称>')
 
+### GET传参
+
+``` Python
+from flask import request
+
+@app.route('/路径')
+def 方法名称(参数名称):
+    print(request.args)
+    # 获取指定值
+    print(request.args['GET参数名'])
+    # 获取指定key对应的所有值
+    print(request.args.getlist('GET参数名'))
+    return 参数名称
+```
+
+使用：```http:///网址/路径?GET参数1=值&GET参数2=值```
+
 ### 蓝图
 
 蓝图是用于管理视图的一种方案
@@ -1470,6 +1495,41 @@ if __name__ == "__main__":
 ```pip install pymysql```
 ```pip install flask-sqlalchemy```
 
+#### 常用的SQLAlchemy字段类型
+
+| 类型名          | python中类型          | 说明                            |
+|--------------|--------------------|-------------------------------|
+| Integer      | int                | 普通整数，一般是32位                   |
+| SmallInteger | int                | 取值范围小的整数，一般是16位               |
+| BigInteger   | int或long           | 不限制精度的整数                      |
+| Float        | float              | 浮点数                           |
+| Numeric      | decimal\.Decimal   | 普通整数，一般是32位                   |
+| String       | str                | 变长字符串                         |
+| Text         | str                | 变长字符串，对较长或不限长度的字符串做了优化        |
+| Unicode      | unicode            | 变长Unicode字符串                  |
+| UnicodeText  | unicode            | 变长Unicode字符串，对较长或不限长度的字符串做了优化 |
+| Boolean      | bool               | 布尔值                           |
+| Date         | datetime\.date     | 时间                            |
+| Time         | datetime\.datetime | 日期和时间                         |
+| LargeBinary  | str                | 二进制文件                         |
+
+#### 常用的SQLAlchemy关系选项
+
+| 选项名          | 说明                            |
+|--------------|-------------------------------|
+| primary\_key | 如果为True，代表表的主键                |
+| unique       | 如果为True，代表这列不允许出现重复的值         |
+| index        | 如果为True，为这列创建索引，提高查询效率        |
+| nullable     | 如果为True，允许有空值，如果为False，不允许有空值 |
+| default      | 为这列定义默认值                      |
+
+#### 连接数据库
+
+``` Python
+  app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://数据库用户名:数据库密码@数据库地址:3306/数据库名"
+  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+```
+
 #### 定义模型
 
 App\models.py:
@@ -1480,18 +1540,19 @@ from flask_sqlalchemy import SQLAlchemy
 models = SQLAlchemy()
 
 class 模型名称(models.Model):
-    字段名 = models.Column(models.数据类型)
+    __tablename__ = '表名'
+    字段名 = models.Column(models.字段类型)
 
+class Student(models.Model):
+    __tablename__ = 'Student'
     id = models.Column(models.Integer, primary_key=True)
-    username = models.Column(models.String(16))
+    name = models.Column(models.String(20))
+    password = models.Column(models.String(256))
 ```
 
-#### 连接数据库
-
-``` Python
-  app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://数据库用户名:数据库密码@数据库地址:3306/数据库名"
-  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-```
+::: tip 提示
+表名可以不定义，默认表名为模型名称
+:::
 
 #### 创建数据表
 
@@ -1509,14 +1570,46 @@ from App.models import models
 models.drop_all()
 ```
 
+#### 查询数据
+
+``` Python
+
+```
+
 #### 增加数据
 
 ``` Python
 from App.models import models
 
-user = 模型名称()
-user.字段名 = "字段值"
-models.session.add(user)
+对象 = 模型名称(字段名="字段值"[,字段名="字段值"])
+models.session.add(对象)
+models.session.commit()
+
+# 增加多个数据
+对象1 = 模型名称(字段名="字段值"[,字段名="字段值"])
+对象2 = 模型名称(字段名="字段值"[,字段名="字段值"])
+对象3 = 模型名称(字段名="字段值"[,字段名="字段值"])
+models.session.add_all([对象1,对象2,对象3])
+models.session.commit()
+```
+
+#### 删除数据
+
+``` Python
+from App.models import models
+
+对象 = 模型名称(字段名="字段值")
+models.session.delete(对象)
+models.session.commit()
+```
+
+#### 修改数据
+
+``` Python
+from App.models import models
+
+对象 = 模型名称(字段名="字段值")
+对象.字段名 = "字段值"
 models.session.commit()
 ```
 
