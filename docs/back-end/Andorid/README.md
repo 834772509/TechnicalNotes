@@ -102,7 +102,7 @@ finish();
 
 ### 多线程
 
-1. 方法1
+* 方法1
 
 ``` Java
 new Thread(new Runnable() {
@@ -113,7 +113,7 @@ new Thread(new Runnable() {
 ).start();
 ```
 
-2. 方法2
+* 方法2
 
 ``` Java
 final Handler handler1 = new Handler();
