@@ -25,7 +25,7 @@ if(mysqli_connect_errno()){
 }
 ```
 
-## 查询数据
+### 查询数据
 
 遍历表：
 
