@@ -24,9 +24,7 @@ const 变量名;
 * String : 字符串
 * Boolearn : 布尔值
 
-### 引用对象
-
-#### Object 对象
+### Object 对象
 
 ``` JavaScript
 let 对象名 = {
@@ -43,95 +41,6 @@ let 对象名 = {
 
 ``` JavaScript
 console.log(对象名.键名)
-```
-
-### 数组
-
-#### 声明
-
-``` JavaScript
-let 变量名 = ['值1','值2','值3','值4']
-```
-
-#### 使用
-
-``` JavaScript
-console.log(变量名[0])
-```
-
-#### 获取数组长度
-
-``` JavaScript
-console.log(变量名.length)
-```
-
-#### 获取指定数据索引
-
-``` JavaScript
-变量名.indexOf(指定数据)
-```
-
-#### 遍历数组
-
-``` JavaScript
-数组名.forEach(function(item){
-  console.log(item)
-})
-```
-
-``` JavaScript
-for(let item of 数组名){
-  console.log(item)
-}
-```
-
-``` JavaScript
-for(let n in 数组名){
-  console.log(数组名[n])
-}
-```
-
-#### unshift
-
-在数组最签前面增加元素（支持多个参数）
-
-``` javaScript
-数组名.unshift(元素名称)
-```
-
-#### push
-
-在数组最后增加元素（支持多个参数）
-
-``` javaScript
-数组名.push(元素名称)
-```
-
-#### shift
-
-删除数组第一个元素
-
-``` javaScript
-数组名.shift()
-```
-
-#### pop
-
-删除数组最后的一个元素
-
-``` javaScript
-数组名.pop()
-```
-
-#### splice
-
-``` JavaScript
-//删除元素：
-数组名.splice(位置,删除几个元素)
-//插入元素：
-数组名.splice(位置,0,插入的元素[,插入的元素]...)
-//替换元素：
-数组名.splice(位置,替换几个元素,替换的值[,替换的值]...)
 ```
 
 ### 函数
@@ -164,75 +73,6 @@ const 箭头函数 = (参数1,参数2) =>{
 }
 ```
 
-### 高阶函数
-
-#### filter
-
-**filter**函数一般用于过滤满足条件的数组数据  
-
-filter中的的回调函数需要返回一个布尔值
-
-* true : 函数内部会自动将这次回调的item加入到新的数组中
-* false : 函数内部会过滤掉这次的item
-
-``` javaScript
-let 新数组名 = 数组名.filter( (item) => {
-
-})
-```
-
-``` javaScript
-//需求：过滤数组中小于50的数字
-let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-let newnubs = nums.filter( (item) => {
-    return item < 50
-})
-console.log(newnubs)
-//结果：[10, 20, 40, 50]
-```
-
-#### map
-
-**map**函数一般用于批量改变数组中的数据
-
-返回值为加入到新的数组中的数据
-
-``` javaScript
-let 新数组名 = 数组.map( (item) => {
-
-})
-```
-
-``` javaScript
-//需求：将数组中的左右数据都乘2
-newnubs = [10, 20, 40, 50]
-let new2nums = newnubs.map( (item) => {
-    return item * 2
-})
-console.log(newnubs)
-//结果：[20, 40, 80, 100]
-```
-
-#### reduce
-
-**reduce**一般对数组中的所有内容进行汇总（例如将数组中的数据相加/相乘，返回一个总和）
-
-``` javaScript
-新数组名称 = 数组名称.reduce((上一次值, item) => {
-
-}, 初始值)
-```
-
-``` javaScript
-//需求：将数组内的所有数字进行求和
-new2Nums = [20, 40, 80, 100]
-total = new2Nums.reduce((preValue, item) => {
-  return preValue + item
-}, 0)
-console.log(total)
-//结果：240
-```
-
 ### 与或非
 
 * 与：```&&```
@@ -257,6 +97,95 @@ calss 类名{
 
   }
 }
+```
+
+## 数组
+
+### 声明
+
+``` JavaScript
+let 变量名 = ['值1','值2','值3','值4']
+```
+
+### 使用
+
+``` JavaScript
+console.log(变量名[0])
+```
+
+### 获取数组长度
+
+``` JavaScript
+console.log(变量名.length)
+```
+
+### 获取指定数据索引
+
+``` JavaScript
+变量名.indexOf(指定数据)
+```
+
+### 遍历数组
+
+``` JavaScript
+数组名.forEach(function(item){
+  console.log(item)
+})
+```
+
+``` JavaScript
+for(let item of 数组名){
+  console.log(item)
+}
+```
+
+``` JavaScript
+for(let n in 数组名){
+  console.log(数组名[n])
+}
+```
+
+### unshift
+
+在数组最签前面增加元素（支持多个参数）
+
+``` javaScript
+数组名.unshift(元素名称)
+```
+
+### push
+
+在数组最后增加元素（支持多个参数）
+
+``` javaScript
+数组名.push(元素名称)
+```
+
+### shift
+
+删除数组第一个元素
+
+``` javaScript
+数组名.shift()
+```
+
+### pop
+
+删除数组最后的一个元素
+
+``` javaScript
+数组名.pop()
+```
+
+### splice
+
+``` JavaScript
+//删除元素：
+数组名.splice(位置,删除几个元素)
+//插入元素：
+数组名.splice(位置,0,插入的元素[,插入的元素]...)
+//替换元素：
+数组名.splice(位置,替换几个元素,替换的值[,替换的值]...)
 ```
 
 ## 常用方法
@@ -340,6 +269,75 @@ randomNum(min, max) {
 
 ``` JavaScript
 location.href='页面路径'
+```
+
+## 高阶函数
+
+### filter
+
+**filter**函数一般用于过滤满足条件的数组数据  
+
+filter中的的回调函数需要返回一个布尔值
+
+* true : 函数内部会自动将这次回调的item加入到新的数组中
+* false : 函数内部会过滤掉这次的item
+
+``` javaScript
+let 新数组名 = 数组名.filter( (item) => {
+
+})
+```
+
+``` javaScript
+//需求：过滤数组中小于50的数字
+let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+let newnubs = nums.filter( (item) => {
+    return item < 50
+})
+console.log(newnubs)
+//结果：[10, 20, 40, 50]
+```
+
+### map
+
+**map**函数一般用于批量改变数组中的数据
+
+返回值为加入到新的数组中的数据
+
+``` javaScript
+let 新数组名 = 数组.map( (item) => {
+
+})
+```
+
+``` javaScript
+//需求：将数组中的左右数据都乘2
+newnubs = [10, 20, 40, 50]
+let new2nums = newnubs.map( (item) => {
+    return item * 2
+})
+console.log(newnubs)
+//结果：[20, 40, 80, 100]
+```
+
+### reduce
+
+**reduce**一般对数组中的所有内容进行汇总（例如将数组中的数据相加/相乘，返回一个总和）
+
+``` javaScript
+新数组名称 = 数组名称.reduce((上一次值, item) => {
+
+}, 初始值)
+```
+
+``` javaScript
+//需求：将数组内的所有数字进行求和
+new2Nums = [20, 40, 80, 100]
+total = new2Nums.reduce((preValue, item) => {
+  return preValue + item
+}, 0)
+console.log(total)
+//结果：240
 ```
 
 ## ＤＯＭ
