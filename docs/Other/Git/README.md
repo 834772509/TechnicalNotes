@@ -31,6 +31,12 @@ echo 仓库初始化完毕，可使用Vscode直接同步
 pause
 ```
 
+## 克隆Git
+
+``` bat
+git clone http://XXX.git
+```
+
 ## 拉取Git
 
 ``` bat

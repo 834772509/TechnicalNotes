@@ -1561,6 +1561,17 @@ if __name__ == "__main__":
 运行 XXX.py hello  
 输出：```hello```
 
+### Flsak-jsonify
+
+Flsak-jsonify用来数据进行格式化为json数据
+
+``` Python
+from flask import jsonify
+
+dara = {'字段': 值}
+return jsonify(dara)
+```
+
 ### SQLAlchemy 数据库
 
 #### 安装
