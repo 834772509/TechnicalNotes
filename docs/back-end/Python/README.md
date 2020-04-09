@@ -1568,6 +1568,16 @@ if __name__ == "__main__":
 ```pip install pymysql```
 ```pip install flask-sqlalchemy```
 
+#### 解决跨域问题
+
+```pip install flask_cors```
+
+``` Python
+from flask_cors import *
+
+CORS(app, supports_credentials=True)
+```
+
 #### 常用的SQLAlchemy字段类型
 
 | 类型名          | python中类型          | 说明                            |
