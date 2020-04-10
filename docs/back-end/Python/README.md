@@ -1448,7 +1448,7 @@ def 方法名称():
     return redirect(url_for('blue.get_any', an='a'))
 ```
 
-### 传参
+### 路径传参
 
 ``` Python
 @app.route('/路径/<参数名称>')
@@ -1475,7 +1475,7 @@ def 方法名称(参数名称):
     只能访问/ a、/b 路径：  
     @app.route('/路径/<any(a,b):参数名称>')
 
-### GET传参
+### URL传参
 
 ``` Python
 from flask import request
@@ -1667,12 +1667,22 @@ models.drop_all()
 #### 查询数据
 
 ``` Python
+# filter方法
 模型名称.query.filter(模型名称.字段名=="字段值").查询执行器()
+# 访问
+模型名称.query.filter(模型名称.字段名=="字段值").查询执行器().字段值
 
+# filter_by方法
 模型名称.query.filter_by(字段名="字段值").查询执行器()
+# 访问
+模型名称.query.filter_by(字段名="字段值").查询执行器().字段值
+```
 
+``` Python
 # 查询数据
 print("查询的结果：", User.query.filter_by(name='zhou').all())
+# 输出查询值
+print("查询的结果：", User.query.filter_by(name='zhou').all().name)
 # 查询数量
 print("查询的结果：", User.query.filter_by(name='zhou').count())
 ```
