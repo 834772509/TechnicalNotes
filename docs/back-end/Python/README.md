@@ -18,16 +18,23 @@ index-url=http://mirrors.aliyun.com/pypi/simple/
 trusted-host=mirrors.aliyun.com
 ```
 
+## 导出/导出项目依赖
+
+### 导入
+
+```pip install -r requirements.txt```
+
+### 导出
+
+安装pipreqs：```pip install pipreqs```
+
+1. 进入项目目录
+2. 输入```pipreqs ./ --encoding utf8```
+
 ## 打包程序
 
 安装PyInstalle：```pip install pyinstaller```
-
-```  bat
-@echo off
-rem set /p exepath=请输入Python源码的位置：
-set exepath=D:\Homework\Python\_窗口Demo.py
-pyinstaller -F -w --clean "%exepath%"
-```
+打包：```pyinstaller -F -w --clean "源码路径"```
 
 ## 数据类型
 

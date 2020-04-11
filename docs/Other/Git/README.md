@@ -14,21 +14,14 @@
 
 ```git config --global user.email XXX@qq.com```
 
-## 一键初始化Git
+## 初始化Git
 
 ``` bat
-@echo off
-set /p dirpath=请输入要初始化的路径：
-set /p gitpath=请输入Git仓库路径：`
-
-cd /d %dirpath%
+cd /d 项目目录
 git init
-git commit -m "first commit"
-git remote add origin "%gitpath%"  
+git commit -m "首次提交"
+git remote add origin "Git路径"  
 git pull --rebase origin master
-rem git push -u origin master
-echo 仓库初始化完毕，可使用Vscode直接同步
-pause
 ```
 
 ## 克隆Git
