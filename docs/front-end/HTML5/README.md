@@ -23,6 +23,25 @@
 </html>
 ```
 
+## 美化进度条
+
+``` CSS
+::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+  background: hsla(0, 0%, 100%, 0.6);
+}
+::-webkit-scrollbar-track {
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: rgb(66,66,66);
+  transition: all .2s;
+  border-radius: .5rem;
+}
+```
+
 ## 常用导入语句
 
 ### 导入CSS
