@@ -36,7 +36,33 @@ goto :eof
 Log.i("打印内容")
 ```
 
-### 页面跳转
+### 退出程序
+
+``` Java
+System.exit(0);
+```
+
+### 连续返回两次则退出程序
+
+``` Java
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+  if (keyCode == KeyEvent.KEYCODE_BACK){
+    if ((System.currentTimeMillis() - exitTime) >2000){
+      Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+      exitTime = System.currentTimeMillis();
+    }else {
+        System.exit(0);
+      }
+      return true;
+  }
+  return super.onKeyDown(keyCode, event);
+}
+```
+
+## 页面跳转
+
+### 常规跳转
 
 ``` Java
 Intent intent = new Intent(this,跳转Activity名.class);
@@ -49,6 +75,10 @@ startActivity(intent);
 finish();
 当前Activity名.this.finish();
 ```
+
+::: tip 提示
+可使用```intent.setFlags(intent.FLAG_ACTIVITY_NO_HISTORY);```设置返回到桌面后再次访问时不保留此页面
+:::
 
 ### 页面间传递数据
 
@@ -100,6 +130,47 @@ setResult(0x11,intent);
 finish();
 ```
 
+### 跳转至拨打电话界面
+
+``` Java
+Intent intent = new Intent();
+intent.setAction(intent.ACTION_DIAL);
+intent.setData(Uri.parse("tel:电话号码"));
+startActivity(intent);
+```
+
+增加权限：```<uses-permission android:name="android.permission.CALL_PHONE"/>```
+
+### 跳转至发送短信界面
+
+``` Java
+Intent intent = new Intent();
+intent.setAction(intent.ACTION_SENDTO);
+intent.setData(Uri.parse("smsto:短信号码"));
+intent.putExtra("sms_body","短信内容");
+startActivity(intent);
+```
+
+增加权限：```<uses-permission android:name="android.permission.SEND_SMS"/>```
+
+### 跳转至桌面（不退出）
+
+``` Java
+Intent intent = new Intent();
+intent.setAction(intent.ACTION_MAIN);
+intent.addCategory(intent.CATEGORY_HOME);
+startActivity(intent);
+```
+
+### 跳转到网页（以默认浏览器打开）
+
+``` Java
+Intent intent = new Intent();
+intent.setAction(intent.ACTION_VIEW);
+intent.setData(Uri.parse("网页地址"));
+startActivity(intent);
+```
+
 ### 多线程
 
 * 方法1
@@ -125,6 +196,14 @@ handler1.post(new Runnable() {
 });
 ```
 
+### 显示Toast提示
+
+``` Java
+Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
+```
+
+## MediaPlay
+
 ### 播放音乐
 
 ``` Java
@@ -132,12 +211,6 @@ try {
   mMediaPlayer = MediaPlayer.create(this, R.drawable.音乐资源名称);
   mMediaPlayer.start();
   } catch (Exception e) {}
-```
-
-### 显示Toast提示
-
-``` Java
-Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
 ```
 
 ## 界面布局
@@ -592,6 +665,58 @@ inflater.inflate(R.layout.XML页名2,tabHost.getTabContentView());
 
 tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Tab页面标题1").setContent(R.id.left))
 tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab页面标题2").setContent(R.id.right))
+```
+
+## 事件监听
+
+### 触摸监听
+
+``` Java
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+  Toast.makeText(this, "onTouchEvent方法", Toast.LENGTH_SHORT).show();
+  return super.onTouchEvent(event);
+}
+```
+
+### 物理按键监听
+
+监听物理 音量键、电源键、菜单键、主屏键、返回键
+
+#### 返回键
+
+``` java
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+  if (keyCode == KeyEvent.KEYCODE_BACK){
+
+  }
+  return super.onKeyDown(keyCode, event);
+}
+```
+
+::: tip 提示
+
+* 菜单键：```KEYCODE_MENU```
+* 主屏键：```KEYCODE_HOME```
+* 返回键：```KEYCODE_BACK```
+* 音量加：```KEYCODE_VOLUME_UP```
+* 音量减：```KEYCODE_VOLUME_DOWN```
+* 电源键：```KEYCODE_POWER```
+
+:::
+
+### 长按事件
+
+``` Java
+组件 = (组件类型) findViewById(R.id.组件ID);
+组件.setOnLongClickListener(new View.OnLongClickListener() {
+  @Override
+  public boolean onLongClick(View v) {
+    Toast.makeText(MainActivity.this, "长按事件", Toast.LENGTH_SHORT).show();
+    return false;
+  }
+});
 ```
 
 ## Android与HTML5互调
