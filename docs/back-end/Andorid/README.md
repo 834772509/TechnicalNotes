@@ -671,6 +671,21 @@ tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab页面标题2").setCo
 
 ### 触摸监听
 
+### 基于监听器（优先级较高）
+
+``` Java
+组件.setOnTouchListener(new View.OnTouchListener() {
+@Override
+public boolean onTouch(View v, MotionEvent event) {
+  //X: event.getX()
+  //Y: event.getY()
+  return false;
+  }
+});
+```
+
+### 基于回调
+
 ``` Java
 @Override
 public boolean onTouchEvent(MotionEvent event) {
@@ -683,12 +698,10 @@ public boolean onTouchEvent(MotionEvent event) {
 
 监听物理 音量键、电源键、菜单键、主屏键、返回键
 
-#### 返回键
-
 ``` java
 @Override
 public boolean onKeyDown(int keyCode, KeyEvent event) {
-  if (keyCode == KeyEvent.KEYCODE_BACK){
+  if (keyCode == KeyEvent.按键码){
 
   }
   return super.onKeyDown(keyCode, event);
@@ -696,6 +709,8 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 ```
 
 ::: tip 提示
+
+按键码：
 
 * 菜单键：```KEYCODE_MENU```
 * 主屏键：```KEYCODE_HOME```
@@ -709,7 +724,6 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 ### 长按事件
 
 ``` Java
-组件 = (组件类型) findViewById(R.id.组件ID);
 组件.setOnLongClickListener(new View.OnLongClickListener() {
   @Override
   public boolean onLongClick(View v) {
