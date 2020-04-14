@@ -667,6 +667,14 @@ tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Tab页面标题1").setCo
 tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab页面标题2").setContent(R.id.right))
 ```
 
+## 坐标系
+
+当一个设备被放在其默认的方向上时（竖屏）
+
+* X轴是水平指向右的
+* Y轴是垂直向上的
+* Z轴是指向屏幕正面之外，即屏幕背面是Z的负值
+
 ## 事件监听
 
 ### 触摸监听

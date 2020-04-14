@@ -36,13 +36,13 @@
 
 安装Vue脚手架：```npm install -g @vue/cli```
 
-1. ```vue ui``` 可视化创建项目
-2. ```vue create 命令行项目目录```
+* ```vue ui``` 可视化创建项目
+* ```vue create 命令行项目目录```
 
-    Router:路由
-    Unit Tests:单元测试
-    Linter / Formatter:Eslint代码规范检测
-    选择Runtime-only（性能更好，所使用的代码量更少）
+Router:路由  
+Unit Tests:单元测试  
+Linter / Formatter:Eslint代码规范检测  
+选择Runtime-only（性能更好，所使用的代码量更少）
 
 ## 启动项目
 
