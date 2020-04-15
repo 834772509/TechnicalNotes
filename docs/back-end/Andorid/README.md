@@ -202,6 +202,83 @@ handler1.post(new Runnable() {
 Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
 ```
 
+## 资源
+
+### 字符串资源
+
+\res\values\strings.xml
+
+``` XML
+<resources>
+    <string name="字符串名称">字符串</string>
+</resources>
+```
+
+使用：
+
+``` XML
+android:text="@string/字符串名称"
+```
+
+``` Java
+组件.setText(getResources().getString(R.string.字符串名称));
+```
+
+::: tip 提示
+```string```是小写，不能大写
+:::
+
+### 颜色资源
+
+格式：```#透明度 R值 G值 B值```（各值间**没有空格**，RGB值为十六进制，透明度可省略）  
+
+\res\values\strings.xml
+
+``` XML
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="颜色名称">#透明度 R值 G值 B值</color>
+</resources>
+```
+
+使用：
+
+``` XML
+android:textColor="@color/颜色名称"
+```
+
+``` Java
+组件.setTextColor(getResources().getColor(R.color.颜色名称));
+```
+
+### 尺寸资源
+
+* dp: 设置资源大小
+* sp: 设置字体大小
+
+\res\values\dimens.xml （如没有则需要自行建立）
+
+``` XML
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="尺寸名称">尺寸dp</dimen>
+</resources>
+```
+
+使用：
+
+``` XML
+android:textSize="@dimen/尺寸名称"
+```
+
+``` Java
+组件.setTextSize(getResources().getDimension(R.dimen.尺寸名称));
+```
+
+### Drawable资源
+
+
+
 ## MediaPlay
 
 ### 播放音乐
@@ -218,6 +295,13 @@ try {
 ::: tip 提示
 在Android中，不允许线程更新程序界面，需要使用```Handler```对象来更新UI，充当子线程和UI主线程的信使
 :::
+
+
+### 包含XML布局
+
+``` XML
+<include layout="@layout/XML名称"></include>
+```
 
 ### 按钮 Button
 
