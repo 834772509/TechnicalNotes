@@ -23,6 +23,7 @@ module.exports = {
           { text: 'HTML5', link: '/front-end/HTML5/' },
           { text: 'JavaScript', link: '/front-end/JavaScript/' },
           { text: 'Vue', link: '/front-end/Vue/' },
+          { text: 'Electron', link: '/front-end/Electron/' },
         ]
       },
       {
