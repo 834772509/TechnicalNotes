@@ -109,3 +109,16 @@ if (mysqli_query($conn, $sql)) {
 ``` PHP
 mysqli_affected_rows($数据库对象)
 ```
+
+## 数据库 PDO
+
+### 连接数据库
+
+``` PHP
+$PDO对象 = "数据库类型:host=数据库地址;dbname=数据库名称";
+$数据库对象 = new PDO($PDO对象,'数据库用户名','数据库密码');
+```
+
+::: tip 提示
+数据库类型可取```mysql```
+:::
