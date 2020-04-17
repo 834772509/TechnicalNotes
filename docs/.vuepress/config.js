@@ -41,6 +41,7 @@ module.exports = {
       {
         text: '其他',
         items: [
+          { text: '软件测试', link: '/Other/SoftTest/' },
           { text: 'Git', link: '/Other/Git/' },
           { text: 'WinPE', link: '/Other/WinPE/' },
         ]
