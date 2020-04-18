@@ -1,4 +1,4 @@
-# **Java 笔记**
+# Java 笔记
 
 ::: tip 说明
 笔记中列出的方法是作者 常用的方法(尤其是构造方法) 和 了解的方法 所以并不完全. ^_^
@@ -581,3 +581,28 @@ public class DBUtil {
     3. 实体类：用于存放与传输对象数据。
 
     4. 数据库连接和关闭工具类： 避免了数据库连接和关闭代码的重复使用，方便修改。
+
+## Maven
+
+### 下载
+
+[Maven](https://maven.apache.org/download.cgi)
+
+### 配置环境变量
+
+```maven\bin```
+
+### 配置淘宝镜像
+
+maven\conf\settings.xml
+
+``` XML
+<mirrors>
+  <mirror>
+   <id>alimaven</id>
+   <mirrorOf>central</mirrorOf>
+   <name>aliyun maven</name>
+   <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+   </mirror>
+</mirrors>
+```
