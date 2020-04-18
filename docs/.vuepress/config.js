@@ -31,11 +31,11 @@ module.exports = {
         items: [
           { text: 'Andorid', link: '/back-end/Andorid/' },
           { text: 'Java', link: '/back-end/Java/' },
+          { text: 'SpringBoot', link: '/back-end/SpringBoot/' },
           { text: 'JavaWeb', link: '/back-end/JavaWeb/' },
           { text: 'Python', link: '/back-end/Python/' },
           { text: 'SQL数据库', link: '/back-end/SQL/' },
           { text: 'PHP', link: '/back-end/PHP/' },
-          { text: '数据结构', link: '/back-end/DataStructure/' },
         ]
       },
       {
