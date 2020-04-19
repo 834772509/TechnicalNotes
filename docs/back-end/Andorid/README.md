@@ -277,7 +277,65 @@ android:textSize="@dimen/尺寸名称"
 
 ### Drawable资源
 
+Drawable目录 一般用来存放图片等文件
 
+使用：
+
+``` XML
+android:background="@drawable/资源名称"
+```
+
+``` Java
+组件.setBackground(getResources().getDrawable(R.drawable.资源名称（不带后缀）);
+```
+
+### StateListDrawable资源
+
+StateListDrawable资源一般用于控制焦点事件
+
+### 主题资源
+
+\res\values\styles.xml
+
+``` XML
+<resources>
+  <style name="主题名称" parent="AppTheme">
+   <item name="属性">值</item>
+   <item name="android:属性">值</item>
+  </style>
+</resources>
+
+```
+
+全局使用：
+
+AndroidMainifest.xml
+
+``` XML
+android:theme="@style/主题名称"
+```
+
+局部使用：
+
+``` Java
+setTheme(R.style.主题名称)
+setContentView(R.layout.activity_main);
+```
+
+::: tip 提示
+在Java代码中需要在```setContentView```方法前使用```setTheme```，否则不起作用
+:::
+
+### 菜单资源
+
+\res\menu\menu.xml （如没有则需要自行建立）
+
+``` XML
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/message1" android:title="标题"></item>
+</menu>
+```
 
 ## MediaPlay
 
@@ -296,6 +354,22 @@ try {
 在Android中，不允许线程更新程序界面，需要使用```Handler```对象来更新UI，充当子线程和UI主线程的信使
 :::
 
+### 标题栏
+
+
+显示标题栏：
+
+``` Java
+ActionBar actionBar = getActionBar();
+actionBar.show();
+```
+
+隐藏标题栏：
+
+``` Java
+ActionBar actionBar = getActionBar();
+actionBar.hide();
+```
 
 ### 包含XML布局
 
@@ -916,3 +990,28 @@ public void 函数名(String msg) {
 ::: tip 提示
 每个函数声明前都需要加```@JavascriptInterface```，否则无法调用
 :::
+
+## QMUI
+
+### 导入
+
+Gradle Scripts\build.grade(Moudule: app)
+
+``` gradle
+dependencies {
+    implementation 'com.qmuiteam:qmui:2.0.0-alpha07'
+}
+```
+
+### 使用
+
+\res\values\styles.xml
+
+``` XML
+<resources>
+  <style name="AppTheme" parent="QMUI">
+
+  </style>
+</resources>
+
+```
