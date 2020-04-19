@@ -34,7 +34,8 @@
 
 ## 创建项目
 
-安装Vue脚手架：```npm install -g @vue/cli```
+安装WebPack：```npm install webpack -g```
+安装Vue脚手架：```npm install @vue/cli -g```
 
 * ```vue ui``` 可视化创建项目
 * ```vue create 命令行项目目录```
