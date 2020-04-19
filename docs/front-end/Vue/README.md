@@ -39,10 +39,11 @@
 * ```vue ui``` 可视化创建项目
 * ```vue create 命令行项目目录```
 
-Router:路由  
-Unit Tests:单元测试  
-Linter / Formatter:Eslint代码规范检测  
-选择Runtime-only（性能更好，所使用的代码量更少）
+* Router:路由
+* Unit Tests:单元测试
+* Linter / Formatter:Eslint代码规范检测（不推荐选择）
+* 选择Runtime-only（性能更好，所使用的代码量更少）
+* 选择```dist-sass```，```node-sass```编译缓慢
 
 ## 启动项目
 
@@ -1427,8 +1428,8 @@ Vue.prototype.$wow = wow
 
 ``` Vue
 <template>
-  <div class="test_wow">
-    <section class="wow 动画样式名称 test_wow1" data-wow-duration="1s"></section>
+  <div>
+    <div class="wow 动画样式名称 test_wow1" data-wow-duration="1s"></div>
   </div>
 </template>
 
