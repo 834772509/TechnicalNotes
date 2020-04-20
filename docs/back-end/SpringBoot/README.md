@@ -65,3 +65,56 @@ SpringBoot使用一个全局的配置文件，配置文件名```application```�
 **松散绑定**：例如Person中有`lastName`属性，在配置文件中可以写成
 
 `lastName`或`lastname`或`last-name`或`last_name`等等
+
+
+
+## 模版引擎 thymeleaf
+
+### 导入
+
+\pom.xml
+
+``` xml
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
+### 使用
+
+\src\main\resources\templates\页面名称.html
+
+``` html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>参数：<span th:text="${参数名}"></span></h1>
+
+</body>
+</html>
+```
+
+``` Java
+@Controller
+public class HelloController {
+   //普通使用：
+    @RequestMapping("/XXX")
+    public String XXX(){
+        return  "页面名称";
+    }
+    //传参：
+    @RequestMapping("/XXX")
+    public String XXX(Map<String,Object> map){
+       map.put("参数名","参数值");
+       return  "页面名称";
+    }
+}
+```
+
+
+
