@@ -202,6 +202,102 @@ handler1.post(new Runnable() {
 Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
 ```
 
+## 对话框
+
+### 取消/确定 对话框
+
+``` Java
+//创建AlertDialog对象
+AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//设置图标
+//alertDialog.setIcon(R.drawable.ic_launcher_background);
+alertDialog.setTitle("标题");
+alertDialog.setMessage("内容");
+alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+  @Override
+  public void onClick(DialogInterface dialog, int which) {
+    Toast.makeText(MainActivity.this, "点击了取消", Toast.LENGTH_SHORT).show();
+  }
+});
+alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+  @Override
+  public void onClick(DialogInterface dialog, int which) {
+    Toast.makeText(MainActivity.this, "点击了确定", Toast.LENGTH_SHORT).show();
+  }
+});
+alertDialog.show();
+```
+
+### 列表对话框
+
+``` Java
+String[] item = new String[]{"列表项1","列表项2"};
+//创建AlertDialog.Builder对象
+AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//设置图标
+//builder.setIcon(R.drawable.ic_launcher_background);
+builder.setTitle("标题");
+builder.setItems(item, new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        Toast.makeText(MainActivity.this, "选择了：" + item[which], Toast.LENGTH_SHORT).show();
+    }
+});
+builder.create().show();
+```
+
+### 单选 对话框
+
+``` Java
+String[] items = new String[]{"列表项1", "列表项2"};
+//创建AlertDialog.Builder对象
+AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//设置图标
+//builder.setIcon(R.drawable.ic_launcher_background);
+builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        Toast.makeText(MainActivity.this, "选择了：" + items[which], Toast.LENGTH_SHORT).show();
+    }
+});
+builder.setPositiveButton("确定", null);
+builder.create().show();
+```
+
+### 多选 对话框
+
+``` Java
+final String[] item1 = new String[]{"列表项1", "列表项2"};
+//记录各列表的状态
+final boolean[] checkItem=new boolean[item1.length];
+AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//设置图标
+//builder.setIcon(R.drawable.ic_launcher_background);
+builder.setTitle("标题");
+builder.setMultiChoiceItems(item1, checkItem, new DialogInterface.OnMultiChoiceClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        //改变被操作列表项的状态
+        checkItem[which] = isChecked;
+    }
+});
+builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        String result = "";
+        for (int i = 0; i < checkItem.length; i++) {
+            if(checkItem[i]){
+              result = result + " " + item1[i];
+            }
+        }
+        if (result.equals("") == false){
+            Toast.makeText(MainActivity.this, "选择了：" + result, Toast.LENGTH_SHORT).show();
+        }
+    }
+});
+builder.create().show();
+```
+
 ## 资源
 
 ### 字符串资源
