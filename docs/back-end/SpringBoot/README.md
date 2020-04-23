@@ -116,5 +116,10 @@ public class HelloController {
 }
 ```
 
+## 错误页面配置
 
+### 模板引擎
 
+创建：  
+```\main\resources\template\404.html```
+```\main\resources\template\4xx.html```

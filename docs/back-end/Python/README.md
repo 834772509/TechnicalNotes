@@ -397,6 +397,36 @@ print()
 temp = input("请输入：")
 ```
 
+## 绘图
+
+``` Python
+import turtle
+
+# 向左转向
+turtle.left(90)
+
+# 向右转向
+turtle.left(90)
+
+# 设置画笔颜色
+turtle.pencolor('blue')
+
+# 设置画笔宽度
+turtle.pensize(10)
+
+# 向前画
+turtle.forward(100)
+
+# 抬起画笔
+turtle.penup()
+
+# 落下画笔
+turtle.pendown()
+
+# 设置单击关闭窗口退出
+turtle.exitonclick()
+```
+
 ## 多线程
 
 ### 使用
