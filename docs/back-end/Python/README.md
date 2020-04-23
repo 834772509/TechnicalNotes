@@ -414,8 +414,11 @@ turtle.pencolor('blue')
 # 设置画笔宽度
 turtle.pensize(10)
 
-# 向前画
+# 向当前方向画
 turtle.forward(100)
+
+# 向当前反方向画
+turtle.backward(100)
 
 # 抬起画笔
 turtle.penup()
