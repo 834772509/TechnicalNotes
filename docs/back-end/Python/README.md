@@ -402,6 +402,7 @@ temp = input("请输入：")
 ``` Python
 import turtle
 
+
 # 向左转向
 turtle.left(90)
 

@@ -121,5 +121,13 @@ public class HelloController {
 ### 模板引擎
 
 创建：  
-```\main\resources\template\404.html```
-```\main\resources\template\4xx.html```
+```\main\resources\templates\error\404.html```
+```\main\resources\templates\error\4xx.html```
+
+``` Html
+<h1>状态码：[[${status}]]</h1>
+<h1>时间：[[${timestamp}]]</h1>
+```
+### 自定义Json异常
+
+
