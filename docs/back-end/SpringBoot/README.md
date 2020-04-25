@@ -124,10 +124,48 @@ public class HelloController {
 ```\main\resources\templates\error\404.html```
 ```\main\resources\templates\error\4xx.html```
 
-``` Html
+``` HTML
 <h1>状态码：[[${status}]]</h1>
 <h1>时间：[[${timestamp}]]</h1>
 ```
+
 ### 自定义Json异常
 
+**在所有路由中出现的错误都会被这里接管**
 
+无自适应（纯Json）：
+
+``` Java
+@ControllerAdvice
+public class Error {
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    public Map<String, Object> handleException(Exception e) {
+        Map<String, Object> map = new HashMap(2);
+        map.put("code", "100011");
+        map.put("message", e.getMessage());
+        return map;
+    }
+}
+```
+
+自适应（浏览器显示页面，其他客户端显示Json）：
+
+``` Java
+@ControllerAdvice
+public class Error {
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception e, HttpServletRequest request) {
+        Map<String, Object> map = new HashMap(2);
+        map.put("name", "hello");
+        map.put("password", "123456");
+
+        //设置状态码
+        request.setAttribute("javax.servlet.error.status_code", 500);
+
+        //把数据放到request域中
+        request.setAttribute("ext", map);
+        return "forward:/error";
+    }
+}
+```
