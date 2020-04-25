@@ -929,6 +929,59 @@ tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab页面标题2").setCo
 * Y轴是垂直向上的
 * Z轴是指向屏幕正面之外，即屏幕背面是Z的负值
 
+## 消息推送
+
+``` Java
+//创建通知基本内容
+NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        .setSmallIcon(R.drawable.ic_launcher_background)
+        .setContentTitle("通知标题")
+        //单行
+        .setContentText("通知内容")
+        //多行
+        //.setStyle(new NotificationCompat.BigTextStyle().bigText("通知内容" +"通知内容" +"通知内容"))
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
+        .setAutoCancel(true);
+//Android 8.0后需要设置Channel
+createNotificationChannel();
+//创建点击事件，启动详细页面
+Intent intent1 = new Intent(this,MessageActivity.class);
+PendingIntent pendingIntent = PendingIntent.getActivities(this,0, new Intent[]{intent1},0);
+builder.setContentIntent(pendingIntent);
+//展示通知
+NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+// notificationId is a unique int for each notification that you must define
+notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+```
+
+``` Java
+private void createNotificationChannel() {
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    CharSequence name = getString(R.string.app_name);
+    String description = getString(R.string.app_name);
+    int importance = NotificationManager.IMPORTANCE_HIGH;
+    NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+    channel.setDescription(description);
+    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+    notificationManager.createNotificationChannel(channel);
+  }
+}
+```
+
+## 广播
+
+``` Java
+Intent intent2 = new Intent();
+//为Intent增加动作
+intent.setAction("zuckerberg");
+sendBroadcast(intent);
+```
+
+
+``` Java
+
+```
+
 ## 事件监听
 
 ### 触摸监听
