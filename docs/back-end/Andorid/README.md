@@ -28,6 +28,29 @@ taskkill /f /im adb.exe
 goto :eof
 ```
 
+## 生命周期
+
+1. onCreate() ，不可见状态
+在 Activity 被创建时回调，第一个生命周期。我们一般在创建 Activity 时需要重写该方法做一些初始化的操作，如通过 setContentView 设置界面布局的资源，初始化所需要的组件信息等。
+
+2. onStart() ，可见状态
+该方法回调表示 Activity 正在启动，此时 Activity 处于可见状态，只是还没有在前台显示，因此用户也无法交互。可以简单理解为 Activity 已显示却无法被用户看见。
+
+3. onResume() ，可见状态
+Activity 已在在屏幕上显示 UI 并允许用户操作了。当 Activity 停止后（onPause、onStop 方法被调用），重新回到前台时也会调用 onResume 方法。可以在 onResume 方法中初始化一些资源，比如打开相机或开启动画。
+
+4. onPause() ，可见状态
+Activity 正在停止（Paused 形态），通常接下来 onStop() 会被回调 。但通过流程图可见，另一种情况是 onPause() 执行后直接执行了 onResume 方法，这可能是用户点击 Home 键，让程序退回到主界面，程序在后台运行时又迅速地再回到到当前的 Activity，此时 onResume 方法就会被回调。我们可以在 onPause 方法中做一些数据存储、动画停止、资源回收等操作。另外，onPause 方法执行完成后，新 Activity 的 onResume 方法才会被执行。所以 onPause 不能太耗时，因为这可能会影响到新的 Activity 的显示。
+
+5. onStop() ，不可见状态
+Activity 即将停止或者完全被覆盖（Stopped 形态），此时 Activity 不可见，仅在后台运行。同样地，在 onStop 方法可以做一些资源释放的操作，不能太耗时。
+
+6. onRestart(），可见状态
+表示 Activity 正在重新启动，由不可见状态变为可见状态。这种情况，一般发生在用户打开了一个新的 Activity 时，之前的 Activity 就会被 onStop，接着又回到之前 Activity 页面时，之前的 Activity 的 onRestart 方法就会被回调。
+
+7. onDestroy() ，不可见状态
+表示 Activity 正在被销毁，也是生命周期最后一个执行的方法，一般我们可以在此方法中做一些回收工作和最终的资源释放。
+
 ## 基础命令
 
 ### 打印输出
@@ -921,13 +944,7 @@ tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Tab页面标题1").setCo
 tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab页面标题2").setContent(R.id.right))
 ```
 
-## 坐标系
 
-当一个设备被放在其默认的方向上时（竖屏）
-
-* X轴是水平指向右的
-* Y轴是垂直向上的
-* Z轴是指向屏幕正面之外，即屏幕背面是Z的负值
 
 ## 消息推送
 
@@ -971,15 +988,112 @@ private void createNotificationChannel() {
 ## 广播
 
 ``` Java
-Intent intent2 = new Intent();
-//为Intent增加动作
-intent.setAction("zuckerberg");
-sendBroadcast(intent);
+
 ```
 
 
 ``` Java
 
+```
+
+## 传感器
+
+::: tip 提示
+* SENSOR_DELAY_FASTEST : 快速获取传感器信息，延迟较小
+* SENSOR_DELAY_GAME : 适合游戏的频率
+* SENSOR_DELAY_NORMAL : 正常频率
+* SENSOR_DELAY_UI : 适用于普通用户界面的频率，延迟较大
+:::
+
+### 坐标系
+
+当一个设备被放在其默认的方向上时（竖屏）
+
+* X轴是水平指向右的
+* Y轴是垂直向上的
+* Z轴是指向屏幕正面之外，即屏幕背面是Z的负值
+
+### 磁场传感器
+
+``` Java
+//获取传感器管理器
+SensorManager MagneticFieldSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+//传感器种类：亮度传感器
+Sensor MagneticFieldSensor = MagneticFieldSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+MagneticFieldSensorManager.registerListener(MagneticFieldListener, MagneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
+```
+
+``` Java
+//磁场传感器监听事件
+private SensorEventListener MagneticFieldListener = new SensorEventListener() {
+  @Override
+  //传感器的值发生变化时调用
+  public void onSensorChanged(SensorEvent event) {
+    Log.i("磁场传感器：\n"  + "X轴磁场强度："+ event.values[0] + "     Y轴磁场强度：" + event.values[1] + "      Z轴磁场强度：" + event.values[2]);
+  }
+  @Override
+  //传感器的精度发生变化时调用
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+  }
+};
+```
+
+
+
+### 光线传感器
+
+``` Java
+//获取传感器管理器
+SensorManager LightSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+//传感器种类：亮度传感器
+Sensor LightSensor = LightSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+LightSensorManager.registerListener(LightListener, LightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+```
+
+``` Java
+//亮度传感器监听事件
+private SensorEventListener LightListener = new SensorEventListener() {
+  @Override
+  //传感器的值发生变化时调用
+  public void onSensorChanged(SensorEvent event) {
+    Log.i("当前亮度：" + event.values[0]);
+  }
+  @Override
+  //传感器的精度发生变化时调用
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+  }
+};
+```
+
+::: tip 提示
+```event.values[0]``` 返回的是光线强度值, 单位是勒克斯
+:::
+
+### 加速度传感器
+
+### 方向传感器
+
+### 距离传感器
+
+距离传感器取值范围：[0,5]
+
+``` Java
+// 获取传感器管理器
+SensorManager mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+// 传感器种类：距离传感器
+mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+mSensorManager.registerListener(new SensorEventListener() {
+    @Override
+    //传感器的值发生变化时调用
+    public void onSensorChanged(SensorEvent event) {
+      textview.setText("当前距离：" + event.values[0]);
+    }
+    @Override
+    //传感器的精度发生变化时调用
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+}, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
 ```
 
 ## 事件监听
