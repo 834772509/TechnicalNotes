@@ -169,3 +169,36 @@ public class Error {
     }
 }
 ```
+
+## Servlet
+
+### 创建
+
+``` Java
+public class MyServlet  extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().write("Hello MyServlet");
+    }
+}
+```
+
+### 注册
+
+\MyServerConfig.java
+
+``` Java
+@Configuration
+public class MyServerConfig {
+    @Bean
+    public ServletRegistrationBean myServlet(){
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new MyServlet());
+        return registrationBean;
+    }
+}
+```
