@@ -5,3 +5,43 @@
 1. 创建项目：```vue init simulatedgreg/electron-vue 项目名称```
 2. 进入项目目录后```npm install```（优先使用```cnpm install```）
 3. 启动项目：```npm run dev```
+
+## 生命周期
+
+* ready : 当Electron完成初始化时触发
+* activate : 首次激活
+* window-all-closed : 所有窗口被关闭
+* before-quit : 在应用程序开始关闭窗口之前触发
+* will-quit : 当所有窗口都已关闭并且应用程序将退出时发出
+* quit : 在应用程序退出时发出
+
+## 进程API
+
+::: tip 提示
+如出现```process is not defined```请加上```nodeIntegration: true```
+:::
+
+``` js
+data() {
+  return {
+    //electron版本
+    electron: process.versions.electron,
+    //当前路由名称
+    name: this.$route.name,
+    //Node版本
+    node: process.versions.node,
+    //当前URL路径
+    path: this.$route.path,
+    //当前系统
+    platform: require('os').platform(),
+    //Vue.js版本
+    vue: require('vue/package.json').version,
+    //系统位数
+    systemtype: process.arch,
+    //CPU占用
+    CPUinfo: process.getCPUUsage().percentCPUUsage,
+    //内存占用
+    meminfo: process.getSystemMemoryInfo().swapTotal / 1024 / 1024,
+  }
+}
+```
