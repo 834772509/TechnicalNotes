@@ -1026,6 +1026,8 @@ private void createNotificationChannel() {
 
 ### 磁场传感器
 
+磁场传感器一般用来分辨方向（东南西北）、识别金属物品等
+
 ``` Java
 //获取传感器管理器
 SensorManager MagneticFieldSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -1050,6 +1052,8 @@ private SensorEventListener MagneticFieldListener = new SensorEventListener() {
 ```
 
 ### 光线传感器
+
+光线传感器一般用来获取光度
 
 ``` Java
 //获取传感器管理器
@@ -1084,7 +1088,7 @@ private SensorEventListener LightListener = new SensorEventListener() {
 
 ### 距离传感器
 
-距离传感器取值范围：[0,5]
+距离传感器一般用来判断物品是否掉落等，距离传感器取值范围：```[0,5]```cm
 
 ``` Java
 // 获取传感器管理器
