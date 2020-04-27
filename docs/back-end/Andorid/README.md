@@ -83,6 +83,17 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 }
 ```
 
+### 振动
+
+``` Java
+//获取振动器
+Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+//振动，单位为毫秒
+vibrator.vibrate(500);
+```
+
+增加权限：```<uses-permission android:name="android.permission.VIBRATE" />```
+
 ## 页面跳转
 
 ### 常规跳转
@@ -1037,8 +1048,6 @@ private SensorEventListener MagneticFieldListener = new SensorEventListener() {
   }
 };
 ```
-
-
 
 ### 光线传感器
 
