@@ -45,3 +45,33 @@ data() {
   }
 }
 ```
+
+## 文件API
+
+### 拖拽文件
+
+``` vue
+<template>
+    <div @drop="drop($event)" @dragover="dragover($event)">
+      拖放文件测试
+    </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    drop($event){
+      event.preventDefault();
+      event.stopPropagation();
+      for (const f of event.dataTransfer.files) {
+        console.log('拖拽的文件：' + f.path)
+      }
+    },
+    dragover($event){
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  },
+}
+</script>
+```
