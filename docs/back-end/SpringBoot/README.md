@@ -1,5 +1,9 @@
 # SpringBoot 笔记
 
+## 创建项目
+
+IDEA-新建项目-Spring Initializr
+
 ## 配置文件
 
 SpringBoot使用一个全局的配置文件，配置文件名```application```是固定的；
@@ -200,5 +204,117 @@ public class MyServerConfig {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new MyServlet());
         return registrationBean;
     }
+}
+```
+
+## 数据库
+
+### 依赖
+
+MySQL Driver、Spring Data JDBC
+
+``` xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jdbc</artifactId>
+</dependency>
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+<scope>runtime</scope>
+```
+
+### 连接
+
+application.yml
+
+``` yaml
+spring:
+  datasource:
+    username: root
+    password: '数据库密码'
+    url: jdbc:mysql://数据库地址:3306/数据库名?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 自动执行SQL语句，resources\sql
+    schema:
+      - classpath:sql/XXX.sql
+      - classpath:sql/XXX.sql
+    initialization-mode: always
+```
+
+``` Java
+private DataSource dataSource;
+Connection connection = dataSource.getConnection();
+```
+
+### JDBC执行SQL语句
+
+``` Java
+@Autowired
+JdbcTemplate jdbcTemplate;
+
+@ResponseBody
+@GetMapping("/")
+public Map<String,Object> map(){
+    List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from 表名");
+    return list.get(0);
+};
+```
+
+## MyBatis
+
+### 依赖
+
+``` xml
+<dependency>
+ <groupId>org.mybatis.spring.boot</groupId>
+ <artifactId>mybatis-spring-boot-starter</artifactId>
+ <version>2.1.2</version>
+</dependency>
+```
+
+### 注解版（不推荐）
+
+``` Java
+//指定这是一个操作数据库的mapper
+@Mapper
+public interface DepartmentMapper {
+
+    //查询数据
+
+    @Select("select * from 表名")
+    public List<Department> 方法名();
+
+    @Select("select * from 表名 where 字段名=#{字段值}")
+    public Department 方法名(Integer 字段值);
+
+    //插入数据
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("insert into 表名(字段名) values(#{departmentName})")
+    public int 方法名(Department department);
+
+    //修改数据
+    @Update("update 表名 set 字段名=#{departmentName}")
+    public int 方法名(Department department);
+
+    //删除数据
+    @Delete("delete from 表名 where id =#{id}")
+    public int 方法名(Integer id);
+}
+```
+
+使用
+
+``` Java
+@RequestMapping("/地址")
+public Department 地址 () {
+    departmentMapper.方法名();
+    return department;
+}
+
+@RequestMapping("/地址")
+public Department 地址 (Department department) {
+    departmentMapper.方法名(department);
+    return department;
 }
 ```
