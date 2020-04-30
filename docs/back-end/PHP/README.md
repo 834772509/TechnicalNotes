@@ -2,6 +2,13 @@
 
 ## 常见问题
 
+### IDEA集成PHP
+
+安装插件：
+* PHP
+* PHP Remote Interpreter
+* Chinese PHP Documentation
+
 ### 解决PHP乱码
 
 ``` PHP
