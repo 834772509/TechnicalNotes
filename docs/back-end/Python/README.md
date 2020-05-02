@@ -704,6 +704,8 @@ print(exes)
 
 ## 爬虫
 
+[cURL转Python代码](https://curl.trillworks.com)
+
 ### 环境搭建
 
 安装Requests（网络请求）：
@@ -742,6 +744,8 @@ soup = bs4.BeautifulSoup(HTML内容, "html.parser")
 for item in 解析列表:
     print(item.解析标签名['属性名'])
 ```
+
+示例：
 
 ``` Python
 import bs4
