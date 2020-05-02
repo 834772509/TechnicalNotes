@@ -1,6 +1,6 @@
 # Android 笔记
 
-## 安装Android Studio
+## 安装 Android Studio
 
 ### 下载并安装
 
@@ -9,6 +9,11 @@
 ### 汉化补丁
 
 [JetBrains 系列软件汉化包](https://github.com/pingfangx/TranslatorX)
+
+### 实用插件
+
+* Android ButterKnife Zelezny（快速findViewById）
+* Android WiFi ADB（通过WIFI用手机调试）
 
 ### 修复没有运行按钮
 
