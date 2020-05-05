@@ -24,12 +24,13 @@ module.exports = {
           { text: 'JavaScript', link: '/front-end/JavaScript/' },
           { text: 'Vue', link: '/front-end/Vue/' },
           { text: 'Electron', link: '/front-end/Electron/' },
+          { text: 'Andorid', link: '/back-end/Andorid/' },
+          { text: 'Flutter', link: '/back-end/Flutter/' },
         ]
       },
       {
         text: '后端',
         items: [
-          { text: 'Andorid', link: '/back-end/Andorid/' },
           { text: 'Java', link: '/back-end/Java/' },
           { text: 'SpringBoot', link: '/back-end/SpringBoot/' },
           { text: 'JavaWeb', link: '/back-end/JavaWeb/' },
