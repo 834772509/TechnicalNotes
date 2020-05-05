@@ -1,9 +1,13 @@
 # Python 笔记
 
-## Python简介
+## 配置环境
 
-Python是脚本语言  
-脚本语言(Scripting language)是电脑编程语言，因此也能让开发者藉以编写出让电脑听命行事的程序。以简单的方式快速完成某些复杂的事情通常是创造脚本语言的重要原则，基于这项原则，使得脚本语言通常比 C语言、C++语言或 Java 之类的系统编程语言要简单容易
+[Python 下载](https://www.python.org/downloads/windows)
+
+环境变量：
+
+* ```\Python\```
+* ```\Python\Scripts```
 
 ## 解决pip速度慢的问题
 
