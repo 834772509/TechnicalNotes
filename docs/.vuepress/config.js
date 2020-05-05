@@ -24,8 +24,8 @@ module.exports = {
           { text: 'JavaScript', link: '/front-end/JavaScript/' },
           { text: 'Vue', link: '/front-end/Vue/' },
           { text: 'Electron', link: '/front-end/Electron/' },
-          { text: 'Andorid', link: '/back-end/Andorid/' },
-          { text: 'Flutter', link: '/back-end/Flutter/' },
+          { text: 'Andorid', link: '/front-end/Andorid/' },
+          { text: 'Flutter', link: '/front-end/Flutter/' },
         ]
       },
       {
