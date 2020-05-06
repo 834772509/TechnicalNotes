@@ -182,3 +182,63 @@ void 函数名(){
 函数名(参数值)
 函数名(参数值,参数名: 参数值)
 ```
+
+## 类和对象
+
+### 定义
+
+``` dart
+class 类名 {
+  数据类型 属性名;
+  void 方法名() {
+
+  }
+}
+```
+
+### 实例化
+
+``` dart
+final 实例化名称 = 类名();
+实例化名称.方法();
+实例化名称.变量 = 值;
+```
+
+### 构造方法
+
+``` dart
+class 类名 {
+  类名(数据类型 参数1,[数据类型 参数2]){
+
+  }
+}
+```
+
+### 命名构造方法
+
+``` dart
+class 类名.构造方法名 {
+  类名(数据类型 参数1,[数据类型 参数2]){
+
+  }
+}
+```
+
+实例化：```final 实例化名称 = 类名.构造方法名();```
+
+### 常量构造函数
+
+当传入的参数一致时，实例为同一个实例
+
+``` dart
+main(List<String> args) {
+  const p1 = Persion("why");
+  const p2 = Persion("why");
+  print(identical(p1, p2));
+}
+
+class Persion {
+  final String name;
+  const Persion(this.name);
+}
+```
