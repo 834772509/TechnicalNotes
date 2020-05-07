@@ -242,3 +242,47 @@ class Persion {
   const Persion(this.name);
 }
 ```
+
+### 继承
+
+``` dart
+class 类名 extends 继承类名 {
+
+}
+```
+
+### 抽象类
+
+抽象方法：没有方法定义，没有方法的实现
+
+* 抽象类不能被实例化
+* 抽象类中可以定义抽象
+
+``` dart
+abstract class 类名 {
+
+}
+```
+
+### 接口
+
+Dart中，默认所有的类都是接口
+
+``` dart
+class 类名 implements 接口名 {
+
+}
+```
+
+### 混入
+
+``` dart
+mixin 混入名 {
+
+}
+
+class 类名 with 混入名{
+  
+}
+```
+
