@@ -416,6 +416,33 @@ console.log(total)
 
 ## ＤＯＭ
 
+### 获取页面中的DOM元素
+
+通过元素的ID属性获取：
+
+`document.getElementById("ID")`
+
+``` JavaScript
+let Box = document.getElementById("box")
+```
+
+在指定的内容中，通过标签名获取**一组元素集合**
+
+`[context].getElementsByTagName("标签名")`
+
+### DOM元素属性
+
+DOM的元素可通过 ```元素.属性名``` 来访问
+
+* className: 当前元素类名
+* id: 元素ID
+* innerHTML: 当前元素的所有内容（包含HTML标签）
+* innerText: 当前元素中所有的文本内容（没有元素标签）
+* onclick: 元素的点击事件
+* onmouseover: 鼠标划过事件
+* onmouseout: 鼠标离开事件
+* style: 当前元素所有**行内样式**值（获取和操作只能写的标签上）
+
 ### 选择器
 
 #### 查询选择器
