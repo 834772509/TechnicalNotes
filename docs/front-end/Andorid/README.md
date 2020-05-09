@@ -1210,6 +1210,9 @@ mSensorManager.registerListener(new SensorEventListener() {
 }, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
 ```
 
+### 定位
+
+
 ## 事件监听
 
 ### 触摸监听
@@ -1367,6 +1370,26 @@ public void 函数名(String msg) {
 ::: tip 提示
 每个函数声明前都需要加```@JavascriptInterface```，否则无法调用
 :::
+
+## Material Design
+
+### Toolbar
+
+``` XML
+<androidx.appcompat.widget.Toolbar
+  android:id="@+id/Toolbar"
+  android:layout_width="match_parent"
+  android:layout_height="?attr/actionBarSize"
+  android:background="@color/colorPrimary"
+  android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+  app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+  tools:ignore="MissingConstraints" />
+```
+
+``` Java
+Toolbar = (Toolbar) findViewById(R.id.Toolbar);
+setSupportActionBar(Toolbar);
+```
 
 ## QMUI
 

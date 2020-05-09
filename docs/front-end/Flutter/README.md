@@ -314,3 +314,6 @@ T 方法名<T>(参数类型<T> 参数名) {
 
 导入：`export 'url路径'`
 
+## 创建项目
+
+菜单 New - Flutter Project 或 `flutter create 项目名称`
