@@ -1,5 +1,7 @@
 # Electron 笔记
 
+[Electron API参考文档](http://www.electronjs.org/docs/api)
+
 ## 创建项目
 
 1. 创建项目：```vue init simulatedgreg/electron-vue 项目名称```
@@ -74,4 +76,74 @@ export default {
   },
 }
 </script>
+```
+
+## 对话框
+
+### 打开文件对话框
+
+``` JavaScript
+const { dialog } = require('electron').remote
+
+let filePath =  dialog.showOpenDialog({
+  title: "打开文件",
+  filters: [
+    {name: '类型名称', extensions: ['exe']},
+    {name: '所有文件', extensions: ['*']}
+  ]
+})
+console.log(filePath)
+```
+
+### 保存文件对话框
+
+``` JavaScript
+const { dialog } = require('electron').remote
+
+let filePath =  dialog.showSaveDialog({
+  title: "保存文件",
+  filters: [
+    {name: '类型名称', extensions: ['exe']},
+    {name: '所有文件', extensions: ['*']}
+  ]
+})
+console.log(filePath)
+```
+
+### 选择对话框
+
+``` JavaScript
+const { dialog } = require('electron').remote
+
+let message = dialog.showMessageBox({
+  type: "warning",
+  title: "标题",
+  message: "内容",
+  buttons: ["确定","取消"]
+})
+console.log(message);
+```
+
+### 错误对话框
+
+``` JavaScript
+dialog.showErrorBox("标题", "内容")
+```
+
+## 热键注册
+
+### 注册
+
+``` JavaScript
+const { remote } = require('electron')
+
+remote.globalShortcut.register('CommandOrControl+Y', () => {
+  console.log("按加了 Ctrl + Y")
+})
+```
+
+### 取消注册
+
+``` JavaScript
+remote.globalShortcut.unregisterAll()
 ```
