@@ -1279,6 +1279,34 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 });
 ```
 
+## 持久化技术
+
+### SharedPreferences
+
+SharedPreferences使用键值对的方式存储数据
+
+#### 存储数据
+
+``` Java
+SharedPreferences.Editor editer = getSharedPreferences("文件名(无后缀)", Context.MODE_PRIVATE).edit();
+//字符串型
+editer.putString("字段名", "值");
+//整数型
+editer.putInt("字段名",0);
+// 布尔值
+editer.putBoolean("字段名",true);
+editer.apply();
+```
+
+#### 读取数据
+
+``` Java
+SharedPreferences preferences = getSharedPreferences("文件名(无后缀)", Context.MODE_PRIVATE);
+Log.i(preferences.getString("字段名"));
+Log.i(preferences.getInt("字段名"));
+Log.i(preferences.getBoolean("字段名"));
+```
+
 ## Android与HTML5互调
 
 ### 加载网页
