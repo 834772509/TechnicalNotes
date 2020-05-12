@@ -136,7 +136,7 @@ Drop Table<表名> [Cascade(级联)|Restarict(限制)];
 
 ``` SQL
 Insert
-Into <表名> [<属性列1> [,<属性列2>]…]
+Into <表名> [(<属性列1> [,<属性列2>]…)]
 Values(<数据1>[,<数据2>…]);
 ```
 
