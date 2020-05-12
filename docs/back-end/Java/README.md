@@ -571,9 +571,8 @@ public class DBUtil {
     1. 隔离了数据访问代码和业务逻辑代码。业务逻辑代码直接调用DAO方法即可，完全感觉不到数据库表的存在。分工明确，数据访问层代码变化不影响业务逻辑代码,这符合单一职能原则，降低了藕合性，提高了可复用性。
 
     2. 隔离了不同数据库实现。采用面向接口编程，如果底层数据库变化，如由 MySQL 变成 Oracle 只要增加 DAO 接口的新实现类即可，原有 MySQ 实现不用修改。这符合 "开-闭" 原则。该原则降低了代码的藕合性，提高了代码扩展性和系统的可移植性。  
-  
-  **4.组成**
 
+  **4. 组成**
     1. DAO接口： 把对数据库的所有操作定义成抽象方法，可以提供多种实现。
 
     2. DAO 实现类： 针对不同数据库给出DAO接口定义方法的具体实现。
@@ -606,3 +605,41 @@ maven\conf\settings.xml
    </mirror>
 </mirrors>
 ```
+
+## 注解
+
+### 内置注解(基础)
+
+* @Override
+  1. 介绍  
+  @Override用在方法上，表示这个方法重写了父类的方法  
+  2. 例
+  
+  ```Java
+   public class Hero {
+      String name;
+      @Override
+      public String toString(){
+        return name;
+      }
+    }
+  ```
+
+* @Deprecated
+  1. 介绍  
+  @Deprecated 表示这个方法已经过期，不建议开发者使用。(暗示在将来某个不确定的版本，就有可能会取消掉)
+  2. 例
+
+  ```Java
+    public class Hero {
+      String name;
+      @Deprecated
+      public void hackMap(){
+      }
+      public static void main(String[] args) {
+          new Hero().hackMap();
+      }
+    }
+  ```
+  
+* 还有2个注解(未完成)
