@@ -1324,10 +1324,16 @@ editer.apply();
 
 ``` Java
 SharedPreferences preferences = getSharedPreferences("文件名(无后缀)", Context.MODE_PRIVATE);
-Log.i(preferences.getString("字段名"));
-Log.i(preferences.getInt("字段名"));
-Log.i(preferences.getBoolean("字段名"));
+Log.i(preferences.getString("字段名"),默认值);
+Log.i(preferences.getInt("字段名"),默认值);
+Log.i(preferences.getBoolean("字段名",默认值));
 ```
+
+### SQLite 数据库存储
+
+SQLite是Android内置的数据库，内存占用较低
+
+
 
 ## Android与HTML5互调
 

@@ -322,6 +322,8 @@ T 方法名<T>(参数类型<T> 参数名) {
 
 ### 自定义组件
 
+继承自StatelessWidget，没有状态，必须实现build方法
+
 ``` dart
 class ContentWidget extends StatelessWidget {
   @override
