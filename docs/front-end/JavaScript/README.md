@@ -430,6 +430,10 @@ let Box = document.getElementById("box")
 
 `[context].getElementsByTagName("标签名")`
 
+``` JavaScript
+let checkbox = document.getElementById("input")
+```
+
 ### DOM元素属性
 
 DOM的元素可通过 ```元素.属性名``` 来访问
@@ -468,6 +472,14 @@ document.getElementById(ID名)
 ### DOM操作
 
 #### 监听事件
+
+页面加载完成事件
+
+``` JavaScript
+window.onload = function(){
+
+}
+```
 
 点击事件
 
