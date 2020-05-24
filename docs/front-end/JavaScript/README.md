@@ -219,7 +219,7 @@ for(let n in 数组名){
 }
 ```
 
-### unshift
+### 增加元素 unshift
 
 在数组最签前面增加元素（支持多个参数）
 
@@ -227,7 +227,7 @@ for(let n in 数组名){
 数组名.unshift(元素名称)
 ```
 
-### push
+### 增加 push
 
 在数组最后增加元素（支持多个参数）
 
@@ -282,14 +282,32 @@ alert("提示信息")
 JSON数据 = JSON.stringify(需要转换为JSON的数据)
 ```
 
-### setTimeout
+### 定时器
 
-延时执行
+#### setTimeout
+
+延时执行代码
 
 ``` JavaScript
-setTimeout(()=>{
+对象 = setTimeout(()=>{
 
 },时间[毫秒])
+
+//停止定时器
+clearTimeout(对象)
+```
+
+#### setInterval
+
+每隔一段时间执行代码
+
+``` JavaScript
+对象 = setInterval(() => {
+  
+}, 1000);
+
+//停止定时器
+clearInterval(对象)
 ```
 
 ### 格式化时间
