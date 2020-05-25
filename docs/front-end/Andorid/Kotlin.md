@@ -26,6 +26,16 @@ val 变量名
 * String : 字符串
 * Byte : 字节型
 
+类型转换：
+
+* toByte()：转换为 Byte 类型 
+* toShort()：转换为 Short 类型
+* toInt()：转换为 Int 类型
+* toLong()：转换为 Long 类型
+* toFloat()：转换为 Float 类型
+* toDouble()：转换为 Double 类型
+* toChar()：转换为 Char 类型
+
 ### 字符串内嵌表达式
 
 ``` Kotlin
