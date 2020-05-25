@@ -12,7 +12,11 @@ module.exports = {
   base: '/technicalnotes/', // 设置站点根路径
   //repo: 'https://github.com/txs1992/mt-blog' // 添加 github 链接
   theme: 'vuepress-theme-yilia-plus',
-  plugins: ['@vuepress/back-to-top'],
+  plugins: [
+    ["vuepress-plugin-auto-sidebar",{}],
+    ['@vuepress/back-to-top', true],
+  ],
+  
   themeConfig: {
     // 添加导航栏
     nav: [
