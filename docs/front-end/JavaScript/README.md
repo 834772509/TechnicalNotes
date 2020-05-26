@@ -434,22 +434,77 @@ console.log(total)
 
 ## ＤＯＭ
 
-### 获取页面中的DOM元素
+### 选择器
 
-通过元素的ID属性获取：
-
-`document.getElementById("ID")`
+#### 通过元素的ID属性获取
 
 ``` JavaScript
-let Box = document.getElementById("box")
+document.getElementById(ID名)
 ```
 
-在指定的内容中，通过标签名获取**一组元素集合**
-
-`[context].getElementsByTagName("标签名")`
+#### 通过元素的标签名获取
 
 ``` JavaScript
-let checkbox = document.getElementById("input")
+document.getElementsByTagName("标签名")
+```
+
+``` JavaScript
+document.getElementsByTagName("input")
+```
+
+#### 通过元素的类名获取
+
+``` JavaScript
+document.getElementsByClassName("类名")
+
+```
+
+#### querySelectorALL
+
+``` JavaScript
+document.querySelectorALL(查询名称)
+```
+
+``` JavaScript
+document.querySelectorALL(.user)
+document.querySelectorALL(h1)
+```
+
+#### querySelector
+
+``` JavaScript
+document.querySelector(查询名称)
+```
+
+``` JavaScript
+document.querySelector(.user)
+document.querySelector(h1)
+```
+
+### 节点操作
+
+#### 获取子节点
+
+``` JavaScript
+元素.children
+```
+
+#### 获取父节点
+
+``` JavaScript
+元素.parentNode
+```
+
+#### 获取第一节点
+
+``` JavaScript
+元素.firstElementChild
+```
+
+#### 获取最后节点
+
+``` JavaScript
+元素.lastElementChild
 ```
 
 ### DOM元素属性
@@ -465,26 +520,28 @@ DOM的元素可通过 ```元素.属性名``` 来访问
 * onmouseout: 鼠标离开事件
 * style: 当前元素所有**行内样式**值（获取和操作只能写的标签上）
 
-### 选择器
+### 元素属性操作
 
-#### 查询选择器
+设置元素属性：
 
 ``` JavaScript
-document.querySelectorALL(查询名称)
-document.querySelectorALL(.user)
-document.querySelectorALL(h1)
+元素.setAttribute("名称","值")
 ```
 
 ``` JavaScript
-document.querySelector(查询名称)
-document.querySelector(.user)
-document.querySelector(h1)
+txt1.setAttribute("value","aaa")
 ```
 
-#### 多元素选择器
+获取元素属性：
 
 ``` JavaScript
-document.getElementById(ID名)
+元素.getAttribute("名称")
+```
+
+删除元素属性：
+
+``` JavaScript
+元素.removeAttribute("名称")
 ```
 
 ### DOM操作
