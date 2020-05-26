@@ -71,3 +71,29 @@ if (cursor.moveToFirst()) {
 }
 cursor.close()
 ```
+
+## 执行SQL语句
+
+### 增加数据
+
+``` Kotlin
+db.execSQL("insert into 表名 (字段名,字段名) values (?,?)",arrayOf("值","值"))
+```
+
+### 更新数据
+
+``` Kotlin
+db.execSQL("update 表名 set 字段名=? where 字段名=?",arrayOf("值","值"))
+```
+
+### 删除数据
+
+``` Kotlin
+db.execSQL("delete from 表名 where 字段名=?",arrayOf("值"))
+```
+
+### 查询数据
+
+``` Kotlin
+val cursor = db.rawQuery("select * from 表名",null)
+```
