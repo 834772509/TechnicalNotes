@@ -544,9 +544,7 @@ txt1.setAttribute("value","aaa")
 元素.removeAttribute("名称")
 ```
 
-### DOM操作
-
-#### 监听事件
+### 事件
 
 页面加载完成事件
 
@@ -584,14 +582,24 @@ btn.addEventListener('mouseout',(e)=>{
 })
 ```
 
-#### 创建元素
+### 创建元素
 
 ``` JavaScript
-const 元素 = document.createElement('元素名称')
-元素.appendChild(documentcreateTextNode(`元素内容`))
+const 元素 = document.createElement("标签名")
+父元素.appendChild((元素)
 ```
 
 ``` JavaScript
 const li = document.createElement('li')
-元素.appendChild(documentcreateTextNode(`123`))
+li.innerText = "内容"
+元素.appendChild(li)
+```
+
+### 插入元素
+
+在原有节点之前插入元素
+
+``` JavaScript
+const 元素 = document.createElement("标签名")
+insertBefore(节点,原有节点)
 ```
