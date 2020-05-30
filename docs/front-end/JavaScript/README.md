@@ -262,6 +262,20 @@ for(let n in 数组名){
 数组名.splice(位置,替换几个元素,替换的值[,替换的值]...)
 ```
 
+## 字符串
+
+### 寻找字符串
+
+``` JavaScript
+位置 = 字符串.indexOf(寻找的字符串)
+```
+
+### 分割字符串
+
+``` JavaScript
+集合 = 字符串.split("需要分割的文本")
+```
+
 ## 常用方法
 
 ### 打印内容
@@ -280,34 +294,6 @@ alert("提示信息")
 
 ``` JavaScript
 JSON数据 = JSON.stringify(需要转换为JSON的数据)
-```
-
-### 定时器
-
-#### setTimeout
-
-延时执行代码
-
-``` JavaScript
-对象 = setTimeout(()=>{
-
-},时间[毫秒])
-
-//停止定时器
-clearTimeout(对象)
-```
-
-#### setInterval
-
-每隔一段时间执行代码
-
-``` JavaScript
-对象 = setInterval(() => {
-  
-}, 1000);
-
-//停止定时器
-clearInterval(对象)
 ```
 
 ### 格式化时间
@@ -361,6 +347,34 @@ randomNum(min, max) {
 
 ``` JavaScript
 location.href='页面路径'
+```
+
+## 定时器
+
+### setTimeout
+
+延时执行代码
+
+``` JavaScript
+对象 = setTimeout(()=>{
+
+},时间[毫秒])
+
+//停止定时器
+clearTimeout(对象)
+```
+
+### setInterval
+
+每隔一段时间执行代码
+
+``` JavaScript
+对象 = setInterval(() => {
+  
+}, 1000);
+
+//停止定时器
+clearInterval(对象)
 ```
 
 ## 高阶函数
