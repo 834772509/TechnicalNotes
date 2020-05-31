@@ -294,6 +294,12 @@ Math.ceil(数字)
 Math.floor(数字)
 ```
 
+### 取绝对值
+
+``` JavaScript
+Math.abs(数字)
+```
+
 ## 常用方法
 
 ### 打印内容
