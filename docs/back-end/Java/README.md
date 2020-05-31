@@ -581,31 +581,6 @@ public class DBUtil {
 
     4. 数据库连接和关闭工具类： 避免了数据库连接和关闭代码的重复使用，方便修改。
 
-## Maven
-
-### 下载
-
-[Maven](https://maven.apache.org/download.cgi)
-
-### 配置环境变量
-
-```maven\bin```
-
-### 配置淘宝镜像
-
-maven\conf\settings.xml
-
-``` XML
-<mirrors>
-  <mirror>
-   <id>alimaven</id>
-   <mirrorOf>central</mirrorOf>
-   <name>aliyun maven</name>
-   <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-   </mirror>
-</mirrors>
-```
-
 ## 注解
 
 ### 内置注解(基础)
