@@ -1,5 +1,7 @@
 # 数据库
 
+SQLite是Android内置的数据库，内存占用较低
+
 ## 数据类型
 
 * null : NULL 值
@@ -48,6 +50,16 @@ db.insert("表名", null, values)
 Toast.makeText(this, "数据增加成功", Toast.LENGTH_SHORT).show()
 ```
 
+## 更新数据
+
+``` Kotlin
+var db = dbHelper.writableDatabase
+val values = ContentValues
+values.put("字段名",值)
+values.put("字段名",值)
+db.update("表名",values,"字段名=?",arrayOf("值"))
+```
+
 ## 删除数据
 
 ``` Kotlin
@@ -57,6 +69,12 @@ Toast.makeText(this, "已删除字段名为“值“的数据", Toast.LENGTH_SHO
 ```
 
 ## 查询数据
+
+```
+db.query("表名","列名","where条件",为where中的占位符提供具体的值,指定需要group by的列,对group by后的结果进一步约束,指定查询结果的排序方式)
+```
+
+### 查询所有数据
 
 ``` Kotlin
 var db = dbHelper.writableDatabase

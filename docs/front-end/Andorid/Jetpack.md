@@ -53,5 +53,3 @@ viewModel = ViewModelProviders.of(this,MainViewModelFactoy(参数名 = 默认值
 ## Lifecycles
 
 Lifecycles 可以让任何一个类都能轻松感知到Activity的生命周期，同时又不需要在Activity中编写太多的额外逻辑
-
-## 

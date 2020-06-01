@@ -36,24 +36,31 @@ goto :eof
 ## 生命周期
 
 1. onCreate() ，不可见状态
+
 在 Activity 被创建时回调，第一个生命周期。我们一般在创建 Activity 时需要重写该方法做一些初始化的操作，如通过 setContentView 设置界面布局的资源，初始化所需要的组件信息等。
 
 2. onStart() ，可见状态
+
 该方法回调表示 Activity 正在启动，此时 Activity 处于可见状态，只是还没有在前台显示，因此用户也无法交互。可以简单理解为 Activity 已显示却无法被用户看见。
 
 3. onResume() ，可见状态
+
 Activity 已在在屏幕上显示 UI 并允许用户操作了。当 Activity 停止后（onPause、onStop 方法被调用），重新回到前台时也会调用 onResume 方法。可以在 onResume 方法中初始化一些资源，比如打开相机或开启动画。
 
 4. onPause() ，可见状态
+
 Activity 正在停止（Paused 形态），通常接下来 onStop() 会被回调 。但通过流程图可见，另一种情况是 onPause() 执行后直接执行了 onResume 方法，这可能是用户点击 Home 键，让程序退回到主界面，程序在后台运行时又迅速地再回到到当前的 Activity，此时 onResume 方法就会被回调。我们可以在 onPause 方法中做一些数据存储、动画停止、资源回收等操作。另外，onPause 方法执行完成后，新 Activity 的 onResume 方法才会被执行。所以 onPause 不能太耗时，因为这可能会影响到新的 Activity 的显示。
 
 5. onStop() ，不可见状态
+
 Activity 即将停止或者完全被覆盖（Stopped 形态），此时 Activity 不可见，仅在后台运行。同样地，在 onStop 方法可以做一些资源释放的操作，不能太耗时。
 
 6. onRestart(），可见状态
+
 表示 Activity 正在重新启动，由不可见状态变为可见状态。这种情况，一般发生在用户打开了一个新的 Activity 时，之前的 Activity 就会被 onStop，接着又回到之前 Activity 页面时，之前的 Activity 的 onRestart 方法就会被回调。
 
 7. onDestroy() ，不可见状态
+
 表示 Activity 正在被销毁，也是生命周期最后一个执行的方法，一般我们可以在此方法中做一些回收工作和最终的资源释放。
 
 ## 基础命令
@@ -97,7 +104,7 @@ Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
 vibrator.vibrate(500);
 ```
 
-增加权限：```<uses-permission android:name="android.permission.VIBRATE" />```
+增加权限： ` `  ` <uses-permission android:name="android.permission. VIBRATE" /> `  ` ` 
 
 ### 获取电量
 
@@ -138,7 +145,7 @@ finish();
 ```
 
 ::: tip 提示
-可使用```intent.setFlags(intent.FLAG_ACTIVITY_NO_HISTORY);```设置返回到桌面后再次访问时不保留此页面
+可使用 ` `  ` intent.setFlags(intent. FLAG_ACTIVITY_NO_HISTORY); `  ` ` 设置返回到桌面后再次访问时不保留此页面
 :::
 
 ### 页面间传递数据
@@ -200,7 +207,7 @@ intent.setData(Uri.parse("tel:电话号码"));
 startActivity(intent);
 ```
 
-增加权限：```<uses-permission android:name="android.permission.CALL_PHONE"/>```
+增加权限： ` `  ` <uses-permission android:name="android.permission. CALL_PHONE"/> `  ` ` 
 
 ### 跳转至发送短信界面
 
@@ -212,7 +219,7 @@ intent.putExtra("sms_body","短信内容");
 startActivity(intent);
 ```
 
-增加权限：```<uses-permission android:name="android.permission.SEND_SMS"/>```
+增加权限： ` `  ` <uses-permission android:name="android.permission. SEND_SMS"/> `  ` ` 
 
 ### 跳转至桌面（不退出）
 
@@ -382,12 +389,12 @@ android:text="@string/字符串名称"
 ```
 
 ::: tip 提示
-```string```是小写，不能大写
+` `  ` string `  ` ` 是小写，不能大写
 :::
 
 ### 颜色资源
 
-格式：```#透明度 R值 G值 B值```（各值间**没有空格**，RGB值为十六进制，透明度可省略）  
+格式： ` `  ` #透明度 R值 G值 B值 `  ` ` （各值间**没有空格**，RGB值为十六进制，透明度可省略）  
 
 \res\values\strings.xml
 
@@ -480,7 +487,7 @@ setContentView(R.layout.activity_main);
 ```
 
 ::: tip 提示
-在Java代码中需要在```setContentView```方法前使用```setTheme```，否则不起作用
+在Java代码中需要在 ` `  ` setContentView `  `  ` 方法前使用 `  `  ` setTheme `  ` ` ，否则不起作用
 :::
 
 ### 菜单资源
@@ -508,7 +515,7 @@ try {
 ## 界面布局
 
 ::: tip 提示
-在Android中，不允许线程更新程序界面，需要使用```Handler```对象来更新UI，充当子线程和UI主线程的信使
+在Android中，不允许线程更新程序界面，需要使用 ` `  ` Handler `  ` ` 对象来更新UI，充当子线程和UI主线程的信使
 :::
 
 ### 标题栏
@@ -568,7 +575,7 @@ Button1.setOnClickListener(new OnClickListener() {
 ```
 
 ::: tip 提示
-可使用```android:background="#0000"```将背景设置透明
+可使用 ` `  ` android:background="#0000" `  ` ` 将背景设置透明
 :::
 
 ### 文本框 TextView
@@ -591,10 +598,10 @@ Button1.setOnClickListener(new OnClickListener() {
 
 TextView常用属性：
 
-* 字体大小：```android:`textSize="字体大小（单位sp）"``
-* 字体颜色：```android:textColor="#十六进制颜色值"```
-* 背景：```android:background="背景图片路径/#十六进制颜色值"```
-* 设置单行：```android:singleLine="true"```
+* 字体大小： ` `  ` android: ` textSize="字体大小（单位sp）" ` ` 
+* 字体颜色： ` `  ` android:textColor="#十六进制颜色值" `  ` ` 
+* 背景： ` `  ` android:background="背景图片路径/#十六进制颜色值" `  ` ` 
+* 设置单行： ` `  ` android:singleLine="true" `  ` ` 
 
 ### 编辑框 EditText
 
@@ -609,12 +616,12 @@ TextView常用属性：
 
 TextView常用属性：
 
-* 编辑框类型：```android:`inputType="编辑框类型"``
-* 设置编辑框行数：```android:lines="行数"```
-* 在上侧显示图标：```android:`drawableTop="@mipmap\图标路径"``
-* 在下侧显示图标：```android:`drawableBottom="@mipmap\图标路径"``
-* 在左侧显示图标：```android:`drawableLeft="@mipmap\图标路径"``
-* 在右侧显示图标：```android:`drawableRight="@mipmap\图标路径"``
+* 编辑框类型： ` `  ` android: ` inputType="编辑框类型" ` ` 
+* 设置编辑框行数： ` `  ` android:lines="行数" `  ` ` 
+* 在上侧显示图标： ` `  ` android: ` drawableTop="@mipmap\图标路径" ` ` 
+* 在下侧显示图标： ` `  ` android: ` drawableBottom="@mipmap\图标路径" ` ` 
+* 在左侧显示图标： ` `  ` android: ` drawableLeft="@mipmap\图标路径" ` ` 
+* 在右侧显示图标： ` `  ` android: ` drawableRight="@mipmap\图标路径" ` ` 
 
 ### 单选按钮 RadioButton
 
@@ -632,7 +639,7 @@ TextView常用属性：
 </RadioGroup>
 ```
 
-获取选择状态：```单选按钮.isCgecked()```
+获取选择状态： ` `  ` 单选按钮.isCgecked() `  ` ` 
 
 ### 多选框 CheckBox
 
@@ -646,7 +653,7 @@ TextView常用属性：
 />
 ```
 
-获取选择状态：```单选按钮.isCgecked()```
+获取选择状态： ` `  ` 单选按钮.isCgecked() `  ` ` 
 
 ### 图片框 ImageView
 
@@ -660,10 +667,11 @@ TextView常用属性：
 
 ::: tip 提示
 
-* 可使用```android:scaleType```属性设置缩放模式
-* 可使用```android:adjustViewBounds="true"```属性设置取消等比例缩放
-* 可使用```android:maxWidth="100dp"```属性设置最大宽度
-* 可使用```android:maxHeight="100dp"```属性设置最大高度
+* 可使用 ` `  ` android:scaleType `  ` ` 属性设置缩放模式
+* 可使用 ` `  ` android:adjustViewBounds="true" `  ` ` 属性设置取消等比例缩放
+* 可使用 ` `  ` android:maxWidth="100dp" `  ` ` 属性设置最大宽度
+* 可使用 ` `  ` android:maxHeight="100dp" `  ` ` 属性设置最大高度
+
 :::
 
 ### 图片切换器 ImageSwitcher
@@ -764,8 +772,9 @@ Chronometer1.setOnChronometerTickListener (new Chronometer.OnChronometerTickList
 
 ::: tip 提示
 
-* 可使用```style```属性设置进度条样式（默认旋转圆圈）
-* 可使用```进度条.setProgress```方法设置当前进度
+* 可使用 ` `  ` style `  ` ` 属性设置进度条样式（默认旋转圆圈）
+* 可使用 ` `  ` 进度条.setProgress `  ` ` 方法设置当前进度
+
 :::
 
 ``` Java
@@ -829,8 +838,9 @@ new Thread (new Runnab1p() {
 
 ::: tip 提示
 
-* 可使用```thumb```属性设置进度条样式
-* 可使用```拖动条.setProgress```方法设置拖动值
+* 可使用 ` `  ` thumb `  ` ` 属性设置进度条样式
+* 可使用 ` `  ` 拖动条.setProgress `  ` ` 方法设置拖动值
+
 :::
 
 ### 星级评分条 RatingBar
@@ -849,11 +859,12 @@ new Thread (new Runnab1p() {
 
 ::: tip 提示
 
-* 可使用```android:numStars```属性设置星级的数量
-* 可使用```android:rating```属性设置默认选择星级的数量
-* 可使用```android:stepSize```属性设置选择步长（默认可选择半颗星）
-* 可使用```android:isIndicator="true"```属性设置只读
-* 可使用```星级评分条.getRating()```方法获取当前选择的星级
+* 可使用 ` `  ` android:numStars `  ` ` 属性设置星级的数量
+* 可使用 ` `  ` android:rating `  ` ` 属性设置默认选择星级的数量
+* 可使用 ` `  ` android:stepSize `  ` ` 属性设置选择步长（默认可选择半颗星）
+* 可使用 ` `  ` android:isIndicator="true" `  ` ` 属性设置只读
+* 可使用 ` `  ` 星级评分条.getRating() `  ` ` 方法获取当前选择的星级
+
 :::
 
 ### 下拉列表
@@ -950,7 +961,7 @@ listView.setAdapter(adapter)
 
 ### 选项卡
 
-将自带的布局改为```TabHost```，并删除padding边距
+将自带的布局改为 ` `  ` TabHost `  ` ` ，并删除padding边距
 
 ``` XML
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
@@ -980,8 +991,6 @@ inflater.inflate(R.layout.XML页名2,tabHost.getTabContentView());
 tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Tab页面标题1").setContent(R.id.left))
 tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab页面标题2").setContent(R.id.right))
 ```
-
-
 
 ## 消息推送
 
@@ -1022,17 +1031,6 @@ private void createNotificationChannel() {
 }
 ```
 
-## 广播
-
-``` Java
-
-```
-
-
-``` Java
-
-```
-
 ## 动态权限
 
 ``` Java
@@ -1045,10 +1043,12 @@ if (ContextCompat.checkSelfPermission(this, Manifest.permission.权限名称) !=
 ## 传感器
 
 ::: tip 提示
+
 * SENSOR_DELAY_FASTEST : 快速获取传感器信息，延迟较小
 * SENSOR_DELAY_GAME : 适合游戏的频率
 * SENSOR_DELAY_NORMAL : 正常频率
 * SENSOR_DELAY_UI : 适用于普通用户界面的频率，延迟较大
+
 :::
 
 ### 坐标系
@@ -1116,7 +1116,7 @@ private SensorEventListener LightListener = new SensorEventListener() {
 ```
 
 ::: tip 提示
-```event.values[0]``` 返回的是光线强度值, 单位是勒克斯
+` `  ` event.values[0] `  ` ` 返回的是光线强度值, 单位是勒克斯
 :::
 
 ### 加速度传感器
@@ -1153,7 +1153,7 @@ private SensorEventListener AccelerometerListener = new SensorEventListener() {
 方向传感器一般用来感应手机的摆放状态
 
 ::: tip 提示
-```getDefaultSensor(Sensor.TYPE_ORIENTATION)```方法已过期，需要加速度传感器、磁场传感器组合来获得方向传感器
+` `  ` getDefaultSensor(Sensor. TYPE_ORIENTATION) `  ` ` 方法已过期，需要加速度传感器、磁场传感器组合来获得方向传感器
 :::
 
 ``` Java
@@ -1210,7 +1210,7 @@ private SensorEventListener DirectionListener = new SensorEventListener() {
 
 ### 距离传感器
 
-距离传感器一般用来判断物品是否掉落等，距离传感器取值范围：```[0,5]```cm
+距离传感器一般用来判断物品是否掉落等，距离传感器取值范围： ` `  ` [0, 5] `  ` ` cm
 
 ``` Java
 // 获取传感器管理器
@@ -1232,7 +1232,6 @@ mSensorManager.registerListener(new SensorEventListener() {
 ```
 
 ### 定位
-
 
 ## 事件监听
 
@@ -1279,12 +1278,12 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 按键码：
 
-* 菜单键：```KEYCODE_MENU```
-* 主屏键：```KEYCODE_HOME```
-* 返回键：```KEYCODE_BACK```
-* 音量加：```KEYCODE_VOLUME_UP```
-* 音量减：```KEYCODE_VOLUME_DOWN```
-* 电源键：```KEYCODE_POWER```
+* 菜单键： ` `  ` KEYCODE_MENU `  ` ` 
+* 主屏键： ` `  ` KEYCODE_HOME `  ` ` 
+* 返回键： ` `  ` KEYCODE_BACK `  ` ` 
+* 音量加： ` `  ` KEYCODE_VOLUME_UP `  ` ` 
+* 音量减： ` `  ` KEYCODE_VOLUME_DOWN `  ` ` 
+* 电源键： ` `  ` KEYCODE_POWER `  ` ` 
 
 :::
 
@@ -1301,6 +1300,42 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 ```
 
 ## 持久化技术
+
+### 文件存储
+
+所有的文件默认会存放于``/data/data/包名/files``目录下
+
+#### 写入文件
+
+``` Kotlin
+try {
+  val output = openFileOutput("文件名", Context.MODE_PRIVATE)
+  val writer = BufferedWriter(OutputStreamWriter(output))
+  writer.use {
+      it.write("文件内容")
+  }
+} catch (e: IOException) {
+  e.printStackTrace()
+}
+```
+
+#### 读入文件
+
+``` Kotlin
+val content = StringBuilder()
+try {
+  val input = openFileInput("文件名")
+  val reader = BufferedReader(InputStreamReader(input))
+  reader.use {
+    reader.forEachLine {
+      content.append(it)
+    }
+  }
+} catch (e: IOException) {
+  e.printStackTrace()
+}
+return content.toString()
+```
 
 ### SharedPreferences
 
@@ -1326,128 +1361,4 @@ SharedPreferences preferences = getSharedPreferences("文件名(无后缀)", Con
 Log.i(preferences.getString("字段名"),默认值);
 Log.i(preferences.getInt("字段名"),默认值);
 Log.i(preferences.getBoolean("字段名",默认值));
-```
-
-### SQLite 数据库存储
-
-SQLite是Android内置的数据库，内存占用较低
-
-
-
-## Android与HTML5互调
-
-### 加载网页
-
-HTML5网页：新建 \src\main\ass\assets\index.html
-
-``` HTML
-<html lang="zh-CN">
-  <p>hello world</p>
-</html>
-```
-
-XML布局：
-
-``` XML
-<WebView
-  android:id="@+id/webview"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content" />
-```
-
-Java代码：
-
-``` Java
-private WebView webview;
-private Button btn;
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-   super.onCreate(savedInstanceState);
-   setContentView(R.layout.activity_main);
-
-   webview = (WebView) findViewById(R.id.webview);
-   //设置支持JavaScript
-   webview.getSettings().setJavaScriptEnabled(true);
-   //配置调用Android函数
-   webview.addJavascriptInterface(MainActivity.this, "Android");
-   //设置不自动调用浏览器
-   webview.setWebViewClient(new WebViewClient());
-   //加载网页
-   webview.loadUrl("file:///android_asset/index.html");
-   //切换当前页面
-   setContentView(webview);
-}
-```
-
-### Android调用JavaScript
-
-``` HTML
-<html lang="zh-CN">
-<script>
-  function 函数名(){
-
-  }
-  function 函数名([参数1][,参数2]){
-
-  }
-</script>
-</html>
-```
-
-``` Java
-webview.loadUrl("javascript:函数名()");
-webview.loadUrl("javascript:函数名(" + "'"   + "参数值1"+ "'"+ ",'"   + "参数值2"+ "'"+  ")");
-```
-
-### JavaScript调用Android
-
-``` Java
-//配置调用Android函数
-webview.addJavascriptInterface(MainActivity.this, "Android");
-```
-
-``` HTML
-<button onclick="Android.函数名()">调用安卓方法</button>
-<button onclick="Android.函数名('参数1','参数2')">调用安卓方法</button>
-```
-
-``` Java
-@JavascriptInterface
-public void 函数名() {
-  Toast.makeText(this, "JavaScript调用Android", Toast.LENGTH_SHORT).show();
-}
-@JavascriptInterface
-public void 函数名(String msg) {
-  Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-}
-```
-
-::: tip 提示
-每个函数声明前都需要加```@JavascriptInterface```，否则无法调用
-:::
-
-
-## QMUI
-
-### 导入
-
-Gradle Scripts\build.grade(Moudule: app)
-
-``` gradle
-dependencies {
-    implementation 'com.qmuiteam:qmui:2.0.0-alpha07'
-}
-```
-
-### 使用
-
-\res\values\styles.xml
-
-``` XML
-<resources>
-  <style name="AppTheme" parent="QMUI">
-
-  </style>
-</resources>
-
 ```
