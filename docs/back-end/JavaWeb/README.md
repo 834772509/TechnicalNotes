@@ -1,5 +1,21 @@
 # JavaWeb 笔记
 
+## 配置环境
+
+### 下载 Tomcat
+
+[Tomcat](https://tomcat.apache.org/)
+
+### 配置 Tomcat
+
+导入 ```servlet-api.jsp```、```jsp-api.jar```
+
+### 配置资源目录（可选）
+
+新建
+\web\WEB-INF\class 目录 : 设置编译目录
+\web\WEB-INF\lib 目录 : 设置包路径
+
 ## 脚本元素
 
 ### 脚本段
