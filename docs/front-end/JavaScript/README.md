@@ -582,44 +582,6 @@ txt1.setAttribute("value","aaa")
 元素.removeAttribute("名称")
 ```
 
-### 事件
-
-页面加载完成事件
-
-``` JavaScript
-window.onload = function(){
-
-}
-```
-
-点击事件
-
-``` JavaScript
-const btn = document.querySelector('.btn')
-btn.addEventListener('click',(e)=>{
-  //阻止默认事件（如提交按钮）
-  e.preventDefault();
-})
-```
-
-移入事件
-
-``` JavaScript
-const btn = document.querySelector('.btn')
-btn.addEventListener('mouseover',(e)=>{
-
-})
-```
-
-移入事件
-
-``` JavaScript
-const btn = document.querySelector('.btn')
-btn.addEventListener('mouseout',(e)=>{
-
-})
-```
-
 ### 创建元素
 
 ``` JavaScript
@@ -640,4 +602,102 @@ li.innerText = "内容"
 ``` JavaScript
 const 元素 = document.createElement("标签名")
 insertBefore(节点,原有节点)
+```
+
+## 事件
+
+```document```是整个页面的集合，第一个子节点是```<!DOCTYPE>```，第二个子节点是```<html>```
+
+::: tip 提示
+在body中，没有内容即没有高度
+:::
+
+### 事件冒泡
+
+事件除了触发本级，还会向父级传递  
+
+禁止事件冒泡：
+
+``` JavaScript
+event.cancelBubble = true
+```
+
+### 鼠标事件
+
+移入：
+
+``` JavaScript
+组件.onmouseover = function(event){
+  
+}
+```
+
+移出：
+
+``` JavaScript
+组件.onmouseout = function(event){
+  
+}
+```
+
+移动：
+
+``` JavaScript
+组件.onmousemove = function(event){
+  console.log("X坐标：" + event.pageX)
+  console.log("Y坐标：" + event.pageY)
+}
+```
+
+### 键盘事件
+
+按键：
+
+``` JavaScript
+组件.onkeypress = function(event){
+  console.log("按键：" + event.key);
+}
+```
+
+按下按键：
+
+``` JavaScript
+组件.onkeydown = function(event){
+  console.log("按下的按键：" + event.key);
+}
+```
+
+弹起按键：
+
+``` JavaScript
+组件.onkeyup = function(event){
+  console.log("按下的按键：" + event.key);
+}
+```
+
+组合键：```ctrlKey```、```altKey```、```shiftKey```
+
+``` JavaScript
+组件.onkeyup = function(event){
+  if (event.key == "按键" && event.ctrlKey) {
+
+  }
+}
+```
+
+### 页面加载完成事件
+
+``` JavaScript
+window.onload = function(){
+
+}
+```
+
+### 点击事件
+
+``` JavaScript
+组件.onclick = function(event){
+  //阻止默认事件（如提交按钮等）
+  event.preventDefault();
+}
 ```
