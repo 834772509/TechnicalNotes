@@ -1,6 +1,6 @@
-# Git笔记
+# Git 笔记
 
-## 配置环境变量（可省略）
+## 配置环境变量
 
 ```\PortableGit\cmd```
 
@@ -16,9 +16,10 @@
 
 ## 初始化Git
 
-``` bat
+``` cmd
 cd /d 项目目录
 git init
+git add .
 git commit -m "首次提交"
 git remote add origin "Git路径"  
 git pull --rebase origin master
@@ -26,20 +27,41 @@ git pull --rebase origin master
 
 ## 克隆Git
 
-``` bat
+``` cmd
 git clone http://XXX.git
 ```
 
 ## 拉取Git
 
-``` bat
+``` cmd
 git pull
 ```
 
 ## 推送Git
 
-``` bat
+``` cmd
 git add -A
 git commit -m "备注"
 git push
+```
+
+## 查看文件变动情况
+
+``` cmd
+git status
+```
+
+## 撤销修改
+
+### 撤销未提交修改
+
+``` cmd
+git checkout 路径
+```
+
+### 撤销已提交修改
+
+``` cmd
+git reset HEAD 路径
+git checkout 路径
 ```
