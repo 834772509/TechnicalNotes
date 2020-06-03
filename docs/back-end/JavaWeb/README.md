@@ -8,7 +8,7 @@
 
 ### 配置 Tomcat
 
-导入 ```servlet-api.jsp```、```jsp-api.jar```
+导入 ` `  ` servlet-api.jsp `  `  ` 、 `  `  ` jsp-api.jar `  ` ` 
 
 ### 配置资源目录（可选）
 
@@ -46,7 +46,7 @@ getDate()
 ```
 
 ::: tip 提示
-表达式不是完整的语句，不能加;
+表达式不是完整的语句，不能加; 
 :::
 
 ## 指令
@@ -89,7 +89,7 @@ getDate()
 
 在当前页面中加入静态/动态资源
 
-```jsp
+``` jsp
 <jsp:include page="URL">
 ```
 
@@ -99,7 +99,7 @@ getDate()
 
 #### action
 
-```jsp
+``` jsp
 
 ```
 
@@ -107,7 +107,7 @@ getDate()
 
 把当前的JSP页面重新定向到另一个页面上
 
-```jsp
+``` jsp
 <jsp:forward page="重定向的页面">
   <jsp:param name="name" value="value"/>
 </jsp:forward>
@@ -209,4 +209,61 @@ if(pstmt.executeUpdate() == 1){
 pstmt.close();
 con.close();
 %>
+```
+
+## Session
+
+Session 用于存储数据，存储在浏览器中，关闭浏览器即销毁
+
+### 设置
+
+``` jsp
+request.getSession().setAttribute("Session名",值);
+```
+
+### 获取
+
+``` jsp
+String[] 值 = (String[])request.getSession().getAttribute("Session名");
+```
+
+## Application
+
+application 用于存储数据，存储在服务器的内存中，重启服务器即销毁
+
+### 设置
+
+``` JSP
+application.setAttribute("标识符", 值);
+```
+
+### 获取
+
+``` JSP
+application.getAttribute("标识符");
+```
+
+## Cookies
+
+Cookies 用于存储数据，存储在客户端硬盘中，用户清理浏览器垃圾即销毁
+
+### 设置
+
+``` jsp
+Cookie cookie = new Cookie("标识符",值);
+//设置cookies的生命周期
+cookie.setMaxAge(3*24*60*60);
+response.addCookie(cookie);
+```
+
+### 获取
+
+``` jsp
+Cookie[] cookies = request.getCookies();
+for(int i = 0; i < cookies.length; i++){
+  if (cookies[i].getName().equals("标识符")){
+    out.print(Integer.parseInt(cookies[i].getValue()))
+    break;
+  }
+}
 ```
