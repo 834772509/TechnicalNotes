@@ -65,3 +65,11 @@ git checkout 路径
 git reset HEAD 路径
 git checkout 路径
 ```
+
+## 修复push失败
+
+``` cmd
+git merge --abort
+git reset --merge
+git pull
+```
