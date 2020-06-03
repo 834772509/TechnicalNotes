@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Android与HTML5互调 | 杉-技术笔记</title>
+    <meta name="description" content="">
+    <link rel="icon" href="/technicalnotes/img/LOGO.ico">
+    
+    <link rel="preload" href="/technicalnotes/assets/css/0.styles.833b937c.css" as="style"><link rel="preload" href="/technicalnotes/assets/js/app.bfaf6e3b.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/2.271842be.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/21.14095bff.js" as="script"><link rel="prefetch" href="/technicalnotes/assets/js/10.04636f31.js"><link rel="prefetch" href="/technicalnotes/assets/js/11.4c4f550c.js"><link rel="prefetch" href="/technicalnotes/assets/js/12.85d343b6.js"><link rel="prefetch" href="/technicalnotes/assets/js/13.e848e7a1.js"><link rel="prefetch" href="/technicalnotes/assets/js/14.c9a95c61.js"><link rel="prefetch" href="/technicalnotes/assets/js/15.942646bd.js"><link rel="prefetch" href="/technicalnotes/assets/js/16.7168080b.js"><link rel="prefetch" href="/technicalnotes/assets/js/17.a4000a3c.js"><link rel="prefetch" href="/technicalnotes/assets/js/18.b2113bd3.js"><link rel="prefetch" href="/technicalnotes/assets/js/19.0a2f6a54.js"><link rel="prefetch" href="/technicalnotes/assets/js/20.2ffcef17.js"><link rel="prefetch" href="/technicalnotes/assets/js/22.cf96870b.js"><link rel="prefetch" href="/technicalnotes/assets/js/23.212f3bf1.js"><link rel="prefetch" href="/technicalnotes/assets/js/24.65be64d7.js"><link rel="prefetch" href="/technicalnotes/assets/js/25.18194e2c.js"><link rel="prefetch" href="/technicalnotes/assets/js/26.3157a41c.js"><link rel="prefetch" href="/technicalnotes/assets/js/27.81c56415.js"><link rel="prefetch" href="/technicalnotes/assets/js/28.292357ee.js"><link rel="prefetch" href="/technicalnotes/assets/js/29.bda8a29b.js"><link rel="prefetch" href="/technicalnotes/assets/js/3.1321ed94.js"><link rel="prefetch" href="/technicalnotes/assets/js/30.14afe414.js"><link rel="prefetch" href="/technicalnotes/assets/js/31.749f58de.js"><link rel="prefetch" href="/technicalnotes/assets/js/32.bfae7748.js"><link rel="prefetch" href="/technicalnotes/assets/js/33.fe18920e.js"><link rel="prefetch" href="/technicalnotes/assets/js/34.88bb5668.js"><link rel="prefetch" href="/technicalnotes/assets/js/35.93feaa7a.js"><link rel="prefetch" href="/technicalnotes/assets/js/36.ff7ddce7.js"><link rel="prefetch" href="/technicalnotes/assets/js/37.f33385c2.js"><link rel="prefetch" href="/technicalnotes/assets/js/38.42f683be.js"><link rel="prefetch" href="/technicalnotes/assets/js/4.e633bdb7.js"><link rel="prefetch" href="/technicalnotes/assets/js/5.e6420e02.js"><link rel="prefetch" href="/technicalnotes/assets/js/6.15bd0b14.js"><link rel="prefetch" href="/technicalnotes/assets/js/7.8f1f108b.js"><link rel="prefetch" href="/technicalnotes/assets/js/8.185832be.js"><link rel="prefetch" href="/technicalnotes/assets/js/9.8675abef.js">
+    <link rel="stylesheet" href="/technicalnotes/assets/css/0.styles.833b937c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><!----></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/technicalnotes/" class="home-link router-link-active"><!----> <span class="site-name">杉-技术笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Andorid/" class="nav-link router-link-active">
+  Andorid
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringBoot/" class="nav-link">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SQL/" class="nav-link">
+  SQL数据库
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/SoftTest/" class="nav-link">
+  软件测试
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Andorid/" class="nav-link router-link-active">
+  Andorid
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringBoot/" class="nav-link">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SQL/" class="nav-link">
+  SQL数据库
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/SoftTest/" class="nav-link">
+  软件测试
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Andorid</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/technicalnotes/front-end/Andorid/Android与HTML5互调.html" class="active sidebar-link">Android与HTML5互调</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/Andorid/Android与HTML5互调.html#加载网页" class="sidebar-link">加载网页</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/Andorid/Android与HTML5互调.html#android调用javascript" class="sidebar-link">Android调用JavaScript</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/Andorid/Android与HTML5互调.html#javascript调用android" class="sidebar-link">JavaScript调用Android</a></li></ul></li><li><a href="/technicalnotes/front-end/Andorid/DataBase.html" class="sidebar-link">数据库</a></li><li><a href="/technicalnotes/front-end/Andorid/Jetpack.html" class="sidebar-link">Jetpack</a></li><li><a href="/technicalnotes/front-end/Andorid/Kotlin.html" class="sidebar-link">Kotlin</a></li><li><a href="/technicalnotes/front-end/Andorid/MaterialDesign.html" class="sidebar-link">Material Design</a></li><li><a href="/technicalnotes/front-end/Andorid/QMUI.html" class="sidebar-link">QMUI</a></li><li><a href="/technicalnotes/front-end/Andorid/" class="sidebar-link">Android 笔记</a></li><li><a href="/technicalnotes/front-end/Andorid/传感器.html" class="sidebar-link">传感器</a></li><li><a href="/technicalnotes/front-end/Andorid/界面布局.html" class="sidebar-link">界面布局</a></li><li><a href="/technicalnotes/front-end/Andorid/网络技术.html" class="sidebar-link">网络技术</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="android与html5互调"><a href="#android与html5互调" class="header-anchor">#</a> Android与HTML5互调</h1> <h2 id="加载网页"><a href="#加载网页" class="header-anchor">#</a> 加载网页</h2> <p>HTML5网页：新建 \src\main\ass\assets\index.html</p> <div class="language-HTML extra-class"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>zh-CN<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>hello world<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>XML布局：</p> <div class="language-XML extra-class"><pre class="language-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>WebView</span>
+  <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>@+id/webview<span class="token punctuation">&quot;</span></span>
+  <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>wrap_content<span class="token punctuation">&quot;</span></span>
+  <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>wrap_content<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre></div><p>Java代码：</p> <div class="language-Java extra-class"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token class-name">WebView</span> webview<span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token class-name">Button</span> btn<span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token class-name">Bundle</span> savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token function">setContentView</span><span class="token punctuation">(</span><span class="token class-name">R</span><span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   webview <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">WebView</span><span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span><span class="token class-name">R</span><span class="token punctuation">.</span>id<span class="token punctuation">.</span>webview<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">//设置支持JavaScript</span>
+   webview<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setJavaScriptEnabled</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">//配置调用Android函数</span>
+   webview<span class="token punctuation">.</span><span class="token function">addJavascriptInterface</span><span class="token punctuation">(</span><span class="token class-name">MainActivity</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token string">&quot;Android&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">//设置不自动调用浏览器</span>
+   webview<span class="token punctuation">.</span><span class="token function">setWebViewClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebViewClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">//加载网页</span>
+   webview<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">&quot;file:///android_asset/index.html&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">//切换当前页面</span>
+   <span class="token function">setContentView</span><span class="token punctuation">(</span>webview<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="android调用javascript"><a href="#android调用javascript" class="header-anchor">#</a> Android调用JavaScript</h2> <div class="language-HTML extra-class"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>zh-CN<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+  <span class="token keyword">function</span> <span class="token function">函数名</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+  <span class="token punctuation">}</span>
+  <span class="token keyword">function</span> <span class="token function">函数名</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">[</span>参数<span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">,</span>参数<span class="token number">2</span><span class="token punctuation">]</span></span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+  <span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><div class="language-Java extra-class"><pre class="language-java"><code>webview<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">&quot;javascript:函数名()&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+webview<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">&quot;javascript:函数名(&quot;</span> <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span>   <span class="token operator">+</span> <span class="token string">&quot;参数值1&quot;</span><span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token operator">+</span> <span class="token string">&quot;,'&quot;</span>   <span class="token operator">+</span> <span class="token string">&quot;参数值2&quot;</span><span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token operator">+</span>  <span class="token string">&quot;)&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="javascript调用android"><a href="#javascript调用android" class="header-anchor">#</a> JavaScript调用Android</h2> <div class="language-Java extra-class"><pre class="language-java"><code><span class="token comment">//配置调用Android函数</span>
+webview<span class="token punctuation">.</span><span class="token function">addJavascriptInterface</span><span class="token punctuation">(</span><span class="token class-name">MainActivity</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token string">&quot;Android&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><div class="language-HTML extra-class"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Android.函数名()<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>调用安卓方法<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Android.函数名('参数1','参数2')<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>调用安卓方法<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><div class="language-Java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@JavascriptInterface</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> 函数名<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">Toast</span><span class="token punctuation">.</span><span class="token function">makeText</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token string">&quot;JavaScript调用Android&quot;</span><span class="token punctuation">,</span> <span class="token class-name">Toast</span><span class="token punctuation">.</span>LENGTH_SHORT<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token annotation punctuation">@JavascriptInterface</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> 函数名<span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">Toast</span><span class="token punctuation">.</span><span class="token function">makeText</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> msg<span class="token punctuation">,</span> <span class="token class-name">Toast</span><span class="token punctuation">.</span>LENGTH_SHORT<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">提示</p> <p>每个函数声明前都需要加<code>@JavascriptInterface</code>，否则无法调用</p></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/technicalnotes/front-end/Andorid/DataBase.html">
+        数据库
+      </a>
+      →
+    </span></p></div> </main></div> <div class="footer" data-v-c54358c4><div id="footer-info" data-v-c54358c4><div class="footer-left" data-v-c54358c4>
+      © 2020
+      <!----></div> <div class="footer-right" data-v-c54358c4>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <!----></div></main><div class="global-ui"><!----></div></div>
+    <script src="/technicalnotes/assets/js/app.bfaf6e3b.js" defer></script><script src="/technicalnotes/assets/js/2.271842be.js" defer></script><script src="/technicalnotes/assets/js/21.14095bff.js" defer></script>
+  </body>
+</html>
