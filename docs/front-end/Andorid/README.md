@@ -669,12 +669,24 @@ Log.i(preferences.getBoolean("字段名",默认值));
 
 ## 多线程
 
+### 基本多线程
+
+此多线程无法更新UI界面，只能处理逻辑代码
+
+``` Kotlin
+Thread {
+  //延时（毫秒）
+  Thread.sleep(100)
+}.start()
+```
+
 ### 使用 AsyncTask
 
 AsyncTask 原理是基于异步消息处理机制，Android里做好了很好的封装
 
 ``` Kotlin
-类名.execute()
+//启动线程
+类名().execute()
 
 class 类名 : AsyncTask<Unit, Int, Boolean>(){
     override fun doInBackground(vararg params: Unit?): Boolean {

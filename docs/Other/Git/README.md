@@ -91,3 +91,11 @@ git merge --abort
 git reset --merge
 git pull
 ```
+
+## 删除排除目录
+
+``` cmd
+git rm -rf .idea
+git commit -m "删除排除目录"
+git push origin master
+```
