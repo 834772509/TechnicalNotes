@@ -239,31 +239,6 @@ intent.setData(Uri.parse("网页地址"));
 startActivity(intent);
 ```
 
-### 多线程
-
-* 方法1
-
-``` Java
-new Thread(new Runnable() {
-  @Override
-  public void run() {
-  }
-}
-).start();
-```
-
-* 方法2
-
-``` Java
-final Handler handler1 = new Handler();
-handler1.post(new Runnable() {
-  @Override
-  public void run() {
-    handler1.postDelayed(this, 3000);
-  }
-});
-```
-
 ### 显示Toast提示
 
 ``` Java
@@ -632,7 +607,7 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 ### 文件存储
 
-所有的文件默认会存放于``/data/data/包名/files``目录下
+所有的文件默认会存放于 ` ` /data/data/包名/files ` ` 目录下
 
 #### 写入文件
 
@@ -694,4 +669,53 @@ Log.i(preferences.getBoolean("字段名",默认值));
 
 ## 多线程
 
+### 使用 AsyncTask
 
+AsyncTask 原理是基于异步消息处理机制，Android里做好了很好的封装
+
+``` Kotlin
+类名.execute()
+
+class 类名 : AsyncTask<Unit, Int, Boolean>(){
+    override fun doInBackground(vararg params: Unit?): Boolean {
+        //进行耗时操作（无法更新界面）
+
+        //调用onProgressUpdate方法更新界面（可传参）
+        publishProgress()
+
+        //延时（毫秒）
+        Thread.sleep(100)
+
+        //返回值将会传到收尾操作
+        return true
+    }
+    override fun onProgressUpdate(vararg values: Int?) {
+        //进行更新UI操作，由doInBackground方法主动调用
+    }
+    override fun onPostExecute(result: Boolean?) {
+        //进行收尾操作，result参数为耗时操作返回值
+    }
+}
+```
+
+### 使用 Handler （不推荐，麻烦）
+
+``` Kotlin
+val uptateText = 1
+val handler = object : Handler() {
+  override fun handleMessage(msg: Message) {
+    when (msg.what) {
+      //此处可更新UI
+      uptateText -> textview_text.text = "123"
+    }
+  }
+}
+
+button.setOnClickListener {
+    Thread {
+      val message = Message()
+      message.what = uptateText
+      handler.sendMessage(message)
+    }.start()
+}
+```

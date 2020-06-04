@@ -15,6 +15,17 @@
 类型[] 变量名=new 类型[length];
 ```
 
+## 多线程
+
+``` Java
+new Thread(new Runnable() {
+  @Override
+  public void run() {
+  }
+}
+).start();
+```
+
 ## **I/0流**
   
 ### **文件对象**
