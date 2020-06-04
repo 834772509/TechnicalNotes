@@ -621,6 +621,20 @@ insertBefore(节点, 原有节点)
 event.cancelBubble = true
 ```
 
+### 绑定事件
+
+```addEventListener```适用于**多次绑定事件**，on事件多次绑定会**覆盖**
+
+``` JavaScript
+组件.btn1.addEventListener("事件名", function () {
+
+}
+```
+
+::: tip 提示
+事件名不带**on**
+:::
+
 ### 鼠标事件
 
 移入：
