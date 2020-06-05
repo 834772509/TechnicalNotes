@@ -6,8 +6,8 @@
 
 环境变量：
 
-* ```\Python\```
-* ```\Python\Scripts```
+* `` `\Python\` ``
+* `` `\Python\Scripts` ``
 
 ## 解决pip速度慢的问题
 
@@ -26,19 +26,19 @@ trusted-host=mirrors.aliyun.com
 
 ### 导入
 
-```pip install -r requirements.txt```
+`` `pip install -r requirements.txt` ``
 
 ### 导出
 
-安装pipreqs：```pip install pipreqs```
+安装pipreqs：`` `pip install pipreqs` ``
 
 1. 进入项目目录
-2. 输入```pipreqs ./ --encoding utf8```
+2. 输入`` `pipreqs ./ --encoding utf8` ``
 
 ## 打包程序
 
-安装PyInstalle：```pip install pyinstaller```
-打包：```pyinstaller -F -w --clean "源码路径"```
+安装PyInstalle：`` `pip install pyinstaller` ``
+打包：`` `pyinstaller -F -w --clean "源码路径"` ``
 
 ## 数据类型
 
@@ -53,16 +53,16 @@ trusted-host=mirrors.aliyun.com
 
 转换：
 
-到数值：```int(参数值)```
-到浮点：```float(参数值)```
-到字符串：```str(参数值)```
-取长度：```len(参数值)```
+到数值：`` `int(参数值)` ``
+到浮点：`` `float(参数值)` ``
+到字符串：`` `str(参数值)` ``
+取长度：`` `len(参数值)` ``
 
 ### 数据类型的转换
 
-转字符串：```str()```  
-转整数：```int()```  
-转浮点数：```float()```  
+转字符串：`` `str()` ``  
+转整数：`` `int()` ``  
+转浮点数：`` `float()` ``  
 
 ## 基本语法
 
@@ -92,9 +92,26 @@ for 目标 in range(5):
   循环体
 ```
 
-* range()函数：range([start],stop[,step=1])，有三个参数，中括号中的内容可选，step是步进，这个BIF的作用是生成一个从start参数的值开始到stop参数的值结束的数字序列，经常与for循环联合使用。记住，是左闭右开区间
+* range()函数：range([start], stop[, step=1])，有三个参数，中括号中的内容可选，step是步进，这个BIF的作用是生成一个从start参数的值开始到stop参数的值结束的数字序列，经常与for循环联合使用。记住，是左闭右开区间
 * break：跳出循环体
 * continue：终止本轮 循环，并开始下一轮循环（如果下一轮循环的条件为真）
+
+
+### print
+
+打印指定的内容
+
+``` Python
+print()
+```
+
+### input
+
+接收用户的输入并返回
+
+``` Python
+temp = input("请输入：")
+```
 
 ### lambda表达式
 
@@ -186,7 +203,7 @@ class 类名(父类名):
 
 ::: tip 提示
 
-* 在方法名前加```@staticmethod```表示方法是**静态方法**（无法访问**实例属性**）
+* 在方法名前加`` `@staticmethod` ``表示方法是**静态方法**（无法访问**实例属性**）
 * self参数不需要填写值
 * 子类可以重写父类的属性、方法
 
@@ -206,7 +223,7 @@ except Exception as e:
 ```
 
 ::: tip 提示
-所有异常都是```Exception```的子类，可以匹配所有异常
+所有异常都是`` `Exception` ``的子类，可以匹配所有异常
 :::
 
 ## 集合
@@ -327,6 +344,7 @@ tuple(元组名)
 
 * 当内容不被轻易改写的时候，使用元组
 * 当需要频繁修改数据，使用列表
+
 :::
 
 ## 字典
@@ -383,29 +401,12 @@ for value in 字典名.values():
     print(value)
 ```
 
-## 常用BIF（方法）
 
-### print
-
-打印指定的内容
-
-``` Python
-print()
-```
-
-### input
-
-接收用户的输入并返回
-
-``` Python
-temp = input("请输入：")
-```
 
 ## 绘图
 
 ``` Python
 import turtle
-
 
 # 向左转向
 turtle.left(90)
@@ -458,8 +459,9 @@ def 函数名(参数1,参数2):
 
 ::: tip 提示
 
-* 可使用```sleep(时间)```进行延时，单位为秒
-* 可使用```线程名.join()```等待线程执行完成
+* 可使用`` `sleep(时间)` ``进行延时，单位为秒
+* 可使用`` `线程名.join()` ``等待线程执行完成
+
 :::
 
 ### 共享数据访问
@@ -673,6 +675,7 @@ print(dirs)
 import os
 
 ## 目标目录
+
 targetDir = r'd:\tmp\util\dist\check'
 
 files =  os.listdir(目标目录)
@@ -688,12 +691,15 @@ import os
 from os.path import isfile, join,isdir
 
 ## 目标目录
+
 targetDir = r'd:\tmp\util\dist\check'
 
 ## 所有的文件
+
 print([f for f in os.listdir(目标目录) if isfile(join(目标目录, f))])
 
 ## 所有的目录
+
 print([f for f in os.listdir(目标目录) if isdir(join(目标目录, f))])
 ```
 
@@ -713,10 +719,10 @@ print(exes)
 ### 环境搭建
 
 安装Requests（网络请求）：
-```pip install requests```
+`` `pip install requests` ``
 
 安装Beautifulsoup4（解析网页）：
-```pip install bs4```
+`` `pip install bs4` ``
 
 ### 请求网址
 
@@ -761,7 +767,7 @@ for item in titles:
 ```
 
 ::: tip 提示
-可使用```.get_text()```方法获取HTML标签内容
+可使用`` `.get_text()` ``方法获取HTML标签内容
 :::
 
 ### Json解析
@@ -773,192 +779,3 @@ import json
 print(解析Json['message'])
 print(解析Json['data']['message'])
 ```
-
-## Tkinter
-
-### 窗口
-
-``` Python
-from tkinter import *
-root = Tk()
-root.mainloop()
-```
-
-### 标签
-
-``` Python
-标签 = Label(root, text="标签")
-标签.pack()
-```
-
-### 图片框
-
-``` Python
-图片框 = Label(root, image=PhotoImage(file=""))
-图片框.pack()
-```
-
-### 按钮
-
-``` Python
-按钮 = Button(root, text="按钮",command=调用的方法名)
-BeautifyButton(按钮)
-按钮.pack()
-```
-
-### 编辑框
-
-``` Python
-编辑框 = Text(root, wrap=NONE)
-编辑框.insert(END, '编辑框默认内容')
-编辑框.pack()
-```
-
-### 组合框
-
-``` Python
-组合框 = ttk.Combobox(root, values=(
-    '1', '2', '3', '4', '5'), state='readonly')
-组合框.current(0)
-组合框.pack()
-```
-
-### 下拉列表框
-
-``` Python
-w = Spinbox(root, values=("1", "2", "3", "4", "5"))
-w.pack()
-```
-
-### 信息框
-
-``` Python
-# 确认提示框
-messagebox.showinfo(root.title() + " - 提示", message="内容")
-# 是否提示框，选择是返回YES，选择否返回NO
-    messagebox.askquestion(title=root.title() + " - 提示", message="内容")
-```
-
-### 窗口Demo
-
-::: details 点击查看代码
-
-``` Python
-import os
-import subprocess
-import tkinter.font as tkFont
-from tkinter import *
-from tkinter import Menu, messagebox, ttk, filedialog
-
-root = Tk()
-#设置窗口图标
-root.iconbitmap("Icon.ico")
-#设置窗口颜色
-root.config(background="white")
-#设置默认字体
-default_font = tkFont.Font(family='微软雅黑', size=9)
-root.option_add("*Font", default_font)
-
-#增加窗口菜单
-menubar = Menu(root)
-
-菜单1 = Menu(menubar, tearoff=False)
-菜单1.add_command(label="菜单项1")
-菜单1.add_separator()
-菜单1.add_command(label="菜单项2")
-menubar.add_cascade(label="菜单1", menu=菜单1)
-
-单选菜单 = Menu(menubar, tearoff=False)
-单选菜单.add_radiobutton(label="菜单项1")
-单选菜单.add_radiobutton(label="菜单项2")
-menubar.add_cascade(label="单选菜单", menu=单选菜单)
-
-多选菜单 = Menu(menubar, tearoff=False)
-多选菜单.add_checkbutton(label="菜单项1")
-多选菜单.add_checkbutton(label="菜单项2")
-menubar.add_cascade(label="多选菜单", menu=多选菜单)
-
-root.config(menu=menubar)
-# 绑定右键菜单
-root.bind("<Button-3>", lambda event: 菜单1.post(event.x_root, event.y_root))
-
-root.title("启动窗口")
-root.resizable(width=False, height=False)
-
-#增加标签
-标签1 = Label(root, text="标签", background=root.cget("background"))
-标签1.pack()
-
-#增加图片框
-图片框1 = Label(root, image=PhotoImage(file=""), background=root.cget("background"))
-图片框1.pack()
-
-
-def BeautifyButton(Button):
-    Button.config(bg="#0083EE",
-                  fg="white",
-                  activeforeground="white",
-                  activebackground="#0088FF",
-                  bd=0)
-    Button.bind('<Enter>', lambda self: Button.config(bg="#0F93FF"))
-    Button.bind('<Leave>', lambda self: Button.config(bg="#0083EE"))
-
-def hi():
-    # 确认提示框
-    messagebox.showinfo(root.title() + " - 提示", message="内容")
-    # 是否提示框，选择是返回YES，选择否返回NO
-    messagebox.askquestion(title=root.title() + " - 提示", message="内容")
-
-#增加图按钮1
-按钮1 = Button(root, text="按钮1",command=hi)
-BeautifyButton(按钮1)
-按钮1.pack()
-
-def ping():
-    # 堵塞方法执行cmd命令
-    # print(os.popen("ping 127.0.0.1").read())
-    # 不堵塞执行cmd命令
-    print(subprocess.Popen("ping 127.0.0.1").stdout.read())
-
-#增加图按钮2
-按钮2 = Button(root, text="按钮-执行cmd", command=ping)
-BeautifyButton(按钮2)
-按钮2.pack()
-
-def fileshow():
-    #打开文件对话框
-    FileName = filedialog.askopenfilename(title=root.title() + " - 打开文件",filetypes=[("应用程序",".exe")])
-    if FileName != "":
-        print(FileName)
-    #保存文件对话框
-    FileName = filedialog.asksaveasfilename(title=root.title() + " - 保存文件", filetypes=[("文本文件", ".txt")])
-    if FileName != "":
-        print(FileName)
-
-#增加图按钮3
-按钮3 = Button(root, text="按钮-浏览", command=fileshow)
-BeautifyButton(按钮3)
-按钮3.pack()
-
-#增加编辑框
-编辑框1 = Text(root, wrap=NONE)
-编辑框1.insert(END, '零基础入门学习Python')
-编辑框1.pack()
-
-#增加组合框
-组合框1 = ttk.Combobox(root, values=(
-    '1', '2', '3', '4', '5'), state='readonly')
-组合框1.current(0)
-组合框1.pack()
-
-#增加下拉列表框
-w = Spinbox(root, values=("1", "2", "3", "4", "5"))
-w.pack()
-
-
-root.mainloop()
-```
-
-:::
-
-
