@@ -272,3 +272,8 @@ for(int i = 0; i < cookies.length; i++){
   }
 }
 ```
+
+## Servlet
+
+Servlet 是用来响应客户端网路请求(http请求)的服务器端Java程序，在MVC开发模式中担任控制层
+
