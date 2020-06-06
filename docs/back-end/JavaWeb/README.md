@@ -18,8 +18,8 @@
 
 ### 解决中文乱码问题
 
-Idea：文件-设置-构建、执行、部署-编译器-Java编译器-附加命令行参数：``-encoding utf-8``  
-Tomcat 运行配置：虚拟机选项：``-Dfile.encoding=UTF-8``
+Idea：文件-设置-构建、执行、部署-编译器-Java编译器-附加命令行参数： ` ` -encoding utf-8 ` ` 
+Tomcat 运行配置：虚拟机选项： ` ` -Dfile.encoding=UTF-8 ` ` 
 
 ## 脚本元素
 
@@ -277,3 +277,47 @@ for(int i = 0; i < cookies.length; i++){
 
 Servlet 是用来响应客户端网路请求(http请求)的服务器端Java程序，在MVC开发模式中担任控制层
 
+### 创建
+
+src\Servlet名称.java
+
+``` Java
+public class Servlet名称 extends HttpServlet {
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      //设置字符编码
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
+        PrintWriter o = resp.getWriter();
+        String uri = req.getRequestURI();
+        if (uri.equals("/跳转页名.do")) {
+            String 参数名 = req.getParameter("参数名");
+            o.print(参数名);
+        } else if (uri.equals("/跳转页名.do")) {
+            String 参数名 = req.getParameter("参数名");
+            o.print(参数名);
+        }
+    }
+}
+```
+
+### 声明
+
+\web\WEB-INF\web.xml
+
+``` XML
+<servlet>
+  <servlet-name>Servlet名称</servlet-name>
+  <servlet-class>action.AjaxSer</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>Servlet名称</servlet-name>
+  <url-pattern>*.do</url-pattern>
+</servlet-mapping>
+```
+
+### 使用
+
+``` jsp
+<form action="跳转页名.do" method="post">
+</form>
+```
