@@ -626,7 +626,7 @@ event.cancelBubble = true
 ```addEventListener```适用于**多次绑定事件**，on事件多次绑定会**覆盖**
 
 ``` JavaScript
-组件.btn1.addEventListener("事件名", function () {
+组件.addEventListener("事件名", function () {
 
 }
 ```
@@ -634,6 +634,12 @@ event.cancelBubble = true
 ::: tip 提示
 事件名不带**on**
 :::
+
+### 解除绑定事件
+
+``` JavaScript
+组件.detachEvent("事件名",函数)
+```
 
 ### 鼠标事件
 
