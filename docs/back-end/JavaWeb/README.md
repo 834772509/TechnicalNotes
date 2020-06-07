@@ -321,3 +321,58 @@ public class Servlet名称 extends HttpServlet {
 <form action="跳转页名.do" method="post">
 </form>
 ```
+
+## Oracle 数据库
+
+### 连接数据库
+
+``` jsp
+//加载类，并执行类中的静态代码块
+Class.forName("oracle.jdbc.OracleDriver");
+//连接数据库
+Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@数据库地址:1521:XE", "用户名", "密码");
+```
+
+### 增加数据
+
+``` jsp
+String sql = "insert into 表名 values (?,?)";
+PreparedStatement preparedStatement = conn.prepareStatement(sql);
+preparedStatement.setInt(1, 值);
+preparedStatement.setString(2, "值");
+
+preparedStatement.executeUpdate();
+```
+
+### 删除数据
+
+``` jsp
+String sql = "DELETE FROM 表名 WHERE 字段值=?";
+PreparedStatement preparedStatement = conn.prepareStatement(sql);
+preparedStatement.setString(1, "值");
+preparedStatement.executeUpdate();
+```
+
+### 查询数据
+
+``` jsp
+String sql = "select * from 表名 where 字段名=?";
+PreparedStatement preparedStatement = conn.prepareStatement(sql);
+preparedStatement.setInt(1, 值);
+ResultSet rs = preparedStatement.executeQuery();
+white (rs.next()) {
+  System.out.println(rs.getInt("字段名"));
+  System.out.println(rs.getString("字段名"));
+}
+```
+
+### 修改数据
+
+``` jsp
+String sql = "Update 表名 Set 字段名=? where 字段名=?";
+PreparedStatement preparedStatement = conn.prepareStatement(sql);
+preparedStatement.setInt(1, 值);
+preparedStatement.setString(2, "值");
+
+preparedStatement.executeUpdate();
+```

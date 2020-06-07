@@ -98,7 +98,7 @@ E-R图提供了表示实体型、属性和联系方法
 | DATE()      | 日期。格式：YYYY-MM-DD |
 | DATETIME()      | 日期和时间的组合。格式：YYYY-MM-DD HH:MM:SS |
 
-## 常用SQL语句
+## 基本表
 
 ### 创建基本表
 
@@ -132,7 +132,9 @@ Alter Table<表名>
 Drop Table<表名> [Cascade(级联)|Restarict(限制)];
 ```
 
-### 插入数据
+## 增删查改
+
+### 增加数据
 
 ``` SQL
 Insert
@@ -156,7 +158,7 @@ From<表名>
 [Where<条件>];
 ```
 
-### 数据查询
+### 查询数据
 
 ``` SQL
 Select[All|Distinct(去重复)] <目标表达式> [,<目标表达式>]…
@@ -165,6 +167,8 @@ From <表名> [,<表名>]…
 [Group by <列名> [Having<条件表达式>]]  --分组
 [Order by <列名>[Asc(升序)|Desc(降序)]]  --排序
 ```
+
+## 模式
 
 ### 创建模式
 
@@ -177,6 +181,8 @@ Create Schema <模式名>Authorization<用户名>
 ``` SQL
 Drop Schema<模式名><Cascade(级联)|Restarict(限制)>
 ```
+
+## 视图
 
 ### 创建视图
 
