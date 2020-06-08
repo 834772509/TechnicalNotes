@@ -603,6 +603,61 @@ const 元素 = document.createElement("标签名")
 insertBefore(节点, 原有节点)
 ```
 
+## 运动框架
+
+``` JavaScript
+function startMove(obj, json, endFun) {
+    function getStyle(obj, attr) {
+        if (obj.currentStyle) {
+        return obj.currentStyle[attr];
+        } else {
+        return getComputedStyle(obj, false)[attr];
+        }
+    }
+    //开始前关闭之前obj上的定时器
+    clearInterval(obj.timer);
+    //定时器
+    obj.timer = setInterval(function () {
+        let bStop = true; //假设所有值都到目标
+        for (let attr in json) {//循环json数组
+        //单独处理透明度
+        let cur
+        if (attr == 'opacity') {
+            cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+        } else {
+            cur = parseInt(getStyle(obj, attr));
+        }
+        //速度处理
+        let speed = (json[attr] - cur) / 6;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        //如果当前的没到目标值
+        if (cur != json[attr])
+            bStop = false;
+        //运动
+        if (attr == 'opacity') {
+            obj.style.opacity = (cur + speed) / 100;
+            obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+        } else {
+            obj.style[attr] = cur + speed + 'px';
+        }
+        }
+        //所有的都到达目标值
+        if (bStop) {
+        clearInterval(obj.timer);
+        if (endFun) endFun();
+        }
+    }, 15);
+}
+```
+
+使用：
+
+``` JavaScript
+startMove(div1, { width: 200, height: 200 })
+```
+
+## 轮播图
+
 ## 事件
 
 `` `document` ` `是整个页面的集合，第一个子节点是` ` `<!DOCTYPE>` ` `，第二个子节点是` ` `<html>` ``
