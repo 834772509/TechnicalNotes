@@ -42,14 +42,14 @@ const 变量名;
 
 ### 数据类型转换
 
-转数值：`` `Number()` ``
-转整数：`` `parseInt()` ``
-转浮点：`` `parseFloat()` ``
-转文本：`` `String()` ``
-转布尔：`` `Boolean()` ``
+转数值：` ` ` Number() ` ` `
+转整数：` ` ` parseInt() ` ` `
+转浮点：` ` ` parseFloat() ` ` `
+转文本：` ` ` String() ` ` `
+转布尔：` ` ` Boolean() ` ` `
 
 ::: tip 提示
-转布尔除 `` `""` ` `、` ` `0` ` `、` ` `undefined` ` `、` ` `null` ` `、` ` `NaN` ``值均为true
+转布尔除 ` ` ` "" ` `  `、`  ` ` 0 ` `  `、`  ` ` undefined ` `  `、`  ` ` null ` `  `、`  ` ` NaN ` ` `值均为true
 :::
 
 ### 关系运算符
@@ -64,9 +64,9 @@ const 变量名;
 
 ### 与或非
 
-* 与：`` `&&` ``
-* 或：`` `||` ``
-* 非：`` `!` ``
+* 与：` ` ` && ` ` `
+* 或：` ` ` || ` ` `
+* 非：` ` ` ! ` ` `
 
 ### 三元运算符
 
@@ -101,29 +101,29 @@ console.log(对象名.键名)
 
 ::: tip 提示
 
-* 所有参数会放在函数的`` `arguments` ``对象中，可当作数组使用
-* 立即执行函数用完即销毁，返回值为`` `undefine` ``
+* 所有参数会放在函数的` ` ` arguments ` ` `对象中，可当作数组使用
+* 立即执行函数用完即销毁，返回值为` ` ` undefine ` ` `
 
 :::
 
 ### 声明写法
 
 ``` JavaScript
-function 函数名(){
+function 函数名() {
 
 }
 
-function 函数名([参数1,参数2 = 默认值]){
-return 返回值;
+function 函数名([参数1, 参数2 = 默认值]) {
+    return 返回值;
 }
 
 //立即执行函数
-(function(){
+(function() {
 
 }())
 
 函数名();
-函数名(参数1,参数2);
+函数名(参数1, 参数2);
 ```
 
 ### 表达式写法
@@ -149,7 +149,7 @@ let 变量 = function() {
 ```
 
 ::: tip 提示
-在`` `{}` ` `后加` ` `()` ``即可成为立即执行函数
+在` ` ` {} ` `  `后加`  ` ` () ` ` `即可成为立即执行函数
 :::
 
 ### 箭头函数
@@ -165,12 +165,27 @@ const 箭头函数 = (参数1, 参数2) => {
 
 ## 类和方法
 
+### 声明类
+
 ``` JavaScript
 calss 类名 {
+    constructor(参数) {
+        //构造函数
+        this.属性 = 参数;
+        this.属性 = 属性值;
+    }
     方法名() {
 
     }
 }
+```
+
+### 实例化类
+
+``` JavaScript
+let 对象 = new 类名()
+console.log(对象.属性)
+对象.方法名()
 ```
 
 ## 数组
@@ -470,9 +485,43 @@ console.log(total)
 //结果：240
 ```
 
-## ＤＯＭ
+## DOM
 
 ### 选择器
+
+#### querySelectorALL（常用）
+
+匹配指定 CSS 选择器，找出所有匹配的节点并**返回数组**
+
+``` JavaScript
+document.querySelectorALL(CSS选择器)
+```
+
+``` JavaScript
+//通过id查询
+document.querySelectorALL("#div1")
+//通过class查询
+document.querySelectorALL(".div1")
+//通过标签查询
+document.querySelectorALL("h1")
+```
+
+#### querySelector
+
+匹配指定 CSS 选择器，找到第一个匹配节点后就返回节点对象
+
+``` JavaScript
+document.querySelector(CSS选择器)
+```
+
+``` JavaScript
+//通过id查询
+document.querySelector("#div1")
+//通过class查询
+document.querySelector(".div1")
+//通过标签查询
+document.querySelector("h1")
+```
 
 #### 通过元素的ID属性获取
 
@@ -494,28 +543,6 @@ document.getElementsByTagName("input")
 
 ``` JavaScript
 document.getElementsByClassName("类名")
-```
-
-#### querySelectorALL
-
-``` JavaScript
-document.querySelectorALL(查询名称)
-```
-
-``` JavaScript
-document.querySelectorALL(.user)
-document.querySelectorALL(h1)
-```
-
-#### querySelector
-
-``` JavaScript
-document.querySelector(查询名称)
-```
-
-``` JavaScript
-document.querySelector(.user)
-document.querySelector(h1)
 ```
 
 ### 节点操作
@@ -546,7 +573,7 @@ document.querySelector(h1)
 
 ### DOM元素属性
 
-DOM的元素可通过 `` `元素.属性名` `` 来访问
+DOM的元素可通过 ` ` ` 元素. 属性名 ` ` ` 来访问
 
 * className: 当前元素类名
 * id: 元素ID
@@ -609,42 +636,42 @@ insertBefore(节点, 原有节点)
 function startMove(obj, json, endFun) {
     function getStyle(obj, attr) {
         if (obj.currentStyle) {
-        return obj.currentStyle[attr];
+            return obj.currentStyle[attr];
         } else {
-        return getComputedStyle(obj, false)[attr];
+            return getComputedStyle(obj, false)[attr];
         }
     }
     //开始前关闭之前obj上的定时器
     clearInterval(obj.timer);
     //定时器
-    obj.timer = setInterval(function () {
+    obj.timer = setInterval(function() {
         let bStop = true; //假设所有值都到目标
-        for (let attr in json) {//循环json数组
-        //单独处理透明度
-        let cur
-        if (attr == 'opacity') {
-            cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
-        } else {
-            cur = parseInt(getStyle(obj, attr));
-        }
-        //速度处理
-        let speed = (json[attr] - cur) / 6;
-        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-        //如果当前的没到目标值
-        if (cur != json[attr])
-            bStop = false;
-        //运动
-        if (attr == 'opacity') {
-            obj.style.opacity = (cur + speed) / 100;
-            obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
-        } else {
-            obj.style[attr] = cur + speed + 'px';
-        }
+        for (let attr in json) { //循环json数组
+            //单独处理透明度
+            let cur
+            if (attr == 'opacity') {
+                cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+            } else {
+                cur = parseInt(getStyle(obj, attr));
+            }
+            //速度处理
+            let speed = (json[attr] - cur) / 6;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            //如果当前的没到目标值
+            if (cur != json[attr])
+                bStop = false;
+            //运动
+            if (attr == 'opacity') {
+                obj.style.opacity = (cur + speed) / 100;
+                obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+            } else {
+                obj.style[attr] = cur + speed + 'px';
+            }
         }
         //所有的都到达目标值
         if (bStop) {
-        clearInterval(obj.timer);
-        if (endFun) endFun();
+            clearInterval(obj.timer);
+            if (endFun) endFun();
         }
     }, 15);
 }
@@ -653,14 +680,15 @@ function startMove(obj, json, endFun) {
 使用：
 
 ``` JavaScript
-startMove(div1, { width: 200, height: 200 })
+startMove(div1, {
+    width: 200,
+    height: 200
+})
 ```
-
-## 轮播图
 
 ## 事件
 
-`` `document` ` `是整个页面的集合，第一个子节点是` ` `<!DOCTYPE>` ` `，第二个子节点是` ` `<html>` ``
+` ` ` document ` `  `是整个页面的集合，第一个子节点是`  ` ` <! DOCTYPE> ` `  `，第二个子节点是`  ` ` <html> ` ` `
 
 ::: tip 提示
 在body中，没有内容即没有高度
@@ -678,12 +706,12 @@ event.cancelBubble = true
 
 ### 绑定事件
 
-```addEventListener```适用于**多次绑定事件**，on事件多次绑定会**覆盖**
+`` `addEventListener` ``适用于**多次绑定事件**，on事件多次绑定会**覆盖**
 
 ``` JavaScript
-组件.addEventListener("事件名", function () {
+组件.addEventListener("事件名", function() {
 
-}
+        }
 ```
 
 ::: tip 提示
@@ -693,7 +721,7 @@ event.cancelBubble = true
 ### 解除绑定事件
 
 ``` JavaScript
-组件.detachEvent("事件名",函数)
+组件.detachEvent("事件名", 函数)
 ```
 
 ### 鼠标事件
@@ -749,13 +777,13 @@ event.cancelBubble = true
 }
 ```
 
-组合键：`` `ctrlKey` ` `、` ` `altKey` ` `、` ` `shiftKey` ``
+组合键：` ` ` ctrlKey ` `  `、`  ` ` altKey ` `  `、`  ` ` shiftKey ` ` `
 
 ``` JavaScript
-组件.onkeyup = function(event){
-  if (event.key == "按键" && event.ctrlKey) {
+组件.onkeyup = function(event) {
+    if (event.key == "按键" && event.ctrlKey) {
 
-  }
+    }
 }
 ```
 
@@ -787,3 +815,54 @@ window.onload = function() {
     event.preventDefault();
 }
 ```
+
+## BOM
+
+``document``内的东西都属于BOM
+
+### 打开标签页
+
+``` JavaScript
+window.open(URL)
+```
+
+### 关闭标签页
+
+``` JavaScript
+window.close(URL)
+```
+
+### 获取UA
+
+``` JavaScript
+console.log(window.navigator.userAgent);
+```
+
+### 获取URL路径
+
+``` JavaScript
+console.log(window.location)
+```
+
+### 获取滚动条位置
+
+``` JavaScript
+window.onscroll = function () {
+    console.log(document.documentElement.scrollTop)
+}
+```
+
+### 对话框
+
+``` JavaScript
+//警告框
+alert("内容")
+//选择框，选择确定返回true，否则返回false
+confirm("内容")
+//输入框，返回输入的内容
+prompt("内容")
+```
+
+
+
+
