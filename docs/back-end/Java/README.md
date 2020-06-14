@@ -6,13 +6,85 @@
 
 ---
 
-## 基本语法
+## 实用快捷输入
+
+* psvm : 声明main主方法
+* sout : System.out.println()方法
+
+## 基础语法
+
+### 关系运算符
+
+* 等于 : ==
+* 不等于 : !=
+* 大于 : >
+* 小于 : <>
+* 小于等于 : >=
+* 大于等于 : <=
+
+## 数组
 
 ### 声明数组
 
 ``` Java
-类型[] 变量名={?,?,?};
-类型[] 变量名=new 类型[length];
+类型[] 数组名;
+```
+
+### 创建数组
+
+``` Java
+类型[] 数组名=new 类型[length];
+```
+
+### 访问数组
+
+``` Java
+数组名[0]
+数组名[1]
+```
+
+### 遍历数组
+
+``` Java
+for(数据类型 item: 列表名){
+  System.out.println(item)
+}
+```
+
+## 列表
+
+### 声明
+
+``` Java
+List<数据类型> 列表名 = new ArrayList<数据类型>();
+```
+
+### 增加数据
+
+``` Java
+列表名.add(数据)
+```
+
+### 遍历列表
+
+``` Java
+for(数据类型 item: 列表名){
+  System.out.println(item)
+}
+```
+
+## 异常
+
+### 捕获异常
+
+``` Java
+try{
+   // 可能发生异常的代码
+}catch(Exception e){
+   //发生异常后的代码
+}finally{
+  // 无论如何都会执行的代码
+}
 ```
 
 ## 多线程
@@ -27,7 +99,7 @@ new Thread(new Runnable() {
 ```
 
 ## **I/0流**
-  
+
 ### **文件对象**
 
 * 文件夹和文件都用File表示
@@ -62,7 +134,7 @@ new Thread(new Runnable() {
 ### **字节流**
 
 :::tip
-  注意: 因为大部分I/O流的读写方法基本一致,所以这里只在字节流说明其余的流不再说明  ^_^
+  注意: 因为大部分I/O流的读写方法基本一致, 所以这里只在字节流说明其余的流不再说明  ^_^
 :::
 
 #### 字节输入流
@@ -137,7 +209,7 @@ new Thread(new Runnable() {
 
 * 数据流
 
-```Java
+``` Java
   //数据输入/输出流
   DataInputStream
   DataOutputStream
@@ -145,13 +217,13 @@ new Thread(new Runnable() {
 ```
 
 :::warning  
-  数据流必须成对使用,比如你是用 **DataOutputStream** 写入数据就必须用 **DataInputStream** 读取数据,否则会出现**EOFException**
+  数据流必须成对使用, 比如你是用 **DataOutputStream** 写入数据就必须用 **DataInputStream** 读取数据, 否则会出现**EOFException**
   这相对当于是一种规则  
 :::
 
 * 对象流(序列化)
 
-```Java
+``` Java
   ObjectInputStream
   ObjectOutputStream
 ```
@@ -192,7 +264,7 @@ try {
   有没有发现 读取和写入的的try-catch方式不一样呢
   读取的try-catch方式是JDK7开始支持的写法 这种写法称为try-with-resources  
   所有的流，都实现了一个接口叫做 AutoCloseable，任何类实现了这个接口，都可以在try()中进行实例化。 并且在try, catch, finally结束的时候自动关闭，回收相关资源。  
-  **友情提示:** 连接数据库的时候也可以这么写哦,避免使用完数据库忘记关闭连接,浪费资源.比如我自己 ^_^  
+  **友情提示:** 连接数据库的时候也可以这么写哦, 避免使用完数据库忘记关闭连接, 浪费资源. 比如我自己 ^_^  
 :::
 
 ---
@@ -207,7 +279,7 @@ try {
 
 #### 直接的方式
 
-```Java
+``` Java
   String url ="";  //不同的数据库版本连接方式不相同
   String user ="";  //用户名
   String password ="";  //密码
@@ -224,7 +296,7 @@ try {
 
 #### 封装成类的方式
 
-```Java
+``` Java
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -237,7 +309,6 @@ public class DBUtil {
     static String encoding = "UTC";
     static String loginName = "用户名";
     static String password = "密码";
-
 
     public static Connection getConnection() throws SQLException{
         String url = String.format(
@@ -252,11 +323,13 @@ public class DBUtil {
 
 #### 预编译的方式使用sql语句
 
-```Java
+``` Java
   /*
-  * 使用预编译的方式 要提前准备号sql语句
-  * 使用try-with-resource的方式 省去手动关闭连接
-  * 以插入为例
+
+  + 使用预编译的方式 要提前准备号sql语句
+  + 使用try-with-resource的方式 省去手动关闭连接
+  + 以插入为例
+
   */
   String sql = "insert into 表名(字段1,字段2,字段3) values(?,?,?)";
   try(
@@ -265,8 +338,10 @@ public class DBUtil {
      PreparedStatement ps = c.prepareStatement(sql);
   ){
     /*
-    * 设置要插入的值 注意 这里的参数从1开始 不是从0开始
-    * setXXXX(位置,值);  XXXX为你要插入的值对应的类型
+
+    - 设置要插入的值 注意 这里的参数从1开始 不是从0开始
+    - setXXXX(位置,值);  XXXX为你要插入的值对应的类型
+
     */  
     //举个例子  
       ps.setString(1, "字符串");
@@ -282,9 +357,10 @@ public class DBUtil {
 ### 执行sql语句(execute与executeUpdate的区别)
 
 * 相同点:  
+
 都可以进行 增 删 改
 
-```Java
+``` Java
   //这里演示的是不使用预编译的方式执行sql语句
   Statement s = c.createStatement();
   //创建sql语句
@@ -301,17 +377,21 @@ public class DBUtil {
 ```
 
 * 不同点:
+
   
+
   1. 不同点1:  
+
   execute()可以执行查询语句  
   然后通过getResultSet()把结果集取出来  
   executeUpdate()不能执行查询语句.
 
   2. 不同点2:  
-  execute()返回boolean类型，true表示执行的是查询语句，false表示执行的是insert,delete,update等等  
+
+  execute()返回boolean类型，true表示执行的是查询语句，false表示执行的是insert, delete, update等等  
   executeUpdate()返回的是int，表示有多少条数据受到了影响
 
-```Java
+``` Java
   //可以使用executeQuery()语句来查询
   Statement s = c.createStatement()
   String sql = "select * from hero";
@@ -323,7 +403,7 @@ public class DBUtil {
 
 * 获取自动ID
 
-```Java
+``` Java
   //Statement.RETURN_GENERATED_KEYS参数是为了用于获取自增长id
   PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
   ResultSet rs = ps.getGeneratedKeys(); //获取结果集
@@ -334,12 +414,14 @@ public class DBUtil {
 
 * 获取表的元数据
 
-```Java
+``` Java
   /*  
-  * 查看数据库层面的元数据
-  * 数据库服务器版本
-  * 驱动版本
-  * 都有哪些数据库等等
+
+  + 查看数据库层面的元数据
+  + 数据库服务器版本
+  + 驱动版本
+  + 都有哪些数据库等等
+
   */
   DatabaseMetaData dbmd = c.getMetaData();
   // 获取数据库服务器产品名称
@@ -363,9 +445,12 @@ public class DBUtil {
   2. 为什么要使用事务: 当使用数据库进行多个操作时 如果某个操作失败 而其他操作成功 可能会引起数据库的数据错误,尤其是某个操作之间的联系非常紧密时,这是非常严重的.所以这时候就要使用 **事务**
   3. 什么是事务:  在进行多个操作时,如果这些操作都处于一个事务中,那么这些操作要么都成功,要么都失败.
   4. 怎么使用事务:  
+
       连接数据库成功后,关闭自动提交,改为手动提交.代码如下:
 
-  ```java
+  
+
+``` java
     try (
           Connection c = BDUtil.getConnection();
           Statement s = c.createStatement();
@@ -394,15 +479,15 @@ public class DBUtil {
 
 * ORM
 
-  **1.先了解什么是"持久化":**
+  **1. 先了解什么是"持久化":**
   
   持久（Persistence），即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的数据存储在关系型的数据库中，当然也可以存储在磁盘文件中、XML数据文件中等等。  
 
-  **2.了解什么是"持久层":**
+  **2. 了解什么是"持久层":**
 
   持久层（Persistence Layer），即专注于实现数据持久化应用领域的某个特定系统的一个逻辑层面，将数据使用者和数据实体相关联  
 
-  **3.什么是ORM**  
+  **3. 什么是ORM**  
 
   即Object-Relationl Mapping，它的作用是在关系型数据库和对象之间作一个映射，这样，我们在具体的操作数据库的时候，就不需要再去和复杂的SQL语句打交道，只要像平时操作对象一样操作它就可以了。
 
@@ -417,11 +502,13 @@ public class DBUtil {
   在面向对象设计过程中，有一些"套路”用于解决特定问题称为模式  
 
   **3. 优点**  
+
     1. 隔离了数据访问代码和业务逻辑代码。业务逻辑代码直接调用DAO方法即可，完全感觉不到数据库表的存在。分工明确，数据访问层代码变化不影响业务逻辑代码,这符合单一职能原则，降低了藕合性，提高了可复用性。
 
     2. 隔离了不同数据库实现。采用面向接口编程，如果底层数据库变化，如由 MySQL 变成 Oracle 只要增加 DAO 接口的新实现类即可，原有 MySQ 实现不用修改。这符合 "开-闭" 原则。该原则降低了代码的藕合性，提高了代码扩展性和系统的可移植性。  
 
   **4. 组成**
+
     1. DAO接口： 把对数据库的所有操作定义成抽象方法，可以提供多种实现。
 
     2. DAO 实现类： 针对不同数据库给出DAO接口定义方法的具体实现。
@@ -436,10 +523,15 @@ public class DBUtil {
 
 * @Override
   1. 介绍  
+
   @Override用在方法上，表示这个方法重写了父类的方法  
+
   2. 例
+
   
-  ```Java
+  
+
+``` Java
    public class Hero {
       String name;
       @Override
@@ -451,10 +543,14 @@ public class DBUtil {
 
 * @Deprecated
   1. 介绍  
+
   @Deprecated 表示这个方法已经过期，不建议开发者使用。(暗示在将来某个不确定的版本，就有可能会取消掉)
+
   2. 例
 
-  ```Java
+  
+
+``` Java
     public class Hero {
       String name;
       @Deprecated
@@ -465,5 +561,7 @@ public class DBUtil {
       }
     }
   ```
+
   
+
 * 还有2个注解(未完成)

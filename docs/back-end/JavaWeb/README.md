@@ -104,10 +104,6 @@ getDate()
 
 #### action
 
-``` jsp
-
-```
-
 #### frward
 
 把当前的JSP页面重新定向到另一个页面上
@@ -126,7 +122,171 @@ getDate()
 <%--注释内容--%>
 ```
 
-## 数据库
+## 九大内置对象
+
+### Out 对象
+
+用于客户端和浏览器输出数据
+
+### Request 对象
+
+请求对象，封装了客户端和浏览器的各种信息
+
+``` Java
+request.setAttribute("键",值)
+// 设置字符编码
+request.setCharacterEncoding("utf-8");
+//getScheme()-协议名  getServerName()-localhost getServerPort()-端口号
+String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/";
+```
+
+``` html
+当前页面的URL：<%=basePath%><br>
+请求方式：<%=request.getMethod()%><br>
+路径:<%=request.getRequestURI()%><br>
+协议名称:<%=request.getProtocol()%><br>
+表单提交的属性值:<%=request.getParameter("uName")%><br>
+设值与取值:<%=request.getAttribute("aa")%>
+```
+
+```
+输出：
+当前页面的URL：http://localhost:8080/
+请求方式：GET
+路径:/res1.jsp
+协议名称:HTTP/1.1
+表单提交的属性值:null
+设值与取值:2
+```
+
+### Response 对象
+
+响应对象，封装的服务器的各种信息
+
+### Exception 对象
+
+封装了jsp运行时的异常和错误
+
+### Config 对象
+
+封装了配置信息
+
+### Page 对象
+
+类似Java的this，谁用就是谁，指是的当前页面，类似于“我”
+
+### Session
+
+Session 用于存储数据，存储在浏览器中，关闭浏览器即销毁
+
+#### 设置
+
+``` jsp
+request.getSession().setAttribute("Session名",值);
+```
+
+#### 获取
+
+``` jsp
+String[] 值 = (String[])request.getSession().getAttribute("Session名");
+```
+
+### Application
+
+application 用于存储数据，存储在服务器的内存中，重启服务器即销毁
+
+#### 设置
+
+``` JSP
+application.setAttribute("标识符", 值);
+```
+
+#### 获取
+
+``` JSP
+application.getAttribute("标识符");
+```
+
+### PageContext
+
+可以得到所有的jsp对象
+
+## Cookies
+
+Cookies 用于存储数据，存储在客户端硬盘中，用户清理浏览器垃圾即销毁
+
+### 设置
+
+``` jsp
+Cookie cookie = new Cookie("标识符",值);
+//设置cookies的生命周期
+cookie.setMaxAge(3*24*60*60);
+response.addCookie(cookie);
+```
+
+### 获取
+
+``` jsp
+Cookie[] cookies = request.getCookies();
+for(int i = 0; i < cookies.length; i++){
+  if (cookies[i].getName().equals("标识符")){
+    out.print(Integer.parseInt(cookies[i].getValue()))
+    break;
+  }
+}
+```
+
+## Servlet
+
+Servlet 是用来响应客户端网路请求(http请求)的服务器端Java程序，在MVC开发模式中担任控制层
+
+### 创建
+
+src\Servlet名称.java
+
+``` Java
+public class Servlet名称 extends HttpServlet {
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      //设置字符编码
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
+        PrintWriter o = resp.getWriter();
+        String uri = req.getRequestURI();
+        if (uri.equals("/跳转页名.do")) {
+            String 参数名 = req.getParameter("参数名");
+            o.print(参数名);
+        } else if (uri.equals("/跳转页名.do")) {
+            String 参数名 = req.getParameter("参数名");
+            o.print(参数名);
+        }
+    }
+}
+```
+
+### 声明
+
+\web\WEB-INF\web.xml
+
+``` XML
+<servlet>
+  <servlet-name>Servlet名称</servlet-name>
+  <servlet-class>action.AjaxSer</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>Servlet名称</servlet-name>
+  <url-pattern>*.do</url-pattern>
+</servlet-mapping>
+```
+
+### 使用
+
+``` jsp
+<form action="跳转页名.do" method="post">
+</form>
+```
+
+
+## MySQL 数据库
 
 ### 连接数据库
 
@@ -214,112 +374,6 @@ if(pstmt.executeUpdate() == 1){
 pstmt.close();
 con.close();
 %>
-```
-
-## Session
-
-Session 用于存储数据，存储在浏览器中，关闭浏览器即销毁
-
-### 设置
-
-``` jsp
-request.getSession().setAttribute("Session名",值);
-```
-
-### 获取
-
-``` jsp
-String[] 值 = (String[])request.getSession().getAttribute("Session名");
-```
-
-## Application
-
-application 用于存储数据，存储在服务器的内存中，重启服务器即销毁
-
-### 设置
-
-``` JSP
-application.setAttribute("标识符", 值);
-```
-
-### 获取
-
-``` JSP
-application.getAttribute("标识符");
-```
-
-## Cookies
-
-Cookies 用于存储数据，存储在客户端硬盘中，用户清理浏览器垃圾即销毁
-
-### 设置
-
-``` jsp
-Cookie cookie = new Cookie("标识符",值);
-//设置cookies的生命周期
-cookie.setMaxAge(3*24*60*60);
-response.addCookie(cookie);
-```
-
-### 获取
-
-``` jsp
-Cookie[] cookies = request.getCookies();
-for(int i = 0; i < cookies.length; i++){
-  if (cookies[i].getName().equals("标识符")){
-    out.print(Integer.parseInt(cookies[i].getValue()))
-    break;
-  }
-}
-```
-
-## Servlet
-
-Servlet 是用来响应客户端网路请求(http请求)的服务器端Java程序，在MVC开发模式中担任控制层
-
-### 创建
-
-src\Servlet名称.java
-
-``` Java
-public class Servlet名称 extends HttpServlet {
-    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      //设置字符编码
-        req.setCharacterEncoding("utf-8");
-        resp.setContentType("text/html;charset=utf-8");
-        PrintWriter o = resp.getWriter();
-        String uri = req.getRequestURI();
-        if (uri.equals("/跳转页名.do")) {
-            String 参数名 = req.getParameter("参数名");
-            o.print(参数名);
-        } else if (uri.equals("/跳转页名.do")) {
-            String 参数名 = req.getParameter("参数名");
-            o.print(参数名);
-        }
-    }
-}
-```
-
-### 声明
-
-\web\WEB-INF\web.xml
-
-``` XML
-<servlet>
-  <servlet-name>Servlet名称</servlet-name>
-  <servlet-class>action.AjaxSer</servlet-class>
-</servlet>
-<servlet-mapping>
-  <servlet-name>Servlet名称</servlet-name>
-  <url-pattern>*.do</url-pattern>
-</servlet-mapping>
-```
-
-### 使用
-
-``` jsp
-<form action="跳转页名.do" method="post">
-</form>
 ```
 
 ## Oracle 数据库
