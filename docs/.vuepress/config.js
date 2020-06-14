@@ -24,12 +24,13 @@ module.exports = {
       {
         text: '前端',
         items: [
+          { text: 'Andorid', link: '/front-end/Andorid/' },
+          { text: 'Flutter', link: '/front-end/Flutter/' },
           { text: 'HTML5', link: '/front-end/HTML5/' },
           { text: 'JavaScript', link: '/front-end/JavaScript/' },
           { text: 'Vue', link: '/front-end/Vue/' },
           { text: 'Electron', link: '/front-end/Electron/' },
-          { text: 'Andorid', link: '/front-end/Andorid/' },
-          { text: 'Flutter', link: '/front-end/Flutter/' },
+
         ]
       },
       {

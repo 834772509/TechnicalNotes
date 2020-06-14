@@ -15,6 +15,24 @@
 header("Content-Type: text/html;charset=utf-8");
 ```
 
+## 数据类型
+
+* 整形 : Int
+* 浮点型 : Double
+* 字符串 : String
+* 空值 : NULL
+* 布尔型 : Bool
+* 数组 : array
+* 对象 : Object
+
+### 转换数据类型
+
+* 转整形 : (int)
+* 转浮点型 : (float)
+* 转字符串 : (string)
+* 转数组 : (array)
+* 转对象 : (object)
+
 ## 数据库 MySQLi
 
 ::: tip 提示
