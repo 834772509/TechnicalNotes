@@ -8,6 +8,13 @@
 
 ## 实用快捷输入
 
+### 快捷键
+
+* Alt + Insert : 快速插入代码
+* Ctrl + O : 重写方法
+
+### 快捷输入
+
 * psvm : 声明main主方法
 * sout : System.out.println()方法
 

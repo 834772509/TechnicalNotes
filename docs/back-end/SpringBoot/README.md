@@ -2,7 +2,23 @@
 
 ## 创建项目
 
-IDEA-新建项目-Spring Initializr
+### 创建
+
+IDEA-新建项目-Spring Initializr  
+
+包名：com.example  
+
+Web-Spring Web : 基础Web服务
+Developer Tools - Spring Boot DevTools : 调试工具
+
+### 配置
+
+新建包
+
+* 新建\com\包名\controller
+* 新建\com\包名\dao
+* 新建\com\包名\pojo
+* 新建\com\包名\service
 
 ## 配置文件
 
@@ -11,66 +27,121 @@ SpringBoot使用一个全局的配置文件，配置文件名```application```�
 * application.properties
 * application.yml
 
-配置文件的作用：修改SpringBoot自动配置的默认值；SpringBoot在底层都给我们自动配置好
+配置文件的作用：
+* 修改SpringBoot自动配置的默认值
+* SpringBoot在底层都给我们自动配置好
 
-### YAML
+## YAML
 
 以```数据```为中心，比json、xml等更适合做配置文件
 
-位置：```\application.yml```
+删除```\src\main\resources\application.properties```
+新建```\src\main\resources\application.yml```
 
-#### 语法
+### 键值对
 
-##### 对象、Map（属性和值）：
+``` yaml
+键: 值
+```
 
-`k: v`在下一行来写对象的属性和值的关系；注意缩进
+### 对象
 
-1. ```yaml
-   person:
-     name: 张三
-     gender: 男
-     age: 22
-   ```
+`键: 值`在下一行来写对象的属性和值的关系；注意缩进
 
-2. 行内写法
-
-   ```yaml
-   person: {name: 张三,gender: 男,age: 22}
-   ```
-
-
-##### 数组（List、Set）
-
-1. ```
-   fruits: 
-     - 苹果
-     - 桃子
-     - 香蕉
-   ```
-
-2. 行内写法
-
-   ```
-   fruits: [苹果,桃子,香蕉]
-   ```
-
-### 配置文件值注入两种方式对比
-
-配置文件值注入有两种方式，一个是Spring Boot的`@ConfigurationProperties`注解，另一个是spring原先的`@value`注解
-
-|                      | @ConfigurationProperties | @Value     |
-| -------------------- | ------------------------ | ---------- |
-| 功能                 | 批量注入配置文件中的属性 | 一个个指定 |
-| 松散绑定（松散语法） | 支持                     | 不支持     |
-| SpEL                 | 不支持                   | 支持       |
-| JSR303数据校验       | 支持                     | 不支持     |
-| 复杂类型封装         | 支持                     | 不支持     |
-
-**松散绑定**：例如Person中有`lastName`属性，在配置文件中可以写成
-
-`lastName`或`lastname`或`last-name`或`last_name`等等
+``` yaml
+对象名:
+    属性名: 值
+    属性名: 值
+对象名: {属性名: 值,属性名: 值}
+```
 
 
+### 数组
+
+``` yaml
+数组名: 
+     - 值
+     - 值
+数组名: [值,值]
+```
+
+### 注入配置文件
+
+将yaml中的数据注入到代码中，一般用于配置类，如数据库信息等
+
+``` Java
+@Component
+@ConfigurationProperties(prefix = "对象名")
+public class 类名 {
+    private  数据类型 属性名;
+    private 数据类型 属性名;
+}
+```
+
+``` yaml
+对象名:
+  属性名: 值
+  属性名: 值
+```
+
+解决报红：  
+
+在 \pom.xml 内加入以下依赖
+
+``` xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-configuration-processor</artifactId>
+	<optional>true</optional>
+</dependency>
+```
+
+### JSR303 数据校验
+
+用来检验数据是否符合指定规格
+
+``` Java
+@Validated
+public class 类名 {
+    @Email(message = "邮箱格式错误")
+    private  String email;
+}
+```
+
+解决报红：  
+
+在 \pom.xml 内加入以下依赖
+
+``` xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+```
+
+空检查：
+
+* @Null : 验证对象是否为null
+* @NotNull : 验证对象是否不为null，无法检测长度为0的字符串
+* @NotBlank : 检测字符串是不是Null和被Trim的长度是否大于0，只对字符串，且会去掉前后空格
+* @NotEmpty : 检查约束元素是否为NULL或者是EMPTY
+
+Booelan 检查：
+
+* @AssertTrue : 验证 Booelan 对象是否为True
+* @AssertFalse : 验证 Booelan 对象是否为False
+
+长度检查：
+
+* @Size(min=,max=) : 验证对象长度是否在指定范围内
+* @Length(min=,max=)
+
+日期检查：
+
+* @Past : 验证 Date 和 Calendar 对象是否在当前时间之前
+* @Future : 验证 Date 和 Calendar 对象是否在当前时间之后
+* @Pattern : 验证 String 对象是否符合正则表达式规则
+* @
 
 ## 模版引擎 thymeleaf
 
