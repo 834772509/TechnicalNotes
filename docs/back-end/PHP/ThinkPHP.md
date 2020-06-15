@@ -97,3 +97,72 @@ class 控制器名{
 ```
 
 访问方法：``/目录名.控制器名/方法名/参数名/值``
+
+## 模型
+
+新建 ``\app\model`` 目录
+
+``` PHP
+<?php
+namespace app\model;
+
+use think\Model;
+
+class 模型名 extends Model {
+
+}
+```
+
+## 数据库
+
+### 配置
+
+开发环境：  
+
+\.env
+
+```
+[DATABASE]
+TYPE = mysql
+HOSTNAME = 数据库地址
+DATABASE = 数据库名
+USERNAME = 用户名
+PASSWORD = 密码
+HOSTPORT = 3306
+CHARSET = utf8
+DEBUG = true
+```
+
+部署环境：  
+
+\config\database.php
+
+``` PHP
+'connections'     => [
+    'mysql' => [
+        // 数据库类型
+        'type'              => env('database.type', 'mysql'),
+        // 服务器地址
+        'hostname'          => env('database.hostname', '127.0.0.1'),
+        // 数据库名
+        'database'          => env('database.database', ''),
+        // 用户名
+        'username'          => env('database.username', 'root'),
+        // 密码
+        'password'          => env('database.password', ''),
+        // 端口
+        'hostport'          => env('database.hostport', '3306'),
+    ],
+]
+```
+
+### 连接数据库
+
+``` PHP
+use think\facade\Db;
+
+public function index() {
+    $user = Db::table("表名")->select();
+    return $user;
+}
+```
