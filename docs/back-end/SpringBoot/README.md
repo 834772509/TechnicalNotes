@@ -15,9 +15,9 @@ Developer Tools - Spring Boot DevTools : 调试工具
 
 新建包
 
-* 新建\com\包名\controller
-* 新建\com\包名\dao
-* 新建\com\包名\pojo
+* 新建\com\包名\controller : 控制器
+* 新建\com\包名\dao : 数据访问
+* 新建\com\包名\pojo : 对象
 * 新建\com\包名\service
 
 ## 配置文件
@@ -30,6 +30,38 @@ SpringBoot使用一个全局的配置文件，配置文件名```application```�
 配置文件的作用：
 * 修改SpringBoot自动配置的默认值
 * SpringBoot在底层都给我们自动配置好
+
+### 配置文件优先级
+
+从高到低：
+
+1. 项目路径下的config文件夹配置文件
+2. 项目路径下配置文件
+3. 资源路径下的config文件夹配置文件
+4. 资源路径下配置文件
+
+
+### 多环境配置文件
+
+``` yaml
+# 选择当前配置
+spring:
+  profiles:
+    active: dev
+---
+server:
+  port: 8000
+# 设置当前配置名
+spring:
+  profiles: dev
+---
+server:
+  port: 8080
+# 设置当前配置名
+spring:
+  profiles: test
+
+```
 
 ## YAML
 
