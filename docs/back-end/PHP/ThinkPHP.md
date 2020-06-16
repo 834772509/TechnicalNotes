@@ -70,6 +70,8 @@ class 控制器名{
 }
 ```
 
+访问方法：``/控制器名/方法名/参数名/值``
+
 ### 空控制器
 
 定义Error类控制器，自定义错误
@@ -115,6 +117,10 @@ class 模型名 extends Model {
 
 ## 数据库
 
+::: tip 提示
+当数据库文件设置了前缀时，name()方法内可忽略前缀
+:::
+
 ### 配置
 
 开发环境：  
@@ -156,13 +162,45 @@ DEBUG = true
 ]
 ```
 
-### 连接数据库
+### 查询所有数据
 
 ``` PHP
 use think\facade\Db;
 
 public function index() {
-    $user = Db::table("表名")->select();
-    return $user;
+    $数据集对象 = Db::table("表名")->select();
+    return json($数据集对象);
 }
+```
+
+### 单数据查询
+
+如果没有找到数据，则会返回null
+
+``` PHP
+use think\facade\Db;
+
+$数据集对象 = Db::table("表名")->where("字段名",值)->find();
+```
+
+### 数据集查询
+
+``` PHP
+use think\facade\Db;
+
+$数据集对象 = Db::table("表名")->where("字段名",值)->select();
+```
+
+### 转Array数组
+
+``` PHP
+$数据集对象->toArray();
+```
+
+### 其他查询
+
+返回指定字段
+
+``` PHP
+$值 = Db::table("表名")->where("字段名", 值)->value("字段名");
 ```
