@@ -182,7 +182,14 @@ Booelan 检查：
 ### 创建
 
 ``` Java
-
+@Controller
+@ResponseBody
+public class LoginController {
+    @RequestMapping("/路径")
+    public String 方法名(){
+        return "Hello World";
+    }
+}
 ```
 
 ## 静态资源
