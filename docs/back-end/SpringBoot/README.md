@@ -174,6 +174,17 @@ Booelan 检查：
 * @Future : 验证 Date 和 Calendar 对象是否在当前时间之后
 * @Pattern : 验证 String 对象是否符合正则表达式规则
 
+
+## 控制器
+
+新建``\java\com\包名\controller``目录
+
+### 创建
+
+``` Java
+
+```
+
 ## 静态资源
 
 ### 优先级
@@ -205,6 +216,18 @@ Booelan 检查：
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 ```
+
+### 关闭模板引擎缓存
+
+\src\main\resources\application.yml
+
+``` yaml
+# 关闭模版引擎缓存
+spring:
+  thymeleaf:
+    cache: false
+```
+
 ### 使用
 
 ``` Java
@@ -229,6 +252,7 @@ public class HelloController {
 
 ``` html
 <!DOCTYPE html>
+<!-- 增加命名空间，代码提示 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
