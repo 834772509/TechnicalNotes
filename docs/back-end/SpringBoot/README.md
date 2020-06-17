@@ -173,9 +173,27 @@ Booelan 检查：
 * @Past : 验证 Date 和 Calendar 对象是否在当前时间之前
 * @Future : 验证 Date 和 Calendar 对象是否在当前时间之后
 * @Pattern : 验证 String 对象是否符合正则表达式规则
-* @
 
-## 模版引擎 thymeleaf
+## 静态资源
+
+### 优先级
+
+如不存在目录可新建
+
+1. \src\main\resources\resources
+2. \src\main\resources\static （默认）
+3. \src\main\resources\public
+
+### 首页
+
+默认首页为资源目录下的``index.html`
+
+## thymeleaf 模版引擎
+
+模板弓|擎的作用是我们来写一个页面模板， 比如有些值是动态的，我们写一些表达式。
+而这些值，从哪来呢，我们来组装一些数据， 把这些数据找到。然后把这个模板和这个数
+据交给我们模板引擎，模板引|擎按照我们这个数据帮你把这表达式解析、填充到我们指定的位
+置，然后把这个数据最终生成一个我们想要的内容给我们写出去， 这就是模板引擎
 
 ### 导入
 
@@ -188,6 +206,24 @@ Booelan 检查：
 </dependency>
 ```
 ### 使用
+
+``` Java
+//templates目录下页面只能通过 controller 跳转
+@Controller
+public class HelloController {
+   //普通使用：
+    @RequestMapping("/XXX")
+    public String XXX(){
+        return  "页面名称";
+    }
+    //传参：
+    @RequestMapping("/XXX")
+    public String XXX(Map<String,Object> map){
+       map.put("参数名","参数值");
+       return  "页面名称";
+    }
+}
+```
 
 \src\main\resources\templates\页面名称.html
 
@@ -206,20 +242,52 @@ Booelan 检查：
 </html>
 ```
 
+### 遍历数据
+
 ``` Java
 @Controller
-public class HelloController {
-   //普通使用：
-    @RequestMapping("/XXX")
-    public String XXX(){
-        return  "页面名称";
+public class IndexController {
+    //在templates目录下的所有页面，只能通过controller 跳转
+    @RequestMapping("/test")
+    public String test(Model model){
+        model.addAttribute("数组名", Arrays.asList("值1","值2"));
+        return "test";
     }
-    //传参：
-    @RequestMapping("/XXX")
-    public String XXX(Map<String,Object> map){
-       map.put("参数名","参数值");
-       return  "页面名称";
-    }
+}
+```
+
+``` html
+<p th:each="item : ${数组名}}" th:text="${item}"></p>
+```
+
+## Lombok
+
+Lombok 的作用是：通过注解的方式，自动生成getter和setter方法，减少代码的臃肿
+
+### 安装插件
+
+Lombok
+
+### 导入
+
+\pom.xml
+
+``` xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+</dependency>
+```
+
+### 使用
+
+``` Java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class 类名 {
+    private 数据类型 属性;
+    private 数据类型 属性;
 }
 ```
 
