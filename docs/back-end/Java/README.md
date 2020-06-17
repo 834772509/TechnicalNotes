@@ -58,25 +58,131 @@ for(数据类型 item: 列表名){
 }
 ```
 
-## 列表
+## List 集合
+
+List 集合 可以存放任何的数据类型，数据可以重复，类似于动态数组
 
 ### 声明
 
 ``` Java
-List<数据类型> 列表名 = new ArrayList<数据类型>();
+List<数据类型> List名 = new ArrayList<数据类型>();
 ```
 
 ### 增加数据
 
 ``` Java
-列表名.add(数据)
+List名.add(数据)
 ```
 
-### 遍历列表
+### 获取数据
 
 ``` Java
-for(数据类型 item: 列表名){
+List名.get(int 索引值)
+```
+
+### 删除数据
+
+``` Java
+List名.remove(int 索引值)
+```
+
+### 修改数据
+
+``` Java
+List名.set(int 索引值,数据)
+```
+
+### 遍历数据
+
+``` Java
+for(数据类型 item: List名){
   System.out.println(item)
+}
+```
+
+## Set 集合
+
+Set 集合 与List集合类似，但不允许集合中有重复的值
+
+### 声明
+
+``` Java
+List<数据类型> Set名 = new ArrayList<数据类型>();
+```
+
+### 增加数据
+
+``` Java
+Set名.add(数据)
+```
+
+### 获取数据
+
+``` Java
+Set名.get(索引值)
+```
+
+### 删除数据
+
+``` Java
+Set名.remove(int 索引值)
+```
+
+### 修改数据
+
+``` Java
+Set名.set(int 索引值,数据)
+```
+
+### 遍历数据
+
+``` Java
+for(数据类型 item: Set名){
+  System.out.println(item)
+}
+```
+
+## Map 集合
+
+Map 是具有键值对的集合，通过键去访问值的内容。键不能重复，但是值是可以重复
+
+### 声明
+
+``` Java
+HashMap<数据类型,数据类型> Map名 = new HashMap<String,String>();
+```
+
+### 增加数据
+
+``` Java
+Map名.put(键,值);
+```
+
+### 获取数据
+
+``` Java
+Map名.get(键)
+```
+
+### 删除数据
+
+``` Java
+Map名.remove(键)
+```
+
+### 遍历数据
+
+``` Java
+// 方法 1：直接打印 map 集合，通过 Key 键去得到 Value 值
+Set<String> ss = Map名.keySet();// 接收所有的键
+for(String i : ss){
+  System.out.println("Key 键："+ i +"Value 值:"+hw1.get(i));
+}
+
+// 方法 2：获取所有的键和值
+Set<Map.Entry<String,String>> set1 = Map名.entrySet();// 得到所有的键和值
+for(Map.Entry<String,String> ss1: set1){
+  System.out.println(ss1);
 }
 ```
 
