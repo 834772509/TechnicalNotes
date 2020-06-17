@@ -29,6 +29,7 @@ module.exports = {
           { text: 'HTML5', link: '/front-end/HTML5/' },
           { text: 'JavaScript', link: '/front-end/JavaScript/' },
           { text: 'Vue', link: '/front-end/Vue/' },
+          { text: 'Webpack', link: '/front-end/Webpack/' },
           { text: 'Electron', link: '/front-end/Electron/' },
 
         ]
@@ -37,8 +38,8 @@ module.exports = {
         text: '后端',
         items: [
           { text: 'Java', link: '/back-end/Java/' },
-          { text: 'SpringBoot', link: '/back-end/SpringBoot/' },
           { text: 'JavaWeb', link: '/back-end/JavaWeb/' },
+          { text: 'SpringBoot', link: '/back-end/SpringBoot/' },
           { text: 'Python', link: '/back-end/Python/' },
           { text: 'SQL数据库', link: '/back-end/SQL/' },
           { text: 'PHP', link: '/back-end/PHP/' },
