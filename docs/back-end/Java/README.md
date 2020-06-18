@@ -19,6 +19,12 @@
 * psvm : 声明main主方法
 * sout : System.out.println()方法
 
+
+### 解决idea右键缓慢
+
+将注册表``[HKEY_CLASSES_ROOT\Directory\Background\ShellEx\ContextMenuHandlers``除了**New**项，其余全部删除
+
+
 ## 基础语法
 
 ### 关系运算符
@@ -163,6 +169,12 @@ Map名.put(键,值);
 
 ``` Java
 Map名.get(键)
+```
+
+### 修改数据
+
+``` Java
+Map名.pub(键,值)
 ```
 
 ### 删除数据

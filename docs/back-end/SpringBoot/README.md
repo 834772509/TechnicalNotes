@@ -181,14 +181,38 @@ Booelan 检查：
 
 ### 创建
 
+新建``\java\com\包名\controller\控制器名.java``文件
+
 ``` Java
 @Controller
 @ResponseBody
-public class LoginController {
+public class 控制器名 {
+    // 常规请求
     @RequestMapping("/路径")
     public String 方法名(){
         return "Hello World";
     }
+
+    // Get请求
+    @GetMapping("/路径")
+    public String 方法名() {
+        return "Hello World";
+    }
+
+    //Post请求
+    @PostMapping("/路径")
+    public String 方法名() {
+        return "Hello World";
+    }
+}
+```
+
+### 传参
+
+``` Java
+@RequestMapping("/路径/{参数名}")
+public String 方法名(@PathVariable("参数名") String 参数名) {
+    return 参数名;
 }
 ```
 
@@ -291,6 +315,29 @@ public class IndexController {
 <p th:each="item : ${数组名}}" th:text="${item}"></p>
 ```
 
+### 三元运算符
+
+``` html
+<p th:text="${变量 == 值 ? '真' : '假'}"></p>
+```
+
+### 格式化时间
+
+``` html
+<p th:text="${#dates.format(时间,'yyyy-MM-dd HH:mm')}"></p>
+```
+
+### 自定义错误
+
+创建：  
+```\main\resources\templates\error\404.html```
+```\main\resources\templates\error\4xx.html```
+
+``` HTML
+<h1>状态码：[[${status}]]</h1>
+<h1>时间：[[${timestamp}]]</h1>
+```
+
 ## Lombok
 
 Lombok 的作用是：通过注解的方式，自动生成getter和setter方法，减少代码的臃肿
@@ -323,17 +370,6 @@ public class 类名 {
 ```
 
 ## 错误页面配置
-
-### 模板引擎
-
-创建：  
-```\main\resources\templates\error\404.html```
-```\main\resources\templates\error\4xx.html```
-
-``` HTML
-<h1>状态码：[[${status}]]</h1>
-<h1>时间：[[${timestamp}]]</h1>
-```
 
 ### 自定义Json异常
 
