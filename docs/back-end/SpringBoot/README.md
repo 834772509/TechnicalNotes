@@ -216,6 +216,13 @@ public String 方法名(@PathVariable("参数名") String 参数名) {
 }
 ```
 
+### 注解
+
+* @Controller : 可以返回视图页面
+* @ResponseBody : 将 Controller 的方法返回的对象，通过 springmvc 提供的HttpMessageConverter接口转换为指定格式的数据如：json,xml 等，通过 Response 响应给客户端
+* @RestController : 相当于 @Controller + @ResponseBody，只能返回 json 数据，无法返回 jsp 、 html 视图页面
+* @
+
 ## 静态资源
 
 ### 优先级
@@ -366,6 +373,38 @@ Lombok
 public class 类名 {
     private 数据类型 属性;
     private 数据类型 属性;
+}
+```
+
+## 拦截器
+
+创建 ``com\example\config\拦截器名.java``
+
+``` Java
+public class 拦截器名 implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        Object loginUser = request.getSession().getAttribute("Session名");
+        if (loginUser == null){
+            //没有登录
+            request.setAttribute("msg", "没有权限，请登录");
+            request.getRequestDispatcher("/index.html").forward(request,response);
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+
+    }
 }
 ```
 
