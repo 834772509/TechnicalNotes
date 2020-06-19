@@ -121,6 +121,7 @@ public class 类名 {
 在 \pom.xml 内加入以下依赖
 
 ``` xml
+<!-- 解决注入配置文件报错 -->
 <dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-configuration-processor</artifactId>
@@ -145,6 +146,7 @@ public class 类名 {
 在 \pom.xml 内加入以下依赖
 
 ``` xml
+<!-- 解决JSR303报错 -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-validation</artifactId>
@@ -174,6 +176,31 @@ Booelan 检查：
 * @Future : 验证 Date 和 Calendar 对象是否在当前时间之后
 * @Pattern : 验证 String 对象是否符合正则表达式规则
 
+## 自定义配置
+
+新建``\java\com\包名\config``目录
+
+### 创建
+
+新建``\java\com\包名\config\配置名.java``文件
+
+``` Java
+@Configuration
+public class 配置名 implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/main.html").setViewName("dashboard");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginHanderInterceptor()).addPathPatterns("/**").excludePathPatterns("/index.html","/","/user/login","/static/**");
+    }
+}
+```
 
 ## 控制器
 
@@ -484,65 +511,13 @@ public class MyServerConfig {
 }
 ```
 
-## 数据库
-
-### 依赖
-
-MySQL Driver、Spring Data JDBC
-
-``` xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-jdbc</artifactId>
-</dependency>
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-<scope>runtime</scope>
-```
-
-### 连接
-
-application.yml
-
-``` yaml
-spring:
-  datasource:
-    username: root
-    password: '数据库密码'
-    url: jdbc:mysql://数据库地址:3306/数据库名?serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    # 自动执行SQL语句，resources\sql
-    schema:
-      - classpath:sql/XXX.sql
-      - classpath:sql/XXX.sql
-    initialization-mode: always
-```
-
-``` Java
-private DataSource dataSource;
-Connection connection = dataSource.getConnection();
-```
-
-### JDBC执行SQL语句
-
-``` Java
-@Autowired
-JdbcTemplate jdbcTemplate;
-
-@ResponseBody
-@GetMapping("/")
-public Map<String,Object> map(){
-    List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from 表名");
-    return list.get(0);
-};
-```
 
 ## MyBatis
 
 ### 依赖
 
 ``` xml
+<!-- MyBatis -->
 <dependency>
  <groupId>org.mybatis.spring.boot</groupId>
  <artifactId>mybatis-spring-boot-starter</artifactId>

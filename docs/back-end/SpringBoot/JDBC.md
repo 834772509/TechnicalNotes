@@ -5,6 +5,7 @@
 创建项目勾选：JDBC API、MySQL Driver
 
 ``` xml
+<!-- jdbc依赖 -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-jdbc</artifactId>
