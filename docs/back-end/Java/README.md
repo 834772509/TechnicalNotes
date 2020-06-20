@@ -1,11 +1,5 @@
 # Java 笔记
 
-::: tip 说明
-笔记中列出的方法是作者 常用的方法(尤其是构造方法) 和 了解的方法 所以并不完全. ^_^
-:::
-
----
-
 ## 实用快捷输入
 
 ### 快捷键
@@ -226,6 +220,8 @@ new Thread(new Runnable() {
 
 ## 注解
 
+注解(Annotation)是可以被程序识别的注释
+
 ### 内置注解(基础)
 
 * @Override
@@ -240,11 +236,12 @@ public class Hero {
     return name;
   }
 }
-  ```
+```
 
 * @Deprecated
 
-表示这个方法已经过期，不建议开发者使用（暗示在将来某个不确定的版本，就有可能会取消掉）
+表示这个方法已经过期，不建议开发者使用（暗示在将来某个不确定的版本，就有可能会取消掉）  
+使用此方法时会有删除线
 
 ``` Java
 public class Hero {
@@ -256,6 +253,88 @@ public class Hero {
       new Hero().hackMap();
   }
 }
-  ```
+```
 
-* 还有2个注解(未完成)
+* SuppressWarnings
+
+用来抑制编译时的警告信息，如没有被使用等警告。使用时需要增加一个参数
+
+``` Java
+@SuppressWarnings("all")
+public void 方法名() {
+
+}
+@SuppressWarnings("unchecked")
+public void 方法名() {
+  
+}
+@SuppressWarnings(value={"unchecked","deprecation"})
+public void 方法名() {
+  
+}
+```
+
+### 元注解
+
+元注解的作用是负责注解其他注解
+
+* Target
+
+用于描述注解的使用范围(被描述的注解可以用在什么地方)
+
+* Retention
+
+表示需要在什么级别保存该注释信息，用于描述注解的生命周期
+
+(SOURCE < CLASS < **RUNTIME**)
+
+* Document
+
+说明该注解将被包含在javadoc中
+
+* Inherited
+
+说明子类可以**继承**父类中的该注解
+
+``` Java
+//测试原注解
+@MyAnnotation
+public class Test01 {
+  public void test() {
+
+  }
+}
+
+//定义一个注解
+//Target 表示我们的注解可以用在哪些地方
+@Target(value = {ElementType.METHOD,ElementType.TYPE})
+//Retention 表示我们的注解在什么地方有效   runtime>class>source
+@Retention(value = RetentionPolicy.RUNTIME)
+//Documented 表示是否将我们的注解生成在JAVAdoc中
+@Documented
+//Inherited  子类可以继承父类的注解
+@Inherited
+@interface MyAnnotation {
+
+}
+```
+
+### 自定义注解
+
+@interface用来声明
+
+``` Java
+@Target({ElementType.TYPE,ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@interface  自定义注解名 {
+    //注解的参数：参数类型+参数名
+    数据类型 参数名();
+    数据类型 参数名() default 默认值;
+}
+
+@Target({ElementType.TYPE,ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@interface 自定义注解名 {
+    数据类型 参数名();
+}
+```
