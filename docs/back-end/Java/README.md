@@ -103,7 +103,7 @@ for(数据类型 item: List名){
 
 ## Set 集合
 
-Set 集合 与List集合类似，但不允许集合中有重复的值
+Set 集合 与 List集合 类似，但不允许集合中有重复的值
 
 ### 声明
 
@@ -222,7 +222,7 @@ new Thread(new Runnable() {
 
 注解(Annotation)是可以被程序识别的注释，可以被其他程序（如编译器等）读取
 
-### 内置注解(基础)
+### 内置注解
 
 * @Override
 
@@ -358,3 +358,46 @@ public void 方法名() {
 
 }
 ```
+
+## 反射
+
+反射(Reflection) 是Java被视为动态语言的关键，反射机制允许程序在执行期借助于Reflection API取得任何类的内部信息，并能直接操作任意对象的内部属性及方法
+
+::: tip 提示
+动态语言：在程序运行时可以改变程序的结构
+:::
+
+### 反射的优点和缺点
+
+* 优点：可以实现动态创建对象和编译，体现出很大的灵活性
+* 缺点：对性能有影响。使用反射基本上是一-种解释操作， 我们可以告诉JVM，我们希望做什么并且它满足我们的要求。这类操作总是慢于直接执行相同的操作。
+
+### 获得反射对象
+
+``` Java
+Class 反射对象 = Class.forName("类名");
+```
+
+### 获取Class类的实例
+
+1. 若已知具体的类，通过类的class属性获取，该方法最为安全可靠，程序性能最高。
+
+``` Java
+Class Class类 = Class类名.class;
+```
+
+2. 已知某个类的实例，调用该实例的getClass()方法获取Class对象
+
+``` Java
+Class Class类 = Class类名.getClass();
+```
+
+3. 已知一个类的全类名，且该类在类路径下，可通过Class类的静态方法forName()获取，可能抛出ClassNotFoundException
+
+``` Java
+Class Class类 = Class.forName("类路径");
+```
+
+4. 内置基本数据类型可以直接用类名``.Type``
+5. 还可以利用ClassLoader
+
