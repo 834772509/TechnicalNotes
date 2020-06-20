@@ -220,7 +220,7 @@ new Thread(new Runnable() {
 
 ## 注解
 
-注解(Annotation)是可以被程序识别的注释
+注解(Annotation)是可以被程序识别的注释，可以被其他程序（如编译器等）读取
 
 ### 内置注解(基础)
 
@@ -321,20 +321,40 @@ public class Test01 {
 
 ### 自定义注解
 
-@interface用来声明
+@interface用来声明自定义注解
 
 ``` Java
 @Target({ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @interface  自定义注解名 {
-    //注解的参数：参数类型+参数名
+    // 注解的参数
     数据类型 参数名();
     数据类型 参数名() default 默认值;
 }
 
+@自定义注解名(参数名 = 值,参数名 = 值)
+public void 方法名() {
+
+}
+```
+
+::: tip 提示
+* 如果有默认值可以不用给注解赋值
+* 如果默认值为-1则表示不存在
+:::
+
+默认参数：
+
+``` Java
 @Target({ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@interface 自定义注解名 {
-    数据类型 参数名();
+@interface  自定义注解名 {
+    // 注解的参数
+    数据类型 value();
+}
+
+@自定义注解名(值)
+public void 方法名() {
+
 }
 ```
