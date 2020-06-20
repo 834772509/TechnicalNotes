@@ -1,5 +1,7 @@
 # JDBC
 
+JDBC 是Java操作数据库的底层，所有Java数据库框架都要经过JDBC
+
 ## 依赖
 
 创建项目勾选：JDBC API、MySQL Driver
@@ -25,7 +27,7 @@ spring:
   datasource:
     username: root
     password: '数据库密码'
-    url: jdbc:mysql://127.0.0.1:3306/springboot-mybatis?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/数据库名?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 自动执行SQL语句，resources\sql
     schema:
@@ -38,11 +40,14 @@ spring:
 MySQL 8.0 以上必须要设置时区serverTimezone
 :::
 
-## 连接测试
+### 连接测试
 
 ``` Java
-private DataSource dataSource;
+@Autowired
+DataSource dataSource;
+
 Connection connection = dataSource.getConnection();
+System.out.println(connection);
 ```
 
 ## 查询数据

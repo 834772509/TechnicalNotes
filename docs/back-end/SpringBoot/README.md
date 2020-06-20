@@ -385,6 +385,7 @@ Lombok
 \pom.xml
 
 ``` xml
+<!--Lombok -->
 <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
@@ -508,65 +509,5 @@ public class MyServerConfig {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new MyServlet());
         return registrationBean;
     }
-}
-```
-
-
-## MyBatis
-
-### 依赖
-
-``` xml
-<!-- MyBatis -->
-<dependency>
- <groupId>org.mybatis.spring.boot</groupId>
- <artifactId>mybatis-spring-boot-starter</artifactId>
- <version>2.1.2</version>
-</dependency>
-```
-
-### 注解版（不推荐）
-
-``` Java
-//指定这是一个操作数据库的mapper
-@Mapper
-public interface DepartmentMapper {
-
-    //查询数据
-
-    @Select("select * from 表名")
-    public List<Department> 方法名();
-
-    @Select("select * from 表名 where 字段名=#{字段值}")
-    public Department 方法名(Integer 字段值);
-
-    //插入数据
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into 表名(字段名) values(#{departmentName})")
-    public int 方法名(Department department);
-
-    //修改数据
-    @Update("update 表名 set 字段名=#{departmentName}")
-    public int 方法名(Department department);
-
-    //删除数据
-    @Delete("delete from 表名 where id =#{id}")
-    public int 方法名(Integer id);
-}
-```
-
-使用
-
-``` Java
-@RequestMapping("/地址")
-public Department 地址 () {
-    departmentMapper.方法名();
-    return department;
-}
-
-@RequestMapping("/地址")
-public Department 地址 (Department department) {
-    departmentMapper.方法名(department);
-    return department;
 }
 ```

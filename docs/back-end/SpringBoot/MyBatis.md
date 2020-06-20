@@ -1,0 +1,92 @@
+# MyBatis
+
+## 依赖
+
+创建项目勾选：MySQL Driver、mybatis Framework
+
+``` xml
+<!-- MyBatis -->
+<dependency>
+ <groupId>org.mybatis.spring.boot</groupId>
+ <artifactId>mybatis-spring-boot-starter</artifactId>
+ <version>2.1.2</version>
+</dependency>
+```
+
+## 配置
+
+application.yml
+
+``` yaml
+spring:
+  datasource:
+    username: root
+    password: '数据库密码'
+    url: jdbc:mysql://127.0.0.1:3306/数据库名?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 自动执行SQL语句，resources\sql
+    schema:
+      - classpath:sql/XXX.sql
+      - classpath:sql/XXX.sql
+    initialization-mode: always
+```
+
+::: tip 提示
+MySQL 8.0 以上必须要设置时区serverTimezone
+:::
+
+### 连接测试
+
+``` Java
+@Autowired
+DataSource dataSource;
+
+Connection connection = dataSource.getConnection();
+System.out.println(connection);
+```
+
+## 使用-注解版（不推荐）
+
+``` Java
+//指定这是一个操作数据库的mapper
+@Mapper
+public interface DepartmentMapper {
+
+    //查询数据
+
+    @Select("select * from 表名")
+    public List<Department> 方法名();
+
+    @Select("select * from 表名 where 字段名=#{字段值}")
+    public Department 方法名(Integer 字段值);
+
+    //插入数据
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("insert into 表名(字段名) values(#{departmentName})")
+    public int 方法名(Department department);
+
+    //修改数据
+    @Update("update 表名 set 字段名=#{departmentName}")
+    public int 方法名(Department department);
+
+    //删除数据
+    @Delete("delete from 表名 where id =#{id}")
+    public int 方法名(Integer id);
+}
+```
+
+使用
+
+``` Java
+@RequestMapping("/地址")
+public Department 地址 () {
+    departmentMapper.方法名();
+    return department;
+}
+
+@RequestMapping("/地址")
+public Department 地址 (Department department) {
+    departmentMapper.方法名(department);
+    return department;
+}
+```

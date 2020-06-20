@@ -18,6 +18,15 @@
 
 将注册表``[HKEY_CLASSES_ROOT\Directory\Background\ShellEx\ContextMenuHandlers``除了**New**项，其余全部删除
 
+## IDEA 连接数据库
+
+点击 右侧->DataBase->"+"->"Data Source"->"MySQL"
+
+* Host : 数据库地址
+* User : 数据库用户名
+* Password : 数据库密码
+* URL :  jdbc:mysql://127.0.0.1:3306/数据库名?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+
 
 ## 基础语法
 

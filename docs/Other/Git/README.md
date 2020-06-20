@@ -28,7 +28,7 @@ git pull --rebase origin master
 ## 克隆Git
 
 ``` cmd
-git clone http://XXX.git
+git clone URL
 ```
 
 ## 拉取Git
