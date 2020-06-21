@@ -90,3 +90,106 @@ public Department 地址 (Department department) {
     return department;
 }
 ```
+
+## 使用-XML配置方式
+
+### 配置
+
+\resources\mybatis\mapper\SQL配置名.xml
+
+``` XML
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <!-- 查询数据 -->
+    <select id="SQL方法名" resultType="参数类型">
+        select * from 表名
+    </select>
+
+    <select id="SQL方法名" resultType="参数类型">
+        select * from 表名 where 字段名 = #{参数名}
+    </select>
+
+    <!-- 增加数据 -->
+    <insert id="SQL方法名" parameterType="参数类型">
+        insert into 表名 (字段名,字段名) values (#{参数名}},#{参数名});
+    </insert>
+
+    <!-- 修改数据 -->
+    <update id="SQL方法名" parameterType="参数类型">
+        update 表名 set 字段名 = #{参数名} ,字段名=#{参数名}} where 字段名 = #{参数名};
+    </update>
+
+    <!-- 删除数据 -->
+    <delete id="SQL方法名" parameterType="参数类型">
+        delete from 表名 where 字段名 = #{参数名}
+    </delete>
+
+</mapper>
+```
+
+application.yml
+
+``` yaml
+#整合Mybatis
+mybatis:
+  type-aliases-package: com.example.pojo
+  mapper-locations: classpath*:mybatis/mapper/*.xml
+```
+
+\com\example\mapper\Mapper名.java
+
+``` Java
+//这个注解表示mybatis的mapper类：Dao
+@Mapper
+@Repository
+public interface Mapper名 {
+    返回类型 SQL方法名(数据类型 参数名);
+    返回类型 SQL方法名(数据类型 参数名);
+}
+```
+
+\Controller\控制器名.java
+
+``` Java
+@Autowired
+private SQL配置名 SQLMapper;
+
+
+// 查询数据
+@RequestMapping("/路径")
+public 返回值类型 方法名() {
+    返回值类型 变量名 = SQLMapper.SQL方法名();
+    return 变量名;
+}
+
+@RequestMapping("/路径/{参数名}")
+public String 方法名(@PathVariable 参数数据类型 参数名){
+    返回值类型 变量名 = SQLMapper.SQL方法名(参数名);
+    return 变量名;
+}
+
+// 增加数据
+@RequestMapping("/路径")
+public String 方法名() {
+    SQLMapper.SQL方法名(参数1,参数2);
+    return "OK";
+}
+
+// 修改数据
+@RequestMapping("/路径")
+public String 方法名() {
+    SQLMapper.方法名(参数1,参数2);
+    return "OK";
+}
+
+// 删除数据
+@RequestMapping("/路径")
+public String 方法名() {
+    SQLMapper.方法名(参数);
+    return "OK";
+}
+```
