@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JDBC | 杉-技术笔记</title>
+    <meta name="description" content="">
+    <link rel="icon" href="/technicalnotes/img/LOGO.ico">
+    
+    <link rel="preload" href="/technicalnotes/assets/css/0.styles.833b937c.css" as="style"><link rel="preload" href="/technicalnotes/assets/js/app.6fdd59df.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/2.271842be.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/27.f903731e.js" as="script"><link rel="prefetch" href="/technicalnotes/assets/js/10.37dbe5e0.js"><link rel="prefetch" href="/technicalnotes/assets/js/11.f9f42d82.js"><link rel="prefetch" href="/technicalnotes/assets/js/12.a41b07f4.js"><link rel="prefetch" href="/technicalnotes/assets/js/13.9668f1fc.js"><link rel="prefetch" href="/technicalnotes/assets/js/14.87f16986.js"><link rel="prefetch" href="/technicalnotes/assets/js/15.d01ee641.js"><link rel="prefetch" href="/technicalnotes/assets/js/16.5f30c355.js"><link rel="prefetch" href="/technicalnotes/assets/js/17.28fd4b7c.js"><link rel="prefetch" href="/technicalnotes/assets/js/18.45d1b888.js"><link rel="prefetch" href="/technicalnotes/assets/js/19.fabaa841.js"><link rel="prefetch" href="/technicalnotes/assets/js/20.dc612cc2.js"><link rel="prefetch" href="/technicalnotes/assets/js/21.bf303091.js"><link rel="prefetch" href="/technicalnotes/assets/js/22.49388592.js"><link rel="prefetch" href="/technicalnotes/assets/js/23.35bfed27.js"><link rel="prefetch" href="/technicalnotes/assets/js/24.6a890408.js"><link rel="prefetch" href="/technicalnotes/assets/js/25.a9643215.js"><link rel="prefetch" href="/technicalnotes/assets/js/26.eb95a52c.js"><link rel="prefetch" href="/technicalnotes/assets/js/28.1cd3f5e0.js"><link rel="prefetch" href="/technicalnotes/assets/js/29.bfb6875e.js"><link rel="prefetch" href="/technicalnotes/assets/js/3.037bfdb5.js"><link rel="prefetch" href="/technicalnotes/assets/js/30.f8f05bb9.js"><link rel="prefetch" href="/technicalnotes/assets/js/31.4f5f49dd.js"><link rel="prefetch" href="/technicalnotes/assets/js/32.f11b89d4.js"><link rel="prefetch" href="/technicalnotes/assets/js/33.aa51ddf5.js"><link rel="prefetch" href="/technicalnotes/assets/js/34.3d9582b6.js"><link rel="prefetch" href="/technicalnotes/assets/js/35.0bc54a4e.js"><link rel="prefetch" href="/technicalnotes/assets/js/36.186e2b3f.js"><link rel="prefetch" href="/technicalnotes/assets/js/37.44b2ef98.js"><link rel="prefetch" href="/technicalnotes/assets/js/38.bdd24c3c.js"><link rel="prefetch" href="/technicalnotes/assets/js/39.26517d88.js"><link rel="prefetch" href="/technicalnotes/assets/js/4.e633bdb7.js"><link rel="prefetch" href="/technicalnotes/assets/js/40.4e8046e1.js"><link rel="prefetch" href="/technicalnotes/assets/js/41.9267e889.js"><link rel="prefetch" href="/technicalnotes/assets/js/42.a5e36953.js"><link rel="prefetch" href="/technicalnotes/assets/js/43.6c720152.js"><link rel="prefetch" href="/technicalnotes/assets/js/44.f3d26831.js"><link rel="prefetch" href="/technicalnotes/assets/js/45.2f61eff0.js"><link rel="prefetch" href="/technicalnotes/assets/js/46.9edc890b.js"><link rel="prefetch" href="/technicalnotes/assets/js/47.f2ce8ae8.js"><link rel="prefetch" href="/technicalnotes/assets/js/48.28f1c540.js"><link rel="prefetch" href="/technicalnotes/assets/js/49.c3cd35fa.js"><link rel="prefetch" href="/technicalnotes/assets/js/5.1b76c87f.js"><link rel="prefetch" href="/technicalnotes/assets/js/50.e0230abd.js"><link rel="prefetch" href="/technicalnotes/assets/js/51.e3a56e81.js"><link rel="prefetch" href="/technicalnotes/assets/js/52.13e3e00d.js"><link rel="prefetch" href="/technicalnotes/assets/js/53.67b10a06.js"><link rel="prefetch" href="/technicalnotes/assets/js/6.0a68782d.js"><link rel="prefetch" href="/technicalnotes/assets/js/7.661fc908.js"><link rel="prefetch" href="/technicalnotes/assets/js/8.5870c756.js"><link rel="prefetch" href="/technicalnotes/assets/js/9.d51a47f1.js">
+    <link rel="stylesheet" href="/technicalnotes/assets/css/0.styles.833b937c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><!----></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/technicalnotes/" class="home-link router-link-active"><!----> <span class="site-name">杉-技术笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Andorid/" class="nav-link">
+  Andorid
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringBoot/" class="nav-link router-link-active">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SQL/" class="nav-link">
+  SQL数据库
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/SoftTest/" class="nav-link">
+  软件测试
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Andorid/" class="nav-link">
+  Andorid
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringBoot/" class="nav-link router-link-active">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SQL/" class="nav-link">
+  SQL数据库
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/SoftTest/" class="nav-link">
+  软件测试
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>SpringBoot</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/technicalnotes/back-end/SpringBoot/DRUID.html" class="sidebar-link">DRUID</a></li><li><a href="/technicalnotes/back-end/SpringBoot/JDBC.html" class="active sidebar-link">JDBC</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/technicalnotes/back-end/SpringBoot/JDBC.html#依赖" class="sidebar-link">依赖</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/back-end/SpringBoot/JDBC.html#配置" class="sidebar-link">配置</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/back-end/SpringBoot/JDBC.html#查询数据" class="sidebar-link">查询数据</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/back-end/SpringBoot/JDBC.html#增加数据" class="sidebar-link">增加数据</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/back-end/SpringBoot/JDBC.html#修改数据" class="sidebar-link">修改数据</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/back-end/SpringBoot/JDBC.html#删除数据" class="sidebar-link">删除数据</a></li></ul></li><li><a href="/technicalnotes/back-end/SpringBoot/MyBatis.html" class="sidebar-link">MyBatis</a></li><li><a href="/technicalnotes/back-end/SpringBoot/" class="sidebar-link">SpringBoot 笔记</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="jdbc"><a href="#jdbc" class="header-anchor">#</a> JDBC</h1> <p>JDBC 是Java操作数据库的底层，所有Java数据库框架都要经过JDBC</p> <h2 id="依赖"><a href="#依赖" class="header-anchor">#</a> 依赖</h2> <p>创建项目勾选：JDBC API、MySQL Driver</p> <div class="language-xml extra-class"><pre class="language-xml"><code><span class="token comment">&lt;!-- jdbc依赖 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-jdbc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>mysql-connector-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">&gt;</span></span>runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h2 id="配置"><a href="#配置" class="header-anchor">#</a> 配置</h2> <p>application.yml</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">datasource</span><span class="token punctuation">:</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> root
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token string">'数据库密码'</span>
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> jdbc<span class="token punctuation">:</span>mysql<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span>3306/数据库名<span class="token punctuation">?</span>serverTimezone=UTC<span class="token important">&amp;useUnicode</span>=true<span class="token important">&amp;characterEncoding</span>=utf<span class="token punctuation">-</span><span class="token number">8</span>
+    <span class="token key atrule">driver-class-name</span><span class="token punctuation">:</span> com.mysql.cj.jdbc.Driver
+    <span class="token comment"># 自动执行SQL语句，resources\sql</span>
+    <span class="token key atrule">schema</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> classpath<span class="token punctuation">:</span>sql/XXX.sql
+      <span class="token punctuation">-</span> classpath<span class="token punctuation">:</span>sql/XXX.sql
+    <span class="token key atrule">initialization-mode</span><span class="token punctuation">:</span> always
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">提示</p> <p>MySQL 8.0 以上必须要设置时区serverTimezone</p></div> <h3 id="连接测试"><a href="#连接测试" class="header-anchor">#</a> 连接测试</h3> <div class="language-Java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Autowired</span>
+<span class="token class-name">DataSource</span> dataSource<span class="token punctuation">;</span>
+
+<span class="token class-name">Connection</span> connection <span class="token operator">=</span> dataSource<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>connection<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="查询数据"><a href="#查询数据" class="header-anchor">#</a> 查询数据</h2> <div class="language-Java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/路径&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> 方法名<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> sql <span class="token operator">=</span> <span class="token string">&quot;select * from 表名&quot;</span><span class="token punctuation">;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> list_maps <span class="token operator">=</span> jdbcTemplate<span class="token punctuation">.</span><span class="token function">queryForList</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> list_maps<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="增加数据"><a href="#增加数据" class="header-anchor">#</a> 增加数据</h2> <div class="language-Java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/路径&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> 方法名<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> sql <span class="token operator">=</span> <span class="token string">&quot;insert into 表名 (字段名,字段名) value (值,值)&quot;</span><span class="token punctuation">;</span>
+    jdbcTemplate<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;数据插入成功&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="修改数据"><a href="#修改数据" class="header-anchor">#</a> 修改数据</h2> <div class="language-Java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/路径/{参数名}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> 方法名<span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">&quot;id&quot;</span><span class="token punctuation">)</span> <span class="token class-name">String</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> sql <span class="token operator">=</span> <span class="token string">&quot;update 表名 set 字段名=?,字段名=? where 字段名=&quot;</span> <span class="token operator">+</span> 参数名<span class="token punctuation">;</span>
+    <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> objects <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    objects<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">&quot;值&quot;</span><span class="token punctuation">;</span>
+    objects<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">&quot;值&quot;</span><span class="token punctuation">;</span>
+    jdbcTemplate<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>sql<span class="token punctuation">,</span>objects<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;数据修改成功&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="删除数据"><a href="#删除数据" class="header-anchor">#</a> 删除数据</h2> <div class="language-Java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/路径/{参数名}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">deleteUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">&quot;参数名&quot;</span><span class="token punctuation">)</span> <span class="token keyword">int</span> 参数名<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> sql <span class="token operator">=</span> <span class="token string">&quot;delete from 表名 where 参数名=?&quot;</span><span class="token punctuation">;</span>
+    jdbcTemplate<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>sql<span class="token punctuation">,</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;数据删除成功&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/technicalnotes/back-end/SpringBoot/DRUID.html" class="prev">
+        DRUID
+      </a></span> <span class="next"><a href="/technicalnotes/back-end/SpringBoot/MyBatis.html">
+        MyBatis
+      </a>
+      →
+    </span></p></div> </main></div> <div class="footer" data-v-c54358c4><div id="footer-info" data-v-c54358c4><div class="footer-left" data-v-c54358c4>
+      © 2020
+      <!----></div> <div class="footer-right" data-v-c54358c4>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <!----></div></main><div class="global-ui"><!----></div></div>
+    <script src="/technicalnotes/assets/js/app.6fdd59df.js" defer></script><script src="/technicalnotes/assets/js/2.271842be.js" defer></script><script src="/technicalnotes/assets/js/27.f903731e.js" defer></script>
+  </body>
+</html>
