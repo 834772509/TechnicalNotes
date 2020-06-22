@@ -45,55 +45,9 @@ Connection connection = dataSource.getConnection();
 System.out.println(connection);
 ```
 
-## 使用-注解版（不推荐）
-
-``` Java
-//指定这是一个操作数据库的mapper
-@Mapper
-public interface DepartmentMapper {
-
-    //查询数据
-
-    @Select("select * from 表名")
-    public List<Department> 方法名();
-
-    @Select("select * from 表名 where 字段名=#{字段值}")
-    public Department 方法名(Integer 字段值);
-
-    //插入数据
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into 表名(字段名) values(#{departmentName})")
-    public int 方法名(Department department);
-
-    //修改数据
-    @Update("update 表名 set 字段名=#{departmentName}")
-    public int 方法名(Department department);
-
-    //删除数据
-    @Delete("delete from 表名 where id =#{id}")
-    public int 方法名(Integer id);
-}
-```
-
-使用
-
-``` Java
-@RequestMapping("/地址")
-public Department 地址 () {
-    departmentMapper.方法名();
-    return department;
-}
-
-@RequestMapping("/地址")
-public Department 地址 (Department department) {
-    departmentMapper.方法名(department);
-    return department;
-}
-```
-
 ## 使用-XML配置方式
 
-### 配置
+### 配置XML
 
 \resources\mybatis\mapper\SQL配置名.xml
 
@@ -140,6 +94,8 @@ mybatis:
   mapper-locations: classpath*:mybatis/mapper/*.xml
 ```
 
+### 配置Dao
+
 \com\example\mapper\Mapper名.java
 
 ``` Java
@@ -151,6 +107,8 @@ public interface Mapper名 {
     返回类型 SQL方法名(数据类型 参数名);
 }
 ```
+
+### 使用
 
 \Controller\控制器名.java
 
@@ -191,5 +149,51 @@ public String 方法名() {
 public String 方法名() {
     SQLMapper.方法名(参数);
     return "OK";
+}
+```
+
+## 使用-注解版（不推荐）
+
+``` Java
+//指定这是一个操作数据库的mapper
+@Mapper
+public interface DepartmentMapper {
+
+    //查询数据
+
+    @Select("select * from 表名")
+    public List<Department> 方法名();
+
+    @Select("select * from 表名 where 字段名=#{字段值}")
+    public Department 方法名(Integer 字段值);
+
+    //插入数据
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("insert into 表名(字段名) values(#{departmentName})")
+    public int 方法名(Department department);
+
+    //修改数据
+    @Update("update 表名 set 字段名=#{departmentName}")
+    public int 方法名(Department department);
+
+    //删除数据
+    @Delete("delete from 表名 where id =#{id}")
+    public int 方法名(Integer id);
+}
+```
+
+使用
+
+``` Java
+@RequestMapping("/地址")
+public Department 地址 () {
+    departmentMapper.方法名();
+    return department;
+}
+
+@RequestMapping("/地址")
+public Department 地址 (Department department) {
+    departmentMapper.方法名(department);
+    return department;
 }
 ```
