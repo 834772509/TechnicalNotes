@@ -6,12 +6,16 @@
 
 * Alt + Insert : 快速插入代码
 * Ctrl + O : 重写方法
+* Alt + P : 显示参数信息
 * Alt + 选择多行 : 编辑多行文本
 
 ### 快捷输入
 
 * psvm : 声明main主方法
 * sout : System.out.println()方法
+* 数组.for : 快速编写for循环
+* 变量.if : 快速编写if语句
+* 变量.sout : 快速编写System.out.println语句
 
 
 ### 解决idea右键缓慢
@@ -38,6 +42,16 @@
 * 小于 : <>
 * 小于等于 : >=
 * 大于等于 : <=
+
+### 权限修饰符
+
+| 修饰符          | public    | protected     | default  |    private     |
+|-------------|---------|---------|---------|---------|
+| 同一个类（自己）   | Yes     | Yes     | Yes     | Yes     |
+| 同一个包（邻居）   | Yes     | Yes     | Yes     | No      |
+| 不同包子类（儿子）  | Yes     | Yes     | No      | No      |
+| 不同包非子类（陌生人） | Yes     | No      | No      | No      |
+
 
 ## 类与对象
 
@@ -490,6 +504,91 @@ Class Class类 = Class.forName("类路径");
 
 类加载的作用：将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区的运行时数据结构，然后在堆中生成一个代表这个类的java.lang.Class对象，作为方法区中类数据的访问入口。  
 
-类缓存：标准的JavaSE类加载器可以按要求查找类，但一旦某个类被加载到类加载器中，它将维
-持加载(缓存)一段时间。不过JVM垃圾回收机制可以回收这些Class对象
+类缓存：标准的JavaSE类加载器可以按要求查找类，但一旦某个类被加载到类加载器中，它将维持加载(缓存)一段时间。不过JVM垃圾回收机制可以回收这些Class对象
+
+### 通过反射动态创建对象执行方法
+
+``` Java
+// 获得class对象
+Class class对象 = Class.forName("class类路径");
+// 通过反射调用普通方法
+类名 实例名 = (类名) class对象.newInstance();
+// 通过反射获取一个方法
+Method 类方法名 = class对象.getDeclaredMethod("类方法名", 数据类型.class);
+setName.invoke(实例名, 值);
+实例名.类方法名();
+```
+
+``` Java
+// 获得class对象
+Class class1 = Class.forName("User");
+// 通过反射调用普通方法
+User user3 = (User) class1.newInstance();
+// 通过反射获取一个方法
+Method setName = class1.getDeclaredMethod("setName", String.class);
+setName.invoke(user3, "aaa");
+System.out.println(user3.getName());
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class User {
+    private String name;
+    public int id;
+    public int age;
+}
+
+//运行结果：aaa
+```
+
+### 通过反射动态创建对象操作属性
+
+``` Java
+//获得class对象
+Class class对象 = Class.forName("class类路径");
+//通过反射操作属性
+类名 实例名 = (类名) class对象.newInstance();
+Field 属性名 = class对象.getDeclaredField("属性名");
+//不能直接操作私有属性，需要关闭程序安全检测
+属性名.setAccessible(true);
+属性名.set(实例名, 值);
+System.out.println(实例名.getName());
+```
+
+``` Java
+//获得class对象
+Class class1 = Class.forName("Reflection.User");
+//通过反射操作属性
+User user4 = (User) class1.newInstance();
+Field name = class1.getDeclaredField("name");
+//不能直接操作私有属性，需要关闭程序安全检测
+name.setAccessible(true);
+name.set(user4, "bbb");
+System.out.println(user4.getName());
+
+//输出：bbb
+```
+
+### 通过反射获得注解
+
+``` Java
+Class class类对象 = Class.forName("class类路径");
+
+//通过反射获得注解
+Annotation[] annotations = class类对象.getAnnotations();
+for (Annotation item : annotations) {
+    System.out.println(item);
+}
+
+//获得注解的value的值
+注解名 实例名 = (注解名) class类对象.getAnnotation(注解名.class);
+String value = 实例名.value();
+System.out.println(value);
+
+//获得类指定的注解
+Field f = class1.getDeclaredField("name");
+注解名 annotation = f.getAnnotation(注解名.class);
+System.out.println(annotation.参数名());
+```
 
