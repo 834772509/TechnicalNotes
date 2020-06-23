@@ -37,7 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/路径").hasRole("权限组1")
                 .antMatchers("/路径").hasRole("权限组2");
         //设置没有权限默认跳转至登录页面
-        http.formLogin();
+        // http.formLogin();
+        http.formLogin().loginPage("/登录路径").usernameParameter("用户名参数名").usernameParameter("用户密码参数名").loginProcessingUrl("/登录验证Url");
+        //设置注销登陆后跳转的页面
+        http.logout().logoutSuccessUrl("/");
     }
 
     //认证规则
