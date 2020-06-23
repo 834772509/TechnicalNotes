@@ -706,7 +706,7 @@ event.cancelBubble = true
 
 ### 绑定事件
 
-`` `addEventListener` ``适用于**多次绑定事件**，on事件多次绑定会**覆盖**
+``addEventListener``适用于**多次绑定事件**，on事件多次绑定会**覆盖**
 
 ``` JavaScript
 组件.addEventListener("事件名", function() {

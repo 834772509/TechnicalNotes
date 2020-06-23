@@ -3,11 +3,12 @@
 ## 配置环境
 
 [Python 下载](https://www.python.org/downloads/windows)
+[Python 中文文档](https://yiyibooks.cn/xx/python_352/index.html)
 
 环境变量：
 
-* `` `\Python\` ``
-* `` `\Python\Scripts` ``
+* ``\Python\``
+* ``\Python\Scripts``
 
 ## 解决pip速度慢的问题
 
@@ -26,19 +27,19 @@ trusted-host=mirrors.aliyun.com
 
 ### 导入
 
-`` `pip install -r requirements.txt` ``
+```pip install -r requirements.txt``
 
 ### 导出
 
-安装pipreqs：`` `pip install pipreqs` ``
+安装pipreqs：```pip install pipreqs``
 
 1. 进入项目目录
-2. 输入`` `pipreqs ./ --encoding utf8` ``
+2. 输入```pipreqs ./ --encoding utf8``
 
 ## 打包程序
 
-安装PyInstalle：`` `pip install pyinstaller` ``
-打包：`` `pyinstaller -F -w --clean "源码路径"` ``
+安装PyInstalle：```pip install pyinstaller``
+打包：```pyinstaller -F -w --clean "源码路径"``
 
 ## 数据类型
 
@@ -53,10 +54,10 @@ trusted-host=mirrors.aliyun.com
 
 转换：
 
-到数值：`` `int(参数值)` ``
-到浮点：`` `float(参数值)` ``
-到字符串：`` `str(参数值)` ``
-取长度：`` `len(参数值)` ``
+到数值：```int(参数值)``
+到浮点：```float(参数值)``
+到字符串：```str(参数值)``
+取长度：```len(参数值)``
 
 ## 基本语法
 
@@ -197,7 +198,7 @@ class 类名(父类名):
 
 ::: tip 提示
 
-* 在方法名前加`` `@staticmethod` ``表示方法是**静态方法**（无法访问**实例属性**）
+* 在方法名前加``@staticmethod``表示方法是**静态方法**（无法访问**实例属性**）
 * self参数不需要填写值
 * 子类可以重写父类的属性、方法
 
@@ -217,7 +218,7 @@ except Exception as e:
 ```
 
 ::: tip 提示
-所有异常都是`` `Exception` ``的子类，可以匹配所有异常
+所有异常都是```Exception``的子类，可以匹配所有异常
 :::
 
 ## 集合
@@ -453,8 +454,8 @@ def 函数名(参数1,参数2):
 
 ::: tip 提示
 
-* 可使用`` `sleep(时间)` ``进行延时，单位为秒
-* 可使用`` `线程名.join()` ``等待线程执行完成
+* 可使用``sleep(时间)``进行延时，单位为秒
+* 可使用``线程名.join()``等待线程执行完成
 
 :::
 

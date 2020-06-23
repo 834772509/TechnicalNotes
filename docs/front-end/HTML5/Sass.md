@@ -1,15 +1,15 @@
 # Sass
 
-Visual Studio Code 插件：`` `Live Sass Compiler` ``
+Visual Studio Code 插件：``Live Sass Compiler``
 
 ::: tip 提示
-一般使用Sass后缀名为`` `.scss` ``
+一般使用Sass后缀名为``.scss``
 :::
 
 ## 变量
 
-声明：`` `$变量名: 值; ` ``  
-使用：`` `$变量名` ``
+声明：``$变量名: 值; ``  
+使用：``$变量名``
 
 ## 嵌套
 
@@ -87,7 +87,7 @@ body {
 
 ## 导入样式
 
-创建`` `_base.scss` ``，内填写基本样式
+创建``_base.scss``，内填写基本样式
 
 导入：
 
