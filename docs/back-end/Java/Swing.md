@@ -143,7 +143,7 @@ JCheckBox 复选框1 = new JCheckBox("复选框1");
 复选框1.setBackground(Color.WHITE);
 窗口1.add(复选框1);
 ```
-w
+
 ---
 
 ## 组合框
