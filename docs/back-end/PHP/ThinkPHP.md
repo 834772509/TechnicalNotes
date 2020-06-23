@@ -167,36 +167,71 @@ DEBUG = true
 ### 查询所有数据
 
 ``` PHP
-use think\facade\Db;
-
 public function index() {
-    $数据集对象 = Db::table("表名")->select();
+    $数据集对象 = Db::name("表名")->select();
     return json($数据集对象);
 }
 ```
 
 ### 单数据查询
 
-如果没有找到数据，则会返回null
+查询符合条件的**第一条数据**，如果没有找到则会返回null
 
 ``` PHP
-use think\facade\Db;
+$数据集对象 = Db::name("表名")->where("字段名",值)->find();
 
-$数据集对象 = Db::table("表名")->where("字段名",值)->find();
+//条件查询
+$数据集对象 = Db::name("表名")->where("字段名",">",值)->find();
+
+//多条件查询
+$数据集对象 = Db::name("表名")->where([
+    ["字段名","=",值],
+    ["字段名","=",值]
+])->find();
+
+return json($数据集对象);
 ```
 
 ### 数据集查询
 
 ``` PHP
-use think\facade\Db;
+$数据集对象 = Db::name("表名")->where("字段名",值)->select();
+return json($数据集对象);
+```
 
-$数据集对象 = Db::table("表名")->where("字段名",值)->select();
+### 通配符查询
+
+``` PHP
+$数据集对象 = Db::name("表名")->whereLike("字段名","通配符表达式")->find();
+return json($数据集对象);
+```
+
+### 区间查询
+
+``` PHP
+$数据集对象 = Db::name("表名")->whereBetween("字段名", [起始值,结束值])->select();
+return json($数据集对象);
+```
+
+### 显示指定字段
+
+``` PHP
+$数据集对象 = Db::name("表名")->field("字段名,字段名")->select();
+return json($数据集对象);
+```
+
+### 分页查询
+
+``` PHP
+$数据集对象 = Db::name("表名")->page(当前页数,总页数)->select();
+return json($数据集对象);
 ```
 
 ### 转Array数组
 
 ``` PHP
 $数据集对象->toArray();
+return json($数据集对象);
 ```
 
 ### 其他查询
@@ -204,13 +239,7 @@ $数据集对象->toArray();
 返回指定字段
 
 ``` PHP
-$值 = Db::table("表名")->where("字段名", 值)->value("字段名");
-```
-
-### 返回上一次操作的SQL语句
-
-``` PHP
-Db::getLastSQL()
+$值 = Db::name("表名")->where("字段名", 值)->value("字段名");
 ```
 
 ## 新增数据
@@ -223,7 +252,7 @@ $data = [
     "字段名" => 值,
 ];
 
-Db::name("表名")->insert($data)
+Db::name("表名")->insert($data);
 ```
 
 ### 新增多条数据
@@ -240,7 +269,28 @@ $data = [
     "字段名" => 值,
 ];
 
-Db::name("表名")->insert($data)
+Db::name("表名")->insert($data);
+```
+
+### 数据集对象方法
+
+``` PHP
+$数据集对象 = Db::name("表名")->select();
+
+//获取查询的数量
+$数据集对象->count();
+
+//获取查询数据的最大值
+$数据集对象->max();
+
+//获取查询数据的最小值
+$数据集对象->min();
+
+//获取查询数据的平均值
+$数据集对象->avg();
+
+//获取查询数据的总和
+$数据集对象->sum();
 ```
 
 ### save 方法
@@ -252,7 +302,7 @@ $data = [
     "字段名" => 值,
     "字段名" => 值,
 ];
-Db::name("表名")->save($data)
+Db::name("表名")->save($data);
 ```
 
 ## 修改数据
@@ -269,3 +319,34 @@ return Db::name("表名")->where("字段名",值)->update($data);
 ::: tip 提示
 如果修改的数据包含了主键信息（如id），则可省略where条件
 :::
+
+## 删除数据
+
+删除成功返回影响行数
+
+``` PHP
+Db::name("表名")->where("字段名",值)->delete();
+Db::name("表名")->where("字段名",">",值)->delete();
+```
+
+## 返回上一次操作的SQL语句
+
+``` PHP
+Db::getLastSQL();
+```
+
+##  原生SQL查询
+
+### 查询数据
+
+错误返回false
+
+``` PHP
+Db::query("SQL语句");
+```
+
+### 修改数据
+
+``` PHP
+Db::execute("SQL语句");
+```
