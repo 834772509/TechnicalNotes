@@ -183,7 +183,14 @@ $数据集对象 = Db::name("表名")->where("字段名",值)->find();
 //条件查询
 $数据集对象 = Db::name("表名")->where("字段名",">",值)->find();
 
+
 //多条件查询
+$数据集对象 = Db::name("表名")
+                        ->where("字段名","=",值)
+                        ->where("字段名","=",值)
+                        ->find();
+
+//多条件查询（数组方式）
 $数据集对象 = Db::name("表名")->where([
     ["字段名","=",值],
     ["字段名","=",值]
@@ -224,13 +231,6 @@ return json($数据集对象);
 
 ``` PHP
 $数据集对象 = Db::name("表名")->page(当前页数,总页数)->select();
-return json($数据集对象);
-```
-
-### 转Array数组
-
-``` PHP
-$数据集对象->toArray();
 return json($数据集对象);
 ```
 
@@ -276,6 +276,9 @@ Db::name("表名")->insert($data);
 
 ``` PHP
 $数据集对象 = Db::name("表名")->select();
+
+//转换为数组
+$数据集对象->toArray();
 
 //获取查询的数量
 $数据集对象->count();
@@ -349,4 +352,40 @@ Db::query("SQL语句");
 
 ``` PHP
 Db::execute("SQL语句");
+```
+
+## 事务处理
+
+事务处理，指的是需要执行多个SQL查询，一旦中途的某条数据执行失败，则回滚为初始状态
+
+### 自动
+
+``` PHP
+Db::Transaction(function (){
+    // 查询代码段
+});
+```
+
+### 手动
+
+``` PHP
+Db::startTrans();
+try {
+    // 查询代码段
+    Db::commit();
+}catch (\Exception $e){
+    Db::rollback();
+    echo "执行SQL失败，数据已回滚";
+}
+```
+
+## 获取器
+
+将查询的数据字段进行处理
+
+``` PHP
+Db::name("表名")->withAttr("字段名",function($value,$data){
+    //进行处理
+    return $value
+})->select();
 ```
