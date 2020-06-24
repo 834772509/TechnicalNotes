@@ -276,6 +276,7 @@ public String 方法名(@PathVariable("参数名") String 参数名) {
 \pom.xml
 
 ``` xml
+<!-- thymeleaf 模板引擎 -->
 <dependency>
    <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
