@@ -42,14 +42,14 @@ const 变量名;
 
 ### 数据类型转换
 
-转数值：` ` ` Number() ` ` `
-转整数：` ` ` parseInt() ` ` `
-转浮点：` ` ` parseFloat() ` ` `
-转文本：` ` ` String() ` ` `
-转布尔：` ` ` Boolean() ` ` `
+转数值：`` Number() ``
+转整数：`` parseInt() ``
+转浮点：`` parseFloat() ``
+转文本：`` String() ``
+转布尔：`` Boolean() ``
 
 ::: tip 提示
-转布尔除 ` ` ` "" ` `  `、`  ` ` 0 ` `  `、`  ` ` undefined ` `  `、`  ` ` null ` `  `、`  ` ` NaN ` ` `值均为true
+转布尔除 `` ""``、``0``、``undefined``、``null``、``NaN ``值均为true
 :::
 
 ### 关系运算符
@@ -64,9 +64,9 @@ const 变量名;
 
 ### 与或非
 
-* 与：` ` ` && ` ` `
-* 或：` ` ` || ` ` `
-* 非：` ` ` ! ` ` `
+* 与：`` && ``
+* 或：`` || ``
+* 非：`` ! ``
 
 ### 三元运算符
 
@@ -101,8 +101,8 @@ console.log(对象名.键名)
 
 ::: tip 提示
 
-* 所有参数会放在函数的` ` ` arguments ` ` `对象中，可当作数组使用
-* 立即执行函数用完即销毁，返回值为` ` ` undefine ` ` `
+* 所有参数会放在函数的`` arguments ``对象中，可当作数组使用
+* 立即执行函数用完即销毁，返回值为`` undefine ``
 
 :::
 
@@ -149,7 +149,7 @@ let 变量 = function() {
 ```
 
 ::: tip 提示
-在` ` ` {} ` `  `后加`  ` ` () ` ` `即可成为立即执行函数
+在`` {}``后加``() ``即可成为立即执行函数
 :::
 
 ### 箭头函数
@@ -573,7 +573,7 @@ document.getElementsByClassName("类名")
 
 ### DOM元素属性
 
-DOM的元素可通过 ` ` ` 元素. 属性名 ` ` ` 来访问
+DOM的元素可通过 `` 元素. 属性名 `` 来访问
 
 * className: 当前元素类名
 * id: 元素ID
@@ -688,7 +688,7 @@ startMove(div1, {
 
 ## 事件
 
-` ` ` document ` `  `是整个页面的集合，第一个子节点是`  ` ` <! DOCTYPE> ` `  `，第二个子节点是`  ` ` <html> ` ` `
+`` document``是整个页面的集合，第一个子节点是``<! DOCTYPE>``，第二个子节点是``<html> ``
 
 ::: tip 提示
 在body中，没有内容即没有高度
@@ -777,7 +777,7 @@ event.cancelBubble = true
 }
 ```
 
-组合键：` ` ` ctrlKey ` `  `、`  ` ` altKey ` `  `、`  ` ` shiftKey ` ` `
+组合键：``ctrlKey``、``altKey``、``shiftKey ``
 
 ``` JavaScript
 组件.onkeyup = function(event) {

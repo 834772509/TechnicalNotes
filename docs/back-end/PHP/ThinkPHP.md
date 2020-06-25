@@ -102,15 +102,13 @@ class 控制器名{
 
 ## 模型
 
-新建 ``\app\model`` 目录
+数据库的表名即为模型名（不区分大小写）  
+
+新建 ``\app\model\模型名.php``
 
 ``` PHP
-<?php
-namespace app\model;
-
-use think\Model;
-
 class 模型名 extends Model {
+    
 
 }
 ```
