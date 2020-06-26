@@ -134,4 +134,4 @@ public class DruidConfig {
 
 ### 使用
 
-访问：``127.0.0.1/druid``
+访问：``127.0.0.1:8080/druid``

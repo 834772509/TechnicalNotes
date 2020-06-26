@@ -5,6 +5,13 @@
 创建项目勾选：MySQL Driver、mybatis Framework
 
 ``` xml
+<!-- MySQL Driver -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
 <!-- MyBatis -->
 <dependency>
  <groupId>org.mybatis.spring.boot</groupId>
@@ -41,49 +48,16 @@ MySQL 8.0 以上必须要设置时区serverTimezone
 @Autowired
 DataSource dataSource;
 
-Connection connection = dataSource.getConnection();
-System.out.println(connection);
+@Test
+void contextLoads() throws SQLException {
+    Connection connection = dataSource.getConnection();
+    System.out.println(connection);
+}
 ```
 
 ## 使用-XML配置方式
 
 ### 配置XML
-
-\resources\mybatis\mapper\SQL配置名.xml
-
-``` XML
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.UserMapper">
-
-    <!-- 查询数据 -->
-    <select id="SQL方法名" resultType="参数类型">
-        select * from 表名
-    </select>
-
-    <select id="SQL方法名" resultType="参数类型">
-        select * from 表名 where 字段名 = #{参数名}
-    </select>
-
-    <!-- 增加数据 -->
-    <insert id="SQL方法名" parameterType="参数类型">
-        insert into 表名 (字段名,字段名) values (#{参数名}},#{参数名});
-    </insert>
-
-    <!-- 修改数据 -->
-    <update id="SQL方法名" parameterType="参数类型">
-        update 表名 set 字段名 = #{参数名} ,字段名=#{参数名}} where 字段名 = #{参数名};
-    </update>
-
-    <!-- 删除数据 -->
-    <delete id="SQL方法名" parameterType="参数类型">
-        delete from 表名 where 字段名 = #{参数名}
-    </delete>
-
-</mapper>
-```
 
 application.yml
 
@@ -106,6 +80,42 @@ public interface Mapper名 {
     返回类型 SQL方法名(数据类型 参数名);
     返回类型 SQL方法名(数据类型 参数名);
 }
+```
+
+\resources\mybatis\mapper\SQL配置名.xml
+
+``` XML
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.Mapper名">
+
+    <!-- 查询数据 -->
+    <select id="SQL方法名" resultType="返回值类型">
+        select * from 表名
+    </select>
+
+    <select id="SQL方法名" parameterType="参数类型" resultType="返回值类型">
+        select * from 表名 where 字段名 = #{参数名}
+    </select>
+
+    <!-- 增加数据 -->
+    <insert id="SQL方法名" parameterType="参数类型">
+        insert into 表名 (字段名,字段名) values (#{参数名}},#{参数名});
+    </insert>
+
+    <!-- 修改数据 -->
+    <update id="SQL方法名" parameterType="参数类型">
+        update 表名 set 字段名 = #{参数名} ,字段名=#{参数名}} where 字段名 = #{参数名};
+    </update>
+
+    <!-- 删除数据 -->
+    <delete id="SQL方法名" parameterType="参数类型">
+        delete from 表名 where 字段名 = #{参数名}
+    </delete>
+
+</mapper>
 ```
 
 ### 使用
