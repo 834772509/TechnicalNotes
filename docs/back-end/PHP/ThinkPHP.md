@@ -168,7 +168,7 @@ class 模型名 extends Model {
 
 ``` PHP
 public function index() {
-    $数据集对象 = Db::name("表名")->select();
+    $数据集对象 = $模型名::select();
     return json($数据集对象);
 }
 ```
@@ -178,20 +178,20 @@ public function index() {
 查询符合条件的**第一条数据**，如果没有找到则会返回null
 
 ``` PHP
-$数据集对象 = Db::name("表名")->where("字段名",值)->find();
+$数据集对象 = $模型名::where("字段名",值)->find();
 
 //条件查询
-$数据集对象 = Db::name("表名")->where("字段名",">",值)->find();
+$数据集对象 = $模型名::where("字段名",">",值)->find();
 
 
 //多条件查询
-$数据集对象 = Db::name("表名")
-                        ->where("字段名","=",值)
+$数据集对象 = $模型名
+                        ::where("字段名","=",值)
                         ->where("字段名","=",值)
                         ->find();
 
 //多条件查询（数组方式）
-$数据集对象 = Db::name("表名")->where([
+$数据集对象 = $模型名::where([
     ["字段名","=",值],
     ["字段名","=",值]
 ])->find();
@@ -202,7 +202,7 @@ return json($数据集对象);
 #### 数据集查询
 
 ``` PHP
-$数据集对象 = Db::name("表名")->where("字段名",值)->select();
+$数据集对象 = $模型名::where("字段名",值)->select();
 return json($数据集对象);
 ```
 
