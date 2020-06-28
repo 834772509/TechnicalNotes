@@ -188,6 +188,15 @@ console.log(对象.属性)
 对象.方法名()
 ```
 
+### 继承类
+
+``` JavaScript
+calss 类名 extends 继承类名 {
+    // 子类中必须初始化父类对象
+    super()
+}
+```
+
 ## 数组
 
 ### 声明
@@ -216,17 +225,23 @@ console.log(变量名.length)
 
 ### 遍历数组
 
-``` JavaScript
-数组名.forEach(function(item) {
-    console.log(item)
-})
-```
+* 值遍历
 
 ``` JavaScript
 for (let item of 数组名) {
     console.log(item)
 }
 ```
+
+* forEach
+
+``` JavaScript
+数组名.forEach(function(item) {
+    console.log(item)
+})
+```
+
+* 下标遍历
 
 ``` JavaScript
 for (let n in 数组名) {

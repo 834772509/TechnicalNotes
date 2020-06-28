@@ -1,5 +1,11 @@
 # Java 笔记
 
+## IDEA 插件
+
+* TabNine : 更好的代码提示
+* Lombok : 自动生成getter和setter方法
+* Translation : 翻译插件
+
 ## 实用快捷输入
 
 ### 快捷键
