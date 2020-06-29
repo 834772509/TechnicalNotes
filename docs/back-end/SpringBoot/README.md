@@ -480,3 +480,44 @@ public class MyServerConfig {
     }
 }
 ```
+
+## 异步任务
+
+开一个线程池，进行调用
+
+### 开启异步注解
+
+com\example\项目名称.java
+
+``` Java
+//开启异步注解功能
+@EnableAsync
+
+@SpringBootApplication
+public class Springboot09TestApplication {
+
+}
+```
+
+### 使用
+
+``` Java
+@Async
+public void 方法名() {
+
+}
+```
+
+## 邮件发送任务
+
+### 依赖
+
+pom.xml
+
+``` xml
+<!--邮件任务-->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+```

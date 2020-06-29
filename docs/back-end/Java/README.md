@@ -1,12 +1,12 @@
 # Java 笔记
 
-## IDEA 插件
+## IDEA
+
+### 插件推荐
 
 * TabNine : 更好的代码提示
 * Lombok : 自动生成getter和setter方法
 * Translation : 翻译插件
-
-## 实用快捷输入
 
 ### 快捷键
 
@@ -28,7 +28,7 @@
 
 将注册表``[HKEY_CLASSES_ROOT\Directory\Background\ShellEx\ContextMenuHandlers``除了**New**项，其余全部删除
 
-## IDEA 连接数据库
+### IDEA 连接数据库
 
 点击 右侧->DataBase->"+"->"Data Source"->"MySQL"
 
@@ -45,7 +45,7 @@
 * 等于 : ==
 * 不等于 : !=
 * 大于 : >
-* 小于 : <>
+* 小于 : <
 * 小于等于 : >=
 * 大于等于 : <=
 
@@ -57,7 +57,6 @@
 | 同一个包（邻居）   | Yes     | Yes     | Yes     | No      |
 | 不同包子类（儿子）  | Yes     | Yes     | No      | No      |
 | 不同包非子类（陌生人） | Yes     | No      | No      | No      |
-
 
 ## 类与对象
 
