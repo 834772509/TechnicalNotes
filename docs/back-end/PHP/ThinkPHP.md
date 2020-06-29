@@ -469,3 +469,19 @@ Db::name("表名")->withAttr("字段名",function($value,$data){
     return $value
 })->select();
 ```
+
+## 数据库事件
+
+``` PHP
+class 控制器名 extends BaseController {
+    public function initialize() {
+        Db::event("before_select",function ($query){
+            echo "执行了批量查询";
+        });
+
+        Db::event("after_update",function ($query){
+            echo "修改了被执行";
+        });
+    }
+}
+```
