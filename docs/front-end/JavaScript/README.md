@@ -1,5 +1,18 @@
 # JavaScript 笔记
 
+
+## vscode
+
+### 插件推荐
+
+* Live Server : 实时更新修改后的网页
+* TabNine : 更好的代码提示
+* vscode-icons : 图标插件
+
+### 代码片段
+
+[在线生成代码片段](https://snippet-generator.app)
+
 ## 基本语法
 
 ### 注释
@@ -461,6 +474,12 @@ console.log(newnubs)
 ### map
 
 **map**函数一般用于批量改变数组中的数据
+
+回调函数有三个参数：
+
+* 参数一：执行时的对应元素
+* 参数二：对应的下标值
+* 参数三：完整的数组对象
 
 返回值为加入到新的数组中的数据
 
