@@ -22,6 +22,7 @@
 * 数组.for : 快速编写for循环
 * 变量.if : 快速编写if语句
 * 变量.sout : 快速编写System.out.println语句
+* /** + 回车 : 快速输入方法、类注释
 
 
 ### 解决idea右键缓慢

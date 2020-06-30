@@ -494,7 +494,7 @@ com\example\项目名称.java
 @EnableAsync
 
 @SpringBootApplication
-public class Springboot09TestApplication {
+public class 项目名称 {
 
 }
 ```
@@ -510,6 +510,12 @@ public void 方法名() {
 
 ## 邮件发送任务
 
+发送Email邮件
+
+::: tip 提示
+QQ邮箱需要获取[授权码](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=1001256)
+:::
+
 ### 依赖
 
 pom.xml
@@ -520,4 +526,86 @@ pom.xml
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-mail</artifactId>
 </dependency>
+```
+
+### 配置
+
+``` yaml
+# 配置发送邮箱信息
+spring:
+  mail:
+    # 发送人邮箱
+    username: 
+    # 密码（授权码）
+    password: 
+    host: smtp.qq.com
+    protocol: smtp
+```
+
+### 简单使用
+
+``` Java
+@Autowired
+JavaMailSenderImpl mailSenderImpl;
+
+SimpleMailMessage simpleMessage = new SimpleMailMessage();
+
+simpleMessage.setTo("收件人邮箱");
+simpleMessage.setFrom("发送人邮箱");
+
+simpleMessage.setSubject("邮箱标题");
+simpleMessage.setText("邮箱内容");
+
+mailSenderImpl.send(simpleMessage);
+```
+
+### 复杂使用
+
+``` Java
+@Autowired
+JavaMailSenderImpl mailSenderImpl;
+
+MimeMessage mimeMessage = mailSenderImpl.createMimeMessage();
+MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
+
+mimeMessageHelper.setTo("收件人邮箱");
+mimeMessageHelper.setFrom("发送人邮箱");
+
+mimeMessageHelper.setSubject("邮箱标题");
+mimeMessageHelper.setText("<h1>邮箱内容</h1>",true);
+
+//附件
+mimeMessageHelper.addAttachment("附件名", new File("文件路径"));
+
+mailSenderImpl.send(mimeMessage);
+```
+
+## 定时任务
+
+在特定的时间执行方法，或每隔一段时间执行方法
+
+### 开启定时任务注解
+
+com\example\项目名称.java
+
+``` Java
+//开启定时注解功能
+@EnableScheduling
+
+@SpringBootApplication
+public class 项目名称 {
+
+}
+```
+
+### 使用
+
+[Cron表达式在线生成](http://cron.qqe2.com)
+
+``` Java
+// cron表达式：秒 分 时 日 月 周几
+@Scheduled(cron = "cron表达式")
+public void 方法名() {
+
+}
 ```
