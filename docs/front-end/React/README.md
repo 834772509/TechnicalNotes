@@ -163,3 +163,9 @@ jsx中``class``为关键字，不能直接使用，需要使用``className``
   console.log(event);
 }
 ```
+
+### JSX的本质 
+
+jsx仅仅只是React.createElement(component, props, ..children)函数的语法糖。所有的jsx最终都会被转换成 React.createElement 函数调用
+
+``React.createElement(当前Element类型, 属性, 标签内容)``
