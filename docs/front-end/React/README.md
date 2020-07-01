@@ -69,6 +69,10 @@ const element = <h2>Hello World</h2>
 
 * 嵌入数据
 
+::: tip 提示
+对象不能作为jsx的子类，无法输出Object对象
+:::
+
 ``` jsx
 <h2>{this.state.变量名}</h2>
 ```
@@ -80,9 +84,82 @@ const element = <h2>Hello World</h2>
 <h2>{变量1 + " " + 变量2}</h2>
 <h2>{20 * 50}</h2>
 
-{/* 三元表达式*/}
-<h2>{变量 ? "欢迎回来~" : "请先登录"}</h2>
-
 {/* 函数调用 */}
 <h2>{this.函数名()}</h2>
+```
+
+* 逻辑与算符
+
+如果条件成立则渲染某一个组件，否则不显示
+
+``` jsx
+{条件 && <h2>渲染内容</h2>}
+```
+
+* 三元表达式
+
+``` jsx
+<h2>{变量 ? true : false}</h2>
+```
+
+* 绑定属性
+
+``` jsx
+const { title, imgUrl, link } = this.state
+
+<h2 title={title}>我是标题</h2>
+<img src={imgUrl} />
+<a href={link}>百度一下</a>
+```
+
+* 绑定class
+
+::: tip 提示
+jsx中``class``为关键字，不能直接使用，需要使用``className``
+:::
+
+``` jsx
+<div className="box title">div元素</div>
+<div className={"box title " + (active ? "active" : "")}>div元素</div>
+```
+
+* 绑定Style
+
+``` jsx
+<div style={{color: "red", fontSize: "50px"}}>绑定Style属性</div>
+
+<h2 style={{ display: isLogin ? 'block' : "none" }}>绑定Style属性</h2>
+```
+
+* 绑定事件
+
+``` jsx
+<button onClick={this.函数名}>按钮</button>
+
+{/* 函数内访问this对象 */}
+
+{/*（推荐） 直接传入一个箭头函数，在箭头函数中调用需要执行的函数 */}
+<button onClick={() => this.函数名()}>按钮</button>
+
+{/* 使用bind绑定this对象 */}
+<button onClick={this.函数名.bind(this)}>按钮</button>
+```
+
+::: tip 提示
+函数内访问this对象默认为undefine，因为按钮的事件函数并不是我们主动调用，而是当button发生改变时，React内部调用，当它内部调用时，并不知道要如何绑定正确的this
+
+解决方法：
+
+* （推荐）在jsx中直接传入一个箭头函数，在箭头函数中调用需要执行的函数
+* 定义函数时，使用箭头函数
+* 在构造方法中，``this.函数名 = this.函数名.bind(this)`` 绑定this对象
+* 绑定函数时增加``.bind(this)``绑定this对象
+:::
+
+* 事件对象
+
+``` JavaScript
+函数名(event) {
+  console.log(event);
+}
 ```

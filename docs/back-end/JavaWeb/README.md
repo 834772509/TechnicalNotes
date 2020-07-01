@@ -8,7 +8,7 @@
 
 ### 配置 Tomcat
 
-导入 ` `  ` servlet-api.jsp `  `  ` 、 `  `  ` jsp-api.jar `  ` ` 
+导入 ``servlet-api.jsp`` 、 ``jsp-api.jar``
 
 ### 配置资源目录（可选）
 
@@ -18,8 +18,8 @@
 
 ### 解决中文乱码问题
 
-Idea：文件-设置-构建、执行、部署-编译器-Java编译器-附加命令行参数： ` ` -encoding utf-8 ` ` 
-Tomcat 运行配置：虚拟机选项： ` ` -Dfile.encoding=UTF-8 ` ` 
+Idea：文件-设置-构建、执行、部署-编译器-Java编译器-附加命令行参数： `` -encoding utf-8 ``
+Tomcat 运行配置：虚拟机选项： `` -Dfile.encoding=UTF-8 `` 
 
 ## 脚本元素
 
