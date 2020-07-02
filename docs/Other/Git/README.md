@@ -1,18 +1,24 @@
 # Git 笔记
 
-## 配置环境变量
+## 环境搭建
+
+### 配置环境变量
 
 ```\PortableGit\cmd```
 
-## 配置用户名和邮箱
+### 配置用户名和邮箱
 
-### 设置用户名
+* 设置用户名
 
 ```git config --global user.name "XXX"```
 
-### 设置邮箱 (没有双引号)
+* 设置邮箱 (没有双引号)
 
 ```git config --global user.email XXX@qq.com```
+
+### 记住用户名和密码
+
+``git config --global credential.helper store``
 
 ## 初始化Git
 

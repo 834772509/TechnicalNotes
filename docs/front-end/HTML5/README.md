@@ -157,17 +157,25 @@ p {
 ### 表格
 
 ``` HTML
-<table border="1">
-  <tr>
-    <td>第一行第一列（1,1）</td>
-    <td>第一行第二列(1,2)</td>
-  </tr>
-  <tr>
-    <td>第二行第一列(2,1)</td>
-    <td>第二行第二列(2,2)</td>
-  </tr>
+<table>
+  <thead>
+    <tr>
+      <th>表头1</th>
+      <th>表头2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+  </tbody>
 </table>
 ```
+
+::: tip 提示
+table有一个特殊的CSS：``border-collapse: collapse;``，设置后可将双边框进行合并
+:::
 
 ### 内嵌网页
 

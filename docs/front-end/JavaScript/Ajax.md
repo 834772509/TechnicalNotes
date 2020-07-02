@@ -14,11 +14,11 @@ Ajax : Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）
 
 ### Get
 
-通过URL链接传参，安全性较低，容量较小，有缓存
+暴露参数，参数长度有限制。一般用于查询
 
 ### Post
 
-不通过URL链接传参，安全性较高，容量较大（2G），没有缓存
+由requestbody携带，一般用于提交
 
 ## Ajax
 

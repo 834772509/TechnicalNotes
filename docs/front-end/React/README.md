@@ -8,6 +8,10 @@ React 用于构建用户界面的JavaScript库
 
 Babel，又名Babeljs。是目前前端使用非常广泛的编辑器、转移器。比如当下很多浏览器并不支持ES6的语法，但是确实ES6的语法非常的简洁和方便，我们开发时希望使用它。那么编写源码时我们就可以使用ES6来编写，之后通过Babel工具，将ES6转成大多数浏览器都支持的ES5的语法
 
+::: tip 提示
+直接使用``this.state.变量名``操作变量，界面是不会发生任何变化。需要使用``this.setState()``方法来操作变量
+:::
+
 ## 组件化
 
 ``` jsx
@@ -56,8 +60,7 @@ const element = <h2>Hello World</h2>
 
 * JSX的顶层只能有一个根元素，所以我们很多时候会在外层包裹一个div原生（或者使用后面我们学习的Fragment）
 * 为了方便阅读,我们通常在jsx的外层包裹一个小括号() ,这样可以方便阅读,并且jsx可以进行换行书写
-* JSX中的标签可以是单标签,也可以是双标签
-  - 注意：**如果是单标签，必须以/>结尾**
+* JSX中的标签可以是单标签,也可以是双标签。注意：**如果是单标签，必须以/>结尾**
 
 ### 语法
 
@@ -166,6 +169,11 @@ jsx中``class``为关键字，不能直接使用，需要使用``className``
 
 ### JSX的本质 
 
-jsx仅仅只是React.createElement(component, props, ..children)函数的语法糖。所有的jsx最终都会被转换成 React.createElement 函数调用
+jsx仅仅只是React.createElement(component, props, ..children)函数的语法糖。所有的jsx最终都会被转换成 React.createElement 函数调用  
 
-``React.createElement(当前Element类型, 属性, 标签内容)``
+jsx ->createElement函数 -> ReactElement（对象树）->ReactDom.render
+
+### 为什么要用虚拟DOM
+
+* 很难跟踪状态发生的改变：原有的开发模式，我们很难跟踪到状态发生的改变，不方便针对我们应用程序进行调试
+* 操作真实DOM性能较低：传统的开发模式会进行频繁的DOM操作，而这一的做法性能非常的低

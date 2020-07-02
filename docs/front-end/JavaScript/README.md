@@ -1,13 +1,14 @@
 # JavaScript 笔记
 
 
-## vscode
+## Visual Studio Code
 
 ### 插件推荐
 
 * Live Server : 实时更新修改后的网页
 * TabNine : 更好的代码提示
 * vscode-icons : 图标插件
+* emmit(内置) : 快速生成代码
 
 ### 代码片段
 
@@ -24,7 +25,7 @@
 /**
 函数文档注释
 */
-function test() {
+function 函数名() {
 
 }
 ```
@@ -53,16 +54,22 @@ const 变量名;
 * String : 字符串
 * Boolearn : 布尔值
 
+### 获取数据类型
+
+``` JavaScript
+typeof 变量
+```
+
 ### 数据类型转换
 
-转数值：`` Number() ``
-转整数：`` parseInt() ``
-转浮点：`` parseFloat() ``
-转文本：`` String() ``
+转数值：`` Number() ``  
+转整数：`` parseInt() ``  
+转浮点：`` parseFloat() ``  
+转文本：`` String() ``  
 转布尔：`` Boolean() ``
 
 ::: tip 提示
-转布尔除 `` ""``、``0``、``undefined``、``null``、``NaN ``值均为true
+转布尔除 ``""``、``0``、``undefined``、``null``、``NaN ``值均为true
 :::
 
 ### 关系运算符
@@ -110,12 +117,20 @@ let 对象名 = {
 console.log(对象名.键名)
 ```
 
+### 四舍五入
+
+将数字四舍五入，转为指定小数位的数字
+
+``` JavaScript
+变量.toFixed(小数位数)
+```
+
 ## 函数
 
 ::: tip 提示
 
-* 所有参数会放在函数的`` arguments ``对象中，可当作数组使用
-* 立即执行函数用完即销毁，返回值为`` undefine ``
+* 所有参数会放在函数的``arguments``对象中，可当作数组使用
+* 立即执行函数用完即销毁，返回值为``undefine``
 
 :::
 
@@ -654,6 +669,7 @@ txt1.setAttribute("value", "aaa")
 
 ``` JavaScript
 const 元素 = document.createElement("标签名")
+元素.innerHTML = "内容"
 父元素.appendChild((元素)
 ```
 
