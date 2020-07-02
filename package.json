@@ -15,6 +15,7 @@
     "vuepress-plugin-auto-sidebar": "^1.4.1"
   },
   "dependencies": {
+    "markdown-it-disable-url-encode": "^1.0.1",
     "vuepress-theme-yilia-plus": "^1.0.0"
   }
 }

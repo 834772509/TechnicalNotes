@@ -30,15 +30,27 @@
 
 2. 当数据发生改变，Vue是如何知道要通知哪些人，界面发生刷新
 
-![avatar](/img/front-end/Vue/响应式原理.png)
+![响应式原理](./img/响应式原理.png)
+<!-- ![响应式原理](./img/aa.png) -->
+
+## 脚手架
+
+### 依赖
+
+1. 安装Node.js：[Node.js官网](https://nodejs.org/zh-cn/)  
+2. 安装WebPack：```npm install webpack -g```  
+3. 安装Vue脚手架：```npm install @vue/cli -g```
 
 ## 创建项目
 
-安装WebPack：```npm install webpack -g```
-安装Vue脚手架：```npm install @vue/cli -g```
 
-* ```vue ui``` 可视化创建项目
-* ```vue create 命令行项目目录```
+### 可视化创建项目
+
+``vue ui``
+
+### 命令行创建项目
+
+``vue create 命令行项目目录``
 
 * Router:路由
 * Unit Tests:单元测试
@@ -46,10 +58,10 @@
 * 选择Runtime-only（性能更好，所使用的代码量更少）
 * 选择```dist-sass```，```node-sass```编译缓慢
 
-## 启动项目
+### 启动项目
 
-启动项目：```npm run serve```  
-编译项目：```npm run build```
+启动项目：``npm run serve``  
+编译项目：``npm run build``
 
 ### 关闭Eslint代码规范检测
 

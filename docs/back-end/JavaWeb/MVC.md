@@ -2,7 +2,7 @@
 
 ## 图解
 
-![MVC三层架构](MVC图解.png "MVC图解")
+![MVC三层架构](./img/MVC图解.png "MVC图解")
 
 ## M-Model-模型
 

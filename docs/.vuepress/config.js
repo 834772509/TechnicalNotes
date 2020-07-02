@@ -1,11 +1,13 @@
 /*
  每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
- 插入图片：![avatar](/img/front-end/Vue/图片名称.png)
+ 插入图片：![图片介绍](./img/图片名)
 */
 module.exports = {
   lang: 'zh-CN',
-  title: '杉-技术笔记',  // 设置网站标题
-  dest: './dist',    // 设置输出目录
+  // 设置网站标题
+  title: '杉-技术笔记',
+  // 设置输出目录
+  dest: './dist',
   head: [
     ['link', { rel: 'icon', href: '/img/LOGO.ico' }]
   ],
@@ -13,10 +15,15 @@ module.exports = {
   //repo: 'https://github.com/txs1992/mt-blog' // 添加 github 链接
   theme: 'vuepress-theme-yilia-plus',
   plugins: [
-    ["vuepress-plugin-auto-sidebar",{}],
+    ["vuepress-plugin-auto-sidebar", {}],
     ['@vuepress/back-to-top', true],
   ],
-  
+  // 配置图片，支持图片中文命名
+  markdown: {
+    extendMarkdown: md => {
+      md.use(require("markdown-it-disable-url-encode"));
+    }
+  },
   themeConfig: {
     // 添加导航栏
     nav: [
@@ -32,7 +39,6 @@ module.exports = {
           { text: 'React', link: '/front-end/React/' },
           { text: 'Webpack', link: '/front-end/Webpack/' },
           { text: 'Electron', link: '/front-end/Electron/' },
-
         ]
       },
       {
@@ -50,7 +56,6 @@ module.exports = {
       {
         text: '其他',
         items: [
-          { text: '软件测试', link: '/Other/SoftTest/' },
           { text: 'Git', link: '/Other/Git/' },
           { text: 'WinPE', link: '/Other/WinPE/' },
         ]
