@@ -19,12 +19,57 @@ SpringMVC + Sping + Mybatis
 * 控制反转（IOC），面向切面编程(AOP) 
 * 支持事务的处理，对框架整合的支持
 
-## IOC 理论推导
+### IOC 理论推导
 
 在我们之前的业务中，用户的需求可能会影响我们原来的代码，我们需要根据用户的需求去修改原代码!如果程序代码量十分大，修改一次的成本代价十分昂贵。  
 使用了set注入后，程序不再具有主动性，而是变成了被动的接受对象。  
-这种思想，从本质上解决了问题，我们程序猿不用再去管理对象的创建了。系统的耦合性大大降低，可以更加专注的在业务的实现上。这是IOC的原型
+这种思想，从本质上解决了问题，我们程序猿不用再去管理对象的创建了。系统的耦合性大大降低，可以更加专注的在业务的实现上。这是IOC的原型  
+ 
+控制反转是一种通过描述（XML或注解）并通过第三方去生产或获取特定对象的方式。在Spring中实现控制反转的是IOC容器，其实现方法是依赖注入(Dependency Injection DI)
+
+## IoC 容器
+
+### XML方式创建
+
+\resources\beans.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+  <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- 导入其他配置文件 -->
+  <import resource="文件名.xml"></import>
+
+  <!-- 
+    id : bean 的唯一标识符，也就是相当于我们学的对象名 
+    class : bean 对象所对应的全限定名：包名+类型 
+    name : 也是别名，而且name可以同时取多个别名
+   -->
 
 
+  <!-- 无参构造  -->
+  <bean id="变量名" class="类路径">
+    <property name="属性" value="值" [ref="引用Spring容器创建好的对象"]></property>
+  </bean>
 
+  <!-- 有参构造  -->
+  <bean id="变量名" class="类路径">
+      <constructor-arg name="属性" value="值"></constructor-arg>
+  </bean>
 
+  <!-- 配置别名 -->
+    <bean id="变量名" class="类路径" name="别名1"> </bean>
+    <bean id="变量名" class="类路径" name="别名1,别名2"> </bean>
+
+</beans>
+```
+
+使用：
+
+``` Java
+ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+类名 实例化名 = context.getBean("变量名");
+实例化名.方法名();
+```
+
+## 
