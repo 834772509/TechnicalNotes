@@ -16,16 +16,52 @@ React 用于构建用户界面的JavaScript库
 
 1. 安装Node.js：[Node.js官网](https://nodejs.org/zh-cn/)  
 2. 安装WebPack：``npm install webpack -g``
-3. 安装Vue脚手架：``npm install @vue/cli -g``
 
 ### 安装
+ 
+安装React脚手架：``npm install -g create-react-app``
 
+### 创建项目
 
+创建项目：``create-react-app 项目名称``
 
+::: warning 注意
+项目名称不能包含大写字母
+:::
 
-### 使用
+### 启动项目
 
+启动项目：``npm start``
 
+### 编译项目
+
+编译项目：``npm run build``
+
+### 目录结构
+
+```
+项目名
+├─ README.md // readme说明文档
+├─ package.json // 对整个应用程序的描述：包括应用名称、版本号、一些依赖包、以及项目的启动、打包等等（node管理项目必备文件）
+├─ public
+│    ├─ favicon.ico // 应用程序顶部的icon图标
+│    ├─ index.html // 应用的index.html入口文件
+│    ├─ logo192.png // 被在manifest.json中使用
+│    ├─ logo512.png // 被在manifest.json中使用
+│    ├─ manifest.json // 和Web app配置相关
+│    └─ robots.txt // 指定搜索引擎可以或者无法爬取哪些文件
+├─ src
+│    ├─ App.css // App组件相关的样式
+│    ├─ App.js // App组件的代码文件
+│    ├─ App.test.js // App组件的测试代码文件
+│    ├─ index.css // 全局的样式文件
+│    ├─ index.js // 整个应用程序的入口文件
+│    ├─ logo.svg // 刚才启动项目，所看到的React图标
+│    ├─ serviceWorker.js // 默认帮助我们写好的注册PWA相关的代码
+│    └─ setupTests.js // 测试初始化文件
+├─package-lock.json // 记录本地真实安装版本
+└─.gitignore // 记录git版本控制的排除文件
+```
 
 ## 基本概念
 
@@ -36,6 +72,18 @@ Babel，又名Babeljs。是目前前端使用非常广泛的编辑器、转移�
 ::: tip 提示
 直接使用``this.state.变量名``操作变量，界面是不会发生任何变化。需要使用``this.setState()``方法来操作变量
 :::
+
+### PWA
+
+PWA 全称 Progressive Web App，即渐进式 WEB 应用。  
+一个 PWA 应用首先是一个网页, 可以通过 Web 技术编写出一个网页应用. 随后添加上 App Manifest 和 Service Worker 来实现 PWA 的安装和离线等功能； 这种 Web 存在的形式，我们也称之为是 Web App；
+
+PWA 解决了哪些问题呢？
+
+* 可以添加至主屏幕，点击主屏幕图标可以实现启动动画以及隐藏地址栏；
+* 实现离线缓存功能，即使用户手机没有网络，依然可以使用一些离线功能；
+* 实现了消息推送；
+* 等等一系列类似于 Native App 相关的功能；
 
 ## 组件化
 

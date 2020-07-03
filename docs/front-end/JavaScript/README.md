@@ -1,19 +1,5 @@
 # JavaScript 笔记
 
-
-## Visual Studio Code
-
-### 插件推荐
-
-* Live Server : 实时更新修改后的网页
-* TabNine : 更好的代码提示
-* vscode-icons : 图标插件
-* emmit(内置) : 快速生成代码
-
-### 代码片段
-
-[在线生成代码片段](https://snippet-generator.app)
-
 ## 基本语法
 
 ### 注释

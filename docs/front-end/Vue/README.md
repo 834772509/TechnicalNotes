@@ -46,17 +46,16 @@
 
 1. 安装Node.js：[Node.js官网](https://nodejs.org/zh-cn/)  
 2. 安装WebPack：``npm install webpack -g``
-3. 安装Vue脚手架：``npm install @vue/cli -g``
 
-## 创建项目
+### 安装
 
-### 可视化创建项目
+安装Vue脚手架：``npm install @vue/cli -g``
 
-``vue ui``
+### 创建项目
 
-### 命令行创建项目
+1. 可视化创建项目： ``vue ui``
 
-``vue create 命令行项目目录``
+2. 命令行创建项目：``vue create 命令行项目目录``
 
 * Router:路由
 * Unit Tests:单元测试
@@ -67,7 +66,17 @@
 ### 启动项目
 
 启动项目：``npm run serve``  
+
+### 编译项目
+
 编译项目：``npm run build``
+
+### 项目结构
+
+* node_modules : 依赖文件目录
+* .gitignore : 记录git版本控制的排除文件
+* package.json : 记录各个依赖的版本（``^``表示可小版本迭代更新）
+* package-lock.json : 记录本地真实安装版本
 
 ### 关闭Eslint代码规范检测
 
