@@ -2,6 +2,11 @@
 
 React 用于构建用户界面的JavaScript库
 
+## Visual Studio Code 插件
+
+* ES7 React/Redux/GraphQL/React-Native snippets : 快速生成React代码段
+* Reactjs code snippets : 快速生成React代码段
+
 ## 脚手架
 
 **脚手架让项目从搭建到开发,再到部署，整个流程变得快速和便捷**
@@ -69,10 +74,6 @@ React 用于构建用户界面的JavaScript库
 
 Babel，又名Babeljs。是目前前端使用非常广泛的编辑器、转移器。比如当下很多浏览器并不支持ES6的语法，但是确实ES6的语法非常的简洁和方便，我们开发时希望使用它。那么编写源码时我们就可以使用ES6来编写，之后通过Babel工具，将ES6转成大多数浏览器都支持的ES5的语法
 
-::: tip 提示
-直接使用``this.state.变量名``操作变量，界面是不会发生任何变化。需要使用``this.setState()``方法来操作变量
-:::
-
 ### PWA
 
 PWA 全称 Progressive Web App，即渐进式 WEB 应用。  
@@ -84,40 +85,6 @@ PWA 解决了哪些问题呢？
 * 实现离线缓存功能，即使用户手机没有网络，依然可以使用一些离线功能；
 * 实现了消息推送；
 * 等等一系列类似于 Native App 相关的功能；
-
-## 组件化
-
-``` jsx
-//封装App组件
-class App extends React.Component {
-
-  //定义属性
-  constructor() {
-    super();
-    this.state = {
-      message: "Hello World",
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <h2>{this.state.message}</h2>
-        <button onClick={this.btnClick.bind(this)}>改变文本</button>
-      </div>
-    )
-  }
-  btnClick() {
-    this.setState({
-      message: "测试数据",
-    })
-
-  }
-}
-
-//渲染组件
-ReactDOM.render(<App />, document.getElementById("app"))
-```
 
 ## JSX
 
@@ -250,3 +217,236 @@ jsx ->createElement函数 -> ReactElement（对象树）->ReactDom.render
 
 * 很难跟踪状态发生的改变：原有的开发模式，我们很难跟踪到状态发生的改变，不方便针对我们应用程序进行调试
 * 操作真实DOM性能较低：传统的开发模式会进行频繁的DOM操作，而这一的做法性能非常的低
+
+## 组件
+
+::: tip 提示
+不能直接使用``this.state.变量名``操作变量，界面不会发生任何变化。需要使用``this.setState({变量名: 值})``方法来操作变量
+:::
+
+### 类组件
+
+Visual Studio Code 快速创建类组件：``rcc``->回车
+
+``` js
+import React, { Component } from 'react'
+
+export default class 组件名 extends Component { 
+  constructor() {
+    super();
+    //数据对象
+    this.state = {
+
+    }
+  }
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  } 
+  componentDidMount() {
+    // 执行 请求网络、DOM操作、订阅 等操作
+  }
+}
+```
+
+::: warning 注意
+* 组件的名称**必须是大写字符开头**
+* 类组件需要继承自React.Component
+* 类组件必须实现render函数
+:::
+
+### 函数式组件
+
+Visual Studio Code 快速创建类组件：``rfc``->回车
+
+函数式组件特点：
+
+1. 没有this对象
+2. 没有内部的状态（state），不能定义变量
+3. 没有生命周期。也会被更新并挂载，但是没有生命周期函数
+
+``` js 
+function 函数式组件名() { 
+  return ( 
+    <div>
+
+    </div>
+  )
+}
+```
+
+::: warning 注意
+组件的名称**必须是大写字符开头**
+:::
+
+### render 函数返回值
+
+render 函数可以返回： 
+
+* jsx : 渲染为DOM节点
+* 数组、fragments : 使得render方法可以返回多个元素
+* Portals : 可以渲染子节，点到不同的DOM子树中
+* 字符串、数值 : 在DOM中会被渲染为文本节点
+* 布尔类型、null : 什么都不渲染
+
+### 父子传参-类组件
+
+``` js
+class 组件名 extends Component {
+  render() {
+    const { 参数1, 参数2 } = this.props
+
+    return (
+      <div>
+        <h2>{参数1}</h2>
+        <h2>{参数2}</h2>
+      </div>
+    );
+  }
+}
+```
+
+使用：
+
+``` js
+<组件名 参数1="值" 参数2={值}></组件名>
+```
+
+### 父子传参-函数组件
+
+``` js
+function 组件名(props) {
+  const { 参数1, 参数2 } = props
+
+  return (
+    <div> 
+      <h2>{参数1}</h2> 
+      <h2>{参数2}</h2>
+    </div>
+  )
+}
+```
+
+使用：
+
+``` js
+<组件名 参数1="值" 参数2={值}></组件名>
+```
+
+### 属性验证
+
+限制传参的数据类型
+
+``` js
+import PropTypes from 'prop-types'
+
+function 组件名(props) {
+  const { 参数1, 参数2 } = props
+
+  return (
+    <div>
+
+    </div>
+  )
+}
+
+组件名.propTypes = {
+  //（默认）可选参数
+  参数1: PropTypes.数据类型,
+  // 必传参数
+  参数2: PropTypes.数据类型.isRequired,
+}
+```
+
+### 默认值
+
+``` js
+组件名.defaultProps = {
+  参数1: 值,
+  参数2: 值,
+}
+```
+
+### Class fields 写法
+
+``` js
+class ChildCpn2 extends Component {
+  // 属性验证
+  static propTypes = {
+
+  }
+  
+  // 默认值
+  static defaultProps = {
+
+  }
+
+  render() {
+    return (
+      <div>
+        
+      </div>
+    )
+  }
+}
+```
+
+## 生命周期
+
+很多的事物都有从创建到销毁的整个过程，这个过程称之为是**生命周期**
+
+[![React常用生命周期](./img/React生命周期.jpg "React常用生命周期")](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+### 生命周期函数
+
+* constructor
+
+  ``constructor(props)``
+
+  如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。
+
+  constructor 中通常只做两件事情：
+
+  1. 通过给 this.state 赋值对象来初始化内部的 state
+  2. 为事件绑定实例（this）
+
+* componentDidMount
+
+  ``componentDidMount()``
+
+  componentDidMount() 会在组件挂载后（插入 DOM 树中）立即调用
+
+  依赖于 DOM 的操作可以在这里进行，在此处发送网络请求就最好的地方（官方建议）
+  可以在此处添加一些订阅（会在 componentWillUnmount 取消订阅）
+
+* componentDidUpdate
+
+  ``componentDidUpdate(prevProps, prevState, snapshot)``
+
+  componentDidUpdate() 会在更新后会被立即调用，首次渲染不会执行此方法。
+
+  当组件更新后，可以在此处对 DOM 进行操作；
+  如果对更新前后的 props 进行了比较，也可以选择在此处进行网络请求（例如：当 props 未发生变化时，则不会执行网络请求）
+
+  ``` js
+  componentDidUpdate(prevProps) {
+    // 典型用法（不要忘记比较 props）：
+    if (this.props.userID !== prevProps.userID) {
+      this.fetchData(this.props.userID);
+    }
+  }
+  ```
+
+* componentWillUnmount
+
+  componentWillUnmount() 会在组件卸载及销毁之前直接调用。 
+  在此方法中执行必要的清理操作（例如：清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等）
+
+### 不常用生命周期
+
+* getDerivedStateFromProps：state 的值在任何时候都依赖于 props 时使用；该方法返回一个对象来更新 state
+* getSnapshotBeforeUpdate：在 React 更新 DOM 之前回调的一个函数，可以获取 DOM 更新前的一些信息（比如说滚动位置）
+* shouldComponentUpdate：该生命周期函数很常用，但是我们等待讲性能优化时再来详细讲解

@@ -8,6 +8,7 @@
 * TabNine : 更好的代码提示
 * vscode-icons : 图标插件
 * emmit(内置) : 快速生成代码
+* htmltagwrap : 自动闭合HTML标签
 
 ### 代码片段
 
