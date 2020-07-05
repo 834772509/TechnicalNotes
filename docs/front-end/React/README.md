@@ -7,6 +7,10 @@ React 用于构建用户界面的JavaScript库
 * ES7 React/Redux/GraphQL/React-Native snippets : 快速生成React代码段
 * Reactjs code snippets : 快速生成React代码段
 
+### 浏览器插件
+
+* react-developer-tools
+
 ## 脚手架
 
 **脚手架让项目从搭建到开发,再到部署，整个流程变得快速和便捷**
@@ -182,7 +186,7 @@ jsx中``class``为关键字，不能直接使用，需要使用``className``
 {/* 函数内访问this对象 */}
 
 {/*（推荐） 直接传入一个箭头函数，在箭头函数中调用需要执行的函数 */}
-<button onClick={() => this.函数名()}>按钮</button>
+<button onClick={e => this.函数名()}>按钮</button>
 
 {/* 使用bind绑定this对象 */}
 <button onClick={this.函数名.bind(this)}>按钮</button>
@@ -232,8 +236,8 @@ Visual Studio Code 快速创建类组件：``rcc``->回车
 import React, { Component } from 'react'
 
 export default class 组件名 extends Component { 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     //数据对象
     this.state = {
 
@@ -270,7 +274,7 @@ Visual Studio Code 快速创建类组件：``rfc``->回车
 
 ``` js 
 function 函数式组件名() { 
-  return ( 
+  return (
     <div>
 
     </div>
@@ -292,7 +296,13 @@ render 函数可以返回：
 * 字符串、数值 : 在DOM中会被渲染为文本节点
 * 布尔类型、null : 什么都不渲染
 
-### 父子传参-类组件
+### 父传子
+
+* 类组件
+
+::: tip 提示
+如不需要数据对象可以省略``constructor()``构造方法
+:::
 
 ``` js
 class 组件名 extends Component {
@@ -315,7 +325,7 @@ class 组件名 extends Component {
 <组件名 参数1="值" 参数2={值}></组件名>
 ```
 
-### 父子传参-函数组件
+* 函数组件
 
 ``` js
 function 组件名(props) {
@@ -336,9 +346,126 @@ function 组件名(props) {
 <组件名 参数1="值" 参数2={值}></组件名>
 ```
 
+### 子传父
+
+``` js
+export default class 父组件名 extends Component {
+  render() {
+    return (
+      <div>
+        <组件名 事件名={e => this.方法名()}></组件名>
+      </div>
+    )
+  }
+  方法名() {
+
+  }
+}
+
+class 子组件名 extends Component {
+  render() {
+    const { 事件名 } = this.props
+    return (
+      <button onClick={e => 事件名()}></button>
+    )
+  }
+}
+```
+
+### 跨组件传参
+
+* 类组件
+
+``` js
+const Context名 = React.createContext({
+  //设置默认值
+  变量1: "",
+  变量2: 0,
+})
+
+class 组件名 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      变量名: 值,
+    }
+  }
+  render() {
+    return (
+      <div>
+        <Context名.Provider value={this.state}>
+          <传参组件名></传参组件名>
+        </Context名.Provider>
+      </div>
+    );
+  }
+}
+
+
+class 传参组件名 extends Component {
+  render() {
+    return (
+      <div>
+        <h2>{this.context.变量名}</h2>
+      </div>
+    )
+  }
+}
+
+传参组件名.contextType = Context名
+```
+
+* 函数组件
+
+``` js
+const Context名 = React.createContext({
+  //设置默认值
+    变量名: 值,
+})
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      变量名: 值,
+    }
+  }
+  render() {
+    return (
+      <div>
+        <Context名.Provider value={this.state}>
+          <传参组件名></传参组件名>
+        </Context名.Provider>
+      </div>
+    );
+  }
+}
+
+
+function 传参组件名() {
+  return (
+    <Context名.Consumer>
+      {
+        value => {
+          return (
+            <div>
+              <h2>{value.变量名}</h2>
+            </div>
+          )
+        }
+      }
+    </Context名.Consumer>
+  )
+}
+```
+
 ### 属性验证
 
 限制传参的数据类型
+
+::: tip 提示
+属性验证库被移至``prop-types``，使用前需要导入此库
+:::
 
 ``` js
 import PropTypes from 'prop-types'
@@ -450,3 +577,71 @@ class ChildCpn2 extends Component {
 * getDerivedStateFromProps：state 的值在任何时候都依赖于 props 时使用；该方法返回一个对象来更新 state
 * getSnapshotBeforeUpdate：在 React 更新 DOM 之前回调的一个函数，可以获取 DOM 更新前的一些信息（比如说滚动位置）
 * shouldComponentUpdate：该生命周期函数很常用，但是我们等待讲性能优化时再来详细讲解
+
+## 插槽
+
+在开发中，我们抽取了一个组件，但是为了让这个组件具备更强的通用性，我们不能将组件中的内容限制为固定的 div、span 等等这些元素，我们应该让使用者可以决定某一块区域到底存放什么内容。  
+
+举栗：假如我们定制一个通用的导航组件 - NavBar
+
+* 这个组件分成三块区域：左边 - 中间 - 右边，每块区域的内容是不固定
+* 左边区域可能显示一个菜单图标，也可能显示一个返回按钮，可能什么都不显示
+* 中间区域可能显示一个搜索框，也可能是一个列表，也可能是一个标题，等等
+* 右边可能是一个文字，也可能是一个图标，也可能什么都不显示
+
+::: tip 提示
+React 中，没有插槽的概念，需要由我们自己去实现
+:::
+
+### 匿名插槽
+
+匿名插槽是根据下标来显示插槽内容
+
+``` js
+class 组件名 extends Component {
+  render() {
+    return (
+      <div>
+        <div>{this.props.children[0]}</div>
+        <div>{this.props.children[1]}</div>
+      </div>
+    );
+  }
+}
+```
+
+使用：
+
+``` js
+<组件名>
+  <h2>插槽1</h2>
+  <h2>插槽2</h2>
+</组件名>
+```
+
+### 具名插槽
+
+具名插槽需要指定插槽名
+
+``` js
+class 组件名 extends Component {
+  render() {
+    const { 插槽1, 插槽2 } = this.props
+    return (
+      <div>
+        <div>{插槽1}</div>
+        <div>{插槽2}</div>
+      </div>
+    );
+  }
+}
+```
+
+使用：
+
+``` js
+<组件名
+  插槽1={<h2>插槽1</h2>}
+  插槽2={<h2>插槽2</h2>}>
+</组件名> 
+```

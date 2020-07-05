@@ -47,19 +47,24 @@ SpringMVC + Sping + Mybatis
    -->
 
 
-  <!-- 无参构造  -->
-  <bean id="变量名" class="类路径">
-    <property name="属性" value="值" [ref="引用Spring容器创建好的对象"]></property>
+  <!-- 无参构造注入  -->
+  <bean id="BeanID" class="类路径">
+    <property name="属性" value="值"></property>
   </bean>
 
-  <!-- 有参构造  -->
-  <bean id="变量名" class="类路径">
-      <constructor-arg name="属性" value="值"></constructor-arg>
+  <!-- Bean注入（ref） -->
+  <bean id="BeanID" class="类路径">
+    <property name="属性" ref="引用Spring容器创建好的对象"></property>
+  </bean>
+
+  <!-- 有参构造注入  -->
+  <bean id="BeanID" class="类路径">
+    <constructor-arg name="属性" value="值"></constructor-arg>
   </bean>
 
   <!-- 配置别名 -->
-    <bean id="变量名" class="类路径" name="别名1"> </bean>
-    <bean id="变量名" class="类路径" name="别名1,别名2"> </bean>
+    <bean id="BeanID" class="类路径" name="别名"> </bean>
+    <bean id="BeanID" class="类路径" name="别名1,别名2"> </bean>
 
 </beans>
 ```
@@ -68,7 +73,7 @@ SpringMVC + Sping + Mybatis
 
 ``` Java
 ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-类名 实例化名 = context.getBean("变量名");
+类名 实例化名 = context.getBean("BeanID");
 实例化名.方法名();
 ```
 
