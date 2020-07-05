@@ -27,9 +27,64 @@ SpringMVC + Sping + Mybatis
  
 控制反转是一种通过描述（XML或注解）并通过第三方去生产或获取特定对象的方式。在Spring中实现控制反转的是IOC容器，其实现方法是依赖注入(Dependency Injection DI)
 
-## IoC 容器
+## Bean
 
-### XML方式创建
+### 自动装配
+
+\resources\beans.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="BeanID" class="类路径"></bean>
+    <bean id="BeanID" class="类路径"></bean>
+
+    <!--开启注解支持-->
+    <context:annotation-config/>
+
+</beans>
+```
+
+``` java
+public class People {
+  // 一般装配
+  @Autowired
+  private 自动装配类名 属性名;
+
+  // 对象可以为null
+  @Autowired(required = false)
+  private 自动装配类名 属性名;
+
+  // 指定Bean对象
+  @Autowired()
+  @Qualifier(value = "BeanID")
+  private 自动装配类名 属性名;
+}
+```
+
+::: tip 提示
+``@Autowired``是根据类型进行确定Bean对象，当类型不唯一（重复）时，根据BeanID寻找Bean对象
+:::
+
+``` Java
+ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+类名 实例化名 = context.getBean("BeanID");
+实例化名.方法名();
+```
+
+### bean 作用域
+
+* 单例模式（默认）
+* 原型模式：每次从容器中get的时候，都会产生-个新对象
+
+### 手动装配
 
 \resources\beans.xml
 
@@ -63,8 +118,8 @@ SpringMVC + Sping + Mybatis
   </bean>
 
   <!-- 配置别名 -->
-    <bean id="BeanID" class="类路径" name="别名"> </bean>
-    <bean id="BeanID" class="类路径" name="别名1,别名2"> </bean>
+  <bean id="BeanID" class="类路径" name="别名"> </bean>
+  <bean id="BeanID" class="类路径" name="别名1,别名2"> </bean>
 
 </beans>
 ```
@@ -76,5 +131,3 @@ ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bea
 类名 实例化名 = context.getBean("BeanID");
 实例化名.方法名();
 ```
-
-## 
