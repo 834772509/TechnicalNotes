@@ -67,7 +67,7 @@ spring:
 
 以```数据```为中心，比json、xml等更适合做配置文件
 
-删除```\src\main\resources\application.properties```
+删除```\src\main\resources\application.properties```  
 新建```\src\main\resources\application.yml```
 
 ### 键值对
@@ -248,7 +248,6 @@ public String 方法名(@PathVariable("参数名") String 参数名) {
 * @Controller : 可以返回视图页面
 * @ResponseBody : 将 Controller 的方法返回的对象，通过 springmvc 提供的HttpMessageConverter接口转换为指定格式的数据如：json,xml 等，通过 Response 响应给客户端
 * @RestController : 相当于 @Controller + @ResponseBody，只能返回 json 数据，无法返回 jsp 、 html 视图页面
-* @
 
 ## 静态资源
 

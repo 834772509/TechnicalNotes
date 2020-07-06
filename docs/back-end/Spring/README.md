@@ -31,7 +31,7 @@ SpringMVC + Sping + Mybatis
 
 ### 自动装配
 
-\resources\beans.xml
+\resources\applicationContext.xml
 
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -43,8 +43,8 @@ SpringMVC + Sping + Mybatis
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="BeanID" class="类路径"></bean>
-    <bean id="BeanID" class="类路径"></bean>
+    <!--指定要扫描的包，这个包下的注解就会生效-->
+    <context:component-scan base-package="com.包名"></context:component-scan>
 
     <!--开启注解支持-->
     <context:annotation-config/>
@@ -53,7 +53,7 @@ SpringMVC + Sping + Mybatis
 ```
 
 ``` java
-public class People {
+public class 类名 {
   // 一般装配
   @Autowired
   private 自动装配类名 属性名;
@@ -65,7 +65,16 @@ public class People {
   // 指定Bean对象
   @Autowired()
   @Qualifier(value = "BeanID")
-  private 自动装配类名 属性名;
+  private 自动装配类名 属性名; 
+  
+  // 设置值
+  @Value(值)
+  private 数据类型 属性名; 
+  
+  @Value(值) 
+  public void 方法名(数据类型 变量) {
+    this.变量 = 变量; 
+  }
 }
 ```
 
@@ -79,14 +88,50 @@ ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bea
 实例化名.方法名();
 ```
 
-### bean 作用域
+### Java类装配
 
-* 单例模式（默认）
-* 原型模式：每次从容器中get的时候，都会产生-个新对象
+\config\配置类名.java
+
+``` Java
+@Configuration
+public class MyConfig {
+    //注册一个bean
+    @Bean
+    public Bean类名 方法名(){
+        return new Bean类名();
+    }
+}
+```
+
+``` Java
+@Component
+public class User {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "name='" + name + '\'' + '}';
+    }
+}
+```
+
+``` Java
+ApplicationContext context = new AnnotationConfigApplicationContext(配置类名.class);
+Bean类名 方法名 = context.getBean("方法名");
+System.out.println(方法名.toString());
+```
 
 ### 手动装配
 
-\resources\beans.xml
+\resources\applicationContext.xml
 
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -131,3 +176,23 @@ ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bea
 类名 实例化名 = context.getBean("BeanID");
 实例化名.方法名();
 ```
+
+## 使用注解开发
+
+### 注解
+
+这四个注解功能都是一样的，都是代表将某个类注册到Spring中，装配Bean
+
+* @Component : pojo
+* @Repository : dao
+* @Controller : controller
+* @Service : service
+
+## AOP
+
+### 代理模式
+
+代理模式的分类：
+
+* 静态代理
+* 动态代理
