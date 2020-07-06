@@ -192,7 +192,14 @@ ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bea
 
 ### 代理模式
 
-代理模式的分类：
-
 * 静态代理
+
+  代理模式的好处：
+  - 可以使真实角色的操作更加纯粹，不用去关注一些公共的业务
+  - 公共也就就交给代理角色，实现了业务的分工
+  - 公共业务发生扩展的时候，方便集中管理
+
+  缺点:
+  - 一个真实角色就会产生一个代理角色，代码量会翻倍，开发效率会变低。
+
 * 动态代理
