@@ -645,3 +645,106 @@ class 组件名 extends Component {
   插槽2={<h2>插槽2</h2>}>
 </组件名> 
 ```
+
+## setState
+
+### 为什么使用setState
+
+开发中我们并不能直接通过修改state的值来让界面发生更新，因为我们修改了state之后，希望React根据最新的State来重新渲染界面，但是这种方式的修改React并不知道数据发生了变化。  
+React并没有实现类似于Vue2中的0bject.defineProperty或者Vue3中的Proxy的方式来监听数据的变化。我们必须通过setState来告知React数据已经发生了变化
+
+### 为什么设计成异步更新
+
+setState是异步更新，并不能在执行完setState后立马拿到最新的state结果。
+
+setState设计为异步，可以显著的提升性能
+
+* 如果每次调用setState都进行一次更新，那么意味着render函数会被频繁调用，界面重新渲染，这样效率是很低的 
+  - 最好的办法应该是获取到多个更新，之后进行批量更新
+* 如果同步更新了state，但是还没有执行render函数，那么state和props不能保持同步。
+  - state和props不能保持一致性，会在开发中产生很多的问题
+
+### 基本使用
+
+``` js
+this.setState({
+  变量: this.state.变量 + 1
+})
+```
+
+### 获取异步更新后的数据
+
+* 通过回调函数
+
+``` js
+this.setState({
+  变量: 值,
+}, () => {
+  console.log(this.state.变量);
+})
+```
+
+* 通过生命周期函数
+
+``` js
+componentDidUpdate() {
+  console.log(this.state.变量);
+}
+```
+
+### setState 变为同步更新
+
+* 放入定时器
+
+``` js
+this.setState({
+  变量: 值,
+})
+console.log(this.state.变量);
+}, 0);
+```
+
+* 通过原生JavaScript
+
+``` js
+componentDidMount() {
+  document.getElementById("button1").onclick = () => {
+    this.setState({
+      变量: 值,
+    })
+    console.log(this.state.变量);
+  }
+}
+```
+
+### setState的数据合并
+
+setState方法会通过assign进行数据合并，所以不会出现“丟数据”的情况，也不需要手动编写assign方法防止数据丢失
+
+### 多个setState合并
+
+当执行多个同一setState时，React会将多个state进行合并
+
+``` js
+this.setState({
+  count: this.state.count + 1
+})
+this.setState({
+  count: this.state.count + 1
+})
+this.setState({
+  count: this.state.count + 1
+})
+
+// count默认值为0，当执行以上代码后，count值为1
+```
+
+解决方案：
+
+``` js
+this.setState(prevState => {
+  return {
+    变量: prevState.变量 + 1
+  }
+})
+```
