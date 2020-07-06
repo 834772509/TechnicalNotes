@@ -668,7 +668,12 @@ setState设计为异步，可以显著的提升性能
 
 ``` js
 this.setState({
+  // 字符串
+  变量: "值"
+  // 数值
   变量: this.state.变量 + 1
+  // 数组
+  变量: [...this.state.变量,值]
 })
 ```
 
@@ -747,4 +752,77 @@ this.setState(prevState => {
     变量: prevState.变量 + 1
   }
 })
+```
+
+## 性能优化
+
+### React 更新机制
+
+React 在 props 或 state 发生改变时，会调用 React 的 render 方法，会创建一颗不同的树。
+
+React 需要基于这两颗不同的树之间的差别来判断如何有效的更新 UI：
+
+* 如果一棵树参考另外一棵树进行完全比较更新，那么即使是最先进的算法，该算法的复杂程度为 O(n 3)，其中 n 是树中元素的数量；
+* https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf
+* 如果在 React 中使用了该算法，那么展示 1000 个元素所需要执行的计算量将在十亿的量级范围；
+* 这个开销太过昂贵了，React 的更新性能会变得非常低效；
+
+于是，React 对这个算法进行了优化，将其优化成了 O(n)，如何优化的呢？
+
+* 同层节点之间相互比较，不会垮节点比较；
+* 不同类型的节点，产生不同的树结构；
+* 开发中，可以通过 key 来指定哪些节点在不同的渲染下保持稳定；
+
+### Keys 的优化
+
+遍历列表时，会提示一个警告，让我们加入一个 key 属性
+
+``` js
+{
+  this.state.变量.map((item, index) => { 
+    return <li key={index}>{item}</li>
+  })
+}
+```
+
+key 的注意事项：
+
+* key 应该是唯一的；
+* key 不要使用随机数（随机数在下一次 render 时，会重新生成一个数字）；
+* 使用 index 作为 key，对性能是没有优化的；
+
+### SCU 的优化
+
+``PureComponent`` 和 ``memo`` 会对 props 和 state 进行浅层比较，然后进行差异更新
+
+* PureComponent （适用于类组件）
+
+``` js
+class 组件名 extends PureComponent {
+  render() {
+    return (
+      <div>
+      </div>
+    );
+  }
+}
+```
+
+* memo （适用于函数组件）
+
+``` js
+import React, { PureComponent, memo } from 'react';
+
+const 组件名 = memo (
+  function 组件名() {
+    return (
+      <div>
+      </div>
+    )
+  }
+)
+```
+
+``` js
+<组件名></组件名>
 ```
