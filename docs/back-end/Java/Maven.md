@@ -18,7 +18,13 @@ maven\conf\settings.xml
    <id>alimaven</id>
    <mirrorOf>central</mirrorOf>
    <name>aliyun maven</name>
-   <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+   <url>https://maven.aliyun.com/nexus/content/groups/public</url>
    </mirror>
 </mirrors>
+```
+
+### 配置本地仓库
+
+``` XML
+<localRepository>绝对路径\\Maven\\LocalWarehouse</localRepository>
 ```
