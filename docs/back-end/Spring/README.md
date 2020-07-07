@@ -190,6 +190,11 @@ ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bea
 
 ## AOP
 
+AOP (Aspect Oriented Programming)意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。  
+AOP是0OP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。  
+利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合 度降低，提高程序的可重用性，同时提高了开发的效率。
+
+
 ### 代理模式
 
 * 静态代理
@@ -203,3 +208,12 @@ ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bea
   - 一个真实角色就会产生一个代理角色，代码量会翻倍，开发效率会变低。
 
 * 动态代理
+
+  动态代理的好处: .
+
+  - 可以使真实角色的操作更加纯粹，不用去关注一 些公共的业务
+  - 公共也就就交给代理角色，实现了业务的分工
+  - 公共业务发生扩展的时候，方便集中管理
+  - 一个动态代理类代理的是一个接口，一般就是对应的一类业务
+  - 一个动态代理类可以代理多个类，只要是实现了同一个接口即可
+
