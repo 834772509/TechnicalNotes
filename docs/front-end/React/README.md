@@ -230,12 +230,12 @@ jsx ->createElement函数 -> ReactElement（对象树）->ReactDom.render
 
 ### 类组件
 
-Visual Studio Code 快速创建类组件：``rcc``->回车
+Visual Studio Code 快速创建类组件：``rpc``->回车
 
 ``` js
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-export default class 组件名 extends Component { 
+export default class 组件名 extends PureComponent { 
   constructor(props) {
     super(props);
     //数据对象
@@ -305,7 +305,7 @@ render 函数可以返回：
 :::
 
 ``` js
-class 组件名 extends Component {
+class 组件名 extends PureComponent {
   render() {
     const { 参数1, 参数2 } = this.props
 
@@ -349,7 +349,7 @@ function 组件名(props) {
 ### 子传父
 
 ``` js
-export default class 父组件名 extends Component {
+export default class 父组件名 extends PureComponent {
   render() {
     return (
       <div>
@@ -362,100 +362,13 @@ export default class 父组件名 extends Component {
   }
 }
 
-class 子组件名 extends Component {
+class 子组件名 extends PureComponent {
   render() {
     const { 事件名 } = this.props
     return (
       <button onClick={e => 事件名()}></button>
     )
   }
-}
-```
-
-### 跨组件传参
-
-* 类组件
-
-``` js
-const Context名 = React.createContext({
-  //设置默认值
-  变量1: "",
-  变量2: 0,
-})
-
-class 组件名 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      变量名: 值,
-    }
-  }
-  render() {
-    return (
-      <div>
-        <Context名.Provider value={this.state}>
-          <传参组件名></传参组件名>
-        </Context名.Provider>
-      </div>
-    );
-  }
-}
-
-
-class 传参组件名 extends Component {
-  render() {
-    return (
-      <div>
-        <h2>{this.context.变量名}</h2>
-      </div>
-    )
-  }
-}
-
-传参组件名.contextType = Context名
-```
-
-* 函数组件
-
-``` js
-const Context名 = React.createContext({
-  //设置默认值
-    变量名: 值,
-})
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      变量名: 值,
-    }
-  }
-  render() {
-    return (
-      <div>
-        <Context名.Provider value={this.state}>
-          <传参组件名></传参组件名>
-        </Context名.Provider>
-      </div>
-    );
-  }
-}
-
-
-function 传参组件名() {
-  return (
-    <Context名.Consumer>
-      {
-        value => {
-          return (
-            <div>
-              <h2>{value.变量名}</h2>
-            </div>
-          )
-        }
-      }
-    </Context名.Consumer>
-  )
 }
 ```
 
@@ -500,7 +413,7 @@ function 组件名(props) {
 ### Class fields 写法
 
 ``` js
-class ChildCpn2 extends Component {
+class ChildCpn2 extends PureComponent {
   // 属性验证
   static propTypes = {
 
@@ -520,6 +433,129 @@ class ChildCpn2 extends Component {
   }
 }
 ```
+
+### 跨组件传参
+
+* 类组件
+
+``` js
+const Context名 = React.createContext({
+  //设置默认值
+  变量1: "",
+  变量2: 0,
+})
+
+class 组件名 extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      变量名: 值,
+    }
+  }
+  render() {
+    return (
+      <div>
+        <Context名.Provider value={this.state}>
+          <传参组件名></传参组件名>
+        </Context名.Provider>
+      </div>
+    );
+  }
+}
+
+
+class 传参组件名 extends PureComponent {
+  render() {
+    return (
+      <div>
+        <h2>{this.context.变量名}</h2>
+      </div>
+    )
+  }
+}
+
+传参组件名.contextType = Context名
+```
+
+* 函数组件
+
+``` js
+const Context名 = React.createContext({
+  //设置默认值
+    变量名: 值,
+})
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      变量名: 值,
+    }
+  }
+  render() {
+    return (
+      <div>
+        <Context名.Provider value={this.state}>
+          <传参组件名></传参组件名>
+        </Context名.Provider>
+      </div>
+    );
+  }
+}
+
+
+function 传参组件名() {
+  return (
+    <Context名.Consumer>
+      {
+        value => {
+          return (
+            <div>
+              <h2>{value.变量名}</h2>
+            </div>
+          )
+        }
+      }
+    </Context名.Consumer>
+  )
+}
+```
+
+### 全局事件传递
+
+* 安装依赖 ：``npm install events``
+
+* 发射事件
+  ``` js
+  import { EventEmitter } from 'events'
+
+
+  // 事件总线：event bus
+  const eventBus = new EventEmitter();
+
+  // 发射事件
+  eventBus.emit("事件名", 参数1, 参数2)
+  ```
+
+* 监听事件
+
+  ``` js
+  class 组件名 extends PureComponent {
+    componentDidMount() {
+      // 增加事件监听
+      eventBus.addListener("事件名", this.监听事件函数)
+    }
+
+    componentWillUnmount() {
+      // 取消事件监听
+      eventBus.removeListener("事件名", this.监听事件函数)
+    }
+
+    监听事件函数(参数1,参数2) {
+
+    }
+  }
+  ```
 
 ## 生命周期
 
@@ -598,7 +634,7 @@ React 中，没有插槽的概念，需要由我们自己去实现
 匿名插槽是根据下标来显示插槽内容
 
 ``` js
-class 组件名 extends Component {
+class 组件名 extends PureComponent {
   render() {
     return (
       <div>
@@ -624,7 +660,7 @@ class 组件名 extends Component {
 具名插槽需要指定插槽名
 
 ``` js
-class 组件名 extends Component {
+class 组件名 extends PureComponent {
   render() {
     const { 插槽1, 插槽2 } = this.props
     return (
@@ -664,6 +700,11 @@ setState设计为异步，可以显著的提升性能
 * 如果同步更新了state，但是还没有执行render函数，那么state和props不能保持同步。
   - state和props不能保持一致性，会在开发中产生很多的问题
 
+
+### setState 是不可变的数据
+
+setState使用时，需要保证赋的值是一个新的值
+
 ### 基本使用
 
 ``` js
@@ -674,6 +715,15 @@ this.setState({
   变量: this.state.变量 + 1
   // 数组
   变量: [...this.state.变量,值]
+})
+```
+
+``` js
+// 改变数组内Object的值
+const Object = [...this.state.变量]
+Object[index].键 = 值
+this.setState({
+  friends: Object
 })
 ```
 
@@ -826,3 +876,218 @@ const 组件名 = memo (
 ``` js
 <组件名></组件名>
 ```
+
+## ref
+
+### 获取ref
+
+::: tip 提示
+当获取组件的ref时，可以通过 ``this.Ref名.current.方法名()``调用它内部的方法
+:::
+
+* 对象方式（推荐）
+
+::: tip 提示
+需要导入``createRef``
+:::
+
+``` js
+import React, { PureComponent, createRef } from 'react'
+
+class 组件名 extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.Ref名 = createRef();
+  }
+  render() {
+    return (
+      <div>
+        <h2 ref={this.titleRef}>Hello World</h2>
+      </div>
+    )
+  }
+  changeText() {
+    console.log(this.Ref名.current);
+  }
+}
+```
+
+* 函数方式
+
+``` js
+class 组件名 extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.Ref名 = null;
+  }
+  render() {
+    return (
+      <div>
+        <h2 ref={(arg => this.Ref名 = arg)}>Hello World</h2>
+      </div>
+    )
+  }
+  changeText() {
+    console.log(this.Ref名);
+  }
+}
+```
+
+* 字符串方式（不推荐 ，后期可能会删除）
+
+``` js
+class 组件名 extends PureComponent {
+  render() {
+    return (
+      <div>
+        <h2 ref="Ref名">Hello World</h2>
+      </div>
+    )
+  }
+  changeText() {
+    console.log(this.refs.Ref名);
+  }
+}
+```
+
+### ref的类型
+
+* 当ref 属性用于HTML元素时,构造函数中使用 React.createRef() 创建的ref接收底层DOM元素作为其current属性
+* 当ref 属性用于自定义class 组件时，ref 对象接收组件的挂载实例作为其current属性
+* **不能在函数组件上使用ref属性**，因为他们没有实例
+
+## 受控组件
+
+<!-- 在React中, HTML表单的处理方式和普通的DOM元素不太一样：表单元素通常会保存在一 些内部的state -->
+
+在HTML中，表单元素（如``<input>``、``<textarea>`` 和 ``<select>`` ）之类的表单元素通常自己维护state，并根据用户输入进行更新
+
+而在React中，可变状态(mutable state) 通常保存在组件的state属性中，并且只能通过使用 setState() 来更新
+
+* 我们将两者结合起来，使React的state成为 "唯一数据源”
+* 渲染表单的React组件还控制着用户输入过程中表单发生的操作
+* 被React以这种方式控制取值的表单输入元素就叫做“受控组件”
+
+### input的使用
+
+``` js
+class App extends PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+    }
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <label htmlFor="">
+            用户：
+            <input id="username"
+              type="text"
+              onChange={e => this.handleChange(e)}
+              value={this.state.username} />
+          </label>
+          <input type="submit" value="提交" />
+        </form>
+      </div>
+    )
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state.username);
+  }
+  handleChange(event) {
+    this.setState({
+      // ES6语法：计算属性名
+      [event.target.name]: event.target.value
+    })
+  }
+}
+```
+
+### select的使用
+
+``` js
+class App extends PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      fruits: "orange",
+    }
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <select name="fruits"
+            onChange={e => this.handleChange(e)}
+            value={this.state.fruits} >
+            <option value="apple">苹果</option>
+            <option value="banana">香蕉</option>
+            <option value="orange">橘子</option>
+          </select>
+          <input type="submit" value="提交" />
+        </form>
+      </div>
+    )
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state.fruits);
+  }
+  handleChange(event) {
+    this.setState({
+      // ES6语法：计算属性名
+      [event.target.name]: event.target.value
+    })
+  }
+}
+```
+
+## 非受控组件
+
+React 推荐大多数情况下使用受控组件来处理表单数据：
+ - 一个受控组件中,表单数据是由React组件来管理的;
+ - 另一种替代方案是使用非受控组件，这时表单数据将交由DOM节点来处理
+
+::: details 点击查看代码
+
+``` js
+import React, { PureComponent, createRef } from 'react'
+
+export default class App extends PureComponent {
+  constructor() {
+    super();
+
+    this.usernameRef = createRef()
+
+    this.state = {
+      username: "",
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <label htmlFor="">
+            用户： <input id="username" type="text" ref={this.usernameRef}/>
+          </label>
+          <input type="submit" value="提交" />
+        </form>
+      </div>
+    )
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.usernameRef.current.value);
+  }
+}
+```
+
+:::
