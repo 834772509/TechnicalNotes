@@ -2,7 +2,8 @@
 
 ## 下载
 
-[Maven](https://maven.apache.org/download.cgi)
+[Maven](https://maven.apache.org/download.cgi)  
+[Maven 存储库](https://mvnrepository.com/)
 
 ### 配置环境变量
 

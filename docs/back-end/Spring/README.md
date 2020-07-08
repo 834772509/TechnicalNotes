@@ -195,6 +195,15 @@ AOP是0OP的延续，是软件开发中的一个热点，也是Spring框架中�
 利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合 度降低，提高程序的可重用性，同时提高了开发的效率。
 
 
+* 横切关注点 : 跨越应用程序多个模块的方法或功能。即：与我们业务逻辑无关的，但是我们需要关注的部分，就是横切关注点。如日志,安全,缓存,事务等等.....
+* 切面 (ASPECT) : 横切关注点被模块化的特殊对象。即，它是一个类
+* 通知 (Advice) : 切面必须要完成的工作。即，它是类中的一一个方法
+* 目标 (Target) : 被通知对象
+* 代理( Proxy) : 向目标对象应用通知之后创建的对象
+* 切入点 (PointCut) : 切面通知执行的“地点”的定义
+* 连接点 (JointPoint) : 与切入点匹配的执行点。
+
+
 ### 代理模式
 
 * 静态代理
@@ -217,3 +226,74 @@ AOP是0OP的延续，是软件开发中的一个热点，也是Spring框架中�
   - 一个动态代理类代理的是一个接口，一般就是对应的一类业务
   - 一个动态代理类可以代理多个类，只要是实现了同一个接口即可
 
+### 注解实现AOP
+
+\resources\applicationContext.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注册bean-->
+    <bean id="userService" class="com.kuang.service.UserService"></bean>
+    <bean id="log" class="com.kuang.log.log"></bean>
+    <bean id="afterLog" class="com.kuang.log.AfterLog"></bean>
+
+    <bean id="annotationPointCut" class="com.kuang.diy.AnnotationPointCut"></bean>
+    <!--开启注解支持-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <!--开启注解支持-->
+    <context:annotation-config/>
+
+</beans>
+```
+
+``` Java
+//标注类是一个切面
+@Aspect
+public class AnnotationPointCut {
+
+    @Before("execution(* com.kuang..service.UserService.*(..))")
+    public void before() {
+        System.out.println("=====方法执行前=====");
+    }
+
+    @After("execution(* com.kuang..service.UserService.*(..))")
+    public void after() {
+        System.out.println("=====方法执行后======");
+    }
+
+    //在环绕增强中，我们可以给定一个参数，代表我们要获取处理
+    @Around("execution(* com.kuang..service.UserService.*(..))")
+    public void around(ProceedingJoinPoint jp) throws Throwable {
+        System.out.println("环绕前");
+
+        //获得签名
+        Signature signature = jp.getSignature();
+        System.out.println("签名：" + signature);
+
+        //执行方法
+        Object proceed = jp.proceed();
+        System.out.println("环绕后");
+        System.out.println(proceed);
+    }
+}
+````
+
+``` Java
+public class MyTest {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        UserService userService = context.getBean("userService", UserService.class);
+        userService.add();
+    }
+}
+```
