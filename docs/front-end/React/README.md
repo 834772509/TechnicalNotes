@@ -135,6 +135,12 @@ const element = <h2>Hello World</h2>
 <h2>{this.函数名()}</h2>
 ```
 
+* 内嵌表达式
+
+``` jsx
+{`字符串，${变量}`}
+```
+
 * 逻辑与算符
 
 如果条件成立则渲染某一个组件，否则不显示
@@ -557,6 +563,63 @@ function 传参组件名() {
   }
   ```
 
+### Portals 使用
+
+某些情况下，我们希望渲染的内容独立于父组件，甚至是独立于当前挂载到的DOM元素中（默认都是挂载到id为root的DOM元素上的）。
+
+## 高阶组件
+
+高阶组件 (Higher-Order Components) 简称为HOC。是参数为组件，返回值为新组件的函数。
+
+1. 高阶组件本身不是一个组件，而是一个函数
+2. 这个函数的参数是一个组件，返回值也是一 个组件
+
+::: tip 提示
+高阶组件并不是React API的一部分，它是基于React的组合特性而形成的设计模式
+:::
+
+### 定义高阶函数
+
+``` js
+function higherOrderComponent(WrapperComponent) {
+  return class extends PureComponent {
+    render() {
+      return <WrapperComponent {...this.props}></WrapperComponent>
+    }
+  }
+}
+```
+
+### 使用
+
+``` js
+const 高阶组件名 = higherOrderComponent(组件)
+
+<高阶组件名></高阶组件名>
+```
+
+### 高阶组件的意义
+
+我们会发现利用高阶组件可以针对某些React代码进行更加优雅的处理  
+
+其实早期的React有提供组件之间的一种复用方式是mixin，目前已经不再建议使用： 
+  - Mixin可能会相互依赖，相互耦合，不利于代码维护
+  - 不同的Mixin中的方法可能会相互冲突
+  - Mixin非常多时，组件是可以感知到的，甚至还要为其做相关处理，这样会给代码造成滚雪球式的复杂性
+
+当然, HOC也有自己的一些缺陷：
+  - HOC需要在原组件上进行包裹或者嵌套,如果大量使用HOC，将会产生非常多的嵌套，这让调试变得非常困难;
+  - HOC可以劫持props，在不遵守约定的情况下也可能造成冲突
+
+Hooks的出现，是开创性的,它解决了很多React之前的存在的问题
+  - 比如this指向问题、比如hoc的嵌套复杂度问题等等;
+
+
+::: tip 提示
+高阶组件一般应用于拦截
+:::
+
+
 ## 生命周期
 
 很多的事物都有从创建到销毁的整个过程，这个过程称之为是**生命周期**
@@ -957,6 +1020,40 @@ class 组件名 extends PureComponent {
 * 当ref 属性用于HTML元素时,构造函数中使用 React.createRef() 创建的ref接收底层DOM元素作为其current属性
 * 当ref 属性用于自定义class 组件时，ref 对象接收组件的挂载实例作为其current属性
 * **不能在函数组件上使用ref属性**，因为他们没有实例
+
+### ref的转发
+
+``` js
+
+import React, { PureComponent, createRef, forwardRef } from 'react'
+
+// 高阶组件
+const Profile = forwardRef(function(props,ref) {
+  return <h2 ref={ref}>Profile</h2>
+})
+
+
+export default class App extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.profileRef = createRef();
+  }
+
+  render() {
+    return (
+      <div>
+        <Profile ref={this.profileRef}></Profile>
+
+        <button onClick={e => this.printRef()}>打印ref</button>
+      </div>
+    )
+  }
+  printRef() {
+    console.log(this.profileRef.current);
+  }
+}
+```
 
 ## 受控组件
 
