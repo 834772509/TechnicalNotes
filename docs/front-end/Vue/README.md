@@ -347,6 +347,10 @@ export default {
 
 ## 组件
 
+::: tip 提示
+``<style scoped></style>``中的scoped表示编写的样式是**局部有效**
+:::
+
 ### 创建组件
 
 .Vue

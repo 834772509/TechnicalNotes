@@ -565,7 +565,56 @@ function 传参组件名() {
 
 ### Portals 使用
 
-某些情况下，我们希望渲染的内容独立于父组件，甚至是独立于当前挂载到的DOM元素中（默认都是挂载到id为root的DOM元素上的）。
+某些情况下，我们希望渲染的内容独立于父组件，甚至是独立于当前挂载到的DOM元素中（默认都是挂载到id为root的DOM元素上的）
+
+### fragments
+
+在之前的开发中，我们总是在一个组件中返回内容时包裹一个div元素。  
+但我们又希望可以不渲染这样一个div应该使用Fragment，Fragment允许将子列表分组，而无需向DOM添加额外节点
+
+``` js
+<Fragment> 
+  {/* 组件内容 */}
+  <h2></h2>
+  <p></p>
+</Fragment>
+```
+
+短语法：
+
+``` js
+<> 
+  {/* 组件内容 */}
+  <h2></h2>
+  <p></p>
+</>
+```
+
+::: tip 提示
+短语法不支持增加属性（如key等）
+:::
+
+### StrictMode
+
+StrictMode（严格模式） 是一个用来突出显示应用程序中潜在问题的工具：
+
+* 与Fragment一样，StrictMode 不会渲染任何可见的UI
+* 它为其后代元素触发额外的检查和警告
+* 严格模式检查仅在开发模式下运行;它们不会影响生产构建
+
+StrictMode 会检测以下：
+
+1. 识别不安全的生命周期
+2. 使用过时的ref API （字符串方式）
+3. 检查意外的副作用
+    - 开启StrictMode后，这个组件的constructor会被调用两次
+    - 这是严格模式下故意进行的操作，让你来查看在这里写的一些逻辑代码被调用多次时，是否会产生一些副作用
+    - 在生产环境中，是不会被调用两次的
+4. 使用废弃的findDOMNode方法
+    - 在之前的React API中，可以通过findDOMNode来获取DOM。已不推荐使用
+5. 检测过时的context API
+    - 早期的Context是通过static属性声明Context对象属性，通过getChildContext返回Context对象等方式来使用Context。已不推荐使用
+
 
 ## 高阶组件
 
@@ -618,64 +667,6 @@ Hooks的出现，是开创性的,它解决了很多React之前的存在的问题
 ::: tip 提示
 高阶组件一般应用于拦截
 :::
-
-
-## 生命周期
-
-很多的事物都有从创建到销毁的整个过程，这个过程称之为是**生命周期**
-
-[![React常用生命周期](./img/React生命周期.jpg "React常用生命周期")](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
-
-### 生命周期函数
-
-* constructor
-
-  ``constructor(props)``
-
-  如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。
-
-  constructor 中通常只做两件事情：
-
-  1. 通过给 this.state 赋值对象来初始化内部的 state
-  2. 为事件绑定实例（this）
-
-* componentDidMount
-
-  ``componentDidMount()``
-
-  componentDidMount() 会在组件挂载后（插入 DOM 树中）立即调用
-
-  依赖于 DOM 的操作可以在这里进行，在此处发送网络请求就最好的地方（官方建议）
-  可以在此处添加一些订阅（会在 componentWillUnmount 取消订阅）
-
-* componentDidUpdate
-
-  ``componentDidUpdate(prevProps, prevState, snapshot)``
-
-  componentDidUpdate() 会在更新后会被立即调用，首次渲染不会执行此方法。
-
-  当组件更新后，可以在此处对 DOM 进行操作；
-  如果对更新前后的 props 进行了比较，也可以选择在此处进行网络请求（例如：当 props 未发生变化时，则不会执行网络请求）
-
-  ``` js
-  componentDidUpdate(prevProps) {
-    // 典型用法（不要忘记比较 props）：
-    if (this.props.userID !== prevProps.userID) {
-      this.fetchData(this.props.userID);
-    }
-  }
-  ```
-
-* componentWillUnmount
-
-  componentWillUnmount() 会在组件卸载及销毁之前直接调用。 
-  在此方法中执行必要的清理操作（例如：清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等）
-
-### 不常用生命周期
-
-* getDerivedStateFromProps：state 的值在任何时候都依赖于 props 时使用；该方法返回一个对象来更新 state
-* getSnapshotBeforeUpdate：在 React 更新 DOM 之前回调的一个函数，可以获取 DOM 更新前的一些信息（比如说滚动位置）
-* shouldComponentUpdate：该生命周期函数很常用，但是我们等待讲性能优化时再来详细讲解
 
 ## 插槽
 
@@ -744,6 +735,63 @@ class 组件名 extends PureComponent {
   插槽2={<h2>插槽2</h2>}>
 </组件名> 
 ```
+
+## 生命周期
+
+很多的事物都有从创建到销毁的整个过程，这个过程称之为是**生命周期**
+
+[![React常用生命周期](./img/React生命周期.jpg "React常用生命周期")](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+### 生命周期函数
+
+* constructor
+
+  ``constructor(props)``
+
+  如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。
+
+  constructor 中通常只做两件事情：
+
+  1. 通过给 this.state 赋值对象来初始化内部的 state
+  2. 为事件绑定实例（this）
+
+* componentDidMount
+
+  ``componentDidMount()``
+
+  componentDidMount() 会在组件挂载后（插入 DOM 树中）立即调用
+
+  依赖于 DOM 的操作可以在这里进行，在此处发送网络请求就最好的地方（官方建议）
+  可以在此处添加一些订阅（会在 componentWillUnmount 取消订阅）
+
+* componentDidUpdate
+
+  ``componentDidUpdate(prevProps, prevState, snapshot)``
+
+  componentDidUpdate() 会在更新后会被立即调用，首次渲染不会执行此方法。
+
+  当组件更新后，可以在此处对 DOM 进行操作；
+  如果对更新前后的 props 进行了比较，也可以选择在此处进行网络请求（例如：当 props 未发生变化时，则不会执行网络请求）
+
+  ``` js
+  componentDidUpdate(prevProps) {
+    // 典型用法（不要忘记比较 props）：
+    if (this.props.userID !== prevProps.userID) {
+      this.fetchData(this.props.userID);
+    }
+  }
+  ```
+
+* componentWillUnmount
+
+  componentWillUnmount() 会在组件卸载及销毁之前直接调用。 
+  在此方法中执行必要的清理操作（例如：清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等）
+
+### 不常用生命周期
+
+* getDerivedStateFromProps：state 的值在任何时候都依赖于 props 时使用；该方法返回一个对象来更新 state
+* getSnapshotBeforeUpdate：在 React 更新 DOM 之前回调的一个函数，可以获取 DOM 更新前的一些信息（比如说滚动位置）
+* shouldComponentUpdate：该生命周期函数很常用，但是我们等待讲性能优化时再来详细讲解
 
 ## setState
 
@@ -1055,7 +1103,9 @@ export default class App extends PureComponent {
 }
 ```
 
-## 受控组件
+## 受控组件和非受控组件
+
+### 受控组件
 
 <!-- 在React中, HTML表单的处理方式和普通的DOM元素不太一样：表单元素通常会保存在一 些内部的state -->
 
@@ -1063,11 +1113,11 @@ export default class App extends PureComponent {
 
 而在React中，可变状态(mutable state) 通常保存在组件的state属性中，并且只能通过使用 setState() 来更新
 
-* 我们将两者结合起来，使React的state成为 "唯一数据源”
-* 渲染表单的React组件还控制着用户输入过程中表单发生的操作
-* 被React以这种方式控制取值的表单输入元素就叫做“受控组件”
+    * 我们将两者结合起来，使React的state成为 "唯一数据源”
+    * 渲染表单的React组件还控制着用户输入过程中表单发生的操作
+    * 被React以这种方式控制取值的表单输入元素就叫做“受控组件” 
 
-### input的使用
+* input的使用
 
 ``` js
 class App extends PureComponent {
@@ -1106,7 +1156,7 @@ class App extends PureComponent {
 }
 ```
 
-### select的使用
+* select的使用
 
 ``` js
 class App extends PureComponent {
@@ -1146,7 +1196,7 @@ class App extends PureComponent {
 }
 ```
 
-## 非受控组件
+### 非受控组件
 
 React 推荐大多数情况下使用受控组件来处理表单数据：
  - 一个受控组件中,表单数据是由React组件来管理的;
@@ -1188,3 +1238,212 @@ export default class App extends PureComponent {
 ```
 
 :::
+
+## CSS
+
+React官方并没有给出在React中统一的样式风格：
+
+  * 由此，从普通的 css，到 css modules，再到 css in js，有几十种不同的解决方案，上百个不同的库
+  * 大家一致在寻找最好的或者说最适合自己的CSS方案，但是到目前为止也没有统一的方案
+
+### 内嵌样式
+
+``` js
+<h2 style={{fontSize: "50px",color: "#aaa"}}>标题 </h2>
+```
+
+内联样式的优点：
+  1. 内联样式，样式之间不会有冲突
+  2. 可以动态获取当前state中的状态
+
+内联样式的缺点：
+  1. 写法上都需要使用驼峰标识
+  2. 某些样式没有提示
+  3. 大量的样式，代码混乱
+  4. 某些样式无法编写（比如伪类/伪元素）
+
+### 普通css
+
+\style.css
+
+``` css
+.组件名 .类名{
+  color: red;
+}
+```
+
+``` js
+import React, { PureComponent } from 'react';
+import "./style.css"
+
+export default class 组件名 extends PureComponent {
+  render() {
+    return (
+      <div className="组件名">
+        <h2 className="类名">我是Home标题</h2>
+      </div>
+    );
+  }
+}
+```
+
+### CSS Modules 
+
+CSS Modules 并不是React特有的解决方案，而是所有使用了类似于webpack配置的环境下都可以使用的
+
+React 的脚手架已经内置了css modules的配置：
+ - .css/.less/.scss 等样式文件都修改成 .module.css/.module.less/.module.scss 等之后就可以引用并且进行使用
+
+\style.module.css
+
+``` css
+.类名 {
+  属性: 值;
+}
+```
+
+\index.js
+
+``` js
+import style from './style.module.css'
+
+
+<h2 className={style.类名}>标题</h2>
+```
+
+CSS Modules 的缺陷：
+  * 引用的类名，不能使用连接符 如（.home-title），在JavaScript中是不识别的
+  * 所有的className都必须使用 {style.className} 的形式来编写
+  * **不方便动态来修改某些样式，依然需要使用内联样式的方式**
+
+CSS Modules 确实解决了局部作用域的问题，也是很多人喜欢在React中使用的一种方案
+
+### CSS in JS
+
+"CSS-in-JS" 是指一 种模式，其中CSS由JavaScript生成而不是在外部文件中定义
+
+::: warning 注意
+此功能并不是React的一部分，而是由第三方库提供。React 对样式如何定义并没有明确态度
+:::
+
+::: tip 提示
+styled-components支持类似CSS预处理器一样的特性：
+  * 支持直接子代选择器或后代选择器，并且直接编写样式；
+  * 可以通过 & 符号获取当前元素；
+  * 直接伪类选择器、伪元素等；
+:::
+
+* 安装依赖
+
+``npm install styled-components --save``
+
+* 安装插件
+
+vscode-styled-components
+
+* 使用
+
+新建 \style.js
+
+``` js
+import styled from 'styled-components'
+
+
+export const 样式名1 = styled.div`
+  /* CSS样式 */
+`
+
+export const 样式名2 = styled.标签名`
+  /* CSS样式 */
+`
+```
+
+\index.js
+
+``` js
+import React, { PureComponent } from 'react'
+import { 样式名1, 样式名2 } from './style'
+
+
+class App extends PureComponent {
+  render() {
+    return (
+      <样式名1>
+        <样式名2>标题</样式名2>
+      </样式名1>
+    );
+  }
+}
+
+
+export default App;
+```
+
+* 动态设置CSS样式
+
+``` js
+const 样式名 = styled.标签名`
+  /* CSS样式 */
+  属性: ${props => props.属性};
+`
+
+class App extends PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      属性: "值",
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <样式名 属性={this.state.属性} />
+      </div>
+    );
+  }
+}
+```
+
+* 动态设置属性
+
+``` js
+const 样式名 = styled.标签名.attrs({
+  属性: '值',
+  自定义属性: "值",
+})`
+  /* CSS样式 */
+  属性: ${props => props.自定义属性};
+`
+```
+
+* 继承样式
+
+``` js
+const 父样式 = styled.标签名`
+  /* CSS样式 */
+`
+
+const 子样式 = styled(父样式)` 
+  /* CSS样式 */
+`
+```
+
+* 主题样式
+
+全局定制自己的主题，通过 Provider 进行共享
+
+``` js
+import { ThemeProvider } from 'styled-components';
+
+<ThemeProvider theme={{主题属性1: "值", 主题属性2: "值"}}>
+  <组件名></组件名>
+</ThemeProvider>
+```
+
+``` js
+const 样式名 = styled.标签名`
+  属性: ${props => props.theme.主题属性1};
+  属性: ${props => props.theme.主题属性2};
+`
+```
