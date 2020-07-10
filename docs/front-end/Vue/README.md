@@ -230,22 +230,38 @@ v-bind用于动态绑定属性，例如图片等
 
 ### 动态绑定样式
 
-后接表达式：{属性名 : 属性值}  
-
 ``` HTML
-<h2 :style="{fontSize: '50px',color: color}">{{message}}</h2>
-<h2 v-bind:class="getclass()">{{message}}</h2>
-```
-
-``` js
-getclass() {
-    return { active: this.isactive, line12: this.isline
-    }
+<h2 :style="{属性: '值',属性: 值}"></h2>
+<h2 :style="{fontSize: '50px',color: color}"></h2>
 ```
 
 ::: tip 提示
 属性值注意增加单引号，否则会解析为变量
 :::
+
+### 动态绑定class
+
+后接表达式：{属性名 : 属性值}  
+
+``` HTML
+<!-- 传入对象 -->
+<h2 v-bind:class="{类名 : 布尔值}"></h2>
+<!-- 传入数组 -->
+<h2 v-bind:class="[类名1,类名2]"></h2>
+<!-- 对象、数组混用 -->
+<h2 v-bind:class="[{类名 : 布尔值},类名]"></h2>
+<!--传入函数 -->
+<h2 v-bind:class="getclass()"></h2>
+```
+
+``` js
+getclass() {
+  return {
+    类名1: 布尔值,
+    类名2: 布尔值,
+  }
+}
+```
 
 ### v-html
 

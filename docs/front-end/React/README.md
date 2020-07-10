@@ -174,6 +174,8 @@ jsx中``class``为关键字，不能直接使用，需要使用``className``
 ``` jsx
 <div className="box title">div元素</div>
 <div className={"box title " + (active ? "active" : "")}>div元素</div>
+{/* 传入数组 */}
+<h2 className={["title", (isActive ? "active" : "")].join(" ")}></h2>
 ```
 
 * 绑定Style
@@ -1287,6 +1289,12 @@ export default class 组件名 extends PureComponent {
 }
 ```
 
+这样的编写方式和普通的网页开发中编写方式是一致的：
+  * 如果我们按照普通的网页标准去编写，那么也不会有太大的问题
+  * 但是组件化开发中我们总是希望组件是一个独立的模块，即便是样式也只是在自己内部生效，不会相互影响
+  * 但是普通的css都属于全局的css，样式之间会相互影响
+
+
 ### CSS Modules 
 
 CSS Modules 并不是React特有的解决方案，而是所有使用了类似于webpack配置的环境下都可以使用的
@@ -1313,7 +1321,7 @@ import style from './style.module.css'
 
 CSS Modules 的缺陷：
   * 引用的类名，不能使用连接符 如（.home-title），在JavaScript中是不识别的
-  * 所有的className都必须使用 {style.className} 的形式来编写
+  * 所有的className都必须使用 ``{style.className}`` 的形式来编写
   * **不方便动态来修改某些样式，依然需要使用内联样式的方式**
 
 CSS Modules 确实解决了局部作用域的问题，也是很多人喜欢在React中使用的一种方案
