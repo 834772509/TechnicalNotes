@@ -313,6 +313,12 @@ render 函数可以返回：
 :::
 
 ``` js
+<组件名 参数1="值" 参数2={值}></组件名>
+```
+
+使用：
+
+``` js
 class 组件名 extends PureComponent {
   render() {
     const { 参数1, 参数2 } = this.props
@@ -325,12 +331,6 @@ class 组件名 extends PureComponent {
     );
   }
 }
-```
-
-使用：
-
-``` js
-<组件名 参数1="值" 参数2={值}></组件名>
 ```
 
 * 函数组件
@@ -357,25 +357,40 @@ function 组件名(props) {
 ### 子传父
 
 ``` js
+class 子组件名 extends PureComponent {
+  render() {
+    return (
+      <button onClick={e => this.事件名()}></button>
+    )
+  }
+
+  事件名() {
+    // 调用父组件方法
+    this.props.事件名(参数);
+  }
+}
+
+
 export default class 父组件名 extends PureComponent {
   render() {
     return (
       <div>
-        <组件名 事件名={e => this.方法名()}></组件名>
+        <组件名 事件名={this.事件名.bind(this)}></组件名> 
+        
+        
+        {/* 箭头函数写法 */}
+        <组件名 事件名={e => this.事件名(index)}></组件名>
       </div>
     )
   }
-  方法名() {
-
+  
+  事件名(参数名) { 
+    console.log(参数名);
   }
-}
 
-class 子组件名 extends PureComponent {
-  render() {
-    const { 事件名 } = this.props
-    return (
-      <button onClick={e => 事件名()}></button>
-    )
+// 箭头函数写法
+事件名(index) {
+
   }
 }
 ```
@@ -1118,6 +1133,47 @@ export default class App extends PureComponent {
     * 我们将两者结合起来，使React的state成为 "唯一数据源”
     * 渲染表单的React组件还控制着用户输入过程中表单发生的操作
     * 被React以这种方式控制取值的表单输入元素就叫做“受控组件” 
+
+* 基本格式
+
+``` js
+class 组件名 extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      变量名: "",
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          name="变量名"
+          onChange={e => this.handleChange(e)}
+          value={this.state.变量名} />
+        <input type="submit" value="提交" />
+      </div>
+    )
+  }
+
+  handleChange(event) {
+    this.setState({
+      // ES6语法：计算属性名
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit(event) {
+    // 阻止默认事件
+    event.preventDefault();
+    console.log(this.state.username);
+  }
+
+}
+```
 
 * input的使用
 
