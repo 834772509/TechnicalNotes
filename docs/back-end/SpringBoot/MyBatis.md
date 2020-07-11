@@ -162,7 +162,7 @@ public String 方法名() {
 }
 ```
 
-## 使用-注解版（不推荐）
+## 使用-注解版
 
 ``` Java
 //指定这是一个操作数据库的mapper
@@ -195,13 +195,13 @@ public interface DepartmentMapper {
 使用
 
 ``` Java
-@RequestMapping("/地址")
+@RequestMapping("/URL")
 public Department 地址 () {
     departmentMapper.方法名();
     return department;
 }
 
-@RequestMapping("/地址")
+@RequestMapping("/URL")
 public Department 地址 (Department department) {
     departmentMapper.方法名(department);
     return department;

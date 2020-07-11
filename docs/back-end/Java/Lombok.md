@@ -6,7 +6,7 @@ Lombok 的作用是：通过注解的方式，自动生成getter和setter方法�
 
 Lombok
 
-### 导入
+### 依赖
 
 \pom.xml
 
@@ -21,8 +21,11 @@ Lombok
 ### 使用
 
 ``` Java
+// get、set方法
 @Data
+// 有参构造
 @AllArgsConstructor
+// 无参构造
 @NoArgsConstructor
 public class 类名 {
     private 数据类型 属性;
