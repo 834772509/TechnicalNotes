@@ -308,18 +308,23 @@ render 函数可以返回：
 
 * 类组件
 
-::: tip 提示
-如不需要数据对象可以省略``constructor()``构造方法
-:::
-
 ``` js
 <组件名 参数1="值" 参数2={值}></组件名>
 ```
 
 使用：
 
+::: tip 提示
+如不需要数据对象可以省略``constructor()``构造方法
+:::
+
 ``` js
 class 组件名 extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+
   render() {
     const { 参数1, 参数2 } = this.props
 
