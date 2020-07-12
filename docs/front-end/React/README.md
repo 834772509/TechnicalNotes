@@ -236,6 +236,10 @@ jsx ->createElement函数 -> ReactElement（对象树）->ReactDom.render
 不能直接使用``this.state.变量名``操作变量，界面不会发生任何变化。需要使用``this.setState({变量名: 值})``方法来操作变量
 :::
 
+::: tip 提示
+所有React组件都必须像纯函数一样保护它们的props不被更改
+:::
+
 ### 类组件
 
 Visual Studio Code 快速创建类组件：``rpc``->回车

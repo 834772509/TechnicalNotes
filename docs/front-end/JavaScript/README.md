@@ -164,6 +164,53 @@ const 箭头函数 = (参数1, 参数2) => {
 }
 ```
 
+### 纯函数
+
+在程序设计中，若一个函数符合一下条件，那么这个函数被称为纯函数：
+
+1. 确定的输入，一定会产生确定的输出
+2. 函数在执行过程中，不能产生副作用（不能修改原参数）
+
+**为什么纯函数在函数式编程中非常重要呢?**  
+
+* 因为可以安心的写和安心的用
+* 在写的时候保证了函数的纯度，只是但是实现自己的业务逻辑即可，不需要关心传入的内容或者依赖其他的外部变量
+* 在用的时候，确定了输入内容不会被任意篡改，并且自己确定的输入，一定会有确定的输出
+
+
+``` JavaScript
+// 纯函数
+function sum(num1, num2) {
+    return num1 + num2;
+}
+
+// 纯函数
+function pringInfo(info) {
+console.log(info.name, info.age);
+}
+
+// 不是纯函数
+let foo = 10
+function add(num) {
+    return foo + num;
+}
+
+add(5) //15
+foo = 20
+add(5) //25
+
+// 不是纯函数
+const baz = {
+    count: 10,
+}
+
+function add3(num) {
+    return bar.count + num;
+}
+
+baz.count = 20
+```
+
 ## 类和方法
 
 ### 声明类
