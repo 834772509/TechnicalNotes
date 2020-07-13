@@ -81,6 +81,8 @@
 
 ### 核心配置文件
 
+* 内部配置
+
 \src\main\resources\mybatis-config.xml
 
 ``` xml
@@ -91,7 +93,9 @@
 <configuration>
     <environments default="development">
         <environment id="development">
+            <!-- Mybatis默认事务管理器为JDBC -->
             <transactionManager type="JDBC"/>
+            <!-- Mybatis默认事务管理器为POOLED -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://连接地址:3306/数据库名?serverTimezone=UTC&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"/>
@@ -99,10 +103,62 @@
                 <property name="password" value="数据库密码"/>
             </dataSource>
         </environment>
-    </environments>
+    </environments> 
+    
+    <!-- 每一个Mapper.XML都需要在Mybatis核心配置文件中注册 -->
     <mappers>
         <mapper resource="com/example/dao/Mapper名称.xml"/>
     </mappers>
+
+</configuration>
+```
+
+* 外部配置
+
+\src\main\resources\db.properties
+
+```
+driver=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://连接地址:3306/数据库名?serverTimezone=UTC&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8
+username=数据库用户名
+password=
+```
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--引入外部配置文件-->
+    <properties resource="db.properties">
+        <!--内部配置（优先使用外部配置文件）-->
+        <!-- <property name="username" value="root"></property> -->
+        <!-- <property name="password" value=""></property> -->
+    </properties>
+
+    <environments default="development">
+
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!-- 每一个Mapper.XML都需要在Mybatis核心配置文件中注册 -->
+    <mappers>
+        <mapper resource="com/example/dao/Mapper名称.xml"/>
+    </mappers>
+
 </configuration>
 ```
 
@@ -168,6 +224,10 @@ public interface Mapper接口名 {
 
 ::: tip 提示
 namespace中的包名要和 dao/mapper 接口的包名一致，否则会报错
+:::
+
+::: tip 提示
+resultType 如需要返回实体类，默认需要填写完整的类路径，可通过``类型别名``来实现直接填写类名
 :::
 
 com\example\dao\Mapper名称.xml
@@ -280,3 +340,128 @@ public class 测试类名 {
     }
 }
 ```
+
+### 类型别名
+
+类型别名是为Java类型设置一个短的名字，存在的意义仅在于用来减少类完全限定名的冗余
+
+* 单一别名
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.example.pojo.实体类名" alias="实体类名"></typeAlias>
+    </typeAliases>
+</configuration>
+```
+
+\com\example\dao\Mapper名称.xml
+
+``` xml
+<!-- 查询数据 -->
+<select id="SQL方法名" resultType="实体类名">
+    select * from 表名
+</select>
+```
+
+* 包名别名
+
+指定一个包名，MyBatis会在包名下面搜索需要的JavaBean  
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <typeAliases>
+        <package name="com.example.pojo"/>
+    </typeAliases>
+</configuration>
+```
+
+\com\example\dao\Mapper名称.xml
+
+``` xml
+<!-- 查询数据 -->
+<select id="SQL方法名" resultType="实体类名">
+    select * from 表名
+</select>
+```
+
+### 映射器
+
+映射器用于注册绑定Mapper文件
+
+1. 指定xml文件绑定注册（推荐）
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <mappers>
+        <mapper resource="com/example/dao/Mapper名称.xml"/>
+    </mappers>
+</configuration>
+```
+
+2. 使用class文件绑定注册
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <mappers>
+        <mapper class="com.example.dao.Mapper名称"></mapper>
+    </mappers>
+</configuration>
+```
+
+::: warning 注意
+1. 接口和它的Mapper配置文件必须同名
+2. 接口和它的Mapper配置文件必须在同一个包下
+:::
+
+3. 使用扫描包进行绑定
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <mappers>
+        <package name="com.example.dao"></package>
+    </mappers>
+</configuration>
+```
+
+::: warning 注意
+1. 接口和它的Mapper配置文件必须同名
+2. 接口和它的Mapper配置文件必须在同一个包下
+:::
+
+## 生命周期
+
+生命周期 和 作用域 是至关重要的，错误的使用会导致非常严重的**并发问题**
+
+![生命周期](./img/生命周期.jpg)
+
+**SqlSessionFactoryBuilder**
+
+一旦创建了SqlSessionFactor，就不再需要它了
+* 局部变量
+
+**SqISessionFactory**
+
+可以想象为数据库连接池。一旦被创建就应该在应用的运行期间一直存在，**没有任何理由丢弃它或重新创建另一个实例**  
+
+SqlSessionFactory的最佳作用域是应用作用域。最简单的就是使用单例模式或者静态单例模式。
+
+**SqlSession**
+
+连接到连接池的一个请求。SqlSession的实例不是线程安全的，因此是不能被共享的，  
+所以它的最佳的作用域是请求或方法作用域。用完之后需要赶紧关闭，否则资源被占用。
+
+![SqlSession](./img/SqlSession.jpg)
+
+每一个Mapper，代表一 个具体的业务
+
