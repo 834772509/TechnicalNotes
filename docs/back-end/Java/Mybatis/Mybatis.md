@@ -191,20 +191,20 @@ com\example\pojo\实体类名.java
 
 ``` Java
 public class 实体类名 {
-    private 数据类型 属性;
-    private 数据类型 属性;
+    private 数据类型 属性名;
+    private 数据类型 属性名;
 
-    public 数据类型 get属性() {
-        return 属性;
+    public 数据类型 get属性名() {
+        return 属性名;
     }
 
-    public void set属性(数据类型 属性) {
-        this.属性 = 属性;
+    public void set属性名(数据类型 属性名) {
+        this.属性名 = 属性名;
     }
 
     @Override
     public String toString() {
-        return "实体类名{" + "属性=" + 属性 + "}";
+        return "实体类名{" + "属性名=" + 属性名 + "}";
     }
 }
 ```
@@ -341,6 +341,8 @@ public class 测试类名 {
 }
 ```
 
+## 配置解析
+
 ### 类型别名
 
 类型别名是为Java类型设置一个短的名字，存在的意义仅在于用来减少类完全限定名的冗余
@@ -465,3 +467,113 @@ SqlSessionFactory的最佳作用域是应用作用域。最简单的就是使用
 
 每一个Mapper，代表一 个具体的业务
 
+## 解决属性名与字段名不一致
+
+当实体类中的属性名与数据库中的字段名不一致时，可以使用如下方法解决：  
+
+com\example\pojo\实体类名.java
+
+``` Java
+public class 实体类名 {
+    private 数据类型 属性名;
+    private 数据类型 属性名;
+}
+```
+
+### 起别名
+
+com\example\dao\Mapper名称.xml
+
+``` xml
+<select id="SQL方法名" parameterType="参数类型" resultType="返回值类型">
+    select 字段名,字段名 as 别名 from 表名
+</select>
+```
+
+### resultMap
+
+com\example\dao\Mapper名称.xml
+
+``` xml
+<resultMap id="resultMap名称" type="返回值类型">
+    <result column="字段名" property="属性名"></result>
+    <result column="字段名" property="属性名"></result>
+</resultMap>
+
+<select id="SQL方法名" parameterType="参数类型" resultMap="resultMap名称">
+    select * from 表名
+</select>
+```
+
+## 日志工厂
+
+如果一个数据库操作，出现了异常，我们需要排错，日志就是最好的助手。
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <!--日志-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"></setting>
+    </settings>
+</configuration>
+```
+
+## LOG4G
+
+Log4j 是一个 web 界面，方便用户查看、监控数据库
+
+### 依赖
+
+\pom.xml
+
+``` xml
+<!--Log4j-->
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.12</version>
+</dependency>
+```
+
+### 配置
+
+\resources\log4j.properties
+
+``` properties
+#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
+log4j.rootLogger=DEBUG,console,file
+#控制台输出的相关设置
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.console.Target=System.out
+log4j.appender.console.Threshold=DEBUG
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=[%c]-%m%n
+#文件输出的相关设置
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=./log/kuang.log
+log4j.appender.file.MaxFileSize=10mb
+log4j.appender.file.Threshold=DEBUG
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.conversionPattern=[%p] [%d{yy-MM-dd}] [%c]%m%n
+#日志输出级别
+log4j.logger.org.mybatis=DEBUG
+log4j.logger.java.sq1=DEBUG
+log4j.logger.java.sq1.Statement=DEBUG
+log4j.logger.java.sq1.ResultSet=DEBUG
+log4j.logger.java.sq1.PrepareStatement=DEBUG
+```
+
+### 开启
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <!--Log4J-->
+    <settings>
+        <setting name="logImpl" value="Log4J"></setting>
+    </settings>
+</configuration>
+```
