@@ -807,3 +807,58 @@ public void 删除数据() {
     session.close();
 }
 ```
+
+## 多对一处理
+
+将数据库中的指定字段转为实体类，本质依然是解决属性名与字段名不一致。
+
+### 按照查询嵌套处理
+
+``` xml
+<!--
+    1. 查询所有的学生信息
+    2. 根据查询出来的学生的tid，寻找对应的老师
+-->
+
+<resultMap id="StudentAndTeacher" type="Student">
+    <result property="id" column="id"></result>
+    <result property="name" column="name"></result>
+    <!--
+    复杂的属性需要单独处理
+        对象: association
+        集合: collection
+    -->
+    <association property="teacher" column="tid" javaType="Teacher" select="getTeacher"></association>
+</resultMap>
+
+<select id="getStudent" resultMap="StudentAndTeacher">
+    select * from student
+</select>
+
+<select id="getTeacher" resultType="Teacher">
+    select * from teacher where id = #{id}
+</select>
+```
+
+### 按照结果嵌套处理
+
+``` xml
+<!--
+    1. 查询所有的学生信息
+    2. 根据查询出来的学生的tid，寻找对应的老师
+-->
+
+<resultMap id="StudentAndTeacher2" type="Student">
+    <result property="id" column="sid"/>
+    <result property="name" column="sname"/>
+    <association property="teacher" javaType="Teacher">
+        <result property="name" column="tname"></result>
+    </association>
+</resultMap>
+
+<select id="getStudent2" resultMap="StudentAndTeacher2">
+    select s.id sid, s.name sname , t.name tname
+    from student s,teacher t
+    where s.tid = t.id
+</select>
+```
