@@ -164,35 +164,39 @@ public String 方法名() {
 
 ## 使用-注解版
 
+使用注解来映射简单语句会使代码显得更加简洁。  
+然而对于稍微复杂-点的语句，Java 注解就力不从心了，并且会显得更加混乱。  
+因此，如果需要完成很复杂的事情，那么最好使用XML来映射语句。
+
+### Mapper接口
+
 ``` Java
 //指定这是一个操作数据库的mapper
 @Mapper
-public interface DepartmentMapper {
-
-    //查询数据
-
+public interface Mapper接口名 {
+    //查询所有数据
     @Select("select * from 表名")
-    public List<Department> 方法名();
-
-    @Select("select * from 表名 where 字段名=#{字段值}")
-    public Department 方法名(Integer 字段值);
+    List<返回类型> SQL方法名(); 
+    
+    // 查询指定数据
+    @Select("select * from 表名 where 字段名=#{参数名}")
+    public 返回类型 SQL方法名(返回类型 参数名);
 
     //插入数据
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into 表名(字段名) values(#{departmentName})")
-    public int 方法名(Department department);
+    @Insert("insert into 表名(字段名) values(#{参数名})")
+    public 返回类型 SQL方法名(返回类型 参数名);
 
     //修改数据
-    @Update("update 表名 set 字段名=#{departmentName}")
-    public int 方法名(Department department);
+    @Update("update 表名 set 字段名=#{参数名}")
+    public 返回类型 SQL方法名(返回类型 参数名);
 
     //删除数据
-    @Delete("delete from 表名 where id =#{id}")
-    public int 方法名(Integer id);
+    @Delete("delete from 表名 where id =#{参数名}")
+    public 返回类型 SQL方法名(返回类型 参数名);
 }
 ```
 
-使用
+### 使用
 
 ``` Java
 @RequestMapping("/URL")

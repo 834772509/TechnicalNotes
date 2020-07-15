@@ -217,6 +217,8 @@ com\example\dao\Mapper接口名.java
 public interface Mapper接口名 {
     返回类型 SQL方法名(数据类型 参数名);
     返回类型 SQL方法名(数据类型 参数名);
+    // 多参数传递
+    List<返回类型> SQL方法名(Map<String,数据类型> map);
 }
 ```
 
@@ -239,23 +241,29 @@ com\example\dao\Mapper名称.xml
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.Mapper接口名">
 
-    <!-- 查询数据 -->
+    <!-- 查询所有数据 -->
     <select id="SQL方法名" resultType="com.example.pojo.实体类名">
         select * from 表名
     </select>
 
+    <!-- 查询指定数据 -->
     <select id="SQL方法名" parameterType="参数类型" resultType="返回值类型">
         select * from 表名 where 字段名 = #{参数名}
+    </select>
+    
+    <!-- 多参数传递 -->
+    <select id="SQL方法名" parameterType="Map" resultType="返回值类型">
+        select * from 表名 where 字段名 = #{参数1} and 字段名 = #{参数2}
     </select>
 
     <!-- 增加数据 -->
     <insert id="SQL方法名" parameterType="参数类型">
-        insert into 表名 (字段名,字段名) values (#{参数名}},#{参数名});
+        insert into 表名 (字段名,字段名) values (#{参数名},#{参数名});
     </insert>
 
     <!-- 修改数据 -->
     <update id="SQL方法名" parameterType="参数类型">
-        update 表名 set 字段名 = #{参数名} ,字段名=#{参数名}} where 字段名 = #{参数名};
+        update 表名 set 字段名 = #{参数名} ,字段名=#{参数名} where 字段名 = #{参数名};
     </update>
 
     <!-- 删除数据 -->
@@ -271,7 +279,7 @@ com\example\dao\Mapper名称.xml
 ``` Java
 public class 测试类名 {
     @Test
-    public void 查询数据() {
+    public void 查询所有数据() {
         SqlSession session = MybatisUtils.getSession();
 
        Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
@@ -283,7 +291,7 @@ public class 测试类名 {
     }
 
     @Test
-    public void 查询数据() {
+    public void 查询指定数据() {
         SqlSession session = MybatisUtils.getSession();
 
         Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
@@ -291,6 +299,21 @@ public class 测试类名 {
 
         session.close();
     }
+
+    @Test
+    public void 多参数传递() {
+        SqlSession session = MybatisUtils.getSession();
+        UserMapper mapper = session.getMapper(Mapper接口名.class);
+
+        HashMap<String, 数据类型> map = new HashMap<String, 数据类型>();
+        map.put("参数1", 值);
+        map.put("参数2", 值);
+
+        System.out.println(mapper.SQL方法名(map));
+
+        session.close();
+    }
+    
 
     @Test
     public void 增加数据() {
@@ -520,9 +543,10 @@ com\example\dao\Mapper名称.xml
 </configuration>
 ```
 
-## LOG4G
+## LOG4j
 
-Log4j 是一个 web 界面，方便用户查看、监控数据库
+Log4j 是Apache的一个开源项目 ，通过使用Log4j, 我们可以控制日志信息输送的目的地是控制台、文件、GUl组件。
+我们也可以控制每一条日志的输出格式，通过定义每一条日志信息的级别， 我们能够更加细致地控制日志的生成过程。通过一个配置文件来灵活地进行配置，而不需要修改应用的代码。
 
 ### 依赖
 
@@ -544,19 +568,22 @@ Log4j 是一个 web 界面，方便用户查看、监控数据库
 ``` properties
 #将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
 log4j.rootLogger=DEBUG,console,file
+
 #控制台输出的相关设置
 log4j.appender.console=org.apache.log4j.ConsoleAppender
 log4j.appender.console.Target=System.out
 log4j.appender.console.Threshold=DEBUG
 log4j.appender.console.layout=org.apache.log4j.PatternLayout
 log4j.appender.console.layout.ConversionPattern=[%c]-%m%n
+
 #文件输出的相关设置
 log4j.appender.file=org.apache.log4j.RollingFileAppender
-log4j.appender.file.File=./log/kuang.log
+log4j.appender.file.File=./log/log4j.log
 log4j.appender.file.MaxFileSize=10mb
 log4j.appender.file.Threshold=DEBUG
 log4j.appender.file.layout=org.apache.log4j.PatternLayout
 log4j.appender.file.layout.conversionPattern=[%p] [%d{yy-MM-dd}] [%c]%m%n
+
 #日志输出级别
 log4j.logger.org.mybatis=DEBUG
 log4j.logger.java.sq1=DEBUG
@@ -576,4 +603,207 @@ log4j.logger.java.sq1.PrepareStatement=DEBUG
         <setting name="logImpl" value="Log4J"></setting>
     </settings>
 </configuration>
+```
+
+### 自定义输出信息
+
+``` Java
+Logger logger = Logger.getLogger(String.valueOf(this));
+
+logger.info("info: ");
+logger.debug("debug: ");
+logger.error("error: ");
+```
+
+## 分页查询
+
+### 使用Limit分页
+
+com\example\dao\Mapper接口名.java
+
+``` Java
+public interface Mapper接口名 {
+    // 分页查询
+    List<返回类型> SQL方法名(Map<String,Integer> map);
+}
+```
+
+com\example\dao\Mapper名称.xml
+
+``` xml
+<select id="SQL方法名" parameterType="Map" resultType="返回值类型">
+    SELECT * FROM 表名 LIMIT #{startIndex},#{pageSize}
+</select>
+```
+
+测试类
+
+``` Java
+@Test
+public void 测试方法名() {
+        SqlSession session = MybatisUtils.getSession();
+        UserMapper mapper = session.getMapper(Mapper接口名.class);
+
+        HashMap<String, 数据类型> map = new HashMap<String, 数据类型>();
+        map.put("startIndex", 0);
+        map.put("pageSize", 2);
+
+        List<返回值类型> userByLimit = mapper.SQL方法名(map);
+        for (返回值类型 item : userByLimit) {
+            System.out.println(item);
+        }
+        session.close();
+}
+```
+
+### 使用RowBounds分页
+
+com\example\dao\Mapper接口名.java
+
+``` Java
+public interface Mapper接口名 {
+    List<返回类型> SQL方法名();
+}
+```
+
+com\example\dao\Mapper名称.xml
+
+``` xml
+<select id="SQL方法名" resultType="返回值类型">
+    SELECT * FROM 表名
+</select>
+```
+
+测试类
+
+``` Java
+@Test
+public void 测试方法名() {
+    SqlSession session = MybatisUtils.getSession();
+
+    RowBounds rowBounds = new RowBounds(1,2);
+
+    //通过Java代码层面实现分页
+    List<返回值类型> userByLimit = session.selectList("com.example.dao.Mapper接口名.SQL方法名",null,rowBounds);
+
+    for (返回值类型 item : userByLimit) {
+        System.out.println(item);
+    }
+    session.close();
+}
+```
+
+## 使用注解开发
+
+使用注解来映射简单语句会使代码显得更加简洁。  
+然而对于稍微复杂-点的语句，Java 注解就力不从心了，并且会显得更加混乱。  
+因此，如果需要完成很复杂的事情，那么最好使用XML来映射语句。
+
+### Mapper接口
+
+::: tip 提示
+关于@Param()注解： 
+ -  基本类型的参数或者String类型,需要加上 
+ - 引用类型不需要加 
+ - 如果只有一个基本类型的话，可以忽略，但是建议都加上 
+ - 我们在SQL中引|用的就是我们这里的@Param()中设定的属性名
+:::
+
+com\example\dao\Mapper接口名.java
+
+``` Java
+public interface Mapper接口名 {
+    //查询所有数据
+    @Select("select * from 表名")
+    List<返回类型> SQL方法名(); 
+    
+    // 查询指定数据
+    @Select("select * from 表名 where 字段名=#{参数名}") 
+    返回类型 SQL方法名(返回类型 参数名);
+
+    // 如方法存在多个参数，所有的参数前面必须加上@Param("id") 注解
+    @Select("select * from user where id = #{id}")
+    返回类型 SQL方法名(@Param("参数名") 数据类型 参数名, @Param("参数名") 数据类型 参数名);
+
+    //增加数据
+    @Insert("insert into 表名(字段名) values(#{参数名})")
+    返回类型 SQL方法名(返回类型 参数名);
+
+    //修改数据
+    @Update("update 表名 set 字段名=#{参数名}")
+    返回类型 SQL方法名(返回类型 参数名);
+
+    //删除数据
+    @Delete("delete from 表名 where id =#{参数名}")
+    返回类型 SQL方法名(返回类型 参数名);
+}
+```
+
+### 绑定类
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <mappers>
+        <mapper class="com.example.dao.Mapper接口名"></mapper>
+    </mappers>
+</configuration>
+```
+
+### 使用
+
+``` Java
+@Test
+public void 查询所有数据() {
+    SqlSession session = MybatisUtils.getSession();
+    Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
+
+    List<返回值类型> userList = mapper.SQL方法名();
+    for (返回值类型 item : userList) {
+        System.out.println(item);
+    }
+    session.close();
+}
+
+
+@Test
+public void 查询指定数据() {
+    SqlSession session = MybatisUtils.getSession();
+    Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
+
+    System.out.println(mapper.SQL方法名(参数));
+
+    session.close();
+}
+
+@Test
+public void 增加数据() {
+    SqlSession session = MybatisUtils.getSession();
+    Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
+
+    System.out.println(mapper.SQL方法名(参数));
+
+    session.close();
+}
+
+@Test
+public void 修改数据() {
+    SqlSession session = MybatisUtils.getSession();
+    Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
+
+    System.out.println(mapper.SQL方法名(参数));
+
+    session.close();
+}
+
+@Test
+public void 删除数据() {
+    SqlSession session = MybatisUtils.getSession();
+    Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
+
+    System.out.println(mapper.SQL方法名(参数));
+
+    session.close();
+}
 ```
