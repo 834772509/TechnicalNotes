@@ -115,6 +115,8 @@ export const 方法名2 = (参数名) => ({
 
 ### 定义 reducer
 
+\src\store\reducer.js
+
 ``` js
 import {
   类型名1,
@@ -193,3 +195,226 @@ export default class Home extends PureComponent {
 ## Redux 流程图
 
 ![Redux流程图](./img/Redux流程图.jpg)
+
+## React-Redux
+
+### 安装
+
+npm: ``npm install react-redux --save``
+
+### 定义Store
+
+* index
+
+\src\store\index.js
+
+``` js
+import { createStore } from 'redux';
+import reducer from './reducer.js';
+
+const store = createStore(reducer);
+
+export default store;
+```
+
+* 定义类型名
+
+\src\store\constants.js
+
+``` js
+export const 类型名1 = "类型名1";
+export const 类型名2 = "类型名2";
+```
+
+* 定义 Action
+
+\src\store\actionCreators.js
+
+``` js
+import {
+  类型名1,
+  类型名2,
+} from './constants.js';
+
+export const 方法名1 = () => ({
+  type: 类型名1,
+})
+
+export const 方法名2 = (参数名) => ({
+  type: 类型名2,
+  参数名
+})
+```
+
+* 定义 reducer
+
+\src\store\reducer.js
+
+``` js
+import {
+  类型名1,
+  类型名2,
+} from './constants.js';
+
+const defaultState = {
+  变量名: 0,
+}
+
+function reducer(state = defaultState, action) {
+  switch (action.type) {
+    case 类型名1:
+      return { ...state, count: state.变量名 + 1 }
+    case 类型名2:
+      return { ...state, count: state.变量名 + action.参数名 }
+    default:
+      return state;
+  }
+}
+
+export default reducer;
+```
+
+### 导入
+
+\src\index.js
+
+``` js
+import { Provider } from 'react-redux'
+import store from './store'
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+```
+
+### 使用
+
+\组件名.js
+
+``` js
+import React from 'react';
+
+import { connect } from 'react-redux';
+import { 方法名1, 方法名2 } from "../store/actionCreators";
+
+
+function 组件名(props) {
+  return (
+    <div>
+      <h2>当前变量: {props.count}</h2>
+      <button onClick={e => props.调用方法1()}>-1</button>
+      <button onClick={e => props.调用方法2(参数)}>-5</button>
+    </div>
+  )
+}
+
+const mapStateToProps = state => {
+  return {
+    变量名: state.变量名
+  }
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    调用方法1: function () {
+      dispatch(方法名1());
+    },
+    调用方法2: function (参数名) {
+      dispatch(方法名2(参数名))
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(组件名);
+```
+
+## Redux 异步操作
+
+redux引入了中间件（Middleware）的概念： 
+  * 这个中间件的目的是在dispatch的action和最终达到的reducer之间，扩展一些自己的代码；
+  * 比如日志记录、调用异步接口、添加代码调试功能等等；
+
+## Redux-thunk
+
+官网推荐的、包括演示的网络请求的中间件是使用 redux-thunk
+
+### 安装
+
+npm: ``npm install redux-thunk --save``
+
+### index
+
+\store\index.js
+
+``` js
+import { createStore, applyMiddleware } from 'redux';
+import reducer from './reducer.js';
+import thunkMiddle from 'redux-thunk'
+
+
+// 应用中间件
+const storeEnhancer = applyMiddleware(thunkMiddle)
+
+const store = createStore(reducer, storeEnhancer);
+
+export default store;
+```
+
+### actionCreators
+
+\store\actionCreators.js
+
+``` js
+import axios from 'axios';
+import {
+  类型名
+} from './constants.js';
+
+export const 方法名 = (参数名) => ({
+  type: 类型名1,
+  参数名
+})
+
+// redux-thunk 中定义的action函数
+export const getHomeMultidata = (dispatch) => {
+  // 此处可进行网络请求，通过 dispatch(方法名(值)) 来设置数据
+}
+```
+
+### 组件
+
+``` js
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import {
+  方法名
+} from '../store/actionCreators'
+
+class 组件名 extends PureComponent {
+  componentDidMount() {
+    this.props.方法名();
+  }
+
+  render() {
+    return (
+      <div>
+      
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  
+})
+
+const mapDispatchToProps = dispatch => ({
+  方法名() {
+    dispatch(方法名);
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(组件名);
+```
