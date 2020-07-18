@@ -966,3 +966,27 @@ confirm("内容")
 //输入框，返回输入的内容
 prompt("内容")
 ```
+
+## Generator
+
+Generator是生成器函数，每一次使用迭代器的next方法便会返回一个新的返回值，直到返回值使用完毕返回undefined
+
+### 定义生成器
+
+``` JavaScript
+function* 生成器函数名() {
+    yield 返回值1;
+    yield 返回值2;
+    yield 返回值3;
+}
+```
+
+### 使用迭代器
+
+调用一次next，就会消耗一次迭代器
+
+``` JavaScript
+const 迭代器 = 生成器函数名();
+console.log(迭代器.next().value);
+console.log(迭代器.next().value);
+```

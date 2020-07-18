@@ -418,3 +418,99 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(组件名);
 ```
+
+## redux-devtools
+
+redux-devtools 是浏览器插件，方便调试
+
+### 安装
+
+redux-devtools
+
+### 使用
+
+\store\index.js
+
+``` js
+import { createStore, applyMiddleware, compose } from 'redux';
+import reducer from './reducer.js';
+
+import thunkMiddle from 'redux-thunk'
+
+// 集成 redux-devtools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true}) || compose;
+
+// 应用中间件
+const storeEnhancer = applyMiddleware(thunkMiddle)
+const store = createStore(reducer, composeEnhancers(storeEnhancer));
+
+export default store;
+```
+
+## Redux-saga
+
+Redux-saga 是第三方的中间件
+
+### 安装
+
+npm: ``npm install redux-saga --save``
+
+### 集成 redux-saga 中间件
+
+``` js
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import reducer from './reducer.js';
+import mySaga from './saga';
+
+// 通过createSagaMiddleware函数来创建saga中间件
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true}) || compose;
+
+// 通过applyMiddleware来结合多个Middleware, 返回一个enhancer
+const enhancer = composeEnhancers(applyMiddleware(thunkMiddleware, sagaMiddleware));
+// 将enhancer作为第二个参数传入到createStore中
+const store = createStore(reducer, enhancer);
+
+// 必须启动saga中间件，并且传入其要监听的generator
+sagaMiddleware.run(mySaga);
+
+export default store;
+```
+
+### saga.js 文件的编写
+
+* takeEvery：可以传入多个监听的 actionType，每一个都可以被执行（对应有一个 takeLastest，会取消前面的）
+* put：在 saga 中派发 action 不再是通过 dispatch，而是通过 put；
+* all：可以在 yield 的时候 put 多个 action；
+
+``` js
+import { takeEvery, put, all } from 'redux-saga/effects';
+import axios from 'axios';
+
+import {
+  FETCH_HOME_MULTIDATA
+} from "./constants";
+import {
+  changeBannersAction,
+  changeRecommendsAction,
+} from './actionCreators';
+
+function* fetchHomeMultidata(action) {
+  const res = yield axios.get("http://123.207.32.32:8000/home/multidata");
+  console.log(res);
+  const data = res.data.data;
+  yield all([
+    put(changeBannersAction(data.banner.list)),
+    put(changeRecommendsAction(data.recommend.list))
+  ])
+}
+
+function* mySaga() {
+  yield takeEvery(FETCH_HOME_MULTIDATA, fetchHomeMultidata)
+}
+
+export default mySaga;
+```
