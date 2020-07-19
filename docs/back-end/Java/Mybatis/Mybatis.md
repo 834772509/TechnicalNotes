@@ -812,6 +812,17 @@ public void 删除数据() {
 
 将数据库中的指定字段转为实体类，本质依然是解决属性名与字段名不一致。
 
+``` Java
+public class Student {
+    private int id;
+    private String name;
+    private int tid;
+    
+    // 学生需要关联一个老师
+    private Teacher teacher;
+}
+```
+
 ### 按照查询嵌套处理
 
 ``` xml
@@ -864,6 +875,32 @@ public void 删除数据() {
 ```
 
 ## 一对多处理
+
+``` Java
+public class Teacher {
+     private int id;
+     private String name;
+     // 一个老师拥有多个学生
+     private List<Student> students;
+}
+```
+
+### 按照查询嵌套处理
+
+``` xml
+<select id="getTeacher2" resultMap="TeacherAndStudent2">
+    select * from teacher where id = #{id}
+</select>
+
+<resultMap id="TeacherAndStudent2" type="Teacher">
+    <collection property="students" javaType="ArrayList" ofType="Student" select="getStudentByTeacherId"
+                column="id"/>
+</resultMap>
+
+<select id="getStudentByTeacherId" resultType="Student">
+    select * FROM student where tid = #{tid}
+</select>
+```
 
 ### 按照结果嵌套处理
 
