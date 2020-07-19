@@ -862,3 +862,25 @@ public void 删除数据() {
     where s.tid = t.id
 </select>
 ```
+
+## 一对多处理
+
+### 按照结果嵌套处理
+
+``` xml
+<select id="getTeacher" resultMap="TeacherAndStudent">
+    SELECT student.id sid,student.name sname,teacher.name tname,teacher.id tid
+    FROM student,teacher
+    WHERE student.tid = teacher.id and teacher.id = #{id}
+</select>
+
+<resultMap id="TeacherAndStudent" type="Teacher">
+    <result property="id" column="tid"></result>
+    <result property="name" column="tname"></result>
+    <collection property="students" ofType="Student">
+        <result property="id" column="sid"></result>
+        <result property="name" column="sname"></result>
+        <result property="tid" column="tid"></result>
+    </collection>
+</resultMap>
+```
