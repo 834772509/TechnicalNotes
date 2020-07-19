@@ -817,7 +817,7 @@ public class Student {
     private int id;
     private String name;
     private int tid;
-    
+
     // 学生需要关联一个老师
     private Teacher teacher;
 }
@@ -920,4 +920,14 @@ public class Teacher {
         <result property="tid" column="tid"></result>
     </collection>
 </resultMap>
+```
+
+## 动态SQL
+
+动态SQL 是根据不同的条件生成不同的SQL语句
+
+### 搭建环境
+
+``` xml
+
 ```
