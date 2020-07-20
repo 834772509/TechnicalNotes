@@ -1011,7 +1011,9 @@ choose,when,otherwise 一般搭配使用，效果类似于switch语句
 </select>
 ```
 
-### SET 标签
+### set 标签
+
+set 元素会动态地在行首插入 SET 关键字，并会删掉额外的逗号
 
 ``` xml
 <update id="SQL方法名" parameterType="map">
@@ -1026,6 +1028,51 @@ choose,when,otherwise 一般搭配使用，效果类似于switch语句
     </set>
     where 字段名 = #{参数名}
 </update>
+```
+
+### SQL 片段
+
+定义SQL片段，在需要时进行复用
+
+**定义**
+
+``` xml
+<sql id="SQL片段名">
+    <!-- 编写SQL（支持动态SQL） -->
+</sql>
+```
+
+**使用**
+
+``` xml
+<select id="SQL片段名">
+    <include refid="SQL片段名"></include>
+</select>
+```
+
+::: tip 提示
+SQL 片段中：
+- 最好基于单表来定义SQL片段
+- 不要存在where标签
+:::
+
+### foreach
+
+foreach 是对集合进行遍历。可以在元素体内使用的集合项（item）和索引（index）变量。也允许指定开头与结尾的字符串以及集合项迭代之间的分隔符。
+
+``` xml
+<select id="SQL方法名" parameterType="参数类型" resultType="返回值类型">
+    select * from 表名
+    <where>
+        <foreach collection="ids" item="id" open="(" separator="or" close=")">
+            字段名 = #{参数名}
+        </foreach>
+    </where>
+</select>
+
+<!-- 
+    最终SQL语句： select * from 表名 WHERE ( 字段名 = ? or 字段名 = ? or 字段名 = ? )
+ -->
 ```
 
 ## 开启驼峰命名
