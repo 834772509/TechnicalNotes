@@ -185,6 +185,11 @@ public class MybatisUtils {
 }
 ```
 
+::: tip 提示
+``sqlSessionFactory.openSession()`` 如填写 ``true`` 参数 可开启自动提交事务  
+默认为 ``false``，即： 增删改 数据 均需要手动提交事务才可生效
+:::
+
 ### 创建实体类
 
 com\example\pojo\实体类名.java
@@ -216,8 +221,10 @@ com\example\dao\Mapper接口名.java
 ``` Java
 public interface Mapper接口名 {
     返回类型 SQL方法名(数据类型 参数名);
-    返回类型 SQL方法名(数据类型 参数名);
+    // 返回列表
+    List<返回类型> SQL方法名(数据类型 参数名);
     // 多参数传递
+    List<返回类型> SQL方法名(Map map);
     List<返回类型> SQL方法名(Map<String,数据类型> map);
 }
 ```
@@ -536,8 +543,8 @@ com\example\dao\Mapper名称.xml
 
 ``` xml
 <configuration>
-    <!--日志-->
     <settings>
+        <!--日志-->
         <setting name="logImpl" value="STDOUT_LOGGING"></setting>
     </settings>
 </configuration>
@@ -924,10 +931,114 @@ public class Teacher {
 
 ## 动态SQL
 
-动态SQL 是根据不同的条件生成不同的SQL语句
+动态SQL 是根据不同的条件生成不同的SQL语句。动态SQL本质依然是SQL语句，但可以在SQL层面执行逻辑代码
 
-### 搭建环境
+### IF语句
+
+IF语句 是根据传入的参数类别和值来查询数据  
+
+\dao\Mapper名.java
+
+``` Java
+public interface Mapper接口名 {
+    // 根据传入的参数类别和值来查询数据
+    List<返回类型> SQL方法名(Map map);
+}
+```
+
+\Mapper名.xml
+
+::: tip 提示
+``where``标签是为了解决 动态SQL语句中 ``where and`` 的语法问题。
+where 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，where 元素也会将它们去除
+:::
 
 ``` xml
+<select id="SQL方法名" parameterType="Map" resultType="返回值类型">
+    select * from 表名
+    <where>
+        <if test="参数名 != null">
+            and 字段名 = #{参数名}
+        </if>
+        <if test="参数名 != null">
+            and 字段名 = #{参数名}
+        </if>
+    </where>
+</select>
+```
 
+测试类
+
+``` Java
+public void SQL方法名(){
+    SqlSession session = MybatisUtils.getSession();
+    Mapper接口名 mapper = session.getMapper(Mapper接口名.class);
+
+    HashMap map = new HashMap();
+    // map.put("title", "微服务");
+    map.put("author", "狂神说");
+
+    List<实体类名> blogs = mapper.SQL方法名(map);
+
+    for (实体类名 item : blogs) {
+        System.out.println(item);
+    }
+}
+```
+
+### choose,when,otherwise
+
+choose,when,otherwise 一般搭配使用，效果类似于switch语句
+
+``` xml
+<select id="SQL方法名" parameterType="Map" resultType="返回值类型">
+    select * from 表名
+    <where>
+        <choose>
+            <when test="参数名 != null">
+                字段名 = #{参数名}
+            </when>
+            <when test="参数名 != null">
+                字段名 = #{参数名}
+            </when>
+            <!-- 其他条件 -->
+            <otherwise>
+                字段名 = #{参数名}
+            </otherwise>
+        </choose>
+    </where>
+
+</select>
+```
+
+### SET 标签
+
+``` xml
+<update id="SQL方法名" parameterType="map">
+    update 表名
+    <set>
+        <if test="参数名 != null">
+            字段名 = #{参数名}
+        </if>
+        <if test="参数名 != null">
+            字段名 = #{参数名}
+        </if>
+    </set>
+    where 字段名 = #{参数名}
+</update>
+```
+
+## 开启驼峰命名
+
+将实体类中的驼峰命名映射到数据库中的 AA_BB 形式  
+
+\src\main\resources\mybatis-config.xml
+
+``` xml
+<configuration>
+    <settings>
+        <!--开启驼峰命名映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"></setting>
+    </settings>
+</configuration>
 ```
