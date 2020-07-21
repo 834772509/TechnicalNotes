@@ -544,7 +544,7 @@ com\example\dao\Mapper名称.xml
 ``` xml
 <configuration>
     <settings>
-        <!--日志-->
+        <!--开启日志-->
         <setting name="logImpl" value="STDOUT_LOGGING"></setting>
     </settings>
 </configuration>
@@ -1088,4 +1088,86 @@ foreach 是对集合进行遍历。可以在元素体内使用的集合项（ite
         <setting name="mapUnderscoreToCamelCase" value="true"></setting>
     </settings>
 </configuration>
+```
+
+## 缓存
+
+MyBatis包含一个非常强大的查询缓存特性， 它可以非常方便地定制和配置缓存。缓存可以极大的提升查询效
+率。
+
+MyBatis系统中默认定义了两级缓存： 一级缓存和二级缓存
+
+* 默认情况下，只有一级缓存开启。(SqISession级别的缓存，也称为本地缓存) 
+* 二级缓存需要手动开启和配置，他是基于namespace级别的缓存。为了提高扩展性，MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来自定义二级缓存
+
+### 基本概念
+
+* 什么是缓存（Cache）?
+  - 存在内存中的临时数据。 
+  - 将用户经常查询的数据放在缓存(内存)中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。
+
+* 为什么使用缓存?
+  - 减少和数据库的交互次数，减少系统开销，提高系统效率。
+
+* 什么样的数据能使用缓存? 
+  - 经常查询并且不经常改变的数据。
+
+### 一级缓存
+
+一级缓存也叫本地缓存。与数据库同一次会话期间查询到的数据会放在本地缓存中。如果之后需要读取相同的数据，直接从缓存中读取，不需要再去查询数据库
+
+::: tip 提示
+一级缓存默认开启，只在一次SqlSession中有效
+:::
+
+缓存失效情况：
+
+1. 查询不同的东西
+2. 增删改操作，可能会改变原来的数据，所以必定会刷新缓存
+3. 查询不同的Mapper.xml
+4. 手动清理缓存
+
+### 二级缓存
+
+二级缓存也叫全局缓存，一级缓存作用域太低故诞生了二级缓存。  
+二级缓存基于namespace级别的缓存，一个名称空间即对应一个二级缓存。
+
+二级缓存工作机制： 
+ - 新的会话查询信息，可以从二级缓存中获取内容，一级缓存中的数据被保存到二级缓存中
+ - 不同的mapper查出的数据会放在自己对应的缓存(map)中
+
+::: tip 提示
+二级缓存是事务性的。当Sq|Session完成并提交时，或是完成并回滚，但没有执行flushCache=true的insert/delete/update语句时，缓存会获得更新
+:::
+
+1. 开启全局二级缓存
+
+mybatis-config.xml
+
+``` xml
+<configuration>
+    <settings>
+        <!--开启全局二级缓存-->
+        <setting name="cacheEnabled" value="true"></setting>
+    </settings>
+</configuration>
+```
+
+2. 在Mapper中开启缓存
+
+Mapper名.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuang.dao.UserMapper">
+    <!-- 开启当前xml中使用二级缓存 -->
+    <cache
+        eviction="FIFO"
+        flushInterval="60000"
+        size="512"
+        readOnly="true"/>
+</mapper>
 ```
