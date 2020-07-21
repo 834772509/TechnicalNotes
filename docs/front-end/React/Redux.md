@@ -3,7 +3,7 @@
 Redux 就是一个帮助我们管理 State 的容器：Redux 是 JavaScript 的状态容器，提供了可预测的状态管理  
 Redux 除了和 React 一起使用之外，它也可以和其他界面库一起来使用（比如 Vue），并且它非常小（包括依赖在内，只有 2kb）
 
-## 简介
+## 基本概念
 
 ### 为什么需要redux
 
@@ -64,6 +64,10 @@ Redux 要求我们通过 action 来更新数据：
 通过 reducer 将 旧state和 actions联系在一起，并且返回一个新的 State：
   * 随着应用程序的复杂度增加，我们可以将 reducer 拆分成多个小的 reducers，分别操作不同 state tree 的一部分；
   * 但是所有的 reducer 都应该是纯函数，不能产生任何的副作用；
+
+### 单向数据流
+
+单向数据流指的是通过props进行数据的传递，Vue和React中组件内部都有单向数据流的概念
 
 ## 安装
 
@@ -197,6 +201,8 @@ export default class Home extends PureComponent {
 ![Redux流程图](./img/Redux流程图.jpg)
 
 ## React-Redux
+
+React-Redux 是Redux推出的适用于React的state状态管理
 
 ### 安装
 
@@ -449,7 +455,7 @@ export default store;
 
 ## Redux-saga
 
-Redux-saga 是第三方的中间件
+Redux-saga 是另一个比较常用在redux发送异步请求的中间件，它的使用更加的灵活
 
 ### 安装
 
@@ -514,3 +520,11 @@ function* mySaga() {
 
 export default mySaga;
 ```
+
+## React中的state如何管理
+
+React中的state管理方案没有一个正确的答案，以下为建议的管理方案：
+
+* UI相关的组件内部可以维护的状态，在组件内部自己来维护
+* 大部分需要共享的状态，都交给redux来管理和维护
+* 从服务器请求的数据（包括请求的操作），交给redux来维护
