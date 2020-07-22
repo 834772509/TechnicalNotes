@@ -1,46 +1,49 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>JDBC | 杉-技术笔记</title>
-    <meta name="description" content="">
-    <meta name="generator" content="VuePress 1.3.0">
+    <meta name="description" content="记录工作和学习过程中的笔记">
     <link rel="icon" href="/technicalnotes/img/LOGO.ico">
     
-    <link rel="preload" href="/technicalnotes/assets/css/0.styles.8c110f0b.css" as="style"><link rel="preload" href="/technicalnotes/assets/js/app.5e8d919f.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/2.01ff7d60.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/35.6a60741b.js" as="script"><link rel="prefetch" href="/technicalnotes/assets/js/10.a35caed5.js"><link rel="prefetch" href="/technicalnotes/assets/js/11.1074526d.js"><link rel="prefetch" href="/technicalnotes/assets/js/12.1c235abe.js"><link rel="prefetch" href="/technicalnotes/assets/js/13.07ced036.js"><link rel="prefetch" href="/technicalnotes/assets/js/14.2921a9b7.js"><link rel="prefetch" href="/technicalnotes/assets/js/15.e5e43b58.js"><link rel="prefetch" href="/technicalnotes/assets/js/16.ee22e83d.js"><link rel="prefetch" href="/technicalnotes/assets/js/17.516aa510.js"><link rel="prefetch" href="/technicalnotes/assets/js/18.9722ac5c.js"><link rel="prefetch" href="/technicalnotes/assets/js/19.f0caf3ff.js"><link rel="prefetch" href="/technicalnotes/assets/js/20.93aad701.js"><link rel="prefetch" href="/technicalnotes/assets/js/21.33edaa63.js"><link rel="prefetch" href="/technicalnotes/assets/js/22.ed2857ba.js"><link rel="prefetch" href="/technicalnotes/assets/js/23.dee2f5b8.js"><link rel="prefetch" href="/technicalnotes/assets/js/24.6301be85.js"><link rel="prefetch" href="/technicalnotes/assets/js/25.0e63efd0.js"><link rel="prefetch" href="/technicalnotes/assets/js/26.b5622973.js"><link rel="prefetch" href="/technicalnotes/assets/js/27.d48b7b24.js"><link rel="prefetch" href="/technicalnotes/assets/js/28.c775986c.js"><link rel="prefetch" href="/technicalnotes/assets/js/29.f90c6d06.js"><link rel="prefetch" href="/technicalnotes/assets/js/3.832613b4.js"><link rel="prefetch" href="/technicalnotes/assets/js/30.970bafb4.js"><link rel="prefetch" href="/technicalnotes/assets/js/31.27f7db32.js"><link rel="prefetch" href="/technicalnotes/assets/js/32.a44b2e9a.js"><link rel="prefetch" href="/technicalnotes/assets/js/33.40151b7a.js"><link rel="prefetch" href="/technicalnotes/assets/js/34.d5b08ae6.js"><link rel="prefetch" href="/technicalnotes/assets/js/36.021d5aa8.js"><link rel="prefetch" href="/technicalnotes/assets/js/37.3a2ac210.js"><link rel="prefetch" href="/technicalnotes/assets/js/38.700b2ee4.js"><link rel="prefetch" href="/technicalnotes/assets/js/39.1496dc60.js"><link rel="prefetch" href="/technicalnotes/assets/js/4.d7449b2e.js"><link rel="prefetch" href="/technicalnotes/assets/js/40.c1b70c48.js"><link rel="prefetch" href="/technicalnotes/assets/js/41.624f1c59.js"><link rel="prefetch" href="/technicalnotes/assets/js/42.7dbc0adf.js"><link rel="prefetch" href="/technicalnotes/assets/js/43.36c4d992.js"><link rel="prefetch" href="/technicalnotes/assets/js/44.95a5217f.js"><link rel="prefetch" href="/technicalnotes/assets/js/45.87738407.js"><link rel="prefetch" href="/technicalnotes/assets/js/46.29c6c8be.js"><link rel="prefetch" href="/technicalnotes/assets/js/47.39b6d168.js"><link rel="prefetch" href="/technicalnotes/assets/js/48.362acb05.js"><link rel="prefetch" href="/technicalnotes/assets/js/49.8ea0d420.js"><link rel="prefetch" href="/technicalnotes/assets/js/5.18f131bb.js"><link rel="prefetch" href="/technicalnotes/assets/js/50.02092ee0.js"><link rel="prefetch" href="/technicalnotes/assets/js/51.59d56674.js"><link rel="prefetch" href="/technicalnotes/assets/js/52.043430a8.js"><link rel="prefetch" href="/technicalnotes/assets/js/53.51453252.js"><link rel="prefetch" href="/technicalnotes/assets/js/54.5d5c9452.js"><link rel="prefetch" href="/technicalnotes/assets/js/55.3312f4b0.js"><link rel="prefetch" href="/technicalnotes/assets/js/56.cabab0c6.js"><link rel="prefetch" href="/technicalnotes/assets/js/57.1f53293f.js"><link rel="prefetch" href="/technicalnotes/assets/js/58.a535a003.js"><link rel="prefetch" href="/technicalnotes/assets/js/59.5de12d42.js"><link rel="prefetch" href="/technicalnotes/assets/js/6.0c890069.js"><link rel="prefetch" href="/technicalnotes/assets/js/60.8ed2686a.js"><link rel="prefetch" href="/technicalnotes/assets/js/61.d18e276c.js"><link rel="prefetch" href="/technicalnotes/assets/js/62.11e63fcf.js"><link rel="prefetch" href="/technicalnotes/assets/js/63.e2cd3033.js"><link rel="prefetch" href="/technicalnotes/assets/js/64.03472d98.js"><link rel="prefetch" href="/technicalnotes/assets/js/65.a3e0e271.js"><link rel="prefetch" href="/technicalnotes/assets/js/66.d13d0a9c.js"><link rel="prefetch" href="/technicalnotes/assets/js/67.04c39cc2.js"><link rel="prefetch" href="/technicalnotes/assets/js/68.0cadad2b.js"><link rel="prefetch" href="/technicalnotes/assets/js/69.8fa1debc.js"><link rel="prefetch" href="/technicalnotes/assets/js/7.8c20b599.js"><link rel="prefetch" href="/technicalnotes/assets/js/70.6918e87c.js"><link rel="prefetch" href="/technicalnotes/assets/js/71.4e007597.js"><link rel="prefetch" href="/technicalnotes/assets/js/72.796fb1a2.js"><link rel="prefetch" href="/technicalnotes/assets/js/73.66bbae60.js"><link rel="prefetch" href="/technicalnotes/assets/js/74.97b56498.js"><link rel="prefetch" href="/technicalnotes/assets/js/8.ecf42a16.js"><link rel="prefetch" href="/technicalnotes/assets/js/9.7ecb635c.js">
-    <link rel="stylesheet" href="/technicalnotes/assets/css/0.styles.8c110f0b.css">
+    <link rel="preload" href="/technicalnotes/assets/css/0.styles.d0ef81bb.css" as="style"><link rel="preload" href="/technicalnotes/assets/js/app.3f8a2c39.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/2.ba159fa0.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/35.f7e0f7f3.js" as="script"><link rel="prefetch" href="/technicalnotes/assets/js/10.70e8efb9.js"><link rel="prefetch" href="/technicalnotes/assets/js/11.91d50c20.js"><link rel="prefetch" href="/technicalnotes/assets/js/12.6ff2ce44.js"><link rel="prefetch" href="/technicalnotes/assets/js/13.a8c8c205.js"><link rel="prefetch" href="/technicalnotes/assets/js/14.b942728b.js"><link rel="prefetch" href="/technicalnotes/assets/js/15.84a5ae29.js"><link rel="prefetch" href="/technicalnotes/assets/js/16.a9ad2c8c.js"><link rel="prefetch" href="/technicalnotes/assets/js/17.1b643d60.js"><link rel="prefetch" href="/technicalnotes/assets/js/18.3f8e8dd9.js"><link rel="prefetch" href="/technicalnotes/assets/js/19.3949f0eb.js"><link rel="prefetch" href="/technicalnotes/assets/js/20.468bee42.js"><link rel="prefetch" href="/technicalnotes/assets/js/21.66fb80b9.js"><link rel="prefetch" href="/technicalnotes/assets/js/22.6f1e6980.js"><link rel="prefetch" href="/technicalnotes/assets/js/23.b556ef21.js"><link rel="prefetch" href="/technicalnotes/assets/js/24.a4676552.js"><link rel="prefetch" href="/technicalnotes/assets/js/25.38303a57.js"><link rel="prefetch" href="/technicalnotes/assets/js/26.e8ae9b95.js"><link rel="prefetch" href="/technicalnotes/assets/js/27.388a274a.js"><link rel="prefetch" href="/technicalnotes/assets/js/28.4bf71d52.js"><link rel="prefetch" href="/technicalnotes/assets/js/29.bd45f8b4.js"><link rel="prefetch" href="/technicalnotes/assets/js/3.3927a9cc.js"><link rel="prefetch" href="/technicalnotes/assets/js/30.b5e0b2e7.js"><link rel="prefetch" href="/technicalnotes/assets/js/31.17816c54.js"><link rel="prefetch" href="/technicalnotes/assets/js/32.9d775a41.js"><link rel="prefetch" href="/technicalnotes/assets/js/33.10133536.js"><link rel="prefetch" href="/technicalnotes/assets/js/34.aa119001.js"><link rel="prefetch" href="/technicalnotes/assets/js/36.0f6fdd3e.js"><link rel="prefetch" href="/technicalnotes/assets/js/37.700032a4.js"><link rel="prefetch" href="/technicalnotes/assets/js/38.2c86240e.js"><link rel="prefetch" href="/technicalnotes/assets/js/39.f12b3421.js"><link rel="prefetch" href="/technicalnotes/assets/js/4.26453478.js"><link rel="prefetch" href="/technicalnotes/assets/js/40.a1046a8a.js"><link rel="prefetch" href="/technicalnotes/assets/js/41.190208b6.js"><link rel="prefetch" href="/technicalnotes/assets/js/42.a018e80a.js"><link rel="prefetch" href="/technicalnotes/assets/js/43.8c9436f0.js"><link rel="prefetch" href="/technicalnotes/assets/js/44.46a35d79.js"><link rel="prefetch" href="/technicalnotes/assets/js/45.86dd49eb.js"><link rel="prefetch" href="/technicalnotes/assets/js/46.5fe4b596.js"><link rel="prefetch" href="/technicalnotes/assets/js/47.5bf3502f.js"><link rel="prefetch" href="/technicalnotes/assets/js/48.5c62977d.js"><link rel="prefetch" href="/technicalnotes/assets/js/49.8bffa7c7.js"><link rel="prefetch" href="/technicalnotes/assets/js/5.0efd85b9.js"><link rel="prefetch" href="/technicalnotes/assets/js/50.386b0701.js"><link rel="prefetch" href="/technicalnotes/assets/js/51.71bf67c7.js"><link rel="prefetch" href="/technicalnotes/assets/js/52.a7cea167.js"><link rel="prefetch" href="/technicalnotes/assets/js/53.be6b50bd.js"><link rel="prefetch" href="/technicalnotes/assets/js/54.39993de0.js"><link rel="prefetch" href="/technicalnotes/assets/js/55.6386dba9.js"><link rel="prefetch" href="/technicalnotes/assets/js/56.26176e5a.js"><link rel="prefetch" href="/technicalnotes/assets/js/57.fb446403.js"><link rel="prefetch" href="/technicalnotes/assets/js/58.36672980.js"><link rel="prefetch" href="/technicalnotes/assets/js/59.fae380a8.js"><link rel="prefetch" href="/technicalnotes/assets/js/6.f44e22d0.js"><link rel="prefetch" href="/technicalnotes/assets/js/60.2b646d86.js"><link rel="prefetch" href="/technicalnotes/assets/js/61.fe9eb91d.js"><link rel="prefetch" href="/technicalnotes/assets/js/62.85f2c941.js"><link rel="prefetch" href="/technicalnotes/assets/js/63.3f41f177.js"><link rel="prefetch" href="/technicalnotes/assets/js/64.77f0335b.js"><link rel="prefetch" href="/technicalnotes/assets/js/65.07a9991d.js"><link rel="prefetch" href="/technicalnotes/assets/js/66.11cbd4f2.js"><link rel="prefetch" href="/technicalnotes/assets/js/67.068d7812.js"><link rel="prefetch" href="/technicalnotes/assets/js/68.8fe2c860.js"><link rel="prefetch" href="/technicalnotes/assets/js/69.d6b0c50a.js"><link rel="prefetch" href="/technicalnotes/assets/js/7.4d3672fc.js"><link rel="prefetch" href="/technicalnotes/assets/js/70.8d889723.js"><link rel="prefetch" href="/technicalnotes/assets/js/71.4deaae88.js"><link rel="prefetch" href="/technicalnotes/assets/js/72.75b6e48c.js"><link rel="prefetch" href="/technicalnotes/assets/js/73.645b499c.js"><link rel="prefetch" href="/technicalnotes/assets/js/74.d7daae7c.js"><link rel="prefetch" href="/technicalnotes/assets/js/75.b1bde199.js"><link rel="prefetch" href="/technicalnotes/assets/js/76.3db3a3e2.js"><link rel="prefetch" href="/technicalnotes/assets/js/8.0e272adb.js"><link rel="prefetch" href="/technicalnotes/assets/js/9.89e52890.js">
+    <link rel="stylesheet" href="/technicalnotes/assets/css/0.styles.d0ef81bb.css">
   </head>
   <body>
     <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><!----></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/technicalnotes/" class="home-link router-link-active"><!----> <span class="site-name">杉-技术笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
   首页
 </a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Andorid/" class="nav-link">
   Andorid
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Flutter/" class="nav-link">
   Flutter
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/HTML5/" class="nav-link">
   HTML5
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
   JavaScript
-</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
-  Vue
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/React/" class="nav-link">
   React
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Webpack/" class="nav-link">
   Webpack
-</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
-  Electron
 </a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Java/" class="nav-link">
-  Java
+  Java 基础
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/JavaWeb/" class="nav-link">
   JavaWeb
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Mybatis/" class="nav-link">
+  Mybatis
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Spring/" class="nav-link">
   Spring
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringMVC/" class="nav-link">
+  SpringMVC
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringBoot/" class="nav-link router-link-active">
   SpringBoot
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Python/" class="nav-link">
   Python
-</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SQL/" class="nav-link">
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/DataBase/" class="nav-link">
   SQL数据库
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/PHP/" class="nav-link">
   PHP
@@ -56,31 +59,35 @@
   首页
 </a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Andorid/" class="nav-link">
   Andorid
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Flutter/" class="nav-link">
   Flutter
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/HTML5/" class="nav-link">
   HTML5
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
   JavaScript
-</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
-  Vue
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/React/" class="nav-link">
   React
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Webpack/" class="nav-link">
   Webpack
-</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/front-end/Electron/" class="nav-link">
-  Electron
 </a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Java/" class="nav-link">
-  Java
+  Java 基础
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/JavaWeb/" class="nav-link">
   JavaWeb
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Mybatis/" class="nav-link">
+  Mybatis
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Spring/" class="nav-link">
   Spring
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringMVC/" class="nav-link">
+  SpringMVC
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SpringBoot/" class="nav-link router-link-active">
   SpringBoot
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/Python/" class="nav-link">
   Python
-</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/SQL/" class="nav-link">
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/DataBase/" class="nav-link">
   SQL数据库
 </a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/back-end/PHP/" class="nav-link">
   PHP
@@ -155,6 +162,6 @@
     </span></p></div> </main></div> <div class="footer" data-v-c54358c4><div id="footer-info" data-v-c54358c4><div class="footer-left" data-v-c54358c4>
       © 2020
       <!----></div> <div class="footer-right" data-v-c54358c4>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <!----></div></main><div class="global-ui"><!----></div></div>
-    <script src="/technicalnotes/assets/js/app.5e8d919f.js" defer></script><script src="/technicalnotes/assets/js/2.01ff7d60.js" defer></script><script src="/technicalnotes/assets/js/35.6a60741b.js" defer></script>
+    <script src="/technicalnotes/assets/js/app.3f8a2c39.js" defer></script><script src="/technicalnotes/assets/js/2.ba159fa0.js" defer></script><script src="/technicalnotes/assets/js/35.f7e0f7f3.js" defer></script>
   </body>
 </html>

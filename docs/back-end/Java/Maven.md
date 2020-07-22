@@ -29,3 +29,61 @@ maven\conf\settings.xml
 ``` XML
 <localRepository>绝对路径\\Maven\\LocalWarehouse</localRepository>
 ```
+
+## 使用
+
+### 导入Maven库
+
+::: tip 提示
+Maven库可在 [Maven 存储库](https://mvnrepository.com/) 中寻找并导入
+:::
+
+\pom.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <dependencies>
+        <dependency>
+            <groupId>项目组织唯一标识符</groupId>
+            <artifactId>项目唯一标识符</artifactId>
+            <version>版本号</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+### 解决静态资源导出失败
+
+\pom.xml
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--解决静态资源导出失败-->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>
+```
