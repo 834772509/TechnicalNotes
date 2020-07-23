@@ -116,3 +116,18 @@ class App extends PureComponent {
 }
 export default App;
 ```
+
+## Link 标签
+
+Link 标签 会自动渲染为a标签
+
+``` js
+<Link to="/路径">链接</Link>
+```
+
+## NavLink 标签
+
+``` js
+<NavLink exact to="/路径" activeStyle={{color: "red"}}>{item.title}</NavLink>
+```
+
