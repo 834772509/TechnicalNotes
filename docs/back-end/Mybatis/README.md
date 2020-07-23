@@ -385,6 +385,7 @@ public class 测试类名 {
 
 ``` xml
 <configuration>
+    <!-- 设置类型别名 -->
     <typeAliases>
         <typeAlias type="com.example.pojo.实体类名" alias="实体类名"></typeAlias>
     </typeAliases>
@@ -408,6 +409,7 @@ public class 测试类名 {
 
 ``` xml
 <configuration>
+    <!-- 设置类型别名 -->
     <typeAliases>
         <package name="com.example.pojo"/>
     </typeAliases>

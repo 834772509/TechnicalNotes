@@ -1,7 +1,7 @@
 # JDBC
 
 :::tip  
-MySQL: [数据库的介绍](http://fir834772509.gitee.io/technicalnotes/back-end/SQL/)  
+MySQL: [数据库的介绍](http://fir834772509.gitee.io/technicalnotes/back-end/DataBase/)  
 :::
 
 ## 创建连接
