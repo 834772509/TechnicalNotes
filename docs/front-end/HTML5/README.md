@@ -6,6 +6,7 @@
 
 * Live Server : 实时更新修改后的网页
 * TabNine : 更好的代码提示
+* Prettier - Code formatter : 更好的格式化代码
 * vscode-icons : 图标插件
 * emmit(内置) : 快速生成代码
 * htmltagwrap : 自动闭合HTML标签
