@@ -315,12 +315,20 @@ state 方式传参，一般用于传递多个参数
 
 **传递参数：**
 
+标签路由跳转
+
 ```js
 const 参数名 = {
   键: 值,
 }
 
 <NavLink to={{ pathname: "/路径", state: 参数 }}>标题</NavLink>
+```
+
+手动路由跳转
+
+```js
+this.props.history.push({ pathname: "/路径", state: 参数 });
 ```
 
 **接收参数：**
