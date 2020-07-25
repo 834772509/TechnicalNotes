@@ -283,11 +283,19 @@ export default withRouter(App);
 
 动态路由：路由中的路径并不会固定，用于路由传参
 
+###
+
+适合传递简单的参数（如 id 等）
+
+**传递参数：**
+
 \src\App.js
 
 ```js
 <Route path="/路径/:参数" component={组件名}></Route>
 ```
+
+**接收参数：**
 
 ```js
 class 组件名 extends PureComponent {
@@ -300,3 +308,130 @@ class 组件名 extends PureComponent {
   }
 }
 ```
+
+### state 方式
+
+state 方式传参，一般用于传递多个参数
+
+**传递参数：**
+
+```js
+const 参数名 = {
+  键: 值,
+}
+
+<NavLink to={{ pathname: "/路径", state: 参数 }}>标题</NavLink>
+```
+
+**接收参数：**
+
+```js
+class Detail3 extends PureComponent {
+  render() {
+    const location = this.props.location;
+    return (
+      <div>
+        <h2>{location.state.参数名}</h2>
+      </div>
+    );
+  }
+}
+```
+
+### search 方式（不推荐）
+
+search 方式传参，需要自己或使用第三方库来分割键值对
+
+**传递参数：**
+
+```js
+<Link to={`/路径?参数名=值&参数名=值`}>标题</Link>
+```
+
+**接收参数：**
+
+```js
+class 组件名 extends PureComponent {
+  render() {
+    return (
+      <div>
+        <h2>{this.props.location.search}</h2>
+      </div>
+    );
+  }
+}
+```
+
+## Router-config
+
+Router-config 用来统一路由的配置
+
+### 安装
+
+`npm install react-router-config --save`
+
+### 使用
+
+\src\router\index.js
+
+```js
+const routes = [
+  {
+    path: "/",
+    exact: true,
+    component: 组件名,
+  },
+  {
+    path: "/路径",
+    component: 组件名,
+  },
+  {
+    path: "/路径",
+    component: 组件名,
+    // 配置子路由
+    routes: [
+      {
+        path: "/路径",
+        exact: true,
+        component: 组件名,
+      },
+      {
+        path: "/路径/路径",
+        component: 组件名,
+      },
+    ],
+  },
+];
+
+export default routes;
+```
+
+\src\App.js
+
+```js
+import { renderRoutes } from "react-router-config";
+import routes from "./router";
+
+class App extends PureComponent {
+  render() {
+    return (
+      <div>
+        <NavLink exact to="/">
+          标题
+        </NavLink>
+        <NavLink to="/路径">标题</NavLink>
+        <NavLink to="/路径">标题</NavLink>
+
+        {/* 路由占位 */}
+        {renderRoutes(routes)}
+      </div>
+    );
+  }
+}
+
+export default withRouter(App);
+```
+
+::: tip 提示
+子路由占位可使用 `{renderRoutes(this.props.route.routes)}`
+:::
