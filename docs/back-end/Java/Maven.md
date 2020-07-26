@@ -26,6 +26,10 @@ maven\conf\settings.xml
 
 ### 配置本地仓库
 
+::: tip 提示
+默认本地仓库路径为：`\Users\用户名\.m2`目录
+:::
+
 ``` XML
 <localRepository>绝对路径\\Maven\\LocalWarehouse</localRepository>
 ```
