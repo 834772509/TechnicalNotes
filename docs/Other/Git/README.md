@@ -2,6 +2,15 @@
 
 ## 环境搭建
 
+### 安装
+
+::: tip 提示
+Git 官网 在国内下载有难度，建议使用阿里云镜像下载
+:::
+
+[Git 官网](https://git-scm.com/)  
+[Git 阿里云镜像下载](https://npm.taobao.org/mirrors/git-for-windows)
+
 ### 配置环境变量
 
 ```\PortableGit\cmd```
@@ -27,7 +36,7 @@ cd /d 项目目录
 git init
 git add .
 git commit -m "首次提交"
-git remote add origin "Git路径"  
+git remote add origin "Git路径"
 git pull --rebase origin master
 ```
 
@@ -41,6 +50,16 @@ git clone URL
 
 ``` cmd
 git pull
+```
+
+### 放弃本地修改 强制拉取
+
+``` cmd
+// 下载远程仓库最新内容，不做合并
+git fetch --all
+// 把 HEAD 指向 master 最新版本
+git reset --hard origin/master
+git pull //可以省略
 ```
 
 ## 推送Git

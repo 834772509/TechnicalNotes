@@ -18,6 +18,10 @@ Spring MVC 是 Spring Framework 的一部分，是基于 Java 实现 MVC 的轻�
 
 ### SpringMVC
 
+::: tip 提示
+SpringMVC 发、的本质依然是 Servlelt
+:::
+
 SpringMVC 是一种基于 Java 实现的 MVC 设计模型的请求驱动类型的轻量级 WEB 框架。  
 Spring MVC 属于 SpringFrameWork 的后续产品，已经融合在 Spring Web Flow 里面。Spring 框架提供了构建 Web 应用程序的全功能 MVC 模块。  
 使用 Spring 可插入的 MVC 架构，从而在使用 Spring 进行 WEB 开发时，可以选择使用 Spring 的 SpringMVC 框架或集成其他 MVC 开发框架，如 Struts1(现在一般不用)，Struts2 等。
@@ -35,7 +39,7 @@ Spring MVC 属于 SpringFrameWork 的后续产品，已经融合在 Spring Web F
 
 ### 导入依赖
 
-``` xml
+```xml
 <!-- SpringMVC -->
 <dependency>
     <groupId>org.springframework</groupId>
