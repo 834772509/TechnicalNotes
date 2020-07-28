@@ -83,12 +83,72 @@ export default function MulutState() {
 
 ### 修改数据
 
-``` js
+```js
 // 修改普通数据
-set变量名(值)
+set变量名(值);
 
 // 改变数组内Object的值
 const Object = [...变量名];
 Object[index].键 = 值;
 set变量名(Object);
 ```
+
+### 多个useState合并
+
+当执行多个同一useState时，React 会将多个 state 进行合并
+
+```js
+setCount(count + 10);
+setCount(count + 10);
+setCount(count + 10);
+setCount(count + 10);
+
+// count默认值为0，当执行以上代码后，count值为10
+```
+
+解决方案：
+
+```js
+setCount((prevCount) => prevCount + 10);
+setCount((prevCount) => prevCount + 10);
+setCount((prevCount) => prevCount + 10);
+setCount((prevCount) => prevCount + 10);
+```
+
+## Effect Hook
+
+Effect Hook 可以让完成一些类似于 class 中生命周期的功能；
+事实上，类似于网络请求、手动更新 DOM、一些事件的监听，都是 React 更新 DOM 的一些副作用（Side Effects）；
+所以对于完成这些功能的 Hook 被称之为 Effect Hook；
+
+::: tip 提示
+useEffect的第二个参数表示依赖的变量，只有当依赖的变量发生改变时才调用此Hook。  
+如果不传值，则DOM重新渲染时会重新调用此Hook。传递空数组则表示只执行一次
+:::
+
+``` js
+import React, { useEffect } from "react";
+
+
+useEffect(() => {
+  // 修改DOM
+});
+
+useEffect(() => {
+  // 修改DOM（只有当依赖的变量发生改变时才调用此Hook）
+},[依赖变量1,依赖变量2]);
+
+useEffect(() => {
+  // 订阅事件
+
+  return () => {
+    // 取消订阅事件
+  };
+}, []);
+
+useEffect(() => {
+  // 网络请求
+}, []);
+```
+
+## useContext
