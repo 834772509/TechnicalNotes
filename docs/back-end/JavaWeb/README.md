@@ -18,7 +18,10 @@
 
 ### 解决中文乱码问题
 
-Idea：文件-设置-构建、执行、部署-编译器-Java编译器-附加命令行参数： `` -encoding utf-8 ``
+Idea：
+
+1. 文件-设置-构建、执行、部署-编译器-Java编译器-附加命令行参数： `` -encoding utf-8 ``
+2. idea64.exe.vmoptions : 末尾加上 `-Dfile.encoding=UTF-8`
 Tomcat 运行配置：虚拟机选项： `` -Dfile.encoding=UTF-8 `` 
 
 ## 脚本元素
