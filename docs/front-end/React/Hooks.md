@@ -93,9 +93,9 @@ Object[index].键 = 值;
 set变量名(Object);
 ```
 
-### 多个useState合并
+### 多个 useState 合并
 
-当执行多个同一useState时，React 会将多个 state 进行合并
+当执行多个同一 useState 时，React 会将多个 state 进行合并
 
 ```js
 setCount(count + 10);
@@ -122,13 +122,12 @@ Effect Hook 可以让完成一些类似于 class 中生命周期的功能；
 所以对于完成这些功能的 Hook 被称之为 Effect Hook；
 
 ::: tip 提示
-useEffect的第二个参数表示依赖的变量，只有当依赖的变量发生改变时才调用此Hook。  
-如果不传值，则DOM重新渲染时会重新调用此Hook。传递空数组则表示只执行一次
+useEffect 的第二个参数表示依赖的变量，只有当依赖的变量发生改变时才调用此 Hook。  
+如果不传值，则 DOM 重新渲染时会重新调用此 Hook。传递空数组则表示只执行一次
 :::
 
-``` js
+```js
 import React, { useEffect } from "react";
-
 
 useEffect(() => {
   // 修改DOM
@@ -136,7 +135,7 @@ useEffect(() => {
 
 useEffect(() => {
   // 修改DOM（只有当依赖的变量发生改变时才调用此Hook）
-},[依赖变量1,依赖变量2]);
+}, [依赖变量1, 依赖变量2]);
 
 useEffect(() => {
   // 订阅事件
@@ -151,4 +150,152 @@ useEffect(() => {
 }, []);
 ```
 
-## useContext
+## 跨组件传参
+
+```js
+import React, { createContext } from "react";
+
+export const Context名 = createContext();
+
+function App() {
+  return (
+    <div>
+      <Context名.Provider value={{ 变量名: 值 }}>
+        <传参组件名></传参组件名>
+      </Context名.Provider>
+    </div>
+  );
+}
+```
+
+```js
+import React, { useContext } from "react";
+import { Context名 } from "../App";
+
+export default function 传参组件名() {
+  const Context别名 = useContext(Context名);
+  console.log(Context别名);
+
+  return (
+    <div>
+      <h2>{Context别名.变量名}</h2>
+    </div>
+  );
+}
+```
+
+## useReducer
+
+useReducer 仅仅是 useState 的一种替代方案，并不能替代 Redux：
+
+- 在某些场景下，如果 state 的处理逻辑比较复杂，我们可以通过 useReducer 来对其进行拆分；
+- 或者这次修改的 state 需要依赖之前的 state 时，也可以使用；
+- **数据不会共享**，它们只是使用了相同的 counterReducer 的函数而已。
+
+```js
+import React, { useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "类型名1":
+      return { ...state, 变量名: state.变量名 + 1 };
+    case "类型名2":
+      return { ...state, 变量名: state.变量名 - 1 };
+    default:
+      return state;
+  }
+}
+
+export default function Home() {
+  const [state, dispatch] = useReducer(reducer, { 变量名: 默认值 });
+
+  return (
+    <div>
+      <h2>{state.变量名}</h2>
+      <button onClick={(e) => dispatch({ type: "类型名1" })}>+1</button>
+      <button onClick={(e) => dispatch({ type: "类型名2" })}>-1</button>
+    </div>
+  );
+}
+```
+
+## useCallback
+
+useCallback 实际的目的是为了进行性能的优化：
+
+- useCallback 会返回一个函数的 memoized（记忆的） 值；
+- 在依赖不变的情况下，多次定义的时候，返回的值是相同的；
+
+::: tip 提示
+使用场景：在将一个组件中的函数，传递给子元素进行回调使用时，使用 useCallback 对函数进行处理
+:::
+
+```js
+import React, { useState, useCallback, memo } from "react";
+
+const HYButton = memo((props) => {
+  console.log("HYButton 重新渲染");
+  return <button onClick={props.incremt}>HYButton +1</button>;
+});
+
+export default function CallbackHookDemo01() {
+  console.log("CallbackHookDemo01 重新渲染");
+
+  const [count, setCount] = useState(0);
+  const [show, setShow] = useState(true);
+
+  const incremt1 = () => {
+    console.log("执行incremt1函数");
+    setCount(count + 1);
+  };
+
+  const incremt2 = useCallback(() => {
+    console.log("执行incremt2函数");
+    setCount(count + 1);
+  }, [count]);
+
+  return (
+    <div>
+      <h2>{count}</h2>
+      <HYButton incremt={incremt1}></HYButton>
+      <HYButton incremt={incremt2}></HYButton>
+      <button onClick={(e) => setShow(!show)}>show切换</button>
+    </div>
+  );
+}
+```
+
+## useMemo
+
+useMemo 实际的目的也是为了进行性能的优化
+
+- useMemo 返回的也是一个 memoized（记忆的） 值；
+- 在依赖不变的情况下，多次定义的时候，返回的值是相同的；
+
+```js
+import React, { useState, useMemo } from "react";
+
+function calcNumber(count) {
+  console.log("重新计算");
+  return ((1 + count) * count) / 2;
+}
+
+export default function MemoHookDemo01() {
+  const [count, setCount] = useState(10);
+  const [show, setShow] = useState(true);
+
+  //  const total = calcNumber(count);
+
+  const total = useMemo(() => {
+    return calcNumber(count);
+  }, [count]);
+
+  return (
+    <div>
+      <h2>计算数字的和：{total}</h2>
+      <button onClick={(e) => setCount(count + 1)}>+1</button>
+      <button onClick={(e) => setShow(!show)}>show切换</button>
+    </div>
+  );
+}
+```
