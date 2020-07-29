@@ -19,7 +19,7 @@ Spring MVC 是 Spring Framework 的一部分，是基于 Java 实现 MVC 的轻�
 ### SpringMVC
 
 ::: tip 提示
-SpringMVC 发、的本质依然是 Servlelt
+SpringMVC 的本质依然是 Servlelt
 :::
 
 SpringMVC 是一种基于 Java 实现的 MVC 设计模型的请求驱动类型的轻量级 WEB 框架。  
@@ -142,3 +142,34 @@ Spring MVC 属于 SpringFrameWork 的后续产品，已经融合在 Spring Web F
 - 控制器负责解析用户的请求并将其转换为一个模型。
 - 在 Spring MVC 中一个控制器类可以包含多个方法
 - 在 Spring MVC 中，对于 Controller 的配置方式有很多种
+
+### 基本使用
+
+\com\example\controller
+
+```Java
+@Controller
+// 如增加到此处则此类下的所有路径都有此父路径( \父路径\路径 )
+// @RequestMapping("/父路径")
+public class 控制器名 {
+    // 返回字符串
+    @RequestMapping("/路径")
+    @ResponseBody
+    public String 方法名(){
+        return "字符串";
+    }
+
+    // 返回jsp页面
+    @RequestMapping("/路径")
+    public String 方法名(Model model){
+        // 声明Model类型的参数，将Action中的数据带到视图中
+        model.addAttribute("参数名", 值);
+        return "jsp页面名";
+    }
+}
+```
+
+::: tip 提示
+`@Controller` 是为了让 Spring IOC 容器初始化时自动扫描到；
+`@RequestMapping` 是为了映射请求路径，这里因为类与方法上都有映射所以访问时应该是/HelloController/hello；
+:::
