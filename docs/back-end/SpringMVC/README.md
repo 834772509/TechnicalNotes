@@ -37,26 +37,33 @@ Spring MVC 属于 SpringFrameWork 的后续产品，已经融合在 Spring Web F
 
 ## 创建项目
 
+IDEA-创建Maven项目
+
 ### 导入依赖
 
 \pom.xml
 
 ```xml
-<!-- SpringMVC -->
+<!-- Spring Web https://mvnrepository.com/artifact/org.springframework/spring-web -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-web</artifactId>
+    <version>5.2.8.RELEASE</version>
+</dependency>
+
+<!--SpringMVC https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-webmvc</artifactId>
-    <version>4.2.5.RELEASE</version>
+    <version>5.2.8.RELEASE</version>
 </dependency>
 
-<!-- jstl -->
 <dependency>
     <groupId>javax.servlet</groupId>
     <artifactId>jstl</artifactId>
     <version>1.2</version>
 </dependency>
 
-<!-- servlet-api -->
 <dependency>
     <groupId>javax.servlet</groupId>
     <artifactId>servlet-api</artifactId>
@@ -145,6 +152,11 @@ Spring MVC 属于 SpringFrameWork 的后续产品，已经融合在 Spring Web F
 
 ### 基本使用
 
+::: tip 提示
+`@Controller` 是为了让 Spring IOC 容器初始化时自动扫描到；
+`@RequestMapping` 是为了映射请求路径，这里因为类与方法上都有映射所以访问时应该是/HelloController/hello；
+:::
+
 \com\example\controller
 
 ```Java
@@ -159,6 +171,25 @@ public class 控制器名 {
         return "字符串";
     }
 
+    // 指定请求类型
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public String 方法名() {
+        return "";
+    }
+
+    // GET方式请求数据
+    @GetMapping
+    public String 方法名() {
+        return "";
+    }
+
+    // Pos方式请求数据
+    @PostMapping
+    public String 方法名() {
+        return "";
+    }
+    
     // 返回jsp页面
     @RequestMapping("/路径")
     public String 方法名(Model model){
@@ -169,7 +200,77 @@ public class 控制器名 {
 }
 ```
 
+### 传参
+
 ::: tip 提示
-`@Controller` 是为了让 Spring IOC 容器初始化时自动扫描到；
-`@RequestMapping` 是为了映射请求路径，这里因为类与方法上都有映射所以访问时应该是/HelloController/hello；
+可以接收实体类参数
 :::
+
+```Java
+@Controller
+public class 控制器名 {
+    @RequestMapping("/路径")
+    @ResponseBody
+    public String 方法名(参数类型 参数名) {
+        return "";
+    }
+
+    @RequestMapping("/路径")
+    @ResponseBody
+    public String 方法名(@RequestParam("参数名") 参数类型 参数名) {
+        return "";
+    }
+}
+```
+
+访问：`/路径?参数名=值`
+
+```Java
+public class 控制器名 {
+    @RequestMapping("/路径/{参数名}/{参数名}")
+    @ResponseBody
+    public String 方法名(@RequestParam("参数名") 参数类型 参数名, @RequestParam 参数类型 参数名) {
+        return "";
+    }
+}
+```
+
+访问：`/路径/值/值`
+
+### Restful 风格
+
+Restful 就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。
+
+``` Java
+public class 控制器名 {
+    // GET方式请求数据
+    @GetMapping
+    public String 方法名() {
+        return "";
+    }
+
+    // Pos方式请求数据
+    @PostMapping
+    public String 方法名() {
+        return "";
+    }
+
+    // Put方式请求数据
+    @PutMapping
+    public String 方法名() {
+        return "";
+    }
+
+    // Delete方式请求数据
+    @DeleteMapping
+    public String 方法名() {
+        return "";
+    }
+
+    // Patch方式请求数据
+    @PatchMapping
+    public String 方法名() {
+        return "";
+    }
+}
+```
