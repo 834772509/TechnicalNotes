@@ -7,13 +7,13 @@
 
 ### 配置环境变量
 
-```maven\bin```
+`maven\bin`
 
 ### 配置淘宝镜像
 
 maven\conf\settings.xml
 
-``` XML
+```XML
 <mirrors>
   <mirror>
    <id>alimaven</id>
@@ -30,21 +30,21 @@ maven\conf\settings.xml
 默认本地仓库路径为：`\Users\用户名\.m2`目录
 :::
 
-``` XML
+```XML
 <localRepository>绝对路径\\Maven\\LocalWarehouse</localRepository>
 ```
 
 ## 使用
 
-### 导入Maven库
+### 导入 Maven 库
 
 ::: tip 提示
-Maven库可在 [Maven 存储库](https://mvnrepository.com/) 中寻找并导入
+Maven 库可在 [Maven 存储库](https://mvnrepository.com/) 中寻找并导入
 :::
 
 \pom.xml
 
-``` xml
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -63,7 +63,7 @@ Maven库可在 [Maven 存储库](https://mvnrepository.com/) 中寻找并导入
 
 \pom.xml
 
-``` xml
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

@@ -1,17 +1,17 @@
-# I/0流
+# I/0 流
 
 ## 文件对象
 
-* 文件夹和文件都用File表示
+- 文件夹和文件都用 File 表示
 
-``` Java
+```Java
   //实例化的方法有多种 ,这里用作者最常用的方法 ^_^
   File f = new File("文件路径");
 ```
 
-* 文件常用方法
+- 文件常用方法
 
-``` Java
+```Java
   f.exists()       //文件是否存在
   f.isDirectory()  //是否是文件夹
   f.isFile()       //是否是文件
@@ -29,26 +29,26 @@
   File[]fs= f.listFiles();    // 以文件数组的形式，返回当前文件夹下的所有文件（不包含子文件及子文件夹）
 ```
 
----  
+---
 
 ## 字节流
 
 :::tip
-  注意: 因为大部分I/O流的读写方法基本一致, 所以这里只在字节流说明其余的流不再说明  ^_^
+注意: 因为大部分 I/O 流的读写方法基本一致, 所以这里只在字节流说明其余的流不再说明 ^\_^
 :::
 
 ### 字节输入流
 
- 构造方法
+构造方法
 
-``` Java
+```Java
   FileInputStream(File file)   //通过File对象来创建一个字节输入流
   FileInputStream(String name) //通过文件路径名创建一个字节输入流
 ```
 
 读方法
 
-``` Java
+```Java
   int read()   // 一次读取一个字节,返回 0 -255 范围内的 int 数，如果到达流末尾，则返回值 -1。
   int read(byte[] b)   //从输入流中读取一定数量的字节，并将其存储在缓冲区数组 b 中，以整数形式返回实际读取的字节数，如果到达流末尾，则返回值 -1。
 ```
@@ -57,14 +57,14 @@
 
 构造方法
 
-``` Java
+```Java
   FileOutputStream(File file)   //通过File对象来创建一个字节输出流
   FileInputStream(String name)  //通过文件路径名创建一个字节输出流
 ```
 
 写方法
 
-``` Java
+```Java
   public void write(int b)  //写一个字节, 写的ASCII字符
   void write(byte[] b)      //将 b.length 个字节从指定 byte 数组写入此文件输出流中。
 ```
@@ -73,21 +73,21 @@
 
 ## 字符流
 
-* 字符输入流
+- 字符输入流
 
-``` Java
+```Java
   FileReader(File file)      //通过File对象来创建一个字符输入流
   FileReader(String name) //通过文件路径来创建一个字符输入流
 ```
 
-* 字符输出流
+- 字符输出流
 
-``` Java
+```Java
   FileWriter(File file) //通过File对象来创建一个字符输出流
   FileWriter(String name) //通过文件路径来创建一个字符输出流
-```  
+```
 
----  
+---
 
 ## 其他流
 
@@ -104,40 +104,40 @@
 ```
 
 :::tip 提示
-  相关链接: [关于缓存流的用法](https://blog.csdn.net/qq_20610631/article/details/81113794)  
+相关链接: [关于缓存流的用法](https://blog.csdn.net/qq_20610631/article/details/81113794)  
 :::
 
 ### 数据流
 
-``` Java
+```Java
   //数据输入/输出流
   DataInputStream
   DataOutputStream
 ```
 
 :::warning  
-  数据流必须成对使用, 比如你是用 **DataOutputStream** 写入数据就必须用 **DataInputStream** 读取数据, 否则会出现**EOFException**
-  这相对当于是一种规则  
+ 数据流必须成对使用, 比如你是用 **DataOutputStream** 写入数据就必须用 **DataInputStream** 读取数据, 否则会出现**EOFException**
+这相对当于是一种规则  
 :::
 
 ### 对象流(序列化)
 
-``` Java
+```Java
   ObjectInputStream
   ObjectOutputStream
 ```
 
 :::tip 提示
-  对于序列化的讲解 慕课网有相关的视频(进入见第六章) [点这里进入](https://www.imooc.com/learn/123)  
+对于序列化的讲解 慕课网有相关的视频(进入见第六章) [点这里进入](https://www.imooc.com/learn/123)  
 :::
 
 ---
 
 ### 读写文件的用法
 
-* 读取
+- 读取
 
-``` Java
+```Java
 File file = new File("要读取的文本路径");
 try( BufferedReader bReader = new BufferedReader(new FileReader(file))) {
   System.out.println(bReader.readLine());
@@ -146,9 +146,9 @@ try( BufferedReader bReader = new BufferedReader(new FileReader(file))) {
 
 ---
 
-* 写入
+- 写入
 
-``` Java
+```Java
 File file = new File("要写入的文本路径");
 try {
   file.createNewFile();
@@ -160,11 +160,10 @@ try {
 ```
 
 :::tip 提示
-读取的try-catch方式是JDK7开始支持的写法 这种写法称为try-with-resources  
-所有的流，都实现了一个接口叫做 AutoCloseable，任何类实现了这个接口，都可以在try()中进行实例化。 并且在try, catch, finally结束的时候自动关闭，回收相关资源
+读取的 try-catch 方式是 JDK7 开始支持的写法 这种写法称为 try-with-resources  
+所有的流，都实现了一个接口叫做 AutoCloseable，任何类实现了这个接口，都可以在 try()中进行实例化。 并且在 try, catch, finally 结束的时候自动关闭，回收相关资源
 :::
 
 :::tip 提示
-连接数据库的时候也可以这么写, 避免使用完数据库忘记关闭连接, 浪费资源
+连接数据库的时候也可以这么写，避免使用完数据库忘记关闭连接，浪费资源
 :::
-
