@@ -1084,6 +1084,8 @@ class 组件名 extends PureComponent {
 
 ### ref 的转发
 
+父组件向子组件传递Ref
+
 ```js
 import React, { PureComponent, createRef, forwardRef } from "react";
 

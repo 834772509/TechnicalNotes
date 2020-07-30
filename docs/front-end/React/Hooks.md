@@ -299,3 +299,258 @@ export default function MemoHookDemo01() {
   );
 }
 ```
+
+## useRef
+
+useRef 返回一个 ref 对象，返回的 ref 对象再组件的整个生命周期保持不变。
+
+最常用的 ref 是两种用法：
+
+1. 引入 DOM（或者组件，但是需要是 **class 组件**）元素；
+2. 保存一个数据，这个对象在整个生命周期中可以保存不变；
+
+### useRef 引用 DOM
+
+```js
+import React, { useRef } from "react";
+
+export default function 组件名() {
+  const Ref名 = useRef();
+
+  return (
+    <div>
+      <h2 ref={Ref名}>RefHookDemo01</h2>
+      <button onClick={(e) => changeDOM()}>修改DOM</button>
+    </div>
+  );
+
+  function changeDOM() {
+    console.log(Ref名.current);
+    Ref名.current.innerHTML = "Hello World";
+  }
+}
+```
+
+### useRef 引用其他数据
+
+```js
+import React, { useRef, useState, useEffect } from "react";
+
+export default function RefHookDemo02() {
+  const [count, setCount] = useState(0);
+  const numRef = useRef(count);
+
+  useEffect(() => {
+    numRef.current = count;
+  }, [count]);
+
+  return (
+    <div>
+      <h2>count 上一次的值：{numRef.current}</h2>
+      <h2>count 这一次的值：{count}</h2>
+      <button onClick={(e) => setCount(count + 10)}>+10</button>
+    </div>
+  );
+}
+```
+
+## useImperativeHandle
+
+通过 useImperativeHandle 可以值暴露固定的操作：
+
+- 通过 useImperativeHandle 的 Hook，将传入的 ref 和 useImperativeHandle 第二个参数返回的对象绑定到了一起；
+- 所以在父组件中，使用 inputRef.current 时，实际上使用的是返回的对象；
+- 比如我调用了 focus 函数，甚至可以调用 printHello 函数；
+
+```js
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
+
+const HYInput = forwardRef((props, ref) => {
+  const inputRef = useRef();
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      focus: () => {
+        inputRef.current.focus();
+      },
+    }),
+    [inputRef]
+  );
+
+  return <input ref={inputRef} type="text" />;
+});
+
+export default function ForwardRefDemo() {
+  const inputRef = useRef();
+
+  return (
+    <div>
+      <HYInput ref={inputRef}></HYInput>
+      <button onClick={(e) => inputRef.current.focus()}>聚焦</button>
+    </div>
+  );
+}
+```
+
+## useLayoutEffect
+
+useLayoutEffect 和 useEffect 非常的相似，事实上他们也只有一点区别
+
+- useEffect 会在渲染的内容更新到 DOM 上后执行，不会阻塞 DOM 的更新；
+- **useLayoutEffect 会在渲染的内容更新到 DOM 上之前执行，会阻塞 DOM 的更新**；
+- 如果我们希望在某些操作发生之后再更新 DOM，那么应该将这个操作放到 useLayoutEffect。
+
+```js
+import React, { useState, useEffect, useLayoutEffect } from "react";
+
+export default function EffectCountDemo() {
+  const [count, setCount] = useState(10);
+
+  // 如使用useEffect，会先渲染0，然后再渲染随机数
+  useLayoutEffect(() => {
+    if (count === 0) {
+      setCount(Math.random());
+    }
+  }, [count]);
+
+  return (
+    <div>
+      <h2>数字：{count}</h2>
+      <button onClick={(e) => setCount(0)}>修改数字</button>
+    </div>
+  );
+}
+```
+
+## 自定义 Hook
+
+自定义 Hook 本质上只是一种函数代码逻辑的抽取，严格意义上来说，它本身并不算 React 的特性
+
+::: tip 提示
+在函数前加上`use`即可成为自定义 Hook
+:::
+
+```js
+function useHook名() {
+  // Hooks相关代码（如useEffect等）
+}
+```
+
+### Context 共享
+
+```js
+import { useContext } from "react";
+import { UserContext, TokenContext } from "../App";
+
+function useUserContext() {
+  const user = useContext(UserContext);
+  const token = useContext(TokenContext);
+  return [user, token];
+}
+
+export default useUserContext;
+```
+
+使用
+
+```js
+import React from "react";
+import userUserContext from "../hooks/user-hook";
+
+export default function CustomContextShareHook() {
+  const [user, token] = userUserContext();
+
+  console.log(user, token);
+
+  return (
+    <div>
+      <h2>CustomContextShareHook</h2>
+    </div>
+  );
+}
+```
+
+### 获取滚动位置
+
+```js
+import { useEffect, useState } from "react";
+
+function useScrollPosition() {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    document.onscroll = handleScroll;
+
+    return () => {
+      document.onscroll = null;
+    };
+  }, []);
+
+  return [scrollPosition];
+}
+
+export default useScrollPosition;
+```
+
+使用：
+
+```js
+import React, { useEffect, useState } from "react";
+import useScrollPosition from "../hooks/scroll-position-hook";
+
+export default function CustomScrollPositionHook() {
+  const scrollPosition = useScrollPosition();
+
+  return (
+    <div style={{ padding: "1000px 0" }}>
+      <h2 style={{ position: "fixed", left: 0, top: 0 }}>
+        CustomScrollPositionHookï¼š{scrollPosition}
+      </h2>
+    </div>
+  );
+}
+```
+
+### localStorage 存储
+
+```js
+import { useState, useEffect } from "react";
+
+function useLocalStorage(key) {
+  const [name, setName] = useState(() => {
+    const name = JSON.parse(window.localStorage.getItem(key));
+    return name;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(name));
+  }, [name]);
+
+  return [name, setName];
+}
+
+export default useLocalStorage;
+```
+
+使用：
+
+```js
+import React, { useState, useEffect } from "react";
+import useLocalStorage from "../hooks/local-store-hook";
+
+export default function CustomDataStoreHook() {
+  const [name, setName] = useLocalStorage();
+
+  return (
+    <div>
+      <h2>CustomDataStoreHook: {name}</h2>
+      <button onClick={(e) => setName("coderwhy")}>设置name</button>
+    </div>
+  );
+}
+```
