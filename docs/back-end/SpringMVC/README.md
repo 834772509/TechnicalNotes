@@ -37,7 +37,7 @@ Spring MVC 属于 SpringFrameWork 的后续产品，已经融合在 Spring Web F
 
 ## 创建项目
 
-IDEA-创建Maven项目
+IDEA-创建 Maven 项目
 
 ### 导入依赖
 
@@ -139,6 +139,19 @@ IDEA-创建Maven项目
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!--过滤器-解决乱码-->
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
 ```
 
@@ -189,7 +202,7 @@ public class 控制器名 {
     public String 方法名() {
         return "";
     }
-    
+
     // 返回jsp页面
     @RequestMapping("/路径")
     public String 方法名(Model model){
@@ -241,7 +254,7 @@ public class 控制器名 {
 
 Restful 就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。
 
-``` Java
+```Java
 public class 控制器名 {
     // GET方式请求数据
     @GetMapping
@@ -273,4 +286,114 @@ public class 控制器名 {
         return "";
     }
 }
+```
+
+## 解决乱码
+
+\web\WEB-INF\web.xml
+
+```xml
+<!--过滤器-解决乱码-->
+<filter>
+    <filter-name>encoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>utf-8</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
+## Gson
+
+Gson 是目前功能最全的 Json 解析神器，Gson 当初是为因应 Google 公司内部需求而由 Google 自行研发而来，但自从在 2008 年五月公开发布第一版后已被许多公司或用户应用。
+
+Gson 在功能上面无可挑剔，但是性能上面比 FastJson 有所差距。
+
+### 导入依赖
+
+\pom.xml
+
+```xml
+<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.8.6</version>
+</dependency>
+```
+
+### 解决乱码
+
+\resources\springmvc-servlet.xml
+
+``` xml
+<!--修复Gson乱码-->
+<mvc:annotation-driven>
+    <mvc:message-converters>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <constructor-arg value="UTF-8"/>
+        </bean>
+        <bean id="jsonConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+            <property name="supportedMediaTypes">
+                <list>
+                    <value>text/json;charset=UTF-8</value>
+                    <value>application/json;charset=UTF-8</value>
+                </list>
+            </property>
+        </bean>
+    </mvc:message-converters>
+</mvc:annotation-driven>
+```
+
+### 转 json
+
+```Java
+Gson gson = new Gson();
+String json = gson.toJson(对象);
+```
+
+### 转对象
+
+```Java
+Gson gson = new Gson();
+String json = "{\"id\":\"2\",\"name\":\"Json技术\"}";
+Book book = gson.fromJson(json, Book.class);
+```
+
+## Fastjson
+
+Fastjson 是一个 Java 语言编写的高性能的 JSON 处理器, 由阿里巴巴公司开发。无依赖，不需要例外额外的 jar，能够直接跑在 JDK 上。
+FastJson 采用独创的算法，将 parse 的速度提升到极致，超过所有 json 库。
+FastJson 在复杂类型的 Bean 转换 Json 上会出现一些问题，可能会出现引用的类型，导致 Json 转换出错，需要制定引用。有的版本存在高危漏洞，不建议生产使用
+
+### 导入依赖
+
+``` xml
+<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.73</version>
+</dependency>
+```
+
+### 转 json
+
+```Java
+JSON.toJSONString(obj);
+
+// 将对象转换成格式化的 json
+JSON.toJSONString(obj,true);
+```
+
+### 转对象
+
+```Java
+String json = "{\"id\":\"2\",\"name\":\"Json技术\"}";
+实体类 对象 = JSON.parseObject(json, 实体类.class);
 ```
