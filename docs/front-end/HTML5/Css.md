@@ -109,16 +109,19 @@
 
 为元素添加圆角
 
-``` css
+```css
 border-radius: 16px;
 ```
 
 ## 精灵图
 
+[自动生成精灵图样式](http://www.spritecow.com)
+
 ```css
 .sprite {
-  background: url(路径) no-repeat 0 9999px;
-  background-position: 偏移值px 0;
+  background: url(路径) no-repeat X偏移值 Y偏移值;
+  width: 宽度;
+  height: 高度;
 }
 ```
 
