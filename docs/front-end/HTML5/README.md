@@ -60,11 +60,10 @@
 超出p标签内容自动显示省略号：
 
 ``` CSS
-p {
-  display: block;
-  overflow: hidden;
+.text-nowrap{
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 ```
 

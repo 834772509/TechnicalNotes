@@ -1,16 +1,16 @@
 ## craco
 
-craco是一个对React脚手架进行自定义配置的社区解决方案
+craco 是一个对 React 脚手架进行自定义配置的社区解决方案
 
 ### 安装
 
-``npm install @craco/craco --save``
+npm: `npm install @craco/craco --save`
 
 ### 修改启动信息
 
 package.json
 
-``` json
+```json
 "scripts": {
   "start": "craco start",
   "build": "craco build",
@@ -21,29 +21,27 @@ package.json
 
 ### 编写配置
 
-新建文件 ``项目目录\craco.config.js``
+新建文件 `项目目录\craco.config.js`
 
-``` js
-module.exports = {
-  
-}
+```js
+module.exports = {};
 ```
 
 ### 配置别名
 
-craco.config.js
+\craco.config.js
 
-``` js
-const path = require('path');
-const resolve = dir => path.resolve(__dirname, dir);
+```js
+const path = require("path");
+const resolve = (dir) => path.resolve(__dirname, dir);
 
 module.exports = {
   webpack: {
     // 配置别名
     alias: {
       "@": resolve("src"),
-      "components": resolve("src/components"),
-    }
+      assets: resolve("src/assets"),
+    },
   },
-}
+};
 ```

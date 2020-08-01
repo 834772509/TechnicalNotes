@@ -88,7 +88,7 @@
 
 ## 安装
 
-`npm install react-router-dom --save`
+npm: `npm install react-router-dom --save`
 
 ## 基本使用
 
@@ -419,20 +419,19 @@ export default routes;
 ```js
 import { renderRoutes } from "react-router-config";
 import routes from "./router";
+import { withRouter, BrowserRouter } from "react-router-dom";
 
 class App extends PureComponent {
   render() {
     return (
-      <div>
-        <NavLink exact to="/">
-          标题
-        </NavLink>
+      <BrowserRouter>
+        <NavLink exact to="/">标题</NavLink>
         <NavLink to="/路径">标题</NavLink>
         <NavLink to="/路径">标题</NavLink>
 
         {/* 路由占位 */}
         {renderRoutes(routes)}
-      </div>
+      </BrowserRouter>
     );
   }
 }

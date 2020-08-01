@@ -52,6 +52,25 @@ settings.json
 项目名称不能包含大写字母
 :::
 
+**目录结构划分**
+
+创建 `\src\assets\img` : 存放图片  
+创建 `\src\assets\font` : 存放字体  
+创建 `\src\assets\css` : 存放 css  
+
+创建 `\src\common` : 存放公共的数据等  
+创建 `\src\components` : 存放公共的组件  
+创建 `\src\pages` : 存放页面  
+创建 `\src\router` : 存放路由  
+创建 `\src\services` : 存放网络请求相关信息  
+创建` \src\store` : 存放 redux 信息  
+创建 `\src\utils` : 存放工具
+
+
+**配置别名**
+
+[craco 配置别名](./craco.md#配置别名)
+
 ### 启动项目
 
 启动项目：`npm start`
@@ -290,14 +309,14 @@ export default class 组件名 extends PureComponent {
 
 ::: warning 注意
 
-- 组件的名称**必须是大写字符开头**
+- 组件的名称**必须是大写字符开头**（否则会被作为 HTMT 元素解析）
 - 类组件需要继承自 React.Component
 - 类组件必须实现 render 函数
   :::
 
 ### 函数式组件
 
-Visual Studio Code 快速创建类组件：`rfc`->回车
+Visual Studio Code 快速创建类组件：`rmc`->回车
 
 函数式组件特点：
 
@@ -306,13 +325,13 @@ Visual Studio Code 快速创建类组件：`rfc`->回车
 3. 没有生命周期。也会被更新并挂载，但是没有生命周期函数
 
 ```js
-function 函数式组件名() {
+function memo(函数式组件名() {
   return <div></div>;
-}
+})
 ```
 
 ::: warning 注意
-组件的名称**必须是大写字符开头**
+组件的名称**必须是大写字符开头**（否则会被作为 HTMT 元素解析）
 :::
 
 ### render 函数返回值
@@ -1084,7 +1103,7 @@ class 组件名 extends PureComponent {
 
 ### ref 的转发
 
-父组件向子组件传递Ref
+父组件向子组件传递 Ref
 
 ```js
 import React, { PureComponent, createRef, forwardRef } from "react";
@@ -1404,7 +1423,7 @@ styled-components 支持类似 CSS 预处理器一样的特性：
 
 - 安装依赖
 
-`npm install styled-components --save`
+npm: `npm install styled-components --save`
 
 - 安装插件
 
