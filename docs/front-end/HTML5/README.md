@@ -186,7 +186,7 @@ li {
 ```
 
 ::: tip 提示
-table 有一个特殊的 CSS：`border-collapse: collapse;`，设置后可将双边框进行合并
+table 有一个特殊的 CSS：`border-collapse: collapse;`，设置后可将相邻的边框进行合并
 :::
 
 ### 内嵌网页
