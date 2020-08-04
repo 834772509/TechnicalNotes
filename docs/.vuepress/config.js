@@ -30,7 +30,12 @@ module.exports = {
         sidebarDepth: 2,
       },
     ],
+    // 快速回顶部
     ["@vuepress/back-to-top", true],
+    // 放大图片
+    ["@vuepress/medium-zoom"],
+    // 显示最后更新时间
+    ["@vuepress/last-updated"],
   ],
   // 配置图片，支持图片中文命名
   markdown: {
@@ -99,7 +104,7 @@ module.exports = {
             text: "数据库",
             items: [
               { text: "MySQL", link: "/back-end/DataBase/MySQL/" },
-              { text: "Oracle", link: "/back-end/DataBase/Oracle/" }
+              { text: "Oracle", link: "/back-end/DataBase/Oracle/" },
             ],
           },
           {
@@ -134,6 +139,7 @@ module.exports = {
     displayAllHeaders: false,
     //开启页面滚动效果
     smoothScroll: true,
+    lastUpdated: "最后更新",
     yilia_plus: {
       // github-corner(关闭请设置为false)
       github: {
