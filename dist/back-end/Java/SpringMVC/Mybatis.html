@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>整合Mybatis | 杉-技术笔记</title>
+    <meta name="description" content="记录工作和学习过程中的笔记">
+    <meta name="generator" content="VuePress 1.3.0">
+    <link rel="icon" href="/technicalnotes/img/LOGO.ico">
+    
+    <link rel="preload" href="/technicalnotes/assets/css/0.styles.23ce3adf.css" as="style"><link rel="preload" href="/technicalnotes/assets/js/app.f9714440.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/2.e55e21e3.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/34.c0aed080.js" as="script"><link rel="prefetch" href="/technicalnotes/assets/js/10.33311f28.js"><link rel="prefetch" href="/technicalnotes/assets/js/11.c2c30998.js"><link rel="prefetch" href="/technicalnotes/assets/js/12.09a5671c.js"><link rel="prefetch" href="/technicalnotes/assets/js/13.7be77ab7.js"><link rel="prefetch" href="/technicalnotes/assets/js/14.7afa6527.js"><link rel="prefetch" href="/technicalnotes/assets/js/15.15b7468f.js"><link rel="prefetch" href="/technicalnotes/assets/js/16.dcfde211.js"><link rel="prefetch" href="/technicalnotes/assets/js/17.6ca6b3bf.js"><link rel="prefetch" href="/technicalnotes/assets/js/18.8b445892.js"><link rel="prefetch" href="/technicalnotes/assets/js/19.8d237a96.js"><link rel="prefetch" href="/technicalnotes/assets/js/20.d1b9205e.js"><link rel="prefetch" href="/technicalnotes/assets/js/21.765db5e2.js"><link rel="prefetch" href="/technicalnotes/assets/js/22.bf90209b.js"><link rel="prefetch" href="/technicalnotes/assets/js/23.a948d36f.js"><link rel="prefetch" href="/technicalnotes/assets/js/24.b9208f23.js"><link rel="prefetch" href="/technicalnotes/assets/js/25.4a920dac.js"><link rel="prefetch" href="/technicalnotes/assets/js/26.7079f6c6.js"><link rel="prefetch" href="/technicalnotes/assets/js/27.1a1d2ca1.js"><link rel="prefetch" href="/technicalnotes/assets/js/28.b245ece4.js"><link rel="prefetch" href="/technicalnotes/assets/js/29.bf6447dc.js"><link rel="prefetch" href="/technicalnotes/assets/js/3.0d72345e.js"><link rel="prefetch" href="/technicalnotes/assets/js/30.af472b2b.js"><link rel="prefetch" href="/technicalnotes/assets/js/31.b935bd1e.js"><link rel="prefetch" href="/technicalnotes/assets/js/32.be042460.js"><link rel="prefetch" href="/technicalnotes/assets/js/33.4e38bb3f.js"><link rel="prefetch" href="/technicalnotes/assets/js/35.1ba8134c.js"><link rel="prefetch" href="/technicalnotes/assets/js/36.656a84d8.js"><link rel="prefetch" href="/technicalnotes/assets/js/37.9d037997.js"><link rel="prefetch" href="/technicalnotes/assets/js/38.f50b2f39.js"><link rel="prefetch" href="/technicalnotes/assets/js/39.d9db5c39.js"><link rel="prefetch" href="/technicalnotes/assets/js/4.b4d825be.js"><link rel="prefetch" href="/technicalnotes/assets/js/40.9374f7fe.js"><link rel="prefetch" href="/technicalnotes/assets/js/41.32108f4b.js"><link rel="prefetch" href="/technicalnotes/assets/js/42.6d0399b4.js"><link rel="prefetch" href="/technicalnotes/assets/js/43.8aecca16.js"><link rel="prefetch" href="/technicalnotes/assets/js/44.192feb32.js"><link rel="prefetch" href="/technicalnotes/assets/js/45.ce61b5ff.js"><link rel="prefetch" href="/technicalnotes/assets/js/46.e2c3bd0a.js"><link rel="prefetch" href="/technicalnotes/assets/js/47.41beeab1.js"><link rel="prefetch" href="/technicalnotes/assets/js/48.28e34f63.js"><link rel="prefetch" href="/technicalnotes/assets/js/49.89fa9160.js"><link rel="prefetch" href="/technicalnotes/assets/js/5.9ce10b86.js"><link rel="prefetch" href="/technicalnotes/assets/js/50.ec02c2cb.js"><link rel="prefetch" href="/technicalnotes/assets/js/51.d02c6d52.js"><link rel="prefetch" href="/technicalnotes/assets/js/52.3637f732.js"><link rel="prefetch" href="/technicalnotes/assets/js/53.2d40f06f.js"><link rel="prefetch" href="/technicalnotes/assets/js/54.e2fab6ce.js"><link rel="prefetch" href="/technicalnotes/assets/js/55.75f28c10.js"><link rel="prefetch" href="/technicalnotes/assets/js/56.d7b55029.js"><link rel="prefetch" href="/technicalnotes/assets/js/57.aed0baca.js"><link rel="prefetch" href="/technicalnotes/assets/js/58.c80f8205.js"><link rel="prefetch" href="/technicalnotes/assets/js/59.6593e22c.js"><link rel="prefetch" href="/technicalnotes/assets/js/6.8f31186a.js"><link rel="prefetch" href="/technicalnotes/assets/js/60.0c830ae3.js"><link rel="prefetch" href="/technicalnotes/assets/js/61.84ab3897.js"><link rel="prefetch" href="/technicalnotes/assets/js/62.fa36feb1.js"><link rel="prefetch" href="/technicalnotes/assets/js/63.55aa82aa.js"><link rel="prefetch" href="/technicalnotes/assets/js/64.0f8d606c.js"><link rel="prefetch" href="/technicalnotes/assets/js/65.ae1a19c2.js"><link rel="prefetch" href="/technicalnotes/assets/js/66.71d5d945.js"><link rel="prefetch" href="/technicalnotes/assets/js/67.dc9fc11e.js"><link rel="prefetch" href="/technicalnotes/assets/js/68.99546e52.js"><link rel="prefetch" href="/technicalnotes/assets/js/69.4644c840.js"><link rel="prefetch" href="/technicalnotes/assets/js/7.255be777.js"><link rel="prefetch" href="/technicalnotes/assets/js/70.dc16d932.js"><link rel="prefetch" href="/technicalnotes/assets/js/71.baff72f0.js"><link rel="prefetch" href="/technicalnotes/assets/js/72.3bdf6a99.js"><link rel="prefetch" href="/technicalnotes/assets/js/73.f4023022.js"><link rel="prefetch" href="/technicalnotes/assets/js/74.86c27e36.js"><link rel="prefetch" href="/technicalnotes/assets/js/75.8d4dde00.js"><link rel="prefetch" href="/technicalnotes/assets/js/76.97a84e6f.js"><link rel="prefetch" href="/technicalnotes/assets/js/77.dd0325b2.js"><link rel="prefetch" href="/technicalnotes/assets/js/78.2be930dc.js"><link rel="prefetch" href="/technicalnotes/assets/js/79.9f2ccca5.js"><link rel="prefetch" href="/technicalnotes/assets/js/8.70443bd5.js"><link rel="prefetch" href="/technicalnotes/assets/js/80.1bff97bd.js"><link rel="prefetch" href="/technicalnotes/assets/js/81.c20f5dbc.js"><link rel="prefetch" href="/technicalnotes/assets/js/82.0f344f59.js"><link rel="prefetch" href="/technicalnotes/assets/js/83.ee6fb136.js"><link rel="prefetch" href="/technicalnotes/assets/js/84.a69c367c.js"><link rel="prefetch" href="/technicalnotes/assets/js/85.074a64c2.js"><link rel="prefetch" href="/technicalnotes/assets/js/86.64115377.js"><link rel="prefetch" href="/technicalnotes/assets/js/9.bbbee487.js">
+    <link rel="stylesheet" href="/technicalnotes/assets/css/0.styles.23ce3adf.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><!----></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/technicalnotes/" class="home-link router-link-active"><!----> <span class="site-name">杉-技术笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Web 开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/CSS3/" class="nav-link">
+  CSS3
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li></ul></li><li class="dropdown-item"><h4>
+          前端框架
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li></ul></li><li class="dropdown-item"><h4>
+          移动端开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Andorid/" class="nav-link">
+  Andorid
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Java
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/" class="nav-link router-link-active">
+  Java 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Mybatis/" class="nav-link">
+  Mybatis
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Spring/" class="nav-link">
+  Spring
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringMVC/" class="nav-link router-link-active">
+  SpringMVC
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringBoot/" class="nav-link">
+  SpringBoot
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Python
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/Django/" class="nav-link">
+  Django
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/Flask/" class="nav-link">
+  Flask
+</a></li></ul></li><li class="dropdown-item"><h4>
+          数据库
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/MySQL/" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/Oracle/" class="nav-link">
+  Oracle
+</a></li></ul></li><li class="dropdown-item"><h4>
+          PHP
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/ThinkPHP/" class="nav-link">
+  ThinkPHP
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Photoshop/" class="nav-link">
+  Photoshop
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Web 开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/CSS3/" class="nav-link">
+  CSS3
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li></ul></li><li class="dropdown-item"><h4>
+          前端框架
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li></ul></li><li class="dropdown-item"><h4>
+          移动端开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Andorid/" class="nav-link">
+  Andorid
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Java
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/" class="nav-link router-link-active">
+  Java 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Mybatis/" class="nav-link">
+  Mybatis
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Spring/" class="nav-link">
+  Spring
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringMVC/" class="nav-link router-link-active">
+  SpringMVC
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringBoot/" class="nav-link">
+  SpringBoot
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Python
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/Django/" class="nav-link">
+  Django
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/Flask/" class="nav-link">
+  Flask
+</a></li></ul></li><li class="dropdown-item"><h4>
+          数据库
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/MySQL/" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/Oracle/" class="nav-link">
+  Oracle
+</a></li></ul></li><li class="dropdown-item"><h4>
+          PHP
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/ThinkPHP/" class="nav-link">
+  ThinkPHP
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Photoshop/" class="nav-link">
+  Photoshop
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>SpringMVC</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/technicalnotes/back-end/Java/SpringMVC/Fastjson.html" class="sidebar-link">Fastjson</a></li><li><a href="/technicalnotes/back-end/Java/SpringMVC/Gson.html" class="sidebar-link">Gson</a></li><li><a href="/technicalnotes/back-end/Java/SpringMVC/Mybatis.html" class="active sidebar-link">整合Mybatis</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/technicalnotes/back-end/Java/SpringMVC/Mybatis.html#导入依赖" class="sidebar-link">导入依赖</a></li></ul></li><li><a href="/technicalnotes/back-end/Java/SpringMVC/" class="sidebar-link">SpringMVC</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="整合mybatis"><a href="#整合mybatis" class="header-anchor">#</a> 整合Mybatis</h1> <h2 id="导入依赖"><a href="#导入依赖" class="header-anchor">#</a> 导入依赖</h2> <p>\pom.xml</p> <div class="language-xml extra-class"><pre class="language-xml"><code><span class="token comment">&lt;!-- Spring-JDBC https://mvnrepository.com/artifact/org.springframework/spring-jdbc --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-jdbc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>5.2.8.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!--MySQL https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>mysql-connector-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>8.0.12<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- MyBatis https://mvnrepository.com/artifact/org.mybatis/mybatis --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.mybatis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>mybatis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>3.5.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- Mybatis-Spring https://mvnrepository.com/artifact/org.mybatis/mybatis-spring --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.mybatis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>mybatis-spring<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>2.0.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/technicalnotes/back-end/Java/SpringMVC/Gson.html" class="prev">
+        Gson
+      </a></span> <span class="next"><a href="/technicalnotes/back-end/Java/SpringMVC/" class="router-link-active">
+        SpringMVC
+      </a>
+      →
+    </span></p></div> </main></div> <div class="footer" data-v-43135a0a><div id="footer-info" data-v-43135a0a><div class="footer-left" data-v-43135a0a><!----></div> <!----></div> <div class="busuanzi" data-v-43135a0a><span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量
+    <span id="busuanzi_value_site_pv"></span>次
+    <span class="post-meta-divider">|</span></span> <span id="busuanzi_container_site_uv" style="display:none">
+    本站访客数
+    <span id="busuanzi_value_site_uv"></span>人
+  </span></div></div></main><div class="global-ui"><!----></div></div>
+    <script src="/technicalnotes/assets/js/app.f9714440.js" defer></script><script src="/technicalnotes/assets/js/2.e55e21e3.js" defer></script><script src="/technicalnotes/assets/js/34.c0aed080.js" defer></script>
+  </body>
+</html>
