@@ -1,4 +1,4 @@
-# JDBC
+# 整合 JDBC
 
 JDBC 是Java操作数据库的底层，所有Java数据库框架都要经过JDBC
 

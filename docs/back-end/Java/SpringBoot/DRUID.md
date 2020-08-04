@@ -1,4 +1,4 @@
-# DRUID
+# 整合 DRUID
 
 DRUID 是阿里巴巴开源平台上一个数据库连接池实现，结合了C3P0、DBCP、PROXOOL等DB池的优点，同时加入了日志监控  
 Druid 可以很好的监控DB池连接和SQL的执行情况，天生就是针对监控而生的DB连接池  

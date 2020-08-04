@@ -1,4 +1,4 @@
-# Spring Security
+# 整合 Spring Security
 
 Spring Security 是针对Spring项目的安全框架，也是Spring Boot底层安全模块默认的技术选型，它可以实现强大的Web安全控制。对于安全控制，我们仅需要引入 spring-boot-starter-security 模块，进行少量的配置，即可实
 现强大的安全管理
@@ -6,7 +6,7 @@ Spring Security 是针对Spring项目的安全框架，也是Spring Boot底层�
 
 WebSecurityConfigurerAdapter : 自定义Security策略
 AuthenticationManagerBuilder : 自定义认证策略
-@EnableWebSecurity : 开启WebSecurity模式
+@EnableWebSecurity: 开启WebSecurity模式
 
 
 ## 依赖
