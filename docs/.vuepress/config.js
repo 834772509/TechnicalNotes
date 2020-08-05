@@ -140,6 +140,11 @@ module.exports = {
     //开启页面滚动效果
     smoothScroll: true,
     lastUpdated: "最后更新",
+    // Algolia 全文搜索
+    // algolia: {
+    //   apiKey: "<API_KEY>",
+    //   indexName: "<INDEX_NAME>",
+    // },
     yilia_plus: {
       // github-corner(关闭请设置为false)
       github: {

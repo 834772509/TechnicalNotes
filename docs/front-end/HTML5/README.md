@@ -55,16 +55,6 @@
 <p>段落</p>
 ```
 
-超出 p 标签内容自动显示省略号：
-
-```CSS
-.text-nowrap{
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-```
-
 ### 超链接标签
 
 a 标签用来跳转链接
