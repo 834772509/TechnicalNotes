@@ -27,7 +27,7 @@
 **继承的权重是 0**。如果该元素没有直接选中，不管父元素权重多高，子元素得到的权重都是 0
 :::
 
-## 常用技巧
+## 常用布局技巧
 
 ### 引入 CSS
 
@@ -62,6 +62,32 @@ p {
   background-color: rgb(66,66,66);
   transition: all .2s;
   border-radius: .5rem;
+}
+```
+
+### calc 函数
+
+calc() 函数在声明 CSS 属性值时执行一些计算，括号里面可以使用 +、-、\*、/ 来进行计算。
+
+::: tip 提示
+运算符必须有空格
+:::
+
+```css
+div {
+  width: calc(100% - 30px);
+}
+```
+
+## CSS 初始化
+
+为了让不同的浏览器在渲染网页元素的时候形式更统一
+
+```css
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 ```
 
@@ -653,6 +679,19 @@ div {
 行内元素为了照顾兼容性，尽量只设置左右内外边距，不要设置上下内外边距。但是转换为块级和行内块元素就可以了
 :::
 
+### box-sizing
+
+box- sizing 可以指定盒模型，计算盒子大小的方式可以发生改变
+
+```css
+div {
+  /* （默认）盒子大小为 width + padding + border */
+  box-sizing: content-box;
+  /* 盒子大小保持为 width */
+  box-sizing: border-box;
+}
+```
+
 ## 网页布局流
 
 实际开发中，一个页面基本都包含了这三种布局方式
@@ -968,6 +1007,8 @@ div {
 
 ```css
 div {
+  /* 无边框（默认） */
+  border: none;
   /* 实线边框 */
   border: 边框宽度 solid 边框颜色;
   /* 虚线边框 */
@@ -1094,17 +1135,28 @@ p {
 多行文本溢出显示省略号，有较大兼容性问题，适合于 webKit 浏览器（移动端）
 :::
 
-``` css
+::: tip 提示
+更推荐让后台人员来做这个效果，后台人员可以设置显示多少个字，操作更简单
+:::
+
+```css
 p {
   /* 超出部分隐藏 */
   overflow: hidden;
   /* 设置超出隐藏部分的文本 */
   text-overflow: ellipsis;
-  
+  /* 弹性伸缩盒子模型显示 */
+  display: -webkit-box;
+  /* 限制在一个块元素 显示的文本的行数*/
+  -webkit-line-clamp: 2;
+  /* 设置或检索伸缩盒对象的子元素的排列方式 */
+  -webkit-box-orient: vertical;
 }
 ```
 
 ### 三角形
+
+- 等腰三角形
 
 ```css
 div {
@@ -1115,6 +1167,16 @@ div {
   border: 10px solid transparent;
   /* 可设置颜色位置改变三角形的朝向 */
   border-left-color: black;
+}
+```
+
+- 直角三角形
+
+```css
+div {
+  border-color: transparent red transparent transparent;
+  border-style: solid;
+  border-width: 100px 50px 0 0;
 }
 ```
 
@@ -1192,10 +1254,129 @@ img {
 }
 ```
 
+### 图片模糊
+
+filter CSS 属性将模糊或颜色偏移等图形效果应用于元素。数值越大越模糊
+
+```css
+img {
+  filter: blur(5px);
+}
+```
+
+### CSS3 过渡
+
+过渡（transition）是 CSS3 中具有颠覆性的特征之一，当元素从一种样式变换为另一种样式时为元素添加效果
+
+语法：`transition: 要过渡的属性 花费时间 [运动曲线] [开始时间]`
+
+::: tip 提示
+谁做过渡给谁加过渡属性
+:::
+
+```css
+div {
+  transition: all 0.5s ease;
+}
+```
+
+过度方式：
+  - ease : 规定慢速开始，然后变快
+  - ease-in : 以慢速开始
+  - ease-out : 以慢速结束
+  - linear : 以相同速度开始至结束
+
+### 2D 转换
+
+转换可以实现元素的位移、旋转、缩放等效果
+
+- 移动
+
+2D 移动是 2D 转换里面的一种功能，可以改元素在页面中的位置，类似定位。
+
+语法：`transform: translate(X轴移动位置, Y轴移动位置)`
+
+::: tip 提示
+translate 内的百分比是盒子自身的百分比
+:::
+
+```css
+div {
+  /* 移动X轴、Y轴坐标 */
+  transform: translate(10px, 10px);
+  /* 移动X轴坐标 */
+  transform: translateX(10px);
+  /* 移动Y轴坐标 */
+  transform: translateY(10px);
+}
+```
+
+移动特点：
+
+- 定义 2D 转换中的移动,沿着 X 和 Y 轴移动元素
+- translate 最大的优点：**不会影响到其他元素的位置**（类似于相对定位）
+- translate 中的百分比单位是相对于自身元素的 translate:(50%, 50%);
+- 对行内标签没有效果
+
+- 旋转
+
+2D 旋转指的是让元素在 2 维平面内顺时 t 旋转或者逆时针旋转
+
+::: tip 提示
+
+- 默认旋转的中心点为元素的中心点
+- 角度为正数为顺时针，负数为逆时针
+  :::
+
+语法：`transform: rotate(度数);`
+
+```css
+div {
+  transform: rotate(45deg);
+}
+```
+
+- 设置转换中心点
+
+语法：`transform-origin: x y;`
+
+```css
+div {
+  /* 设置中心点为中间（默认） */
+  transform-origin: center center;
+  /* 设置中心点为左下角 */
+  transform-origin: left bottom;
+}
+```
+
+- 缩放
+
+控制放大和缩小。sacle 缩放的优势：可以设置转换中心点缩放，默认以中心点缩放，而且不影响其他盒子
+
+语法：`transform: scale(x,y);`
+
+::: tip 提示
+缩放倍数不能为负数
+:::
+
+```css
+div {
+  /* 宽和高放大一倍(相对于没有放大) */
+  transform: scale(1, 1);
+  /* 宽和高放大2倍 */
+  transform: scale(2, 2);
+  /* 宽和高放大2倍 */
+  transform: scale(2);
+  /* 宽和高缩小1.5倍 */
+  transform: scale(0.5, 0.5);
+}
+```
+
 ## 浮动
 
 ::: tip 提示
-浮动起初并不是用来布局，而是图文环绕
+浮动起初并不是用来布局，而是图文环绕。  
+**尽量不使用浮动布局，使用 Flex 布局**
 :::
 
 有很多的布局效果，标准流没有办法完成，此时就可以利用浮动完成布局。因为浮动可以改变元素标签默认的排列方式。  

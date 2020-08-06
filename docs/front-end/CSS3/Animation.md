@@ -1,81 +1,126 @@
 # CSS 动画
 
-## transition
+动画 ( animation ) 是 CSS3 中具有颠覆性的特征之一，可通过设置多个节点来精确控制一个或一组动画，常用来实现复杂的动画效果。
 
-```CSS
-transition: property[过渡属性] duration[过渡时间] timing-function[过渡方式] delay[延时时间];
-```
+相比较过渡，动画可以实现更多变化，更多控制，连续自动播放等效果。
 
-```CSS
-#box{
-  width:100px;
-  background-color: black;
-  transition: all 0.5s ease;
-  transition: all 0.5s ease 1s;
-}
+## 动画基本使用
 
-#box:hover{
-  width:200px;
-  background-color:red;
-}
-```
+动画是使元素从一种祥式逐渐变化为另一种样式的效果。 您可以改变任意多的样式任意多的次数。
+
+### 定义动画
+
+在 `@keyframes` 中规定某项 CSS 样式，就能创建由当前样式逐渐改为新样式的动画效果。0%是动画的开始，100%是动画的完成。这样的规则就是动画序列。
 
 ::: tip 提示
-参数 1 为需要过渡的属性如"width" ，all 表示所有属性都过渡
-参数 2 为过渡时间，默认为 0 秒
-参数 3 为过度方式，一般为"ease"
-
-- ease : 规定慢速开始，然后变快
-- ease-in : 以慢速开始
-- ease-out : 以慢速结束
-- linear : 以相同速度开始至结束
-  参数 4 为延时触发过度的时间
-
+请用百分比来规定变化发生的时间，或用关键词"from"和"to"，等同于 0%和 100%，**百分比可以写多个**，百分比即为时间的划分
 :::
 
-## transform
-
-2D 转换 : translate  
-3D 转换 : translate3d
-
-### translate 移动
-
-```CSS
-transform: translate(X,Y);
-```
-
-### rotate 旋转
-
-```CSS
-transform: rotate(角度deg);
-```
-
-### scale 缩放
-
-```CSS
-transform: scale(缩放的倍数);
-```
-
-### skew 倾斜
-
-```CSS
-transform: skew(X轴倾斜度数deg,Y轴倾斜度数deg);
-```
-
-### 无限旋转
-
-```CSS
-@keyframes rotate{
-  from{transform: rotate(0deg)}
-  to{transform: rotate(360deg)}
-}
-#img {
-  animation: rotate 3s linear infinite;
+```css
+@keyframes 动画名称 {
+  /* 开始状态 */
+  0% {
+    属性名: 值;
+  }
+  /* 结束状态 */
+  100% {
+    属性名: 值;
+  }
 }
 ```
 
-### perspective 向屏幕内侧倾斜
+### 使用动画
 
-```CSS
-transform: perspective()
+```css
+div {
+  animation-name: 动画名称;
+  animation-duration: 持续时间;
+}
+```
+
+## 动画属性
+
+### 运动曲线
+
+```css
+div {
+  animation-timing-function: ease;
+}
+```
+
+| 值            | 描述                                        |
+| ------------- | ------------------------------------------- |
+| linear        | 动画从头到尾的速度是相同的（匀速）          |
+| ease          | 默认。动画以低速开始，然后加快，在结束前变慢 |
+| ease\-in      | 动画以低速开始                              |
+| ease\-out     | 动画以低速结束                              |
+| ease\-in\-out | 动画以低速开始和结束                        |
+| steps         | 指定了时间函数中的间隔数量\(步长\)          |
+
+### 开始时间
+
+```css
+div {
+  animation-delay: 1s;
+}
+```
+
+### 播放次数
+
+默认播放次数为 1
+
+```css
+div {
+  /* 指定次数 */
+  animation-iteration-count: 5;
+  /* 无限次 */
+  animation-iteration-count: infinite;
+}
+```
+
+### 是否反方向播放
+
+结束时是否反方向播放
+
+```css
+div {
+  /* 结束时直接跳转至起始状态（默认） */
+  animation-direction: normal;
+  /* 结束时反方向播放 */
+  animation-direction: alternate;
+}
+```
+
+### 动画结束后保持结束状态
+
+默认不返回（backwards）
+
+```css
+div {
+  animation-fill-mode: forwards;
+}
+```
+
+### 控制动画播放
+
+```css
+div {
+  /* 播放（默认） */
+  animation-play-state: running;
+  /* 暂停 */
+  animation-play-state: paused;
+}
+```
+
+## 动画属性简写
+
+语法：`animation: 动画名称 持续时间 [运动曲线] [开始时间] [播放次数] [是否反方向] [动画起始/结束状态]`
+
+```css
+div {
+  animation: move 2s;
+  animation: move 2s ease 0s 5 normal backwards;
+  /* 多个动画 */
+  animation: move1 2s, move2 2s;
+}
 ```
