@@ -191,6 +191,40 @@ table 有一个特殊的 CSS：`border-collapse: collapse;`，设置后可将相
 <p title="提示内容"></p>
 ```
 
+## 语义化标签
+
+语义化标签与 div 标签无实质区别，仅仅是有语义化。语义化标准主要是**针对搜索引擎**。
+
+### 头部标签
+
+```html
+<header></header>
+```
+
+### 导航标签
+
+```html
+<nav></nav>
+```
+
+### 区域标签
+
+```html
+<section></section>
+```
+
+### 侧边栏标签
+
+```html
+<aside></aside>
+```
+
+### 尾部标签
+
+```html
+<footer></footer>
+```
+
 ## 文本格式化标签
 
 ### pre 标签
@@ -247,13 +281,85 @@ name 属性：当前 input 弹的名字,后台可以通过这个 name 属性找�
 - 文本输入
 
 ```html
-<label> 文本输入：<input type="text" placeholder="文本提示" /> </label>
+<label>文本输入：<input type="text" placeholder="文本提示" /> </label>
+```
+
+修改文本提示颜色：
+
+```css
+input::placeholder {
+  color: red;
+}
 ```
 
 - 密码输入
 
 ```html
-<label> 密码输入：<input type="password" /> </label>
+<label>密码输入：<input type="password" /> </label>
+```
+
+- 数字输入
+
+::: tip 提示
+在移动端同样适用，并且会自动将输入法键盘切换至数字输入
+:::
+
+```html
+<label>数字输入：<input type="number" /> </label>
+```
+
+- 搜索输入
+
+```html
+<label>搜索输入：<input type="search" /> </label>
+```
+
+- 手机号输入
+
+```html
+<label>手机号输入：<input type="tel" /> </label>
+```
+
+- 电子邮箱输入
+
+```html
+<label>电子邮箱输入：<input type="email" /> </label>
+```
+
+- 颜色选择
+
+```html
+<label>颜色选择：<input type="color" /> </label>
+```
+
+- URL 网址输入
+
+```html
+<label>URL网址输入：<input type="url" /> </label>
+```
+
+- 日期选择
+
+```html
+<label>日期选择：<input type="date" /> </label>
+```
+
+- 时间输入
+
+```html
+<label>时间输入：<input type="time" /> </label>
+```
+
+- 月份输入
+
+```html
+<label>月份输入：<input type="month" /> </label>
+```
+
+- 周输入
+
+```html
+<label>周输入入：<input type="week" /> </label>
 ```
 
 ### 文本域
@@ -265,7 +371,7 @@ name 属性：当前 input 弹的名字,后台可以通过这个 name 属性找�
 ```
 
 ::: tip 提示
-`cols` 属性可用来定义每行字符数，`rows`属性可定义行数。实际开发中一般使用CSS进行设置样式。
+`cols` 属性可用来定义每行字符数，`rows`属性可定义行数。实际开发中一般使用 CSS 进行设置样式。
 :::
 
 ### 单选框
@@ -333,5 +439,61 @@ name 属性：当前 input 弹的名字,后台可以通过这个 name 属性找�
 弹出文件对话框
 
 ```html
+<!-- 单选文件 -->
 <input type="file" />
+<!-- 多选文件 -->
+<input type="file" multiple="multiple" />
 ```
+
+### 表单属性
+
+| 属性            | 值        | 描述                                                                                                                                                                                           |
+| --------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| required        | required  | 表单拥有该属性表示其内容不能为空，必填                                                                                                                                                         |
+| **placeholder** | 提示文本  | 表单的提示信息，存在默认值将不显示                                                                                                                                                             |
+| autofocus       | autofocus | 自动聚焦属性，页面加载完成自动聚焦到指定表单                                                                                                                                                   |
+| autocomplete    | off/ on   | 当用户在字段开始键入时，浏览器基于之前键入过的值，应该显示出在字段 中填写的选项。默认已经打开，如 autocomplete="on"，关闭 autocomplete ="off" 需要放在表单内，同时加上 name 属性，同时成功提交 |
+| **multiple**    | multiple  | 可以多选文件提交                                                                                                                                                                               |
+
+## 多媒体标签
+
+### 音频
+
+支持 mp3、Wav、Ogg 三种格式（各浏览器的支持程度略有差异），推荐使用 mp3 格式
+
+```html
+<audio src="文件地址" controls="controls"></audio>
+```
+
+常用属性：
+
+| 属性     | 值       | 描述                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------- |
+| autoplay | autoplay | 如果出现该属性，则音频在就绪后马上播放。                                                    |
+| controls | controls | 如果出现该属性，则向用户显示控件，比如播放按钮。                                            |
+| loop     | loop     | 如果出现该属性，则每当音频结束时重新开始播放。                                              |
+| muted    | muted    | 规定视频输出应该被静音。                                                                    |
+| preload  | preload  | 如果出现该属性，则音频在页面加载时进行加载，并预备播放。如果使用 "autoplay"，则忽略该属性。 |
+| src      | url      | 要播放的音频的 URL。                                                                        |
+
+### 视频
+
+支持 mp4、WebM、Ogg 三种格式（各浏览器的支持程度略有差异），推荐使用 mp4 格式
+
+```html
+<video src="文件地址" controls="controls"></video>
+```
+
+常用属性：
+
+| 属性     | 值       | 描述                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------- |
+| autoplay | autoplay | 如果出现该属性，则视频在就绪后马上播放。（谷歌浏览器需要增加 muted 来解决自动播放问题）     |
+| controls | controls | 如果出现该属性，则向用户显示控件，比如播放按钮。                                            |
+| height   | pixels   | 设置视频播放器的高度。                                                                      |
+| loop     | loop     | 如果出现该属性，则当媒介文件完成播放后再次开始播放。                                        |
+| muted    | muted    | 规定视频的音频输出应该被静音。                                                              |
+| poster   | URL      | 规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图像。                              |
+| preload  | preload  | 如果出现该属性，则视频在页面加载时进行加载，并预备播放。如果使用 "autoplay"，则忽略该属性。 |
+| src      | url      | 要播放的视频的 URL。                                                                        |
+| width    | pixels   | 设置视频播放器的宽度。                                                                      |
