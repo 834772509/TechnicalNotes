@@ -32,5 +32,19 @@
     <artifactId>mybatis-spring</artifactId>
     <version>2.0.5</version>
 </dependency>
+
+<!-- C3P0 https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+<dependency>
+    <groupId>com.mchange</groupId>
+    <artifactId>c3p0</artifactId>
+    <version>0.9.5.5</version>
+</dependency>
 ```
 
+## 整合
+
+### 实体类
+
+``` Java
+
+```

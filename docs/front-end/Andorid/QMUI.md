@@ -4,7 +4,7 @@
 
 Gradle Scripts\build.grade(Moudule: app)
 
-``` gradle
+```gradle
 dependencies {
     implementation 'com.qmuiteam:qmui:2.0.0-alpha07'
 }
@@ -14,7 +14,7 @@ dependencies {
 
 \res\values\styles.xml
 
-``` XML
+```XML
 <resources>
   <style name="AppTheme" parent="QMUI">
 

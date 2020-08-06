@@ -4,7 +4,7 @@
 
 顶部工具栏
 
-``` XML
+```XML
 <androidx.appcompat.widget.Toolbar
   android:id="@+id/Toolbar"
   android:layout_width="match_parent"
@@ -15,14 +15,14 @@
   tools:ignore="MissingConstraints" />
 ```
 
-``` Java
+```Java
 Toolbar = (Toolbar) findViewById(R.id.Toolbar);
 setSupportActionBar(Toolbar);
 ```
 
 ## 侧边栏
 
-``` XML
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,14 +65,14 @@ setSupportActionBar(Toolbar);
 
 \app\build.gradle
 
-``` gradle
+```gradle
 dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 }
 ```
 
-``` XML
+```XML
 <com.google.android.material.navigation.NavigationView
   android:id="@+id/navView"
   android:layout_width="match_parent"
@@ -85,7 +85,7 @@ dependencies {
 
 \menu\nav_menu
 
-``` XML
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <!--设置所有菜单为单选-->
@@ -99,7 +99,7 @@ dependencies {
 </menu>
 ```
 
-``` Java
+```Java
 //设置侧边栏
 NavigationView navView = findViewById(R.id.navView);
 navView.setCheckedItem(R.id.navCall);

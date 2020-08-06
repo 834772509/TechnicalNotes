@@ -12,18 +12,18 @@
 
 ### 实用插件
 
-* Android ButterKnife Zelezny（快速findViewById）
-* Android WiFi ADB（通过WIFI用手机调试）
+- Android ButterKnife Zelezny（快速 findViewById）
+- Android WiFi ADB（通过 WIFI 用手机调试）
 
 ### 修复没有运行按钮
 
-[安装NDK](https://developer.android.google.cn/ndk/downloads)
+[安装 NDK](https://developer.android.google.cn/ndk/downloads)
 
 解压后将解压目录增加至环境变量即完成安装
 
-### 一键连接MUMU模拟器
+### 一键连接 MUMU 模拟器
 
-``` bat
+```bat
 @echo off
 set adbPath=C:\Program Files (x86)\MuMu\emulator\nemu\vmonitor\bin
 cd /d %adbPath%
@@ -35,31 +35,31 @@ goto :eof
 
 ## 生命周期
 
-1. onCreate() ，不可见状态  
+1. onCreate() ，不可见状态
 
 在 Activity 被创建时回调，第一个生命周期。我们一般在创建 Activity 时需要重写该方法做一些初始化的操作，如通过 setContentView 设置界面布局的资源，初始化所需要的组件信息等。
 
-2. onStart() ，可见状态  
+2. onStart() ，可见状态
 
 该方法回调表示 Activity 正在启动，此时 Activity 处于可见状态，只是还没有在前台显示，因此用户也无法交互。可以简单理解为 Activity 已显示却无法被用户看见。
 
-3. onResume() ，可见状态  
+3. onResume() ，可见状态
 
 Activity 已在在屏幕上显示 UI 并允许用户操作了。当 Activity 停止后（onPause、onStop 方法被调用），重新回到前台时也会调用 onResume 方法。可以在 onResume 方法中初始化一些资源，比如打开相机或开启动画。
 
-4. onPause() ，可见状态  
+4. onPause() ，可见状态
 
 Activity 正在停止（Paused 形态），通常接下来 onStop() 会被回调 。但通过流程图可见，另一种情况是 onPause() 执行后直接执行了 onResume 方法，这可能是用户点击 Home 键，让程序退回到主界面，程序在后台运行时又迅速地再回到到当前的 Activity，此时 onResume 方法就会被回调。我们可以在 onPause 方法中做一些数据存储、动画停止、资源回收等操作。另外，onPause 方法执行完成后，新 Activity 的 onResume 方法才会被执行。所以 onPause 不能太耗时，因为这可能会影响到新的 Activity 的显示。
 
-5. onStop() ，不可见状态  
+5. onStop() ，不可见状态
 
 Activity 即将停止或者完全被覆盖（Stopped 形态），此时 Activity 不可见，仅在后台运行。同样地，在 onStop 方法可以做一些资源释放的操作，不能太耗时。
 
-6. onRestart(），可见状态  
+6. onRestart(），可见状态
 
 表示 Activity 正在重新启动，由不可见状态变为可见状态。这种情况，一般发生在用户打开了一个新的 Activity 时，之前的 Activity 就会被 onStop，接着又回到之前 Activity 页面时，之前的 Activity 的 onRestart 方法就会被回调。
 
-7. onDestroy() ，不可见状态  
+7. onDestroy() ，不可见状态
 
 表示 Activity 正在被销毁，也是生命周期最后一个执行的方法，一般我们可以在此方法中做一些回收工作和最终的资源释放。
 
@@ -67,19 +67,19 @@ Activity 即将停止或者完全被覆盖（Stopped 形态），此时 Activity
 
 ### 打印输出
 
-``` Java
+```Java
 Log.i("打印内容")
 ```
 
 ### 退出程序
 
-``` Java
+```Java
 System.exit(0);
 ```
 
 ### 连续返回两次则退出程序
 
-``` Java
+```Java
 @Override
 public boolean onKeyDown(int keyCode, KeyEvent event) {
   if (keyCode == KeyEvent.KEYCODE_BACK){
@@ -97,18 +97,18 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 ### 振动
 
-``` Java
+```Java
 //获取振动器
 Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
 //振动，单位为毫秒
 vibrator.vibrate(500);
 ```
 
-增加权限： ` `  ` <uses-permission android:name="android.permission. VIBRATE" /> `  ` ` 
+增加权限： `` `<uses-permission android:name="android.permission. VIBRATE" />` ``
 
 ### 获取电量
 
-``` Java
+```Java
 //获取电量信息管理器
 BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
 //输出当前电量（百分比）
@@ -117,7 +117,7 @@ Log.i("当前电量：" + batteryManager.getIntProperty(BatteryManager.BATTERY_P
 
 ### 直接拨打电话
 
-``` Java
+```Java
 //判断是否已申请权限
 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
   ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},1);
@@ -132,27 +132,27 @@ if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != P
 
 ### 常规跳转
 
-``` Java
+```Java
 Intent intent = new Intent(this,跳转Activity名.class);
 startActivity(intent);
 ```
 
 返回/结束页面：
 
-``` Java
+```Java
 finish();
 当前Activity名.this.finish();
 ```
 
 ::: tip 提示
-可使用 ` `  ` intent.setFlags(intent. FLAG_ACTIVITY_NO_HISTORY); `  ` ` 设置返回到桌面后再次访问时不保留此页面
+可使用 `` `intent.setFlags(intent. FLAG_ACTIVITY_NO_HISTORY);` `` 设置返回到桌面后再次访问时不保留此页面
 :::
 
 ### 页面间传递数据
 
 传递：
 
-``` Java
+```Java
 Bundle bundle = new Bundle();
 bundle.putCharSequence("键1","值1");
 bundle.putCharSequence("键2","值2");
@@ -164,7 +164,7 @@ startActivity(intent);
 
 获取：
 
-``` Java
+```Java
 Intent intent = getIntent();
 Bundle bundle = intent.getExtras();
 String 值1 = bundle.getString("键1");
@@ -173,7 +173,7 @@ String 值2 = bundle.getString("键2");
 
 ### 获取页面的返回值
 
-``` Java
+```Java
 Intent intent = new Intent(this,跳转Activity名.class);
 startActivityForResult(intent,0x11);
 
@@ -189,7 +189,7 @@ protected void onActivityResult (int requestCode,int resultCode,Intent data){
 
 跳转的页面：
 
-``` Java
+```Java
 Intent intent = getIntent();
 Bundle bundle = intent.getExtras();
 bundle.putInt("键","值");
@@ -200,18 +200,18 @@ finish();
 
 ### 跳转至拨打电话界面
 
-``` Java
+```Java
 Intent intent = new Intent();
 intent.setAction(intent.ACTION_DIAL);
 intent.setData(Uri.parse("tel:电话号码"));
 startActivity(intent);
 ```
 
-增加权限： ` `  ` <uses-permission android:name="android.permission. CALL_PHONE"/> `  ` ` 
+增加权限： `` `<uses-permission android:name="android.permission. CALL_PHONE"/>` ``
 
 ### 跳转至发送短信界面
 
-``` Java
+```Java
 Intent intent = new Intent();
 intent.setAction(intent.ACTION_SENDTO);
 intent.setData(Uri.parse("smsto:短信号码"));
@@ -219,11 +219,11 @@ intent.putExtra("sms_body","短信内容");
 startActivity(intent);
 ```
 
-增加权限： ` `  ` <uses-permission android:name="android.permission. SEND_SMS"/> `  ` ` 
+增加权限： `` `<uses-permission android:name="android.permission. SEND_SMS"/>` ``
 
 ### 跳转至桌面（不退出）
 
-``` Java
+```Java
 Intent intent = new Intent();
 intent.setAction(intent.ACTION_MAIN);
 intent.addCategory(intent.CATEGORY_HOME);
@@ -232,16 +232,16 @@ startActivity(intent);
 
 ### 跳转到网页（以默认浏览器打开）
 
-``` Java
+```Java
 Intent intent = new Intent();
 intent.setAction(intent.ACTION_VIEW);
 intent.setData(Uri.parse("网页地址"));
 startActivity(intent);
 ```
 
-### 显示Toast提示
+### 显示 Toast 提示
 
-``` Java
+```Java
 Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
 ```
 
@@ -249,7 +249,7 @@ Toast.makeText(MainActivity.this,"提示内容",Toast.LENGTH_SHORT).show();
 
 ### 取消/确定 对话框
 
-``` Java
+```Java
 //创建AlertDialog对象
 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
 //设置图标
@@ -273,7 +273,7 @@ alertDialog.show();
 
 ### 列表对话框
 
-``` Java
+```Java
 String[] item = new String[]{"列表项1","列表项2"};
 //创建AlertDialog.Builder对象
 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -291,7 +291,7 @@ builder.create().show();
 
 ### 单选 对话框
 
-``` Java
+```Java
 String[] items = new String[]{"列表项1", "列表项2"};
 //创建AlertDialog.Builder对象
 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -309,7 +309,7 @@ builder.create().show();
 
 ### 多选 对话框
 
-``` Java
+```Java
 final String[] item1 = new String[]{"列表项1", "列表项2"};
 //记录各列表的状态
 final boolean[] checkItem=new boolean[item1.length];
@@ -347,7 +347,7 @@ builder.create().show();
 
 \res\values\strings.xml
 
-``` XML
+```XML
 <resources>
     <string name="字符串名称">字符串</string>
 </resources>
@@ -355,25 +355,25 @@ builder.create().show();
 
 使用：
 
-``` XML
+```XML
 android:text="@string/字符串名称"
 ```
 
-``` Java
+```Java
 组件.setText(getResources().getString(R.string.字符串名称));
 ```
 
 ::: tip 提示
-` `  ` string `  ` ` 是小写，不能大写
+`` `string` `` 是小写，不能大写
 :::
 
 ### 颜色资源
 
-格式： ` `  ` #透明度 R值 G值 B值 `  ` ` （各值间**没有空格**，RGB值为十六进制，透明度可省略）  
+格式： `` `#透明度 R值 G值 B值` `` （各值间**没有空格**，RGB 值为十六进制，透明度可省略）
 
 \res\values\strings.xml
 
-``` XML
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="颜色名称">#透明度 R值 G值 B值</color>
@@ -382,22 +382,22 @@ android:text="@string/字符串名称"
 
 使用：
 
-``` XML
+```XML
 android:textColor="@color/颜色名称"
 ```
 
-``` Java
+```Java
 组件.setTextColor(getResources().getColor(R.color.颜色名称));
 ```
 
 ### 尺寸资源
 
-* dp: 设置资源大小
-* sp: 设置字体大小
+- dp: 设置资源大小
+- sp: 设置字体大小
 
 \res\values\dimens.xml （如没有则需要自行建立）
 
-``` XML
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="尺寸名称">尺寸dp</dimen>
@@ -406,37 +406,37 @@ android:textColor="@color/颜色名称"
 
 使用：
 
-``` XML
+```XML
 android:textSize="@dimen/尺寸名称"
 ```
 
-``` Java
+```Java
 组件.setTextSize(getResources().getDimension(R.dimen.尺寸名称));
 ```
 
-### Drawable资源
+### Drawable 资源
 
-Drawable目录 一般用来存放图片等文件
+Drawable 目录 一般用来存放图片等文件
 
 使用：
 
-``` XML
+```XML
 android:background="@drawable/资源名称"
 ```
 
-``` Java
+```Java
 组件.setBackground(getResources().getDrawable(R.drawable.资源名称（不带后缀）);
 ```
 
-### StateListDrawable资源
+### StateListDrawable 资源
 
-StateListDrawable资源一般用于控制焦点事件
+StateListDrawable 资源一般用于控制焦点事件
 
 ### 主题资源
 
 \res\values\styles.xml
 
-``` XML
+```XML
 <resources>
   <style name="主题名称" parent="AppTheme">
    <item name="属性">值</item>
@@ -450,26 +450,26 @@ StateListDrawable资源一般用于控制焦点事件
 
 AndroidMainifest.xml
 
-``` XML
+```XML
 android:theme="@style/主题名称"
 ```
 
 局部使用：
 
-``` Java
+```Java
 setTheme(R.style.主题名称)
 setContentView(R.layout.activity_main);
 ```
 
 ::: tip 提示
-在Java代码中需要在 ` `  ` setContentView `  `  ` 方法前使用 `  `  ` setTheme `  ` ` ，否则不起作用
+在 Java 代码中需要在 `` `setContentView` `` 方法前使用 `` `setTheme` `` ，否则不起作用
 :::
 
 ### 菜单资源
 
 \res\menu\menu.xml （如没有则需要自行建立）
 
-``` XML
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/message1" android:title="标题"></item>
@@ -480,7 +480,7 @@ setContentView(R.layout.activity_main);
 
 ### 播放音乐
 
-``` Java
+```Java
 try {
   mMediaPlayer = MediaPlayer.create(this, R.drawable.音乐资源名称);
   mMediaPlayer.start();
@@ -489,7 +489,7 @@ try {
 
 ## 消息推送
 
-``` Java
+```Java
 //创建通知基本内容
 NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
         .setSmallIcon(R.drawable.ic_launcher_background)
@@ -512,7 +512,7 @@ NotificationManagerCompat notificationManager = NotificationManagerCompat.from(t
 notificationManager.notify((int) System.currentTimeMillis(), builder.build());
 ```
 
-``` Java
+```Java
 private void createNotificationChannel() {
   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
     CharSequence name = getString(R.string.app_name);
@@ -528,7 +528,7 @@ private void createNotificationChannel() {
 
 ## 动态权限
 
-``` Java
+```Java
 //判断是否已申请权限
 if (ContextCompat.checkSelfPermission(this, Manifest.permission.权限名称) != PackageManager.PERMISSION_GRANTED){
   ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.权限名称},1);
@@ -543,7 +543,7 @@ if (ContextCompat.checkSelfPermission(this, Manifest.permission.权限名称) !=
 
 ### 基于监听器（优先级较高）
 
-``` Java
+```Java
 组件.setOnTouchListener(new View.OnTouchListener() {
 @Override
 public boolean onTouch(View v, MotionEvent event) {
@@ -556,7 +556,7 @@ public boolean onTouch(View v, MotionEvent event) {
 
 ### 基于回调
 
-``` Java
+```Java
 @Override
 public boolean onTouchEvent(MotionEvent event) {
   Toast.makeText(this, "onTouchEvent方法", Toast.LENGTH_SHORT).show();
@@ -568,7 +568,7 @@ public boolean onTouchEvent(MotionEvent event) {
 
 监听物理 音量键、电源键、菜单键、主屏键、返回键
 
-``` java
+```java
 @Override
 public boolean onKeyDown(int keyCode, KeyEvent event) {
   if (keyCode == KeyEvent.按键码){
@@ -582,18 +582,18 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 按键码：
 
-* 菜单键： ` `  ` KEYCODE_MENU `  ` ` 
-* 主屏键： ` `  ` KEYCODE_HOME `  ` ` 
-* 返回键： ` `  ` KEYCODE_BACK `  ` ` 
-* 音量加： ` `  ` KEYCODE_VOLUME_UP `  ` ` 
-* 音量减： ` `  ` KEYCODE_VOLUME_DOWN `  ` ` 
-* 电源键： ` `  ` KEYCODE_POWER `  ` ` 
+- 菜单键： `` `KEYCODE_MENU` ``
+- 主屏键： `` `KEYCODE_HOME` ``
+- 返回键： `` `KEYCODE_BACK` ``
+- 音量加： `` `KEYCODE_VOLUME_UP` ``
+- 音量减： `` `KEYCODE_VOLUME_DOWN` ``
+- 电源键： `` `KEYCODE_POWER` ``
 
 :::
 
 ### 长按事件
 
-``` Java
+```Java
 组件.setOnLongClickListener(new View.OnLongClickListener() {
   @Override
   public boolean onLongClick(View v) {
@@ -607,11 +607,11 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 ### 文件存储
 
-所有的文件默认会存放于 ` ` /data/data/包名/files ` ` 目录下
+所有的文件默认会存放于 `` /data/data/包名/files `` 目录下
 
 #### 写入文件
 
-``` Kotlin
+```Kotlin
 try {
   val output = openFileOutput("文件名", Context.MODE_PRIVATE)
   val writer = BufferedWriter(OutputStreamWriter(output))
@@ -625,7 +625,7 @@ try {
 
 #### 读入文件
 
-``` Kotlin
+```Kotlin
 val content = StringBuilder()
 try {
   val input = openFileInput("文件名")
@@ -643,11 +643,11 @@ return content.toString()
 
 ### SharedPreferences
 
-SharedPreferences使用键值对的方式存储数据
+SharedPreferences 使用键值对的方式存储数据
 
 #### 存储数据
 
-``` Java
+```Java
 SharedPreferences.Editor editer = getSharedPreferences("文件名(无后缀)", Context.MODE_PRIVATE).edit();
 //字符串型
 editer.putString("字段名", "值");
@@ -660,7 +660,7 @@ editer.apply();
 
 #### 读取数据
 
-``` Java
+```Java
 SharedPreferences preferences = getSharedPreferences("文件名(无后缀)", Context.MODE_PRIVATE);
 Log.i(preferences.getString("字段名"),默认值);
 Log.i(preferences.getInt("字段名"),默认值);
@@ -671,9 +671,9 @@ Log.i(preferences.getBoolean("字段名",默认值));
 
 ### 基本多线程
 
-此多线程无法更新UI界面，只能处理逻辑代码
+此多线程无法更新 UI 界面，只能处理逻辑代码
 
-``` Kotlin
+```Kotlin
 Thread {
   //延时（毫秒）
   Thread.sleep(100)
@@ -682,9 +682,9 @@ Thread {
 
 ### 使用 AsyncTask
 
-AsyncTask 原理是基于异步消息处理机制，Android里做好了很好的封装
+AsyncTask 原理是基于异步消息处理机制，Android 里做好了很好的封装
 
-``` Kotlin
+```Kotlin
 //启动线程
 类名().execute()
 
@@ -712,7 +712,7 @@ class 类名 : AsyncTask<Unit, Int, Boolean>(){
 
 ### 使用 Handler （不推荐，麻烦）
 
-``` Kotlin
+```Kotlin
 val uptateText = 1
 val handler = object : Handler() {
   override fun handleMessage(msg: Message) {

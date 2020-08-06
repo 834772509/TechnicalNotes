@@ -1,27 +1,27 @@
-# Android与HTML5互调
+# Android 与 HTML5 互调
 
 ## 加载网页
 
-HTML5网页：新建 \src\main\ass\assets\index.html
+HTML5 网页：新建 \src\main\ass\assets\index.html
 
-``` HTML
+```HTML
 <html lang="zh-CN">
   <p>hello world</p>
 </html>
 ```
 
-XML布局：
+XML 布局：
 
-``` XML
+```XML
 <WebView
   android:id="@+id/webview"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content" />
 ```
 
-Java代码：
+Java 代码：
 
-``` Java
+```Java
 private WebView webview;
 private Button btn;
 @Override
@@ -43,9 +43,9 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-## Android调用JavaScript
+## Android 调用 JavaScript
 
-``` HTML
+```HTML
 <html lang="zh-CN">
 <script>
   function 函数名(){
@@ -58,24 +58,24 @@ protected void onCreate(Bundle savedInstanceState) {
 </html>
 ```
 
-``` Java
+```Java
 webview.loadUrl("javascript:函数名()");
 webview.loadUrl("javascript:函数名(" + "'"   + "参数值1"+ "'"+ ",'"   + "参数值2"+ "'"+  ")");
 ```
 
-## JavaScript调用Android
+## JavaScript 调用 Android
 
-``` Java
+```Java
 //配置调用Android函数
 webview.addJavascriptInterface(MainActivity.this, "Android");
 ```
 
-``` HTML
+```HTML
 <button onclick="Android.函数名()">调用安卓方法</button>
 <button onclick="Android.函数名('参数1','参数2')">调用安卓方法</button>
 ```
 
-``` Java
+```Java
 @JavascriptInterface
 public void 函数名() {
   Toast.makeText(this, "JavaScript调用Android", Toast.LENGTH_SHORT).show();
@@ -87,5 +87,5 @@ public void 函数名(String msg) {
 ```
 
 ::: tip 提示
-每个函数声明前都需要加```@JavascriptInterface```，否则无法调用
+每个函数声明前都需要加`@JavascriptInterface`，否则无法调用
 :::
