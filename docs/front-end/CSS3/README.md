@@ -1674,6 +1674,10 @@ div {
 
 [自动生成精灵图样式](http://www.spritecow.com)
 
+::: tip 提示
+`background-position`和`background-size`都是固定的，如需改变大小则先指定这两个值，然后指定宽度和高度
+:::
+
 ```css
 .sprite {
   background: url(路径) no-repeat X轴偏移值 Y轴偏移值;

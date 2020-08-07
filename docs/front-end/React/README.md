@@ -275,6 +275,222 @@ jsx ->createElement 函数 -> ReactElement（对象树）->ReactDom.render
 - 很难跟踪状态发生的改变：原有的开发模式，我们很难跟踪到状态发生的改变，不方便针对我们应用程序进行调试
 - 操作真实 DOM 性能较低：传统的开发模式会进行频繁的 DOM 操作，而这一的做法性能非常的低
 
+## CSS
+
+React 官方并没有给出在 React 中统一的样式风格：
+
+- 由此，从普通的 css，到 css modules，再到 css in js，有几十种不同的解决方案，上百个不同的库
+- 大家一致在寻找最好的或者说最适合自己的 CSS 方案，但是到目前为止也没有统一的方案
+
+### 内嵌样式
+
+```js
+<h2 style={{ fontSize: "50px", color: "#aaa" }}>标题 </h2>
+```
+
+内联样式的优点：
+
+1. 内联样式，样式之间不会有冲突
+2. 可以动态获取当前 state 中的状态
+
+内联样式的缺点：
+
+1. 写法上都需要使用驼峰标识
+2. 某些样式没有提示
+3. 大量的样式，代码混乱
+4. 某些样式无法编写（比如伪类/伪元素）
+
+### 普通 css
+
+\style.css
+
+```css
+.组件名 .类名 {
+  color: red;
+}
+```
+
+```js
+import React, { PureComponent } from "react";
+import "./style.css";
+
+export default class 组件名 extends PureComponent {
+  render() {
+    return (
+      <div className="组件名">
+        <h2 className="类名">我是Home标题</h2>
+      </div>
+    );
+  }
+}
+```
+
+这样的编写方式和普通的网页开发中编写方式是一致的：
+
+- 如果我们按照普通的网页标准去编写，那么也不会有太大的问题
+- 但是组件化开发中我们总是希望组件是一个独立的模块，即便是样式也只是在自己内部生效，不会相互影响
+- 但是普通的 css 都属于全局的 css，样式之间会相互影响
+
+### CSS Modules
+
+CSS Modules 并不是 React 特有的解决方案，而是所有使用了类似于 webpack 配置的环境下都可以使用的
+
+React 的脚手架已经内置了 css modules 的配置：
+
+- .css/.less/.scss 等样式文件都修改成 .module.css/.module.less/.module.scss 等之后就可以引用并且进行使用
+
+\style.module.css
+
+```css
+.类名 {
+  属性: 值;
+}
+```
+
+\index.js
+
+```js
+import style from "./style.module.css";
+
+<h2 className={style.类名}>标题</h2>;
+```
+
+CSS Modules 的缺陷：
+
+- 引用的类名，不能使用连接符 如（.home-title），在 JavaScript 中是不识别的
+- 所有的 className 都必须使用 `{style.className}` 的形式来编写
+- **不方便动态来修改某些样式，依然需要使用内联样式的方式**
+
+CSS Modules 确实解决了局部作用域的问题，也是很多人喜欢在 React 中使用的一种方案
+
+### CSS in JS
+
+"CSS-in-JS" 是指一 种模式，其中 CSS 由 JavaScript 生成而不是在外部文件中定义
+
+::: warning 注意
+此功能并不是 React 的一部分，而是由第三方库提供。React 对样式如何定义并没有明确态度
+:::
+
+::: tip 提示
+styled-components 支持类似 CSS 预处理器一样的特性：
+
+- 支持直接子代选择器或后代选择器，并且直接编写样式；
+- 可以通过 & 符号获取当前元素；
+- 直接伪类选择器、伪元素等；
+  :::
+
+- 安装依赖
+
+npm: `npm install styled-components --save`
+
+- 安装插件
+
+vscode-styled-components
+
+- 使用
+
+新建 \style.js
+
+```js
+import styled from "styled-components";
+
+export const 样式名1 = styled.div`
+  /* CSS样式 */
+`;
+
+export const 样式名2 = styled.标签名`
+  /* CSS样式 */
+`;
+```
+
+\index.js
+
+```js
+import React, { PureComponent } from "react";
+import { 样式名1, 样式名2 } from "./style";
+
+class App extends PureComponent {
+  render() {
+    return (
+      <样式名1>
+        <样式名2>标题</样式名2>
+      </样式名1>
+    );
+  }
+}
+
+export default App;
+```
+
+- 动态设置 CSS 样式
+
+```js
+const 样式名 = styled.标签名`
+  /* CSS样式 */
+  属性: ${(props) => props.属性};
+`;
+
+class App extends PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      属性: "值",
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <样式名 属性={this.state.属性} />
+      </div>
+    );
+  }
+}
+```
+
+- 动态设置属性
+
+```js
+const 样式名 = styled.标签名.attrs({
+  属性: "值",
+  自定义属性: "值",
+})`
+  /* CSS样式 */
+  属性: ${(props) => props.自定义属性};
+`;
+```
+
+- 继承样式
+
+```js
+const 父样式 = styled.标签名`
+  /* CSS样式 */
+`;
+
+const 子样式 = styled(父样式)`
+  /* CSS样式 */
+`;
+```
+
+- 主题样式
+
+全局定制自己的主题，通过 Provider 进行共享
+
+```js
+import { ThemeProvider } from "styled-components";
+
+<ThemeProvider theme={{ 主题属性1: "值", 主题属性2: "值" }}>
+  <组件名></组件名>
+</ThemeProvider>;
+```
+
+```js
+const 样式名 = styled.标签名`
+  属性: ${(props) => props.theme.主题属性1};
+  属性: ${(props) => props.theme.主题属性2};
+`;
+```
+
 ## 组件
 
 ::: tip 提示
@@ -1316,219 +1532,3 @@ export default class App extends PureComponent {
 ```
 
 :::
-
-## CSS
-
-React 官方并没有给出在 React 中统一的样式风格：
-
-- 由此，从普通的 css，到 css modules，再到 css in js，有几十种不同的解决方案，上百个不同的库
-- 大家一致在寻找最好的或者说最适合自己的 CSS 方案，但是到目前为止也没有统一的方案
-
-### 内嵌样式
-
-```js
-<h2 style={{ fontSize: "50px", color: "#aaa" }}>标题 </h2>
-```
-
-内联样式的优点：
-
-1. 内联样式，样式之间不会有冲突
-2. 可以动态获取当前 state 中的状态
-
-内联样式的缺点：
-
-1. 写法上都需要使用驼峰标识
-2. 某些样式没有提示
-3. 大量的样式，代码混乱
-4. 某些样式无法编写（比如伪类/伪元素）
-
-### 普通 css
-
-\style.css
-
-```css
-.组件名 .类名 {
-  color: red;
-}
-```
-
-```js
-import React, { PureComponent } from "react";
-import "./style.css";
-
-export default class 组件名 extends PureComponent {
-  render() {
-    return (
-      <div className="组件名">
-        <h2 className="类名">我是Home标题</h2>
-      </div>
-    );
-  }
-}
-```
-
-这样的编写方式和普通的网页开发中编写方式是一致的：
-
-- 如果我们按照普通的网页标准去编写，那么也不会有太大的问题
-- 但是组件化开发中我们总是希望组件是一个独立的模块，即便是样式也只是在自己内部生效，不会相互影响
-- 但是普通的 css 都属于全局的 css，样式之间会相互影响
-
-### CSS Modules
-
-CSS Modules 并不是 React 特有的解决方案，而是所有使用了类似于 webpack 配置的环境下都可以使用的
-
-React 的脚手架已经内置了 css modules 的配置：
-
-- .css/.less/.scss 等样式文件都修改成 .module.css/.module.less/.module.scss 等之后就可以引用并且进行使用
-
-\style.module.css
-
-```css
-.类名 {
-  属性: 值;
-}
-```
-
-\index.js
-
-```js
-import style from "./style.module.css";
-
-<h2 className={style.类名}>标题</h2>;
-```
-
-CSS Modules 的缺陷：
-
-- 引用的类名，不能使用连接符 如（.home-title），在 JavaScript 中是不识别的
-- 所有的 className 都必须使用 `{style.className}` 的形式来编写
-- **不方便动态来修改某些样式，依然需要使用内联样式的方式**
-
-CSS Modules 确实解决了局部作用域的问题，也是很多人喜欢在 React 中使用的一种方案
-
-### CSS in JS
-
-"CSS-in-JS" 是指一 种模式，其中 CSS 由 JavaScript 生成而不是在外部文件中定义
-
-::: warning 注意
-此功能并不是 React 的一部分，而是由第三方库提供。React 对样式如何定义并没有明确态度
-:::
-
-::: tip 提示
-styled-components 支持类似 CSS 预处理器一样的特性：
-
-- 支持直接子代选择器或后代选择器，并且直接编写样式；
-- 可以通过 & 符号获取当前元素；
-- 直接伪类选择器、伪元素等；
-  :::
-
-- 安装依赖
-
-npm: `npm install styled-components --save`
-
-- 安装插件
-
-vscode-styled-components
-
-- 使用
-
-新建 \style.js
-
-```js
-import styled from "styled-components";
-
-export const 样式名1 = styled.div`
-  /* CSS样式 */
-`;
-
-export const 样式名2 = styled.标签名`
-  /* CSS样式 */
-`;
-```
-
-\index.js
-
-```js
-import React, { PureComponent } from "react";
-import { 样式名1, 样式名2 } from "./style";
-
-class App extends PureComponent {
-  render() {
-    return (
-      <样式名1>
-        <样式名2>标题</样式名2>
-      </样式名1>
-    );
-  }
-}
-
-export default App;
-```
-
-- 动态设置 CSS 样式
-
-```js
-const 样式名 = styled.标签名`
-  /* CSS样式 */
-  属性: ${(props) => props.属性};
-`;
-
-class App extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      属性: "值",
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <样式名 属性={this.state.属性} />
-      </div>
-    );
-  }
-}
-```
-
-- 动态设置属性
-
-```js
-const 样式名 = styled.标签名.attrs({
-  属性: "值",
-  自定义属性: "值",
-})`
-  /* CSS样式 */
-  属性: ${(props) => props.自定义属性};
-`;
-```
-
-- 继承样式
-
-```js
-const 父样式 = styled.标签名`
-  /* CSS样式 */
-`;
-
-const 子样式 = styled(父样式)`
-  /* CSS样式 */
-`;
-```
-
-- 主题样式
-
-全局定制自己的主题，通过 Provider 进行共享
-
-```js
-import { ThemeProvider } from "styled-components";
-
-<ThemeProvider theme={{ 主题属性1: "值", 主题属性2: "值" }}>
-  <组件名></组件名>
-</ThemeProvider>;
-```
-
-```js
-const 样式名 = styled.标签名`
-  属性: ${(props) => props.theme.主题属性1};
-  属性: ${(props) => props.theme.主题属性2};
-`;
-```

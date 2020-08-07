@@ -393,18 +393,23 @@ const routes = [
     path: "/路径",
     component: 组件名,
   },
+  // 重定向
+  {
+    path: "/路径",
+    render: () => <Redirect to="/路径" />,
+  },
   {
     path: "/路径",
     component: 组件名,
     // 配置子路由
     routes: [
       {
-        path: "/路径",
+        path: "/父路径",
         exact: true,
         component: 组件名,
       },
       {
-        path: "/路径/路径",
+        path: "/父路径/路径",
         component: 组件名,
       },
     ],
@@ -425,7 +430,9 @@ class App extends PureComponent {
   render() {
     return (
       <BrowserRouter>
-        <NavLink exact to="/">标题</NavLink>
+        <NavLink exact to="/">
+          标题
+        </NavLink>
         <NavLink to="/路径">标题</NavLink>
         <NavLink to="/路径">标题</NavLink>
 
@@ -440,5 +447,5 @@ export default withRouter(App);
 ```
 
 ::: tip 提示
-子路由占位可使用 `{renderRoutes(this.props.route.routes)}`
+子路由占位可使用 `{renderRoutes(this.props.route.routes)}`，需要导入 `import { renderRoutes } from "react-router-config";`
 :::
