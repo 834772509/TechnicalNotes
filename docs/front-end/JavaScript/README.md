@@ -1,5 +1,13 @@
 # JavaScript 笔记
 
+## 常用效果插件
+
+- 常用特效展示： [superslide2](http://www.superslide2.com/demo.html)
+- 触摸插件：[Swiper](https://www.swiper.com.cn/demo/index.html)
+- 全屏滚动插件： [fullPage.js ](http://www.jq22.com/jquery-info1124)
+- ECharts 图表数据插件：[ECharts](http://echarts.baidu.com/index.html)
+- Highcharts 图表数据插件：[Highcharts](http://www.hcharts.cn/index.php)
+
 ## 基本语法
 
 ### 注释

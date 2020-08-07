@@ -65,7 +65,7 @@ module.exports = {
             items: [
               { text: "React", link: "/front-end/React/" },
               { text: "Vue", link: "/front-end/Vue/" },
-              { text: "Webpack", link: "/front-end/Webpack/" },
+              // { text: "Webpack", link: "/front-end/Webpack/" },
               { text: "Electron", link: "/front-end/Electron/" },
             ],
           },
