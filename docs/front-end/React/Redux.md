@@ -75,135 +75,33 @@ Redux 要求我们通过 action 来更新数据：
 
 单向数据流指的是通过 props 进行数据的传递，Vue 和 React 中组件内部都有单向数据流的概念
 
+### React 中的 state 如何管理
+
+React 中的 state 管理方案没有一个正确的答案，以下为建议的管理方案：
+
+- UI 相关的组件内部可以维护的状态，在组件内部自己来维护
+- 大部分需要共享的状态，都交给 redux 来管理和维护
+- 从服务器请求的数据（包括请求的操作），交给 redux 来维护
+
 ## 安装
+
+### redux
 
 npm: `npm install redux --save`
 
-## 使用
+### react-redux
 
-### index
-
-\src\store\index.js
-
-```js
-import { createStore } from "redux";
-import reducer from "./reducer.js";
-
-const store = createStore(reducer);
-
-export default store;
-```
-
-### 定义类型名
-
-\src\store\constants.js
-
-```js
-export const 类型名1 = "类型名1";
-export const 类型名2 = "类型名2";
-```
-
-### 定义 Action
-
-\src\store\actionCreators.js
-
-```js
-import { 类型名1, 类型名2 } from "./constants.js";
-
-export const 方法名1 = () => ({
-  type: 类型名1,
-});
-
-export const 方法名2 = (参数名) => ({
-  type: 类型名2,
-  参数名,
-});
-```
-
-### 定义 reducer
-
-\src\store\reducer.js
-
-```js
-import { 类型名1, 类型名2 } from "./constants.js";
-
-const defaultState = {
-  变量名: 0,
-};
-
-function reducer(state = defaultState, action) {
-  switch (action.type) {
-    case 类型名1:
-      return { ...state, count: state.变量名 + 1 };
-    case 类型名2:
-      return { ...state, count: state.变量名 + action.参数名 };
-    default:
-      return state;
-  }
-}
-
-export default reducer;
-```
-
-### 结合 React 使用
-
-```js
-import React, { PureComponent } from "react";
-
-import store from "../store";
-import { 方法名1, 方法名2 } from "../store/actionCreators";
-
-export default class Home extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      变量名: store.getState().变量名,
-    };
-  }
-
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState({
-        变量名: store.getState().变量名,
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  render() {
-    return (
-      <div>
-        <h2>当前计数：{this.state.变量名}</h2>
-        <button onClick={(e) => this.increment()}>+1</button>
-        <button onClick={(e) => this.addNumber(5)}>+5</button>
-      </div>
-    );
-  }
-
-  increment() {
-    store.dispatch(方法名1(1));
-  }
-  addNumber(num) {
-    store.dispatch(方法名1(num));
-  }
-}
-```
-
-## Redux 流程图
-
-![Redux流程图](./img/Redux流程图.jpg)
-
-## React-Redux
-
-React-Redux 是 Redux 推出的适用于 React 的 state 状态管理
-
-### 安装
+React-Redux 是 Redux 推出的适用于 React 的 state 状态管理。
 
 npm: `npm install react-redux --save`
+
+### Redux-thunk
+
+redux-thunk 是官网推荐的、包括演示的网络请求的中间件。
+
+npm `npm install react-redux --save`
+
+## 使用
 
 ### 定义 Store
 
@@ -260,9 +158,9 @@ const defaultState = {
 function reducer(state = defaultState, action) {
   switch (action.type) {
     case 类型名1:
-      return { ...state, count: state.变量名 + 1 };
+      return { ...state, 变量名: state.变量名 + 1 };
     case 类型名2:
-      return { ...state, count: state.变量名 + action.参数名 };
+      return { ...state, 变量名: state.变量名 + action.参数名 };
     default:
       return state;
   }
@@ -288,6 +186,8 @@ ReactDOM.render(
 ```
 
 ### 使用
+
+- 普通使用
 
 \组件名.js
 
@@ -326,6 +226,32 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(组件名);
 ```
 
+- Hooks 使用
+
+```js
+import React, { memo } from "react";
+import { connect, useSelector, shallowEqual } from "react-redux";
+
+export default memo(function 组件名(props) {
+  const { 变量名 } = useSelector(
+    (state) => ({
+      变量名: state.变量名,
+    }),
+    shallowEqual
+  );
+
+  return (
+    <div>
+      <h2>当前变量: {变量名}</h2>
+    </div>
+  );
+});
+```
+
+## Redux 流程图
+
+![Redux流程图](./img/Redux流程图.jpg)
+
 ## Redux 异步操作
 
 redux 引入了中间件（Middleware）的概念：
@@ -333,15 +259,15 @@ redux 引入了中间件（Middleware）的概念：
 - 这个中间件的目的是在 dispatch 的 action 和最终达到的 reducer 之间，扩展一些自己的代码；
 - 比如日志记录、调用异步接口、添加代码调试功能等等；
 
-## Redux-thunk
+### Redux-thunk
 
-官网推荐的、包括演示的网络请求的中间件是使用 redux-thunk
+redux-thunk 是官网推荐的、包括演示的网络请求的中间件
 
-### 安装
+- 安装
 
 npm: `npm install redux-thunk --save`
 
-### index
+- index
 
 \store\index.js
 
@@ -358,7 +284,7 @@ const store = createStore(reducer, storeEnhancer);
 export default store;
 ```
 
-### actionCreators
+- actionCreators
 
 \store\actionCreators.js
 
@@ -377,7 +303,7 @@ export const getHomeMultidata = (dispatch) => {
 };
 ```
 
-### 组件
+- 组件
 
 ```js
 import React, { PureComponent } from "react";
@@ -403,6 +329,75 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(组件名);
+```
+
+### Redux-saga
+
+Redux-saga 是另一个比较常用在 redux 发送异步请求的中间件，它的使用更加的灵活
+
+- 安装
+
+npm: `npm install redux-saga --save`
+
+- 集成 redux-saga 中间件
+
+```js
+import { createStore, applyMiddleware, compose } from "redux";
+import thunkMiddleware from "redux-thunk";
+import createSagaMiddleware from "redux-saga";
+import reducer from "./reducer.js";
+import mySaga from "./saga";
+
+// 通过createSagaMiddleware函数来创建saga中间件
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
+
+// 通过applyMiddleware来结合多个Middleware, 返回一个enhancer
+const enhancer = composeEnhancers(
+  applyMiddleware(thunkMiddleware, sagaMiddleware)
+);
+// 将enhancer作为第二个参数传入到createStore中
+const store = createStore(reducer, enhancer);
+
+// 必须启动saga中间件，并且传入其要监听的generator
+sagaMiddleware.run(mySaga);
+
+export default store;
+```
+
+- saga.js 文件的编写
+
+::: tip 提示
+
+- takeEvery：可以传入多个监听的 actionType，每一个都可以被执行（对应有一个 takeLastest，会取消前面的）
+- put：在 saga 中派发 action 不再是通过 dispatch，而是通过 put；
+- all：可以在 yield 的时候 put 多个 action；
+  :::
+
+```js
+import { takeEvery, put, all } from "redux-saga/effects";
+import axios from "axios";
+
+import { FETCH_HOME_MULTIDATA } from "./constants";
+import { changeBannersAction, changeRecommendsAction } from "./actionCreators";
+
+function* fetchHomeMultidata(action) {
+  const res = yield axios.get("http://123.207.32.32:8000/home/multidata");
+  console.log(res);
+  const data = res.data.data;
+  yield all([
+    put(changeBannersAction(data.banner.list)),
+    put(changeRecommendsAction(data.recommend.list)),
+  ]);
+}
+
+function* mySaga() {
+  yield takeEvery(FETCH_HOME_MULTIDATA, fetchHomeMultidata);
+}
+
+export default mySaga;
 ```
 
 ## redux-devtools
@@ -440,82 +435,11 @@ export default store;
 
 index.js
 
-``` js
-if (!window.location.port && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
-  window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}
-}
-```
-
-## Redux-saga
-
-Redux-saga 是另一个比较常用在 redux 发送异步请求的中间件，它的使用更加的灵活
-
-### 安装
-
-npm: `npm install redux-saga --save`
-
-### 集成 redux-saga 中间件
-
 ```js
-import { createStore, applyMiddleware, compose } from "redux";
-import thunkMiddleware from "redux-thunk";
-import createSagaMiddleware from "redux-saga";
-import reducer from "./reducer.js";
-import mySaga from "./saga";
-
-// 通过createSagaMiddleware函数来创建saga中间件
-const sagaMiddleware = createSagaMiddleware();
-
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
-
-// 通过applyMiddleware来结合多个Middleware, 返回一个enhancer
-const enhancer = composeEnhancers(
-  applyMiddleware(thunkMiddleware, sagaMiddleware)
-);
-// 将enhancer作为第二个参数传入到createStore中
-const store = createStore(reducer, enhancer);
-
-// 必须启动saga中间件，并且传入其要监听的generator
-sagaMiddleware.run(mySaga);
-
-export default store;
-```
-
-### saga.js 文件的编写
-
-- takeEvery：可以传入多个监听的 actionType，每一个都可以被执行（对应有一个 takeLastest，会取消前面的）
-- put：在 saga 中派发 action 不再是通过 dispatch，而是通过 put；
-- all：可以在 yield 的时候 put 多个 action；
-
-```js
-import { takeEvery, put, all } from "redux-saga/effects";
-import axios from "axios";
-
-import { FETCH_HOME_MULTIDATA } from "./constants";
-import { changeBannersAction, changeRecommendsAction } from "./actionCreators";
-
-function* fetchHomeMultidata(action) {
-  const res = yield axios.get("http://123.207.32.32:8000/home/multidata");
-  console.log(res);
-  const data = res.data.data;
-  yield all([
-    put(changeBannersAction(data.banner.list)),
-    put(changeRecommendsAction(data.recommend.list)),
-  ]);
+if (
+  !window.location.port &&
+  typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === "object"
+) {
+  window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function() {};
 }
-
-function* mySaga() {
-  yield takeEvery(FETCH_HOME_MULTIDATA, fetchHomeMultidata);
-}
-
-export default mySaga;
 ```
-
-## React 中的 state 如何管理
-
-React 中的 state 管理方案没有一个正确的答案，以下为建议的管理方案：
-
-- UI 相关的组件内部可以维护的状态，在组件内部自己来维护
-- 大部分需要共享的状态，都交给 redux 来管理和维护
-- 从服务器请求的数据（包括请求的操作），交给 redux 来维护
