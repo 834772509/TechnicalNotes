@@ -56,16 +56,15 @@ settings.json
 
 创建 `\src\assets\img` : 存放图片  
 创建 `\src\assets\font` : 存放字体  
-创建 `\src\assets\css` : 存放 css  
+创建 `\src\assets\css` : 存放 css
 
 创建 `\src\common` : 存放公共的数据等  
 创建 `\src\components` : 存放公共的组件  
 创建 `\src\pages` : 存放页面  
 创建 `\src\router` : 存放路由  
 创建 `\src\services` : 存放网络请求相关信息  
-创建` \src\store` : 存放 redux 信息  
+创建`\src\store` : 存放 redux 信息  
 创建 `\src\utils` : 存放工具
-
 
 **配置别名**
 
@@ -282,6 +281,10 @@ React 官方并没有给出在 React 中统一的样式风格：
 - 由此，从普通的 css，到 css modules，再到 css in js，有几十种不同的解决方案，上百个不同的库
 - 大家一致在寻找最好的或者说最适合自己的 CSS 方案，但是到目前为止也没有统一的方案
 
+::: tip 提示
+样式内引用图片需要使用 `url(${require("/路径")})`
+:::
+
 ### 内嵌样式
 
 ```js
@@ -371,14 +374,6 @@ CSS Modules 确实解决了局部作用域的问题，也是很多人喜欢在 R
 此功能并不是 React 的一部分，而是由第三方库提供。React 对样式如何定义并没有明确态度
 :::
 
-::: tip 提示
-styled-components 支持类似 CSS 预处理器一样的特性：
-
-- 支持直接子代选择器或后代选择器，并且直接编写样式；
-- 可以通过 & 符号获取当前元素；
-- 直接伪类选择器、伪元素等；
-  :::
-
 - 安装依赖
 
 npm: `npm install styled-components --save`
@@ -389,6 +384,14 @@ vscode-styled-components
 
 - 使用
 
+::: tip 提示
+styled-components 支持类似 CSS 预处理器一样的特性：
+
+- 支持子代选择器或后代选择器，并且直接编写样式；
+- 可以通过 & 符号获取当前元素；
+- 支持伪类选择器、伪元素等；
+  :::
+
 新建 \style.js
 
 ```js
@@ -398,7 +401,7 @@ export const 样式名1 = styled.div`
   /* CSS样式 */
 `;
 
-export const 样式名2 = styled.标签名`
+export const 样式名2 = styled.div`
   /* CSS样式 */
 `;
 ```
@@ -424,15 +427,12 @@ export default App;
 
 - 动态设置 CSS 样式
 
-```js
-const 样式名 = styled.标签名`
-  /* CSS样式 */
-  属性: ${(props) => props.属性};
-`;
+\index.js
 
+```js
 class App extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       属性: "值",
     };
@@ -448,6 +448,15 @@ class App extends PureComponent {
 }
 ```
 
+\style.js
+
+```js
+const 样式名 = styled.标签名`
+  /* CSS样式 */
+  属性: ${(props) => props.属性};
+`;
+```
+
 - 动态设置属性
 
 ```js
@@ -461,6 +470,8 @@ const 样式名 = styled.标签名.attrs({
 ```
 
 - 继承样式
+
+\style.js
 
 ```js
 const 父样式 = styled.标签名`
@@ -494,14 +505,20 @@ const 样式名 = styled.标签名`
 ## 组件
 
 ::: tip 提示
-不能直接使用`this.state.变量名`操作变量，界面不会发生任何变化。需要使用`this.setState({变量名: 值})`方法来操作变量
-:::
 
-::: tip 提示
-所有 React 组件都必须像纯函数一样保护它们的 props 不被更改
-:::
+- 不能直接使用`this.state.变量名`操作变量，界面不会发生任何变化。需要使用`this.setState({变量名: 值})`方法来操作变量
+- 所有 React 组件都必须像纯函数一样保护它们的 props 不被更改
+- `export default` 导出后 需要 `import 组件名 from "/路径"` 导入，**不需要增加花括号**
+  :::
 
 ### 类组件
+
+::: warning 注意
+
+- 组件的名称**必须是大写字符开头**（否则会被作为 HTMT 元素解析）
+- 类组件需要继承自 React.PureComponent
+- 类组件必须实现 render 函数
+  :::
 
 Visual Studio Code 快速创建类组件：`rpc`->回车
 
@@ -523,32 +540,29 @@ export default class 组件名 extends PureComponent {
 }
 ```
 
-::: warning 注意
-
-- 组件的名称**必须是大写字符开头**（否则会被作为 HTMT 元素解析）
-- 类组件需要继承自 React.Component
-- 类组件必须实现 render 函数
-  :::
-
 ### 函数式组件
 
 Visual Studio Code 快速创建类组件：`rmc`->回车
+
+::: warning 注意
+组件的名称**必须是大写字符开头**（否则会被作为 HTMT 元素解析）
+:::
+
+```js
+function memo(函数式组件名() {
+  return (
+    <div>
+
+  </div>
+  );
+})
+```
 
 函数式组件特点：
 
 1. 没有 this 对象
 2. 没有内部的状态（state），不能定义变量
 3. 没有生命周期。也会被更新并挂载，但是没有生命周期函数
-
-```js
-function memo(函数式组件名() {
-  return <div></div>;
-})
-```
-
-::: warning 注意
-组件的名称**必须是大写字符开头**（否则会被作为 HTMT 元素解析）
-:::
 
 ### render 函数返回值
 

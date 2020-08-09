@@ -11,6 +11,7 @@
 - TabNine : 更好的代码提示
 - Lombok : 自动生成 getter 和 setter 方法
 - Translation : 翻译插件
+- ChinesePinyin-CodeCompletionHelper : 中文代码拼音补全
 
 ### 快捷键
 
