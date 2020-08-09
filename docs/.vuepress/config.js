@@ -63,8 +63,8 @@ module.exports = {
           {
             text: "前端框架",
             items: [
-              { text: "React", link: "/front-end/React/" },
               { text: "Vue", link: "/front-end/Vue/" },
+              { text: "React", link: "/front-end/React/" },
               // { text: "Webpack", link: "/front-end/Webpack/" },
               { text: "Electron", link: "/front-end/Electron/" },
             ],
