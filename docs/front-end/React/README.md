@@ -397,12 +397,12 @@ styled-components 支持类似 CSS 预处理器一样的特性：
 ```js
 import styled from "styled-components";
 
-export const 样式名1 = styled.div`
-  /* CSS样式 */
+export const Wrapper = styled.div`
+  /* CSS样式（支持嵌套样式） */
 `;
 
-export const 样式名2 = styled.div`
-  /* CSS样式 */
+export const 样式名 = styled.div`
+  /* CSS样式（支持嵌套样式） */
 `;
 ```
 
@@ -410,14 +410,16 @@ export const 样式名2 = styled.div`
 
 ```js
 import React, { PureComponent } from "react";
-import { 样式名1, 样式名2 } from "./style";
+import { Wrapper, 样式名 } from "./style";
 
 class App extends PureComponent {
   render() {
     return (
-      <样式名1>
-        <样式名2>标题</样式名2>
-      </样式名1>
+      <Wrapper>
+        <样式名>
+          <h2>标题</h2>
+        </样式名>
+      </Wrapper>
     );
   }
 }
