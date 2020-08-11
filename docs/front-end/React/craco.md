@@ -45,3 +45,24 @@ module.exports = {
   },
 };
 ```
+
+- 配置 Visual Studio Code
+
+使 Visual Studio Code 支持跳转别名路径的外部方法
+
+\jsconfig.json
+
+``` json
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
+```

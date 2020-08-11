@@ -6,6 +6,8 @@ React 用于构建用户界面的 JavaScript 库
 
 - ES7 React/Redux/GraphQL/React-Native snippets : 快速生成 React 代码段
 - Reactjs code snippets : 快速生成 React 代码段
+- Auto Import : 自动导入
+- Path Intellisense : 路径补全
 
 ### 增加代码提示
 

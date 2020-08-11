@@ -134,11 +134,11 @@ export const 类型名2 = "类型名2";
 ```js
 import { 类型名1, 类型名2 } from "./constants.js";
 
-export const 方法名1 = () => ({
+export const 功能方法名1 = () => ({
   type: 类型名1,
 });
 
-export const 方法名2 = (参数名) => ({
+export const 功能方法名2 = (参数名) => ({
   type: 类型名2,
   参数名,
 });
@@ -187,6 +187,10 @@ ReactDOM.render(
 
 ### 使用
 
+::: tip 提示
+如获取的数据为空请检查`actionCreators`中的`功能方法名`内参数是否正确
+:::
+
 - 普通使用
 
 \组件名.js
@@ -195,7 +199,7 @@ ReactDOM.render(
 import React from "react";
 
 import { connect } from "react-redux";
-import { 方法名1, 方法名2 } from "../store/actionCreators";
+import { 功能方法名1, 功能方法名2 } from "../store/actionCreators";
 
 function 组件名(props) {
   return (
@@ -215,10 +219,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     调用方法1: function() {
-      dispatch(方法名1());
+      dispatch(功能方法名1());
     },
     调用方法2: function(参数名) {
-      dispatch(方法名2(参数名));
+      dispatch(功能方法名2(参数名));
     },
   };
 };
@@ -230,9 +234,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(组件名);
 
 ```js
 import React, { memo } from "react";
-import { connect, useSelector, shallowEqual } from "react-redux";
+import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
 
 export default memo(function 组件名(props) {
+  // 请求数据
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(功能方法名());
+  }, [dispatch]);
+
+  // 获取数据
   const { 变量名 } = useSelector(
     (state) => ({
       变量名: state.变量名,
