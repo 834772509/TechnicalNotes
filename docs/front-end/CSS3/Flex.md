@@ -72,6 +72,7 @@ flex-flow 是 flex-direction || flex-wrap 的简写
 - flex-end: 与终止位置对齐
 - space-evenly: 将 item 均等分开，item 之间的距离相等
 - space-around: item 之间的距离相等且两边空出一部分（距离是 item 间距的一半）
+- space-between: 两端对齐，第一个子元素和最后一个子元素会贴着边框
 
 ### align-items
 
