@@ -470,6 +470,7 @@ input::placeholder {
 | autofocus       | autofocus | 自动聚焦属性，页面加载完成自动聚焦到指定表单                                                                                                                                                   |
 | autocomplete    | off/ on   | 当用户在字段开始键入时，浏览器基于之前键入过的值，应该显示出在字段 中填写的选项。默认已经打开，如 autocomplete="on"，关闭 autocomplete ="off" 需要放在表单内，同时加上 name 属性，同时成功提交 |
 | **multiple**    | multiple  | 可以多选文件提交                                                                                                                                                                               |
+| onTimeUpdate    | 函数      | 当播放时间发送改变时回调此函数                                                                                                                                                                 |
 
 ## 多媒体标签
 
