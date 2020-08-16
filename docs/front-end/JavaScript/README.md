@@ -435,24 +435,57 @@ Math.floor(数字)
 Math.abs(数字)
 ```
 
-## 常用方法
+## Date 类
 
-### 打印内容
+::: tip 提示
+Date() 是一个构造函数，必须使用 new 来创建日期对象
+:::
 
-```JavaScript
-console.log('打印内容')
+### 获取当前时间
+
+如果没有参数则返回当前时间
+
+```js
+let date = new Date();
 ```
 
-### 弹出提示
+### 创建日期对象
 
-```JavaScript
-alert("提示信息")
+参数常用的写法：
+
+- 数字型： 2019、10、01
+- 字符串型： "2019-10-1 8:8:8"
+
+```js
+let date = new Date("2019-10-1 8:8:8");
+
+// 返回当前年份
+date.getFullYear();
+// 返回当前月份（从0开始，需要+1）
+date.getMonth() + 1;
+// 返回当前日
+date.getDate();
+// 返回星期几（周一返回1，周六返回6，但周日返回的是0）
+date.getDay() + 1;
+
+// 返回小时
+date.getHours();
+// 返回分钟
+date.getMinutes();
+// 返回秒
+date.getSeconds();
 ```
 
-### 转换为 JSON 数据
+### 获取总毫秒数（时间戳）
 
-```JavaScript
-JSON数据 = JSON.stringify(需要转换为JSON的数据)
+::: tip 提示
+时间戳永远不会重复
+:::
+
+获取距离**1970 年到当前时间**的总毫秒数。
+
+```js
+Date.now();
 ```
 
 ### 格式化时间
@@ -467,6 +500,11 @@ console.log(formatDate(date, 'yyyy-MM-dd hh-mm'))
 ::: details 点击查看代码
 
 ```JavaScript
+/**
+ * 格式化时间
+ * @param {Date} date 时间
+ * @param {String} fmt 需要格式化的格式
+ */
 export function formatDate(date, fmt) {
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
@@ -494,6 +532,26 @@ function padLeftZero(str) {
 
 :::
 
+## 常用方法
+
+### 打印内容
+
+```JavaScript
+console.log('打印内容');
+```
+
+### 弹出提示
+
+```JavaScript
+alert("提示信息");
+```
+
+### 转换为 JSON 数据
+
+```JavaScript
+JSON数据 = JSON.stringify(需要转换为JSON的数据);
+```
+
 ### 生成随机数
 
 ```javaScript
@@ -505,7 +563,7 @@ randomNum(min, max) {
 ### 跳转页面
 
 ```JavaScript
-location.href = '页面路径'
+location.href = '页面路径';
 ```
 
 ## 定时器
@@ -839,7 +897,7 @@ startMove(div1, {
 禁止事件冒泡：
 
 ```JavaScript
-event.cancelBubble = true
+event.cancelBubble = true;
 ```
 
 ### 绑定事件
@@ -849,7 +907,7 @@ event.cancelBubble = true
 ```JavaScript
 组件.addEventListener("事件名", function() {
 
-        }
+}
 ```
 
 ::: tip 提示
@@ -859,7 +917,7 @@ event.cancelBubble = true
 ### 解除绑定事件
 
 ```JavaScript
-组件.detachEvent("事件名", 函数)
+组件.detachEvent("事件名", 函数);
 ```
 
 ### 鼠标事件
@@ -884,8 +942,8 @@ event.cancelBubble = true
 
 ```JavaScript
 组件.onmousemove = function(event) {
-    console.log("X坐标：" + event.pageX)
-    console.log("Y坐标：" + event.pageY)
+    console.log("X坐标：" + event.pageX);
+    console.log("Y坐标：" + event.pageY);
 }
 ```
 
@@ -930,8 +988,8 @@ event.cancelBubble = true
 ```JavaScript
 document.oncontextmenu = function(event) {
     div1.style.display = "block"
-    div1.style.left = event.clientX + "px"
-    div1.style.top = event.clientY + "px"
+    div1.style.left = event.clientX + "px";
+    div1.style.top = event.clientY + "px";
     //阻止默认事件
     return false
 }

@@ -134,9 +134,29 @@ export const 类型名2 = "类型名2";
 ```js
 import { 类型名1, 类型名2 } from "./constants.js";
 
-export const 功能方法名1 = () => ({
+// 无参
+const change功能方法名1 = () => ({
   type: 类型名1,
 });
+
+export const get功能方法名1 = () => {
+  return (dispatch) => {
+    // 此处可进行网络请求，通过 dispatch(方法名(值)) 来设置数据
+    dispatch(change功能方法名1());
+  };
+};
+
+// 有参
+const change功能方法名2 = () => ({
+  type: 类型名1,
+});
+
+export const get功能方法名2 = (参数名) => {
+  return (dispatch) => {
+    // 此处可进行网络请求，通过 dispatch(方法名(值)) 来设置数据
+    dispatch(change功能方法名2(参数值));
+  };
+};
 
 export const 功能方法名2 = (参数名) => ({
   type: 类型名2,
