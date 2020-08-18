@@ -16,16 +16,18 @@
 1. 首屏显示的速度较慢;
 2. 不利于 SEO 的优化;
 
-### 认识 SSR
+### 认识 SSR 与 同构
 
-<!-- ![图片介绍](./img/图片名) -->
+![SSR](./img/ssr.png)
+
+**SSR**
 
 SSR (**Server Side Rendering 服务端渲染**)，指的是页面在服务器端已经生成了完成的 HTML 页面结构，不需要浏览器解析。
 对应的是 CSR ( **Client Side Rendering 客户端渲染**) , 我们开发的 SPA 页面通常依赖的就是客户端渲染。
 早期的服务端渲染包括 PHP、JSP、 ASP 等方式，但是在目前前后端分离的开发模式下,前端开发人员不太可能再去学习 PHP、JSP 等技术来开发网页。
 不过我们可以借助于 Node 来帮助我们执行 JavaScript 代码，提前完成页面的渲染。
 
-### 认识同构
+**同构**
 
 一套代码既可以在服务端运行又可以在客户端运行，这就是同构应用。
 同构是一种 SSR 的形态，是现代 SSR 的一种表现形式。
@@ -69,7 +71,7 @@ import Link from "next/link";
 
 ## 保留页面公共部分
 
-### \_app.js
+### _app.js
 
 /page/app.js
 
@@ -203,7 +205,9 @@ Next.js 默认集成 styled-jxs
 :::
 
 ```js
-export default function Home() {
+import React, { memo } from "react";
+
+const 组件名 = memo(function (props) {
   return (
     <div>
       <style>{`
@@ -214,13 +218,13 @@ export default function Home() {
       `}</style>
     </div>
   );
-}
+})
 ```
 
 - styled-components
 
 ::: tip 提示
-styled-components默认为服务端渲染，需要配置`babel-plugin-styled-components`
+styled-components 默认为服务端渲染，需要配置`babel-plugin-styled-components`
 :::
 
 **安装**
@@ -277,6 +281,26 @@ export default App;
 ```
 
 ## 路由
+
+### 默认路由
+
+Next.js 默认已经给我们配置好了路由映射关系。pages 目录相关的组件会自动生成对应的路径
+
+\pages\组件名.js
+
+```js
+import React, { memo } from "react";
+
+export default memo(function 组件名() {
+  return (
+    <div>
+      <h2>组件名</h2>
+    </div>
+  );
+});
+```
+
+访问：`127.0.0.1:3000/组件名`
 
 ### 二级路由
 
@@ -335,6 +359,18 @@ import Link from "next/link";
 **接收参数：**
 
 ```js
+import React, { memo } from "react";
+import { useRouter } from "next/router";
+
+export default memo(function 组件名() {
+  const router = useRouter();
+
+  return (
+    <div>
+      <h2>参数: {router.query.参数名}</h2>
+    </div>
+  );
+});
 ```
 
 - 代码跳转
@@ -342,14 +378,69 @@ import Link from "next/link";
 **传递参数：**
 
 ```js
+import React, { memo } from 'react'
+import Router from "next/router";
+
+export default memo(function 组件名() {
+  const 事件名 = (item) => {
+    Router.push({
+      pathname: "/路径",
+      query: {
+        参数名: 值,
+      },
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={(e) => 事件名()}></button>
+    </div>
+  );
+}
 ```
 
 **接收参数：**
 
 ```js
+import React, { memo } from "react";
+import { useRouter } from "next/router";
+
+export default memo(function 组件名() {
+  const router = useRouter();
+
+  return (
+    <div>
+      <h2>参数: {router.query.参数名}</h2>
+    </div>
+  );
+});
 ```
 
 ## 网络请求
 
 ```js
+import React, { memo } from "react";
+import axios from "axios";
+
+const 组件名 = memo(function (props) {
+  const { 参数名 } = props;
+
+  return (
+    <div>
+      <h2>参数: {参数名}</h2>
+    </div>
+  );
+};
+
+组件名.getInitialProps = async (props) => {
+  const res = await axios({
+    url: "地址",
+  });
+
+  return {
+    参数名: res.data
+  };
+});
+
+export default 组件名;
 ```
