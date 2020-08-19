@@ -449,3 +449,38 @@ export default withRouter(App);
 ::: tip 提示
 子路由占位可使用 `{renderRoutes(this.props.route.routes)}`，需要导入 `import { renderRoutes } from "react-router-config";`
 :::
+
+## 懒加载
+
+- 配置占位
+
+为防止懒加载时间过长，需要设置占位，当加载时间过长时显示占位内容
+
+\src\App.js
+
+```js
+import React, { memo, Suspense } from "react";
+import { renderRoutes } from "react-router-config";
+import routes from "./router";
+import { BrowserRouter } from "react-router-dom";
+
+export default memo(function App() {
+  return (
+    <BrowserRouter>
+      <Suspense fallback={<div>正在加载中</div>}>
+        {renderRoutes(routes)}
+      </Suspense>
+    </BrowserRouter>
+  );
+});
+```
+
+- 使用
+
+\src\router\index.js
+
+```js
+import React, { lazy } from "react";
+
+const 组件名 = lazy(() => import("@/路径"));
+```
