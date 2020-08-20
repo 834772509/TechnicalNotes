@@ -283,7 +283,7 @@ export default withRouter(App);
 
 动态路由：路由中的路径并不会固定，用于路由传参
 
-### 普通方式
+### 通配符方式
 
 适合传递简单的参数（如 id 等）
 
@@ -306,6 +306,47 @@ class 组件名 extends PureComponent {
       </div>
     );
   }
+}
+```
+
+### search 方式（不推荐）
+
+search 方式传参，需要自己或使用第三方库来分割键值对
+
+**传递参数：**
+
+```js
+<Link to={`/路径?参数名=值&参数名=值`}>标题</Link>
+```
+
+**接收参数：**
+
+```js
+class 组件名 extends PureComponent {
+  render() {
+    return (
+      <div>
+        <h2>{this.props.location.search}</h2>
+      </div>
+    );
+  }
+}
+```
+
+```js
+/**
+ * 解析URL链接中的参数
+ * @param {String} url URL链接
+ * @return {Object}
+ */
+export function getQueryParam(url) {
+  let Object = {};
+  for (let item of url.split("&")) {
+    const parseExp = /(\w*)=(\w*)/;
+    const result = parseExp.exec(item);
+    Object[result[1]] = result[2];
+  }
+  return Object;
 }
 ```
 
@@ -340,30 +381,6 @@ class Detail3 extends PureComponent {
     return (
       <div>
         <h2>{location.state.参数名}</h2>
-      </div>
-    );
-  }
-}
-```
-
-### search 方式（不推荐）
-
-search 方式传参，需要自己或使用第三方库来分割键值对
-
-**传递参数：**
-
-```js
-<Link to={`/路径?参数名=值&参数名=值`}>标题</Link>
-```
-
-**接收参数：**
-
-```js
-class 组件名 extends PureComponent {
-  render() {
-    return (
-      <div>
-        <h2>{this.props.location.search}</h2>
       </div>
     );
   }
