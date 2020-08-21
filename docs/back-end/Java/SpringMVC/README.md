@@ -2,6 +2,10 @@
 
 Spring MVC 是 Spring Framework 的一部分，是基于 Java 实现 MVC 的轻量级 Web 框架。
 
+::: tip 提示
+如项目无法加入 Controller 层，请检查 项目结构-构件-lib 目录 是否导入正确的依赖
+:::
+
 ## 基本概念
 
 ### 三层架构
@@ -307,3 +311,168 @@ public class 控制器名 {
     <url-pattern>/*</url-pattern>
 </filter-mapping>
 ```
+
+## 拦截器
+
+### 过滤器于拦截器的区别
+
+- 过滤器
+
+  servlet 规范中的一部分,任何 JavaWeb，工程都可以使用
+  在 url-pattern 中配置了/\*之后，可以对所有要访问的资源进行拦截
+
+- 拦截器
+
+  拦截器是 Spring MVC 框架本身的内容，只有使用了 SpringMVC 框架的工程才能使用
+  拦截器只会拦截访问的控制器方法，如果访问的是 jsp/html/css/image/js 不会进行拦截
+
+### 定义拦截器
+
+::: tip 提示
+判断条件后 `return true;` 即为放行
+:::
+
+\com\example\config\拦截器名.java
+
+```Java
+public class 拦截器名 implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("====== 拦截 ======");
+        //是否执行下一个拦截器
+        return true;
+    }
+}
+```
+
+### 配置拦截器
+
+\src\main\resources\springmvc-servlet.xml
+
+```xml
+<!--拦截器配置-->
+<mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/拦截路径/**"/>
+        <bean class="com.example.config.拦截器名"/>
+    </mvc:interceptor>
+</mvc:interceptors>
+```
+
+## 文件上传
+
+### 导入依赖
+
+\pom.xml
+
+```xml
+<!--文件上传-->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.3.2</version>
+</dependency>
+```
+
+### 配置文件上传
+
+\resources\springmvc-servlet.xml
+
+```xml
+<!--文件上传配置-->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- 请求的编码格式，必须和jSP的pageEncoding属性一致，以便正确读取表单的内容，默认为ISO-8859-1 -->
+    <property name="defaultEncoding" value="utf-8"/>
+    <!-- 上传文件大小上限，单位为字节（10485760=10M） -->
+    <property name="maxUploadSize" value="10485760"/>
+    <property name="maxInMemorySize" value="40960"/>
+</bean>
+```
+
+### Controller
+
+\com\example\controller 名.java
+
+```java
+@Controller
+public class Controller名 {
+
+    @RequestMapping("/路径")
+    @ResponseBody
+    public String fileUpload(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
+
+        //上传路径保存设置
+        String path = request.getServletContext().getRealPath("/upload");
+        File realPath = new File(path);
+        if (!realPath.exists()) {
+            realPath.mkdir();
+        }
+
+        //上传文件地址
+        System.out.println("上传文件保存地址：" + realPath);
+
+        //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+        file.transferTo(new File(realPath + "/" + file.getOriginalFilename()));
+
+        return "OK";
+    }
+}
+```
+
+### 网页上传
+
+```html
+<form action="/upload" enctype="multipart/form-data" method="post">
+  <input type="file" name="file" />
+  <input type="submit" value="upload" />
+</form>
+```
+
+## 文件下载
+
+### Controller
+
+```java
+@Controller
+public class FileController {
+
+    @RequestMapping("/路径")
+    public String downloads(@RequestParam("fileName") String fileName, HttpServletResponse response, HttpServletRequest request) throws Exception {
+        System.out.println(fileName);
+
+        // 要下载的文件路径
+        String path = request.getServletContext().getRealPath("/upload");
+
+        // 设置response 响应头
+        response.reset(); //设置页面不缓存,清空buffer
+        response.setCharacterEncoding("UTF-8"); //字符编码
+        response.setContentType("multipart/form-data"); //二进制传输数据
+        // 设置响应头
+        response.setHeader("Content-Disposition","attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));
+
+        File file = new File(path, fileName);
+
+        // 读取文件--输入流
+        InputStream input = new FileInputStream(file);
+
+        // 写出文件--输出流
+        OutputStream out = response.getOutputStream();
+        byte[] buff = new byte[1024];
+        int index = 0;
+
+        // 写出操作
+        while ((index = input.read(buff)) != -1) {
+            out.write(buff, 0, index);
+            out.flush();
+        }
+
+        out.close();
+        input.close();
+        return null;
+    }
+}
+```
+
+### 使用
+
+访问`127.0.0.1:8080/路径/文件名`
