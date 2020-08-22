@@ -83,6 +83,10 @@ module.exports = {
         ariaLabel: "后端",
         items: [
           {
+            text: "Rust",
+            items: [{ text: "Rust 基础", link: "/back-end/Rust/" }],
+          },
+          {
             text: "Java",
             items: [
               { text: "Java 基础", link: "/back-end/Java/" },
@@ -96,7 +100,7 @@ module.exports = {
           {
             text: "Python",
             items: [
-              { text: "Python", link: "/back-end/Python/" },
+              { text: "Python 基础", link: "/back-end/Python/" },
               { text: "Django", link: "/back-end/Python/Django/" },
               { text: "Flask", link: "/back-end/Python/Flask/" },
             ],
@@ -111,7 +115,7 @@ module.exports = {
           {
             text: "PHP",
             items: [
-              { text: "PHP", link: "/back-end/PHP/" },
+              { text: "PHP 基础", link: "/back-end/PHP/" },
               { text: "ThinkPHP", link: "/back-end/PHP/ThinkPHP/" },
             ],
           },

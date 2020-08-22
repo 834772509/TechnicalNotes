@@ -13,25 +13,25 @@ Git 官网 在国内下载有难度，建议使用阿里云镜像下载
 
 ### 配置环境变量
 
-```\PortableGit\cmd```
+`\PortableGit\cmd`
 
 ### 配置用户名和邮箱
 
-* 设置用户名
+- 设置用户名
 
-```git config --global user.name "XXX"```
+`git config --global user.name "XXX"`
 
-* 设置邮箱 (没有双引号)
+- 设置邮箱 (没有双引号)
 
-```git config --global user.email XXX@qq.com```
+`git config --global user.email XXX@qq.com`
 
 ### 记住用户名和密码
 
-``git config --global credential.helper store``
+`git config --global credential.helper store`
 
-## 初始化Git
+## 初始化 Git
 
-``` cmd
+```cmd
 cd /d 项目目录
 git init
 git add .
@@ -40,21 +40,28 @@ git remote add origin "Git路径"
 git pull --rebase origin master
 ```
 
-## 克隆Git
+## 导入本地仓库
 
-``` cmd
+```cmd
+git remote add origin https://gitee.com/fir834772509/rust.git
+git push -u origin master
+```
+
+## 克隆 Git
+
+```cmd
 git clone URL
 ```
 
-## 拉取Git
+## 拉取 Git
 
-``` cmd
+```cmd
 git pull
 ```
 
 ### 放弃本地修改 强制拉取
 
-``` cmd
+```cmd
 // 下载远程仓库最新内容，不做合并
 git fetch --all
 // 把 HEAD 指向 master 最新版本
@@ -62,9 +69,9 @@ git reset --hard origin/master
 git pull //可以省略
 ```
 
-## 推送Git
+## 推送 Git
 
-``` cmd
+```cmd
 git add -A
 git commit -m "备注"
 git push
@@ -72,7 +79,7 @@ git push
 
 ## 查看文件变动情况
 
-``` cmd
+```cmd
 git status
 ```
 
@@ -82,7 +89,7 @@ git status
 
 ### 暂存
 
-``` cmd
+```cmd
 git stash
 //撤销未提交的修改
 git checkout
@@ -90,7 +97,7 @@ git checkout
 
 ### 取出
 
-``` cmd
+```cmd
 git stash pop
 ```
 
@@ -98,20 +105,20 @@ git stash pop
 
 ### 撤销未提交修改
 
-``` cmd
+```cmd
 git checkout 路径
 ```
 
 ### 撤销已提交修改
 
-``` cmd
+```cmd
 git reset HEAD 路径
 git checkout 路径
 ```
 
-## 修复push失败
+## 修复 push 失败
 
-``` cmd
+```cmd
 git merge --abort
 git reset --merge
 git pull
@@ -119,7 +126,7 @@ git pull
 
 ## 删除排除目录
 
-``` cmd
+```cmd
 git rm -rf .idea
 git commit -m "删除排除目录"
 git push origin master
