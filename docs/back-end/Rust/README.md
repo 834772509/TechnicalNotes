@@ -105,7 +105,7 @@ fn 函数名() -> 返回值类型 {
   return 返回值;
 }
 
-// 另类返回
+// 返回表达式
 fn 函数名() -> 返回值类型 {
   返回值
 }
@@ -125,10 +125,14 @@ fn 函数名(参数名: 参数类型, 参数名: 参数类型) {
 
 ### 函数体
 
+::: tip 提示
+函数体只能使用返回表达式，不可使用`return`关键字
+:::
+
 ```rust
 let 变量名 = {
   let x = 3;
-  return x + 1;
+  x + 1
 };
 ```
 
@@ -169,4 +173,73 @@ let (x, y, z) = 元组名;
 println!("x={}",x);
 println!("y={}",y);
 println!("z={}",z);
+```
+
+## 控制流
+
+### if-else
+
+::: tip 提示
+if 语句后面可以不接小括号
+:::
+
+- 普通使用
+
+```rust
+if 条件 {
+
+} else if 条件 {
+
+} else {
+
+}
+```
+
+- 结合 let
+
+```rust
+let mut 变量名 = if 条件 {
+  返回值
+} else {
+  返回值
+};
+```
+
+### loop 循环
+
+- 普通使用
+
+```rust
+loop {
+  if 条件 {
+    break;
+  }
+}
+```
+
+- 结合 let
+
+```rust
+let mut 变量名 = loop {
+  if 条件 {
+    break;
+  }
+};
+```
+
+### while 循环
+
+```rust
+while 条件 {
+
+}
+```
+
+### for 循环
+
+```rust
+let mut 数组 = [1, 2, 3, 4, 5];
+for item in &数组 {
+    println!("{}",item);
+}
 ```
