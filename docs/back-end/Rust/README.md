@@ -6,7 +6,7 @@
 
 ### 安装 Microsoft C++ 生成工具
 
-(VisualCppBuildTools[https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe]
+(VisualCppBuildTools)[https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe]
 
 <!-- (Visuals Studio 安装程序)[https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16]
 
@@ -20,14 +20,16 @@
 
 打开 PowerShell，依次输入：
 
+```
 $ENV:RUSTUP_DIST_SERVER='https://mirrors.ustc.edu.cn/rust-static'
 $ENV:RUSTUP_UPDATE_ROOT='https://mirrors.ustc.edu.cn/rust-static/rustup'
 rustup-init.exe
+```
 
 ### 集成开发环境插件
 
 - IDEA: `Rust`
-- Visual Studio Code: `Rust (rls)`
+- Visual Studio Code: `Rust (rls)`  
   安装完成后需要在 Visual Studio Code 中设置  rust-client.channel  为  stable。 同时建议设置  editor.formatOnSave  为  true，以便在保存时使用 rust-fmt 格式化代码
 
 ## 创建项目

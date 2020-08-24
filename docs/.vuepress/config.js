@@ -83,10 +83,6 @@ module.exports = {
         ariaLabel: "后端",
         items: [
           {
-            text: "Rust",
-            items: [{ text: "Rust 基础", link: "/back-end/Rust/" }],
-          },
-          {
             text: "Java",
             items: [
               { text: "Java 基础", link: "/back-end/Java/" },
@@ -96,6 +92,10 @@ module.exports = {
               { text: "SpringMVC", link: "/back-end/Java/SpringMVC/" },
               { text: "SpringBoot", link: "/back-end/Java/SpringBoot/" },
             ],
+          },
+          {
+            text: "Rust",
+            items: [{ text: "Rust 基础", link: "/back-end/Rust/" }],
           },
           {
             text: "Python",
