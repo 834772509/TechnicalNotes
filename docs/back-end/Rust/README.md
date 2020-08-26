@@ -241,7 +241,7 @@ let 变量名 = {
 
 ## 字符串
 
-### 定义
+### 创建
 
 ```rust
 let mut 字符串名 = String::from("内容");
@@ -249,11 +249,57 @@ let mut 字符串名 = String::from("内容");
 
 ### 追加字符串
 
+::: tip 提示
+可以不使用`&`，因为没有获得所有权
+:::
+
 ```rust
 let mut 字符串名 = String::from("内容");
 
 字符串名.push_str("内容");
 println!("{}", 字符串名);
+```
+
+### 追加字符
+
+```rust
+let mut 字符串名 = String::from("内容");
+
+字符串名.push('a');
+println!("{}", 字符串名);
+```
+
+### 格式化字符串
+
+```rust
+let mut str1 = String::from("aa");
+let mut str2 = String::from("bb");
+let mut str3 = String::from("cc");
+
+let mut str = format!("{}-{}-{}", str1, str2, str3);
+println!("str={}", str);
+```
+
+### 遍历字符串
+
+- 字符遍历
+
+```rust
+let mut 字符串名 = String::from("内容");
+
+for item in 字符串名.chars(){
+  println!("item={}",item);
+}
+```
+
+- 字节遍历
+
+```rust
+let mut 字符串名 = String::from("内容");
+
+for item in 字符串名.bytes(){
+  println!("item={}",item);
+}
 ```
 
 ### 字符串切片
@@ -308,6 +354,61 @@ let (x, y, z) = 元组名;
 println!("x={}",x);
 println!("y={}",y);
 println!("z={}",z);
+```
+
+## HashMap
+
+### 创建
+
+```rust
+use std::collections::HashMap;
+
+// 指定数据类型
+let mut  HashMap名: HashMap<数据类型,数据类型> = HashMap::new();
+
+// 类型推导
+let mut  HashMap名 = HashMap::new();
+```
+
+### 增加元素
+
+当键不存在时则增加元素，存在时则修改元素
+
+```rust
+HashMap名.insert(键,值);
+
+// 不修改值，当键不存在时才插入
+HashMap名.entry(键).or_insert(值);
+```
+
+### 读取元素
+
+- 直接访问
+
+```rust
+println!("{}", HashMap名[键]);
+
+```
+
+- get 方法
+
+```rust
+match HashMap名.get(键) {
+  Some(value) => println!("{}", value),
+  None => println!("none"),
+}
+```
+
+### 遍历元素
+
+::: tip 提示
+遍历顺序为随机遍历
+:::
+
+```rust
+for (key, value) in HashMap名 {
+  println!("{}: {}", key, value);
+}
 ```
 
 ## 结构体
@@ -403,7 +504,7 @@ let mut Vector名 = vec![值, 值];
 
 ```rust
 // get方法（推荐）
-match Vector名.get(下标)) {
+match Vector名.get(下标) {
   Some(value) => println!("v1[0]={}", value),
   None => println!("none"),
 }
@@ -525,3 +626,23 @@ fn main() {
     some_string.push_str(", world");
   }
   ```
+
+## crate
+
+### 声明
+
+```rust
+mod crate名 {
+  pub(crate) mod produce_refrigerator {
+    pub(crate) fn 方法名() {
+      
+    }
+  }
+
+  mod produce_washing_machine {
+    fn 方法名() {
+      
+    }
+  }
+}
+```
