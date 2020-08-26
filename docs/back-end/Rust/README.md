@@ -26,6 +26,21 @@ $ENV:RUSTUP_UPDATE_ROOT='https://mirrors.ustc.edu.cn/rust-static/rustup'
 rustup-init.exe
 ```
 
+### 配置国内镜像
+
+创建 C:\user\用户名\\.cargo\config
+
+```ini
+[source.crates-io]
+replace-with = 'ustc'
+
+[source.ustc]
+registry = "git://mirrors.ustc.edu.cn/crates.io-index"
+
+[http]
+check-revoke = false
+```
+
 ### 集成开发环境插件
 
 - IDEA: `Rust`
