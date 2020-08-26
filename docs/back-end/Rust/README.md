@@ -229,7 +229,16 @@ let 变量名 = {
 ### 定义
 
 ```rust
-let mut 变量名 = String::from("内容");
+let mut 字符串名 = String::from("内容");
+```
+
+### 追加字符串
+
+```rust
+let mut 字符串名 = String::from("内容");
+
+字符串名.push_str("内容");
+println!("{}", 字符串名);
 ```
 
 ### 字符串切片
@@ -359,6 +368,64 @@ let mut  实例名 = 结构体名 {
 println!("实例名={:?}",实例名);
 // 换行打印
 println!("实例名={:#?}",实例名);
+```
+
+## Vector
+
+Vector 用来储存一系列相同类型的值。允许我们在一个单独的数据结构中储存多于一个的值，它在内存中彼此相邻地排列所有的值。Vector 只能储存相同类型的值。它们在拥有一系列项的场景下非常实用，如 文件中的文本行或是购物车中商品的价格。
+
+### 定义
+
+```rust
+// 无初始值
+let mut Vector名: Vec<数据类型> = Vec::new();
+
+// 有初始值
+let mut Vector名 = vec![值, 值];
+```
+
+### 访问元素
+
+```rust
+// get方法（推荐）
+match Vector名.get(下标)) {
+  Some(value) => println!("v1[0]={}", value),
+  None => println!("none"),
+}
+
+// 索引语法
+println!("{}", Vector名[下标]);
+```
+
+### 增加元素
+
+```rust
+Vector名.push(元素);
+```
+
+### 修改元素
+
+```rust
+Vector名[下标] = 值;
+```
+
+### 遍历元素
+
+- 只读遍历
+
+```rust
+for item in &Vector名 {
+  println!("{}", i);
+}
+```
+
+- 可写遍历
+
+```rust
+for item in &mut Vector名 {
+  *item = *item +1 ;
+  println!("{}", item);
+}
 ```
 
 ## 所有权
