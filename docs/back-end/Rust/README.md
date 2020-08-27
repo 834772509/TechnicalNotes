@@ -627,22 +627,104 @@ fn main() {
   }
   ```
 
-## crate
+## Crate
+
+模块 让我们可以将一个 crate 中的代码进行分组，以提高可读性与重用性。模块还可以控制项的 私有性，即项是可以被外部代码使用的（public），还是作为一个内部实现的内容，不能被外部代码使用（private）。
 
 ### 声明
 
+创建模块: `cargo new --lib 模块名`
+
+\模块名\src\lib.rs
+
 ```rust
-mod crate名 {
-  pub(crate) mod produce_refrigerator {
-    pub(crate) fn 方法名() {
-      
-    }
+pub mod 模块名 {
+  // 定义函数
+  pub fn 函数名() {
+
   }
 
-  mod produce_washing_machine {
-    fn 方法名() {
-      
+  // 定义结构体
+  pub struct 结构体名 {
+    pub 属性名: 数据类型,
+    pub 属性名: 数据类型,
+  }
+
+  // 嵌套
+  pub mod 模块名{
+    pub fn 函数名(){
+      // 调用父级函数
+      super::函数名();
     }
   }
 }
 ```
+
+### 使用
+
+- 导入依赖
+
+\Cargo.toml
+
+```ini
+[dependencies]
+模块名 = { path = "./模块名" }
+```
+
+- use 关键字引用
+
+```rust
+use 模块名::模块名;
+
+模块名::函数名();
+```
+
+- 绝对引用
+
+```rust
+模块名::模块名::函数名();
+```
+
+### 使用第三方库
+
+- 导入依赖
+
+\Cargo.toml
+
+```ini
+[dependencies]
+库名 = "版本"
+```
+
+- 使用
+
+```rust
+extern crate 库名;
+```
+
+## 错误
+
+### 可恢复错误
+
+可恢复错误通常代表向用户报告错误和重试操作是合理的情况>例如未找到文件。rust 中使用 `Result<T,E>`来实现
+
+```rust
+let mut f = File::open("hello.txt");
+let mut r = match f {
+    Ok(file) => file,
+    Err(error) => panic!("error: {:?}", error),
+};
+```
+
+### 不可恢复错误
+
+不可恢复错误是 bug 的同义词，如尝试访问超过数组结尾的位置。rust 中通过 panic!来实现。
+
+```rust
+panic!("出现不可恢复错误");
+```
+
+### 异常捕获
+
+- 示例、代码原型、测试用 `panic!`、`unWrap`、`expect`
+- 实际项目中应使用 Result
