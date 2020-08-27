@@ -71,6 +71,9 @@ module.exports = {
           link: "/front-end/React/"
         }, // { text: "Webpack", link: "/front-end/Webpack/" },
         {
+          text: "微信小程序",
+          link: "/front-end/WechatApplet/"
+        }, {
           text: "Electron",
           link: "/front-end/Electron/"
         }]
