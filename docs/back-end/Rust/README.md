@@ -6,7 +6,7 @@
 
 ### 安装 Microsoft C++ 生成工具
 
-(VisualCppBuildTools)[https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe]
+[VisualCppBuildTools](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
 
 <!-- (Visuals Studio 安装程序)[https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16]
 
@@ -180,6 +180,19 @@ while 条件 {
 let mut 数组 = [1, 2, 3, 4, 5];
 for item in &数组 {
     println!("{}",item);
+}
+```
+
+### match 匹配
+
+match 类似 switch 语句，通过关键字匹配
+
+```rust
+match 值 {
+  值1 => println!("1");
+  值2 => println!("2");
+  // 其他情况
+  _=> println!("其他");
 }
 ```
 
@@ -728,3 +741,5 @@ panic!("出现不可恢复错误");
 
 - 示例、代码原型、测试用 `panic!`、`unWrap`、`expect`
 - 实际项目中应使用 Result
+
+## 泛型
