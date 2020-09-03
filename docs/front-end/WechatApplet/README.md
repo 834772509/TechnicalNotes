@@ -4,6 +4,10 @@
 
 ## 环境搭建
 
+### 注册 AppID(小程序 ID)
+
+[注册 AppID](https://mp.weixin.qq.com/)
+
 ### 微信开发者工具
 
 [微信开发者工具下载](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)
@@ -317,6 +321,8 @@ open-data 组件只能展示
 
 ## 内置组件
 
+[微信小程序组件](https://developers.weixin.qq.com/miniprogram/dev/component/)
+
 ### Text 组件
 
 Text 组件用于显示文本，类似于 span 标签，是行内元素。
@@ -571,3 +577,235 @@ Input 组件可以写双标签，也可以写单标签
   <!-- 带小数点输入键盘 -->
   <input type="digit"></input>
   ```
+
+### Scroll-view 组件
+
+Scroll-view 可以实现局部滚动
+
+- 水平滚动
+
+  \页面名.wxml
+
+  ```html
+  <scroll-view scroll-x class="container1">
+    <view wx:for="{{10}}" class="item1">{{item}}</view>
+  </scroll-view>
+  ```
+
+  \页面名.wxss
+
+  ```css
+  .container1 {
+    background: purple;
+    white-space: nowrap;
+  }
+
+  .item1 {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    display: inline-block;
+    background: red;
+  }
+  ```
+
+- 垂直滚动
+
+  ::: tip 提示
+  需要设置`scroll-view`的宽度
+  :::
+
+  \页面名.wxml
+
+  ```html
+  <scroll-view scroll-y class="container2">
+    <view wx:for="{{10}}" class="item2">{{item}}</view>
+  </scroll-view>
+  ```
+
+  \页面名.wxss
+
+  ```css
+  .container2 {
+    background: orange;
+    height: 200px;
+    margin-top: 20px;
+  }
+
+  .item2 {
+    height: 100px;
+    background: blue;
+    margin: 10px;
+  }
+  ```
+
+- 监听事件
+
+  \页面名.wxml
+
+  ```html
+  <scroll-view bindscroll="事件名"></scroll-view>
+  ```
+
+  \页面名.js
+
+  ```js
+  Page({
+    事件名(event) {
+      console.log("正在滚动", event);
+    },
+  });
+  ```
+
+### 组件共有属性
+
+::: tip 提示
+除 String 类型外，其他类型需要使用`属性名="{{值}}"`形式
+:::
+
+| 属性名           | 类型         | 描述           | 注解                                     |
+| ---------------- | ------------ | -------------- | ---------------------------------------- |
+| id               | String       | 组件的唯一标示 | 保持整个页面唯一                         |
+| class            | String       | 组件的样式类   | 在对应的 WXSS 中定义的样式类             |
+| style            | String       | 组件的内联样式 | 可以动态设置的内联样式                   |
+| hidden           | Boolean      | 组件是否显示   | 所有组件默认显示                         |
+| data\-\*         | Any          | 自定义属性     | 组件上触发的事件时，会发送给事件处理函数 |
+| bind\* / catch\* | EventHandler | 组件的事件     | 详见事件                                 |
+
+## WXSS
+
+WXSS 主要用来写样式，优先级依次是： 行内样式 > 页面样式 > 全局样式
+
+### 尺寸单位 - rpx
+
+::: tip 提示
+开发微信小程序时设计师可以用 `iPhone6` 作为视觉稿标准
+:::
+
+rpx (responsive pixel): 可以根据屏幕宽度进行自适应。规定屏幕宽为 750rpx。
+如在 iPhone6 上，屏幕宽度为 375px，共有 750 个物理像素，则 750rpx = 375px = 750 物理像素，1rpx = 0.5px = 1 物理像素。
+
+### 行内样式
+
+\页面名.wxml
+
+```html
+<view style="属性名: 属性值;">内容</view>
+
+<view style="color: red;">内容</view>
+```
+
+### 页内样式
+
+\页面名.wxml
+
+```html
+<view class="类名">内容</view>
+```
+
+\页面名.wxss
+
+```css
+.类名 {
+  属性名: 属性值;
+}
+```
+
+### 全局样式
+
+\页面名.wxml
+
+```html
+<view class="类名">内容</view>
+```
+
+\app.wxss
+
+```css
+.类名 {
+  属性名: 属性值;
+}
+```
+
+### 样式导入
+
+在某些情况下，我们可能会将样式分在多个 wxss 文件中，方便对样式的管理。这个时候，我们就可以使用样式导入，来让单独的 wxss 生效
+
+```css
+@import "wxss路径";
+```
+
+### 官方样式库
+
+::: tip 提示
+导入项目时需要导入`dist`目录
+:::
+
+为了减少开发者样式开发的工作量，小程序官方提供了 [WeUI.wxss 基本样式库](https://github.com/Tencent/weui-wxss)
+
+## WXML
+
+### WXML 基本格式
+
+- 类似于 HTML 代码：比如可以写成单标签，也可以写成双标签
+- 必须有严格的闭合：没有闭合会导致编译错误
+- 大小写敏感：class 和 Class 是不同的属性
+
+### Mustache 语法
+
+```html
+<!-- 基本使用 -->
+<view>{{变量名}}</view>
+
+<!-- 拼接 -->
+<view>{{变量名}} {{变量名}}</view>
+<view>{{变量名}}+ " " + {{变量名}}</view>
+
+<!-- 三元运算符 -->
+<view>{{变量名 条件 ? 成立值 : 不成立值}}</view>
+
+<!-- 绑定属性 -->
+<view class="{{isActive ? '类名' : ''}}">内容</view>
+```
+
+### 逻辑判断
+
+- wx:if
+
+  wx:if 用于控制元素的 显示/隐藏
+
+  ::: tip 提示
+  与 hidden 属性的区别是：wx:if 隐藏后该组件不存在（没有创建），而 hidden 属性隐藏后依然存在
+
+  - 如果显示和隐藏切换的频繁非常高，选择使用 hidden
+  - 如果显示和隐藏切换的频繁非常低，选择使用 wx:if
+
+  :::
+
+  ```html
+  <view wx:if="{{true}}">内容</view>
+  ```
+
+- wx:elif、wx:else
+
+  ```html
+  <view wx:if="{{变量名 >=90}}">优秀</view>
+  <view wx:elif="{{变量名 >=80}}">良好</view>
+  <view wx:elif="{{变量名 >=60}}">及格</view>
+  <view wx:else>不及格</view>
+  ```
+
+- wx:for
+
+wx:for 用于列表渲染
+
+```html
+<!-- 遍历数组 -->
+<view wx:for="{{数组名}}">{{index}}: {{item}}</view>
+
+<!-- 遍历字符串 -->
+<view wx:for="coderwhy">{{item}}</view>
+
+<!-- 遍历数字（指定次数） -->
+<view wx:for="{{10}}">{{item}}</view>
+```
