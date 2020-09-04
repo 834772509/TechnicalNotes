@@ -1,8 +1,31 @@
 /*
- 每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
- 插入图片：![图片介绍](./img/图片名)
- MarkDown 表格编辑：https://tableconvert.com/
+每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
+
+常用MarkDown语法：
+
+插入图片：![图片介绍](./img/图片名)
+MarkDown 表格编辑：https://tableconvert.com/
+
+Markdown 拓展：
+
+::: tip 提示
+这是一个提示
+:::
+
+::: warning 警告
+这是一个警告
+:::
+
+::: danger 危险警告
+这是一个危险警告
+:::
+
+::: details 点击查看代码
+这是一个详情块，在 IE / Edge 中不生效
+:::
+
 */
+
 module.exports = {
   // 设置网站标题
   title: "杉-技术笔记",

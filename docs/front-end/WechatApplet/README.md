@@ -294,7 +294,7 @@ wx.getUserInfo({
 
 \页面名.wxml
 
-```html
+```xml
 <button open-type="getUserInfo" bindgetuserinfo="事件名">获取用户信息</button>
 ```
 
@@ -312,7 +312,7 @@ Page({
 
 open-data 组件只能展示
 
-```html
+```xml
 <!-- 用户名 -->
 <open-data type="userNickName"></open-data>
 <!-- 用户头像 -->
@@ -329,7 +329,7 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
 - 基本使用
 
-  ```html
+  ```xml
   <!-- 基本使用 -->
   <text>内容</text>
   <!-- 换行 -->
@@ -340,7 +340,7 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
 - 空格大小
 
-  ```html
+  ```xml
   <!-- 默认文本空格大小 -->
   <text space="nbsp">内容</text>
   <!-- 半个中文字符空格大小 -->
@@ -353,7 +353,7 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
   用来解析 HTML 的特殊符号
 
-  ```html
+  ```xml
   <text decode>5 &gt; 3</text>
   ```
 
@@ -361,7 +361,7 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
 - 基本使用
 
-  ```html
+  ```xml
   <!-- 普通按钮 -->
   <button>按钮</button>
 
@@ -374,7 +374,7 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
 - type 属性
 
-  ```html
+  ```xml
   <!-- 绿色按钮 -->
   <button size="mini" type="primary">按钮</button>
   <!-- 白色按钮 -->
@@ -385,13 +385,13 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
 - Loading 效果
 
-  ```html
+  ```xml
   <button size="mini" loading="{{true}}">按钮</button>
   ```
 
 - 自定义 hover 样式
 
-  ```html
+  ```xml
   <button hover-class="样式名">按钮</button>
   ```
 
@@ -401,13 +401,13 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
 - 基本使用
 
-```html
+```xml
 <view>内容</view>
 ```
 
 - 自定义 hover 样式
 
-  ```html
+  ```xml
   <view hover-class="样式名">内容</view>
 
   <!-- 设置按多久出现 hover 效果 -->
@@ -419,7 +419,7 @@ Text 组件用于显示文本，类似于 span 标签，是行内元素。
 
 - 指定是否阻止本节点的祖先节点出现点击态（事件冒泡）
 
-  ```html
+  ```xml
   <view>
     <view hover-stop-propagation>内容</view>
   </view>
@@ -437,7 +437,7 @@ Image 组件用于显示图片，行内块级元素
 
 - 基本使用
 
-  ```html
+  ```xml
   <!-- 本地图片 -->
   <image src="/路径/图片名"></image>
   <!-- 网络图片 -->
@@ -448,7 +448,7 @@ Image 组件用于显示图片，行内块级元素
 
 - 图片裁剪、缩放的模式
 
-  ```html
+  ```xml
   <image src="" mode="模式"></image>
   ```
 
@@ -473,7 +473,7 @@ Image 组件用于显示图片，行内块级元素
 
   \页面名.wxml
 
-  ```html
+  ```xml
   <image src="" bindload="事件名"></image>
   ```
 
@@ -487,7 +487,7 @@ Image 组件用于显示图片，行内块级元素
 
 - 开启长按图片显示识别小程序码菜单
 
-  ```html
+  ```xml
   <image src="网络图片地址" show-menu-by-longpress></image>
   ```
 
@@ -495,7 +495,7 @@ Image 组件用于显示图片，行内块级元素
 
   \页面名.wxml
 
-  ```html
+  ```xml
   <button bindtap="事件名">选择图片</button>
   ```
 
@@ -522,7 +522,7 @@ Input 组件可以写双标签，也可以写单标签
 
 - 基本使用
 
-  ```html
+  ```xml
   <!-- 普通使用 -->
   <input></input>
   <!-- 默认内容 -->
@@ -533,7 +533,7 @@ Input 组件可以写双标签，也可以写单标签
 
 - 设置输入方式
 
-  ```html
+  ```xml
   <!-- 密码输入 -->
   <input password></input>
   ```
@@ -542,7 +542,7 @@ Input 组件可以写双标签，也可以写单标签
 
   \页面名.wxmlz
 
-  ```html
+  ```xml
   <input bindinput="获取焦点事件"
               bindfocus="输入事件"
               bindblur="失去焦点事件"
@@ -567,7 +567,7 @@ Input 组件可以写双标签，也可以写单标签
 
 - 设置键盘类型
 
-  ```html
+  ```xml
   <!-- 文本输入键盘 -->
   <input type="text"></input>
   <!-- 数字输入键盘 -->
@@ -586,7 +586,7 @@ Scroll-view 可以实现局部滚动
 
   \页面名.wxml
 
-  ```html
+  ```xml
   <scroll-view scroll-x class="container1">
     <view wx:for="{{10}}" class="item1">{{item}}</view>
   </scroll-view>
@@ -617,7 +617,7 @@ Scroll-view 可以实现局部滚动
 
   \页面名.wxml
 
-  ```html
+  ```xml
   <scroll-view scroll-y class="container2">
     <view wx:for="{{10}}" class="item2">{{item}}</view>
   </scroll-view>
@@ -643,7 +643,7 @@ Scroll-view 可以实现局部滚动
 
   \页面名.wxml
 
-  ```html
+  ```xml
   <scroll-view bindscroll="事件名"></scroll-view>
   ```
 
@@ -689,7 +689,7 @@ rpx (responsive pixel): 可以根据屏幕宽度进行自适应。规定屏幕�
 
 \页面名.wxml
 
-```html
+```xml
 <view style="属性名: 属性值;">内容</view>
 
 <view style="color: red;">内容</view>
@@ -699,7 +699,7 @@ rpx (responsive pixel): 可以根据屏幕宽度进行自适应。规定屏幕�
 
 \页面名.wxml
 
-```html
+```xml
 <view class="类名">内容</view>
 ```
 
@@ -715,7 +715,7 @@ rpx (responsive pixel): 可以根据屏幕宽度进行自适应。规定屏幕�
 
 \页面名.wxml
 
-```html
+```xml
 <view class="类名">内容</view>
 ```
 
@@ -753,7 +753,7 @@ rpx (responsive pixel): 可以根据屏幕宽度进行自适应。规定屏幕�
 
 ### Mustache 语法
 
-```html
+```xml
 <!-- 基本使用 -->
 <view>{{变量名}}</view>
 
@@ -782,30 +782,248 @@ rpx (responsive pixel): 可以根据屏幕宽度进行自适应。规定屏幕�
 
   :::
 
-  ```html
+  ```xml
   <view wx:if="{{true}}">内容</view>
   ```
 
 - wx:elif、wx:else
 
-  ```html
+  ```xml
   <view wx:if="{{变量名 >=90}}">优秀</view>
   <view wx:elif="{{变量名 >=80}}">良好</view>
   <view wx:elif="{{变量名 >=60}}">及格</view>
   <view wx:else>不及格</view>
   ```
 
-- wx:for
+### 列表渲染
 
 wx:for 用于列表渲染
 
-```html
+```xml
 <!-- 遍历数组 -->
-<view wx:for="{{数组名}}">{{index}}: {{item}}</view>
+<view wx:for="{{数组名}}" key="{{index}}">{{index}}: {{item}}</view>
 
 <!-- 遍历字符串 -->
-<view wx:for="coderwhy">{{item}}</view>
+<view wx:for="coderwhy" key="{{index}}">{{item}}</view>
 
 <!-- 遍历数字（指定次数） -->
-<view wx:for="{{10}}">{{item}}</view>
+<view wx:for="{{10}}" key="{{index}}">{{item}}</view>
+
+<!-- 自定义item、index名称 -->
+<view wx:for="{{数组名}}" wx:for-item="item名称" wx:for-index="index名称" key="{{index名称}}"
+  >{{index名称}}: {{item名称}}</view
+>
+```
+
+- key 属性
+
+key 属性的作用主要是为了高效的更新虚拟 DOM
+
+```xml
+<view wx:for="{{数组名}}" key="{{index}}">{{index}}: {{item}}</view>
+```
+
+### block 标签
+
+我们希望对这一组组件标签进行整体的操作，或者某些情况下，我们需要使用 wx:if 或 wx:for 时，这个时候应该使用 block 标签。
+
+::: tip 提示
+`<block/>`并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性（`wx:*`属性，不接受`class`等属性）
+:::
+
+```xml
+<view wx:if="{{isShow}}">
+  <button>按钮</button>
+  <view>内容</view>
+  <text>内容</text>
+</view>
+```
+
+使用 block 有两个好处:
+
+1. 将需要进行遍历或者判断的内容进行包裹。
+2. 将遍历和判断的属性放在 block 便签中，不影响普通属性的阅读，提高代码的可读性。
+
+### 模板
+
+::: tip 提示
+早些时候小程序不支持自定义组件，为了进行代码复用而使用模板
+:::
+
+WXML 提供模板(template) ,可以在模板中定义代码片段，在不同的地方调用。(是一 -种 wxml 代码的复用机制)
+
+- 定义模板
+
+  ```xml
+  <template name="模板名">
+    <view>{{参数名}}</view>
+  </template>
+  ```
+
+- 使用模板
+
+  ```xml
+  <template is="模板名" data="{{参数名: 值}}"></template>
+  ```
+
+### 导入
+
+wxml 中不能递归引入(也就是 A 引入了 B 的 template,不会引入 B 中引入 C 的 template)
+
+- import 导入：可以导入模板
+- include 导入：将目标文件中除了 `<template />`、`<wxs/>`外的整个代码引入，相当于是拷贝到 include 位置
+
+```xml
+<!-- import 导入 -->
+<import src="/wxml路径" />
+
+<!-- include导入 -->
+<include src="/wxml路径" />
+```
+
+## WXS
+
+WXS (WeiXin Script) 是小程序的一套脚本语言，结合 WXML，可以构建出页面的结构。
+
+- 官方: WXS 与 JavaScript 是不同的语言，有自己的语法，并不和 JavaScript 一致。(不过基本一 致)
+
+### 为什么要设计 WXS 语言呢？
+
+- 在 WXML 中是不能直接调用 Page/Component 中定义的函数的.
+- 但是某些情况，我们可以希望使用函数来处理 WXML 中的数据(类似于 Vue 中的过滤器)，这个时候就使用 WXS 了
+
+### WXS 使用的限制和特点
+
+- WXS 的运行环境和其他 JavaScript 代码是隔离的，WXS 中不能调用其他 JavaScript 文件中定义的函数，也不能调用小程序提供的 API。
+- WXS 函数不能作为组件的事件回调。
+- 由于运行环境的差异，在 ios 设备上小程序内的 WXS 会比 JavaScript 代码快 2 ~ 20 倍。在 android 设备上二者运行效率无差异。
+
+### WXS 定义方式
+
+::: warning 注意
+WXS 只能使用 ES5 语法，不兼容 ES6 语法
+:::
+
+- 直接在 WXML 中定义
+
+  ```xml
+  <!-- 定义 -->
+  <wxs module="WXS名">
+    var 变量名  = "值";
+
+    function 函数名(参数名){
+      return 参数名;
+    }
+
+    module.exports = {
+      变量名: 变量名,
+      函数名: 函数名,
+    }
+  </wxs>
+
+  <!-- 使用 -->
+  <view>{{WXS名.变量名}}</view>
+  <view>{{WXS名.函数名(值)}}</view>
+  ```
+
+- 定义在单独的 WXS 文件，再导入使用
+
+  **定义**
+
+  新建 \页面名.wxs
+
+  ```js
+  var 变量名 = "值";
+
+  var 函数名 = function(参数名) {
+    return 参数名;
+  };
+
+  module.exports = {
+    变量名: 变量名,
+    函数名: 函数名,
+  };
+  ```
+
+  **使用**
+
+  ::: tip 提示
+  导入 wxs 中，不能使用绝对路径，必须使用相对路径
+  :::
+
+  ```xml
+  <wxs src="./WXS名.wxs" module="WXS名"></wxs>
+
+  <view>{{WXS名.变量名}}</view>
+  <view>{{WXS名.函数名(值)}}</view>
+  ```
+
+## 事件
+
+### 什么时候会产生事件
+
+- 小程序需要经常和用户进行某种交互，比如点击界面上的某个按钮或者区域，比如滑动了某个区域
+- 这些交互都会产生各种各样的事件
+
+### 事件时如何处理呢
+
+- 事件是通过 bind/catch 这个属性绑定在组件上的（和普通的属性写法很相似，以 key= "value" 形式）
+- key 以 bind 或 catch 开发，从 1.5.0 版本开始，可以在 bind 和 catch 后加上一个冒号
+- 同时在当前页面的 Page 构造器中定义对应的事件处理函数 tapName，如果没有对应的函数，触发事件时会报错
+- 当用户点击该 button 区域时，达到触发条件生成事件 tap,该事件处理函数 tapName 会被执行，同时还会收到一个事件对象 event。
+
+### 组件事件
+
+- button 按钮
+
+  \页面名.wxml
+
+  ```xml
+  <button bindtap="事件名">按钮</button>
+  ```
+
+  \页面名.js
+
+  ```js
+  Page({
+    事件名() {
+      console.log("按钮发生点击");
+    },
+  });
+  ```
+
+### 常见事件类型
+
+\页面名.wxml
+
+```xml
+<view
+  bind:touchstart="handleTouchStart"
+  bind:touchmove="handleTouchMove"
+  bind:touchend="handleTouchEnd"
+  bind:tap="handleTap"
+  bind:longpress="handleLongpress"
+></view>
+```
+
+\页面名.js
+
+```js
+Page({
+  handleTouchStart() {
+    console.log("手指触摸动作开始");
+  },
+  handleTouchMove() {
+    console.log("手指触摸后移动");
+  },
+  handleTouchEnd() {
+    console.log("手指触摸动作结束");
+  },
+  handleTap() {
+    console.log("手指触摸后马上离开");
+  },
+  handleLongpress() {
+    console.log("手指触摸后，超过350ms再离开");
+  },
+});
 ```
