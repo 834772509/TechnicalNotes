@@ -132,11 +132,11 @@ export const 类型名2 = "类型名2";
 \src\store\actionCreators.js
 
 ```js
-import { 类型名1, 类型名2 } from "./constants.js";
+import * as actionTypes from "./constants";
 
 // 无参
 const change功能方法名1 = () => ({
-  type: 类型名1,
+  type: actionTypes.类型名1,
 });
 
 export const get功能方法名1 = () => {
@@ -148,7 +148,7 @@ export const get功能方法名1 = () => {
 
 // 有参
 const change功能方法名2 = () => ({
-  type: 类型名1,
+  type: actionTypes.类型名1,
 });
 
 export const get功能方法名2 = (参数名) => {
@@ -159,7 +159,7 @@ export const get功能方法名2 = (参数名) => {
 };
 
 export const 功能方法名2 = (参数名) => ({
-  type: 类型名2,
+  type: actionTypes.类型名2,
   参数名,
 });
 ```
@@ -169,7 +169,7 @@ export const 功能方法名2 = (参数名) => ({
 \src\store\reducer.js
 
 ```js
-import { 类型名1, 类型名2 } from "./constants.js";
+import * as actionTypes from "./constants";
 
 const defaultState = {
   变量名: 0,
@@ -177,9 +177,9 @@ const defaultState = {
 
 function reducer(state = defaultState, action) {
   switch (action.type) {
-    case 类型名1:
+    case actionTypes.类型名1:
       return { ...state, 变量名: state.变量名 + 1 };
-    case 类型名2:
+    case actionTypes.类型名2:
       return { ...state, 变量名: state.变量名 + action.参数名 };
     default:
       return state;
@@ -213,71 +213,71 @@ ReactDOM.render(
 
 - 普通使用
 
-\组件名.js
+  \组件名.js
 
-```js
-import React from "react";
+  ```js
+  import React from "react";
 
-import { connect } from "react-redux";
-import { 功能方法名1, 功能方法名2 } from "../store/actionCreators";
+  import { connect } from "react-redux";
+  import { 功能方法名1, 功能方法名2 } from "../store/actionCreators";
 
-function 组件名(props) {
-  return (
-    <div>
-      <h2>当前变量: {props.count}</h2>
-      <button onClick={(e) => props.调用方法1()}>-1</button>
-      <button onClick={(e) => props.调用方法2(参数)}>-5</button>
-    </div>
-  );
-}
+  function 组件名(props) {
+    return (
+      <div>
+        <h2>当前变量: {props.count}</h2>
+        <button onClick={(e) => props.调用方法1()}>-1</button>
+        <button onClick={(e) => props.调用方法2(参数)}>-5</button>
+      </div>
+    );
+  }
 
-const mapStateToProps = (state) => {
-  return {
-    变量名: state.变量名,
+  const mapStateToProps = (state) => {
+    return {
+      变量名: state.变量名,
+    };
   };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    调用方法1: function() {
-      dispatch(功能方法名1());
-    },
-    调用方法2: function(参数名) {
-      dispatch(功能方法名2(参数名));
-    },
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      调用方法1: function() {
+        dispatch(功能方法名1());
+      },
+      调用方法2: function(参数名) {
+        dispatch(功能方法名2(参数名));
+      },
+    };
   };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(组件名);
-```
+  export default connect(mapStateToProps, mapDispatchToProps)(组件名);
+  ```
 
 - Hooks 使用
 
-```js
-import React, { memo } from "react";
-import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
+  ```js
+  import React, { memo } from "react";
+  import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
 
-export default memo(function 组件名(props) {
-  // 请求数据
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(功能方法名());
-  }, [dispatch]);
+  export default memo(function 组件名(props) {
+    // 请求数据
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(功能方法名());
+    }, [dispatch]);
 
-  // 获取数据
-  const { 变量名 } = useSelector(
-    (state) => ({
-      变量名: state.变量名,
-    }),
-    shallowEqual
-  );
+    // 获取数据
+    const { 变量名 } = useSelector(
+      (state) => ({
+        变量名: state.变量名,
+      }),
+      shallowEqual
+    );
 
-  return (
-    <div>
-      <h2>当前变量: {变量名}</h2>
-    </div>
-  );
-});
-```
+    return (
+      <div>
+        <h2>当前变量: {变量名}</h2>
+      </div>
+    );
+  });
+  ```
 
 ## Redux 流程图
 
@@ -382,13 +382,10 @@ import mySaga from "./saga";
 // 通过createSagaMiddleware函数来创建saga中间件
 const sagaMiddleware = createSagaMiddleware();
 
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
 
 // 通过applyMiddleware来结合多个Middleware, 返回一个enhancer
-const enhancer = composeEnhancers(
-  applyMiddleware(thunkMiddleware, sagaMiddleware)
-);
+const enhancer = composeEnhancers(applyMiddleware(thunkMiddleware, sagaMiddleware));
 // 将enhancer作为第二个参数传入到createStore中
 const store = createStore(reducer, enhancer);
 
@@ -450,8 +447,7 @@ import reducer from "./reducer.js";
 import thunkMiddle from "redux-thunk";
 
 // 集成 redux-devtools
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
 
 // 应用中间件
 const storeEnhancer = applyMiddleware(thunkMiddle);
@@ -467,10 +463,7 @@ export default store;
 index.js
 
 ```js
-if (
-  !window.location.port &&
-  typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === "object"
-) {
+if (!window.location.port && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === "object") {
   window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function() {};
 }
 ```
