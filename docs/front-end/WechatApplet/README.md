@@ -992,6 +992,25 @@ WXS 只能使用 ES5 语法，不兼容 ES6 语法
   });
   ```
 
+### 事件参数传递
+
+\页面名.wxml
+
+```xml
+<button bindtap="事件名" data-参数名="{{值}}" data-参数名="{{值}}">按钮</button>
+```
+
+\页面名.js
+
+```js
+Page({
+  事件名() {
+    const { 参数名, 参数名 } = event.currentTarget.dataset;
+    console.log(参数名, 参数名);
+  },
+});
+```
+
 ### 常见事件类型
 
 \页面名.wxml
@@ -1024,6 +1043,122 @@ Page({
   },
   handleLongpress() {
     console.log("手指触摸后，超过350ms再离开");
+  },
+});
+```
+
+### 事件对象
+
+| 属性           | 类型    | 说明                                         | 基础库版本 |
+| -------------- | ------- | -------------------------------------------- | ---------- |
+| type           | String  | 事件类型                                     |            |
+| timeStamp      | Integer | 事件生成时的时间戳                           |            |
+| target         | Object  | 触发事件的组件的一些属性值集合               |            |
+| currentTarget  | Object  | 当前组件的一些属性值集合                     |            |
+| mark           | Object  | 事件标记数据                                 | 2\.7\.1    |
+| detail         | Object  | 额外的信息                                   |            |
+| touches        | Array   | 触摸事件，当前停留在屏幕中的触摸点信息的数组 |            |
+| changedTouches | Array   | 触摸事件，当前变化的触摸点信息的数组         |            |
+
+- touches 和 changedTouches 区别
+
+  - touches: 当前屏幕上所有触摸点的列表
+  - changedTouches: 触发事件时改变的触摸点的集合
+
+- target 和 currentTarget 区别
+
+  - target: 产生事件的 view
+  - currentTarget: 触发事件的 view
+
+### 事件冒泡
+
+事件冒泡：事件除了触发本级，还会向父级传递
+
+- bind: 一层层传递
+- catch: 阻止事件的进一步传递
+
+```xml
+<view catchtap="事件名1">
+	<view catchtap="事件名2">
+		<view catchtap="事件名3"></view>
+	</view>
+</view>
+```
+
+### 事件捕获
+
+```xml
+<view capture-bind:tap="事件名" > </view>
+```
+
+## 组件
+
+### 什么是组件化
+
+- 如果我们将一个页面中所有的处理逻辑全部放在一起，处理起来就会变得非常复杂，而且不利于后续的管理以及扩展。
+- 但如果，我们将一个页面拆分成一个个小的功能块，每个功能块完成属于自己这部分独立的功能，那么之后整个页面的管理和维护就变得非常容易了。
+
+### 创建自定义组件
+
+::: warning 注意
+
+- 组件名只能是 小写字母、下划线、中划线、数字 的组合
+- 组件名不能以`wx`作为前缀，否则会报错
+  :::
+
+1. 创建目录 \components\组件名
+2. 右键组件名目录->新建 components->输入组件名
+
+### 注册自定义组件
+
+- 局部注册组件
+
+  \页面名\components.json
+
+  ```json
+  {
+    "usingComponents": {
+      "组件名": "/components/组件名/组件名"
+    }
+  }
+  ```
+
+- 全局注册组件
+
+  \app.json
+
+  ```json
+  {
+    "usingComponents": {
+      "组件名": "/components/组件名/组件名"
+    }
+  }
+  ```
+
+### 使用自定义组件
+
+```xml
+<组件名></组件名>
+```
+
+### 自定义组件样式
+
+- **组件内不能使用 id 选择器、属性选择器、标签选择器**
+- 组件内的 class 样式，只对组件 wxml 内的节点生效，对于引用组件的 Page 页面不生效
+
+### 使自定义组件样式可以相互影响
+
+::: tip 提示
+
+- isolated 表示启用样式隔离，在自定义组件内外，使用 class 指定的样式将不会相互影响(默认取值) ;
+- apply-shared 表示页面 WXSS 样式将影响到自定义组件，但自定义组件 WXSS 中指定的样式不会影响页面;
+- shared 表示页面 WXSS 样式将影响到自定义组件，自定义组件 WXSS 中指定的样式也会影响页面和其他设置了
+  :::
+
+```js
+Component({
+  options: {
+    styleIsolation: "apply-shared",
   },
 });
 ```
