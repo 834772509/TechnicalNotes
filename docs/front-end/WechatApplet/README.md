@@ -657,6 +657,14 @@ Scroll-view 可以实现局部滚动
   });
   ```
 
+### slider 组件
+
+slider 是进度条组件，可以随意拖动。value 属性为默认进度
+
+```xml
+<slider value="50"></slider>
+```
+
 ### 组件共有属性
 
 ::: tip 提示
@@ -1004,7 +1012,7 @@ WXS 只能使用 ES5 语法，不兼容 ES6 语法
 
 ```js
 Page({
-  事件名() {
+  事件名(event) {
     const { 参数名, 参数名 } = event.currentTarget.dataset;
     console.log(参数名, 参数名);
   },
@@ -1162,3 +1170,190 @@ Component({
   },
 });
 ```
+
+### 组件传参
+
+- 接收参数
+
+  \组件名.js
+
+  ```js
+  Component({
+    properties: {
+      // 基础写法
+      参数名: 数据类型,
+
+      // 详细写法（推荐）
+      参数名: {
+        type: 数据类型,
+        value: 默认值,
+        // 监听数据变化（可省略）
+        observer: function(newValue, oldValue) {
+          console.log(newValue, oldValue);
+        },
+      },
+    },
+  });
+  ```
+
+  \组件名.wxml
+
+  ```xml
+  <view>{{参数名}}</view>
+  ```
+
+- 传递参数
+
+  \页面名.wxml
+
+  ```xml
+  <组件名 参数名="值"></组件名>
+  ```
+
+### 组件传递样式
+
+- 接收参数
+
+  \组件名.js
+
+  ```js
+  Component({
+    externalClasses: ["样式名"],
+  });
+  ```
+
+  \组件名.wxml
+
+  ```xml
+  <view class="样式名"></view>
+  ```
+
+- 传递参数
+
+  \页面名.wxml
+
+  ```xml
+  <组件名 样式名="类名"></组件名>
+  ```
+
+  \页面名.wxss
+
+  ```css
+  .类名 {
+    属性名: 值;
+  }
+  ```
+
+### 自定义事件传递
+
+- 发射事件
+
+  \组件名.js
+
+  ```js
+  // 仅传递事件
+  this.triggerEvent("事件名", {}, {});
+  // 传递参数
+  this.triggerEvent("事件名", { 参数名: 值 }, {});
+  ```
+
+- 接收事件
+
+  \页面名.wxml
+
+  ```xml
+  <组件名 bind:事件名="事件函数名"></组件名>
+  ```
+
+  \页面名.js
+
+  ```js
+  Page({
+    事件函数名(event) {
+      console.log("事件传递");
+      // 访问参数
+      console.log(event.detail.参数名);
+    },
+  });
+  ```
+
+### 获取组件对象
+
+\页面名.wxml
+
+```xml
+<组件名 id="对象ID"></组件名>
+```
+
+\页面名.js
+
+```js
+const 组件对象 = this.selectComponent("#对象ID");
+
+// 调用组件内的方法
+组件对象.方法名();
+
+// 直接修改组件内的数据（不推荐）
+组件对象.setData({
+  变量名: 组件对象.data.变量名 + 1,
+});
+```
+
+## 插槽
+
+### 什么是插槽
+
+- 插槽是为了让我们封装的组件更加具有扩展性。
+- 让使用者可以决定组件内部的一些内容到底展示什么。
+
+### 单个插槽
+
+- 定义
+
+  \组件名.wxml
+
+  ```xml
+  <slot></slot>
+  ```
+
+- 使用
+
+  \页面名.wxml
+
+  ```xml
+  <组件名>
+    <view>插槽内容</view>
+  </组件名>
+  ```
+
+### 多个插槽
+
+- 定义
+
+  \组件名.js
+
+  ```js
+  Component({
+    options: {
+      multipleSlots: true,
+    },
+  });
+  ```
+
+  \组件名.wxml
+
+  ```xml
+  <slot name="插槽名"></slot>
+  <slot name="插槽名"></slot>
+  ```
+
+- 使用
+
+  \页面名.wxml
+
+  ```xml
+  <组件名>
+    <view slot="插槽名">插槽内容</view>
+    <view slot="插槽名">插槽内容</view>
+  </组件名>
+  ```
