@@ -149,6 +149,7 @@ module.exports = {
         text: "其他",
         items: [
           { text: "Photoshop", link: "/Other/Photoshop/" },
+          { text: "Unity", link: "/Other/Unity/" },
           { text: "Git", link: "/Other/Git/" },
           { text: "WinPE", link: "/Other/WinPE/" },
         ],

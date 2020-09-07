@@ -166,22 +166,22 @@ App({
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
-  onLaunch: function () {},
+  onLaunch: function() {},
 
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
-  onShow: function (options) {},
+  onShow: function(options) {},
 
   /**
    * 当小程序从前台进入后台，会触发 onHide
    */
-  onHide: function () {},
+  onHide: function() {},
 
   /**
    * 当小程序发生脚本错误，或者 api 调用失败时，会触发 onError 并带上错误信息
    */
-  onError: function (msg) {},
+  onError: function(msg) {},
 });
 ```
 
@@ -194,7 +194,7 @@ App({
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
-  onShow: function (options) {
+  onShow: function(options) {
     switch (options.scene) {
       case 1001:
         // 发现栏小程序主入口
@@ -242,42 +242,42 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function(options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function() {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {},
+  onReachBottom: function() {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {},
+  onShareAppMessage: function() {},
 });
 ```
 
@@ -291,7 +291,7 @@ Page({
 
 ```js
 wx.getUserInfo({
-  success: function (res) {
+  success: function(res) {
     console.log(res);
   },
 });
@@ -950,7 +950,7 @@ WXS 只能使用 ES5 语法，不兼容 ES6 语法
   ```js
   var 变量名 = "值";
 
-  var 函数名 = function (参数名) {
+  var 函数名 = function(参数名) {
     return 参数名;
   };
 
@@ -1195,7 +1195,7 @@ Component({
         type: 数据类型,
         value: 默认值,
         // 监听数据变化（可省略）
-        observer: function (newValue, oldValue) {
+        observer: function(newValue, oldValue) {
           console.log(newValue, oldValue);
         },
       },
@@ -1306,65 +1306,6 @@ const 组件对象 = this.selectComponent("#对象ID");
 });
 ```
 
-## 插槽
-
-### 什么是插槽
-
-- 插槽是为了让我们封装的组件更加具有扩展性。
-- 让使用者可以决定组件内部的一些内容到底展示什么。
-
-### 单个插槽
-
-- 定义
-
-  \组件名.wxml
-
-  ```xml
-  <slot></slot>
-  ```
-
-- 使用
-
-  \页面名.wxml
-
-  ```xml
-  <组件名>
-    <view>插槽内容</view>
-  </组件名>
-  ```
-
-### 多个插槽
-
-- 定义
-
-  \组件名.js
-
-  ```js
-  Component({
-    options: {
-      multipleSlots: true,
-    },
-  });
-  ```
-
-  \组件名.wxml
-
-  ```xml
-  <slot name="插槽名"></slot>
-  <slot name="插槽名"></slot>
-  ```
-
-- 使用
-
-  \页面名.wxml
-
-  ```xml
-  <组件名>
-    <view slot="插槽名">插槽内容</view>
-    <view slot="插槽名">插槽内容</view>
-  </组件名>
-  ```
-
 ## 分享
 
 \页面名.wxml
@@ -1377,7 +1318,7 @@ const 组件对象 = this.selectComponent("#对象ID");
 
 ```js
 Page({
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       title: "分享标题",
       path: "分享路径",
