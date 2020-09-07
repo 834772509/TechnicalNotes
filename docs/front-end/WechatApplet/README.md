@@ -1407,4 +1407,35 @@ wx.request({
 
 ### 请求函数封装
 
+- 封装
 
+  创建 \service\network.js
+
+  ```js
+  export default function request(options) {
+    if (!options) return null;
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: options.url,
+        method: options.method || "GET",
+        data: options.data || {},
+        success: resolve,
+        fail: reject,
+      });
+    });
+  }
+  ```
+
+- 使用
+
+  ```js
+  import request from "../../service/network";
+
+  request({
+    url: "URL",
+  }).then((res) => {
+    console.log(res);
+  }).catch((err) => {
+    console.log(err);
+  });
+  ```
