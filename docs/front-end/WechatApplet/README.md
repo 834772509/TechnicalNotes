@@ -159,22 +159,22 @@ App({
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
-  onLaunch: function() {},
+  onLaunch: function () {},
 
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
-  onShow: function(options) {},
+  onShow: function (options) {},
 
   /**
    * 当小程序从前台进入后台，会触发 onHide
    */
-  onHide: function() {},
+  onHide: function () {},
 
   /**
    * 当小程序发生脚本错误，或者 api 调用失败时，会触发 onError 并带上错误信息
    */
-  onError: function(msg) {},
+  onError: function (msg) {},
 });
 ```
 
@@ -187,7 +187,7 @@ App({
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
-  onShow: function(options) {
+  onShow: function (options) {
     switch (options.scene) {
       case 1001:
         // 发现栏小程序主入口
@@ -235,42 +235,42 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
+  onLoad: function (options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {},
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {},
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {},
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {},
+  onPullDownRefresh: function () {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {},
+  onReachBottom: function () {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {},
+  onShareAppMessage: function () {},
 });
 ```
 
@@ -284,7 +284,7 @@ Page({
 
 ```js
 wx.getUserInfo({
-  success: function(res) {
+  success: function (res) {
     console.log(res);
   },
 });
@@ -943,7 +943,7 @@ WXS 只能使用 ES5 语法，不兼容 ES6 语法
   ```js
   var 变量名 = "值";
 
-  var 函数名 = function(参数名) {
+  var 函数名 = function (参数名) {
     return 参数名;
   };
 
@@ -1188,7 +1188,7 @@ Component({
         type: 数据类型,
         value: 默认值,
         // 监听数据变化（可省略）
-        observer: function(newValue, oldValue) {
+        observer: function (newValue, oldValue) {
           console.log(newValue, oldValue);
         },
       },
@@ -1357,3 +1357,54 @@ const 组件对象 = this.selectComponent("#对象ID");
     <view slot="插槽名">插槽内容</view>
   </组件名>
   ```
+
+## 网络请求
+
+### 配置服务器域名
+
+每个微信小程序需要事先设置通讯域名，小程序只可以跟指定的域名进行网络通信。包括普通 HTTPS 请求（wx.request）、上传文件（wx.uploadFile）、下载文件（wx.downloadFile) 和 WebSocket 通信（wx.connectSocket）。
+
+从基础库 2.4.0 开始，网络接口允许与局域网 IP 通信，但要注意 不允许与本机 IP 通信。
+
+### 基本使用
+
+- GET 请求
+
+```js
+wx.request({
+  url: "URL",
+  // 携带参数
+  data: {
+    参数名: 值,
+  },
+  success: function (res) {
+    console.log(res);
+  },
+  fail: function (err) {
+    console.log(err);
+  },
+});
+```
+
+- POST 请求
+
+```js
+wx.request({
+  url: "URL",
+  method: "POST",
+  // 携带参数
+  data: {
+    参数名: 值,
+  },
+  success: function (res) {
+    console.log(res);
+  },
+  fail: function (err) {
+    console.log(err);
+  },
+});
+```
+
+### 请求函数封装
+
+
