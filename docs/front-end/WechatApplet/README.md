@@ -1365,7 +1365,6 @@ const 组件对象 = this.selectComponent("#对象ID");
   </组件名>
   ```
 
-
 ## 分享
 
 \页面名.wxml
