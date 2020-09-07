@@ -27,6 +27,13 @@
 3. 将最新变化的内容反映到真实的 DOM 树中，更新 Ul;
 4. 数据变化时，逻辑层提供最新的变化数据，JS 对象发生变化比较进行 diff 算法对比;
 
+### 小程序的登陆流程
+
+1. 调用 wx.login 获取 code
+2. 调用 wx.request 发送 code 到我们自己的服务器(我们自己的服务器会返回一个登录态的标识，比如 token)
+3. 将登录态的标识 token 进行存储，以便下次使用
+4. 请求需要登录态标识的接口时，携带 token
+
 ## 基本语法
 
 ### 数据绑定
@@ -1358,186 +1365,26 @@ const 组件对象 = this.selectComponent("#对象ID");
   </组件名>
   ```
 
-## 网络请求
 
-### 配置服务器域名
+## 分享
 
-每个微信小程序需要事先设置通讯域名，小程序只可以跟指定的域名进行网络通信。包括普通 HTTPS 请求（wx.request）、上传文件（wx.uploadFile）、下载文件（wx.downloadFile) 和 WebSocket 通信（wx.connectSocket）。
+\页面名.wxml
 
-从基础库 2.4.0 开始，网络接口允许与局域网 IP 通信，但要注意 不允许与本机 IP 通信。
-
-### 基本使用
-
-- GET 请求
-
-```js
-wx.request({
-  url: "URL",
-  // 携带参数
-  data: {
-    参数名: 值,
-  },
-  success: function (res) {
-    console.log(res);
-  },
-  fail: function (err) {
-    console.log(err);
-  },
-});
+```xml
+<button size="mini" open-type="share">分享</button>
 ```
 
-- POST 请求
+\页面名.js
 
 ```js
-wx.request({
-  url: "URL",
-  method: "POST",
-  // 携带参数
-  data: {
-    参数名: 值,
-  },
-  success: function (res) {
-    console.log(res);
-  },
-  fail: function (err) {
-    console.log(err);
-  },
-});
-```
-
-### 请求函数封装
-
-- 封装
-
-  创建 \service\network.js
-
-  ```js
-  export default function request(options) {
-    if (!options) return null;
-    return new Promise((resolve, reject) => {
-      wx.request({
-        url: options.url,
-        method: options.method || "GET",
-        data: options.data || {},
-        success: resolve,
-        fail: reject,
-      });
-    });
-  }
-  ```
-
-- 使用
-
-  ```js
-  import request from "../../service/network";
-
-  request({
-    url: "URL",
-  })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  ```
-
-## 展示弹窗
-
-### Toast
-
-Toast 的效果是显示一个提示，可以自定义提示的图片
-
-[wx.showToast](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showToast.html)
-
-```js
-wx.showToast({
-  title: "内容",
-  duration: 1000,
-  icon: "loading",
-});
-```
-
-### Modal
-
-Modal 的效果是显示一个对话框，默认有“确定”、“取消”两个按钮
-
-[wx.showModal](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showModal.html)
-
-- 确定、取消 对话框
-
-  ```js
-  wx.showModal({
-    title: "标题",
-    content: "内容",
-    // 自定义取消按钮文本
-    cancelText: "退出",
-    success: function (res) {
-      if (res.confirm) {
-        console.log("点击了确定按钮");
-      }
-      if (res.cancel) {
-        console.log("点击了取消按钮");
-      }
-    },
-  });
-  ```
-
-- 仅显示确定对话框
-
-  ```js
-  wx.showModal({
-    title: "标题",
-    content: "内容",
-    showCancel: false,
-    success: function (res) {
-      if (res.confirm) {
-        console.log("点击了确定按钮");
-      }
-    },
-  });
-  ```
-
-### Loading
-
-[wx.showLoading](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showLoading.html)
-
-::: tip 提示
-必须手动调用`wx.hideLoading()`loading 才会消失
-:::
-
-显示一个 Loading 对话框，和 Toast 不同的是，Toast 必须设置指定的时间就会消失
-
-```js
-wx.showLoading({
-  title: "加载中",
-});
-
-setTimeout(() => {
-  wx.hideLoading();
-}, 1000);
-```
-
-### showActionSheet
-
-[wx.showActionSheet](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showActionSheet.html)
-
-showActionSheet 的效果是：从底部显示一个菜单，用户可以选择
-
-```js
-wx.showActionSheet({
-  itemList: ["菜单1", "菜单2", "菜单3"],
-  success: function (res) {
-    switch (res.tapIndex) {
-      case 0:
-        console.log("0");
-        break;
-      case 1:
-        console.log("1");
-        break;
-      default:
-        break;
-    }
+Page({
+  onShareAppMessage: function () {
+    return {
+      title: "分享标题",
+      path: "分享路径",
+      // 分享时显示的图片
+      imageUrl: "URL",
+    };
   },
 });
 ```
