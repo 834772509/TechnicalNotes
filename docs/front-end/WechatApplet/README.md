@@ -1328,3 +1328,77 @@ Page({
   },
 });
 ```
+
+## 页面跳转
+
+### 通过 navigator 组件跳转
+
+```xml
+<!-- 基本使用 -->
+<navigator url="/路径">跳转</navigator>
+
+<!-- redirect -->
+<navigator url="/路径" open-type="redirect">跳转</navigator>
+
+<!-- switchTab -->
+<navigator url="/路径" open-type="switchTab">跳转</navigator>
+
+<!-- reLaunch -->
+<navigator url="/路径" open-type="reLaunch">跳转</navigator>
+
+<!-- 返回 -->
+<navigator open-type="navigateBack">返回</navigator>
+```
+
+| open-type 属性值 | 说明                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------------------ |
+| navigate         | 对应 wx\.navigateTo 或 wx\.navigateToMiniProgram 的功能                                          |
+| redirect         | 关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面，并且不能返回。(不是一个压栈) |
+| switchTab        | 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面。(需要在 tabBar 中定义的)                       |
+| reLaunch         | 关闭所有的页面，打开应用中某个页面。(直接展示某个页面，并且可以跳转到 tabBar 页面)               |
+| navigateBack     | 对应 wx\.navigateBack 的功能                                                                     |
+| exit             | 退出小程序，target="miniProgram"时生效                                                           |
+
+- 数据传递
+
+  - 传递参数
+
+    ```xml
+    <navigator url="/路径?参数名=值&参数名=值">跳转</navigator>
+    ```
+
+  - 接收参数
+
+    ```js
+    Page({
+      onLoad: function(options) {
+        console.log(options.参数名);
+      },
+    });
+    ```
+
+### 通过 API 跳转
+
+- navigateTo
+
+  ```js
+  // 普通使用
+  wx.navigateTo({
+    url: "/路径",
+  });
+
+  // 传参
+  wx.navigateTo({
+    url: "/路径?参数名=值",
+  });
+  ```
+
+- navigateBack
+
+  返回页面
+
+  ```js
+  wx.navigateBack({
+    delta: 0,
+  });
+  ```
