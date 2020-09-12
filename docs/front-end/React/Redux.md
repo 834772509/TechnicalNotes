@@ -103,22 +103,34 @@ npm `npm install react-redux --save`
 
 ## 使用
 
-### 定义 Store
+::: tip 提示
+可根据需要定义多个局部 Store 来管理状态
+:::
 
-- index
+### 定义 index
 
-\src\store\index.js
+- 全局 store
 
-```js
-import { createStore } from "redux";
-import reducer from "./reducer.js";
+  \src\store\index.js
 
-const store = createStore(reducer);
+  ```js
+  import { createStore } from "redux";
+  import reducer from "./reducer.js";
 
-export default store;
-```
+  const store = createStore(reducer);
 
-- 定义类型名
+  export default store;
+  ```
+
+- 局部 store
+
+  ```js
+  import reducer from "./reducer";
+
+  export { reducer };
+  ```
+
+### 定义类型名
 
 \src\store\constants.js
 
@@ -127,44 +139,7 @@ export const 类型名1 = "类型名1";
 export const 类型名2 = "类型名2";
 ```
 
-- 定义 Action
-
-\src\store\actionCreators.js
-
-```js
-import * as actionTypes from "./constants";
-
-// 无参
-const change功能方法名1 = () => ({
-  type: actionTypes.类型名1,
-});
-
-export const get功能方法名1 = () => {
-  return (dispatch) => {
-    // 此处可进行网络请求，通过 dispatch(方法名(值)) 来设置数据
-    dispatch(change功能方法名1());
-  };
-};
-
-// 有参
-const change功能方法名2 = () => ({
-  type: actionTypes.类型名1,
-});
-
-export const get功能方法名2 = (参数名) => {
-  return (dispatch) => {
-    // 此处可进行网络请求，通过 dispatch(方法名(值)) 来设置数据
-    dispatch(change功能方法名2(参数值));
-  };
-};
-
-export const 功能方法名2 = (参数名) => ({
-  type: actionTypes.类型名2,
-  参数名,
-});
-```
-
-- 定义 reducer
+### 定义 reducer
 
 \src\store\reducer.js
 
@@ -172,15 +147,15 @@ export const 功能方法名2 = (参数名) => ({
 import * as actionTypes from "./constants";
 
 const defaultState = {
-  变量名: 0,
+  全局变量名: 默认值,
 };
 
 function reducer(state = defaultState, action) {
   switch (action.type) {
     case actionTypes.类型名1:
-      return { ...state, 变量名: state.变量名 + 1 };
+      return { ...state, 全局变量名: action.全局变量名 };
     case actionTypes.类型名2:
-      return { ...state, 变量名: state.变量名 + action.参数名 };
+      return { ...state, 全局变量名: action.全局变量名 };
     default:
       return state;
   }
@@ -189,7 +164,33 @@ function reducer(state = defaultState, action) {
 export default reducer;
 ```
 
+### 定义 Action
+
+\src\store\actionCreators.js
+
+```js
+import * as actionTypes from "./constants";
+
+const change功能方法名Action = (全局变量名) => ({
+  type: actionTypes.类型名1,
+  全局变量名,
+});
+
+export const get功能方法名Action = (id) => {
+  return (dispatch) => {
+    // 此处可进行网络请求，通过 dispatch(方法名(值)) 来设置数据
+    网络请求(id).then((res) => {
+      dispatch(change功能方法名Action(res));
+    });
+  };
+};
+```
+
 ### 导入
+
+::: tip 提示
+也可在 App.js 中进行导入
+:::
 
 \src\index.js
 
@@ -205,79 +206,81 @@ ReactDOM.render(
 );
 ```
 
-### 使用
+### 普通使用
 
 ::: tip 提示
 如获取的数据为空请检查`actionCreators`中的`功能方法名`内参数是否正确
 :::
 
-- 普通使用
+\组件名.js
 
-  \组件名.js
+```js
+import React from "react";
 
-  ```js
-  import React from "react";
+import { connect } from "react-redux";
+import { 功能方法名1, 功能方法名2 } from "../store/actionCreators";
 
-  import { connect } from "react-redux";
-  import { 功能方法名1, 功能方法名2 } from "../store/actionCreators";
+function 组件名(props) {
+  return (
+    <div>
+      <h2>当前变量: {props.count}</h2>
+      <button onClick={(e) => props.调用方法1()}>-1</button>
+      <button onClick={(e) => props.调用方法2(参数)}>-5</button>
+    </div>
+  );
+}
 
-  function 组件名(props) {
-    return (
-      <div>
-        <h2>当前变量: {props.count}</h2>
-        <button onClick={(e) => props.调用方法1()}>-1</button>
-        <button onClick={(e) => props.调用方法2(参数)}>-5</button>
-      </div>
-    );
-  }
-
-  const mapStateToProps = (state) => {
-    return {
-      变量名: state.变量名,
-    };
+const mapStateToProps = (state) => {
+  return {
+    全局变量名: state.全局变量名,
   };
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      调用方法1: function() {
-        dispatch(功能方法名1());
-      },
-      调用方法2: function(参数名) {
-        dispatch(功能方法名2(参数名));
-      },
-    };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    调用方法1: function() {
+      dispatch(get功能方法名Action());
+    },
+    调用方法2: function(参数名) {
+      dispatch(get功能方法名Action(参数名));
+    },
   };
+};
 
-  export default connect(mapStateToProps, mapDispatchToProps)(组件名);
-  ```
+export default connect(mapStateToProps, mapDispatchToProps)(组件名);
+```
 
-- Hooks 使用
+### Hooks 使用
 
-  ```js
-  import React, { memo } from "react";
-  import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
+::: tip 提示
+如获取的数据为空请检查`actionCreators`中的`功能方法名`内参数是否正确
+:::
 
-  export default memo(function 组件名(props) {
-    // 请求数据
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(功能方法名());
-    }, [dispatch]);
+```js
+import React, { memo } from "react";
+import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
 
-    // 获取数据
-    const { 变量名 } = useSelector(
-      (state) => ({
-        变量名: state.变量名,
-      }),
-      shallowEqual
-    );
+export default memo(function 组件名(props) {
+  // 请求数据
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(get功能方法名Action());
+  }, [dispatch]);
 
-    return (
-      <div>
-        <h2>当前变量: {变量名}</h2>
-      </div>
-    );
-  });
-  ```
+  // 获取数据
+  const { 变量名 } = useSelector(
+    (state) => ({
+      全局变量名: state.全局变量名,
+    }),
+    shallowEqual
+  );
+
+  return (
+    <div>
+      <h2>当前变量: {全局变量名}</h2>
+    </div>
+  );
+});
+```
 
 ## Redux 流程图
 

@@ -265,6 +265,17 @@ jsx 中`class`为关键字，不能直接使用，需要使用`className`
 }
 ```
 
+- JavaScript 字符串中 `\n` 转`<br>`
+
+```js
+const character = new RegExp("\n", "g");
+const 显示字符串 = 字符串.replace(character, "<br />");
+```
+
+```html
+<span dangerouslySetInnerHTML="{{" __html: 显示字符串 }}></span>
+```
+
 ### JSX 的本质
 
 jsx 仅仅只是 React.createElement(component, props, ..children)函数的语法糖。所有的 jsx 最终都会被转换成 React.createElement 函数调用
@@ -1480,11 +1491,7 @@ class App extends PureComponent {
     return (
       <div>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <select
-            name="fruits"
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.fruits}
-          >
+          <select name="fruits" onChange={(e) => this.handleChange(e)} value={this.state.fruits}>
             <option value="apple">苹果</option>
             <option value="banana">香蕉</option>
             <option value="orange">橘子</option>
