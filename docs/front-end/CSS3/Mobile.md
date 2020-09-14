@@ -141,6 +141,76 @@ a {
 
 ## 媒体查询
 
+### 什么是媒体查询
+
+媒体查询( Media Query）是 CSS3 新语法。
+
+- 使用 `@media` 查询，可以针对不同的媒体类型定义不同的样式
+- **@media 可以针对不同的屏幕尺寸设置不同的样式**
+- 当你董置浏览器大小的过程中，页面也会根据浏览器的宽度和高度重新渲染页面
+- 目前针对很多苹果手机、Android 手机，平板等设备都用得到多媒体查询
+
+### 语法规范
+
+::: tip 提示
+媒体查询一般按照从小到大的顺序来写，根据样式的层叠性，这样代码更简洁
+:::
+
+```css
+@media 媒体类型 关键字 (媒体特性) {
+  /* CSS样式 */
+}
+```
+
+- 媒体类型：
+  - all: 用于所有设备;
+  - print: 用于打印机和打印预览;
+  - **screen: 用于电脑屏幕，平板电脑，智能手机等**
+- 关键字：
+  - **and: 可以将多个媒体特性连接到一起，相当于“且”的意思。**
+  - not: 排除某个媒体类型，相当于“非”的意思，可以省略。
+  - only: 指定某个特定的媒体类型，可以省略。
+- 媒体特性：
+  - width: 定义输出设备中页面可见区域的宽度
+  - min-width: 定义输出设备中页面最小可见区域宽度
+  - max-width: 定义输出设备中页面最大可见区域宽度
+
+```css
+/* 大型设备（大台式电脑） */
+@media screen and (min-width: 4096px) {
+  选择器 {
+    属性名: 值;
+  }
+}
+
+/* 中型设备（台式电脑） */
+@media screen and (min-width: 2560px) {
+  选择器 {
+    属性名: 值;
+  }
+}
+
+/* 小型设备（平板电脑） */
+@media screen and (min-width: 1920px) {
+  选择器 {
+    属性名: 值;
+  }
+}
+
+/* 超小设备（手机） */
+@media screen and (min-width: 750px) {
+  选择器 {
+    属性名: 值;
+  }
+}
+```
+
+### 引入资源
+
+::: tip 提示
+媒体查询一般按照从小到大的顺序来写，根据样式的层叠性，这样代码更简洁
+:::
+
 新建 \css\desktop.css
 新建 \css\mobile.css
 
@@ -149,39 +219,11 @@ a {
 <link media="(max-width: 500px)" rel="stylesheet" href="./css/mobile.css" />
 ```
 
-::: tip 提示
-在设置时，需要注意先后顺序，否则后面会覆盖前面的样式
-:::
-
-```css
-/* 大型设备（大台式电脑） */
-@media screen and (min-width: 1200px) {
-  属性名: 值;
-}
-
-/* 中型设备（台式电脑） */
-@media screen and (min-width: 992px) {
-  属性名: 值;
-}
-
-/* 小型设备（平板电脑） */
-@media screen and (min-width: 768px) {
-  属性名: 值;
-}
-
-/* 超小设备（手机） */
-@media screen and (min-width: 480px) {
-  
-}
-```
-
-<!-- 1. 针对不同的手机屏善，设置不同的 font-size 大小
-2. 将所有需要适配的图片/元素/字体大小，统一使用 rem
-
 ## 动态计算 rem
 
-1. 利用 px 转 rem
-   Visual Studio Code 插件：`px to rem`
-   热键：Alt + Z
-2. 利用 postcss-pxtorem（最优方案）
-3. 利用 less/sass/stylus 的计算能力 -->
+1. 针对不同的手机屏善，设置不同的 font-size 大小
+2. 将所有需要适配的图片/元素/字体大小，统一使用 rem
+3. 利用 px 转 rem
+   Visual Studio Code 插件：`px to rem` ，热键：Alt + Z
+4. 利用 postcss-pxtorem（最优方案）
+5. 利用 less/sass/stylus 的计算能力
