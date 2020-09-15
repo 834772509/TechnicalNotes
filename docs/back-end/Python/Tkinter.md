@@ -1,9 +1,8 @@
-
 # Tkinter
 
 ## 窗口
 
-``` Python
+```Python
 from tkinter import *
 root = Tk()
 root.mainloop()
@@ -11,21 +10,21 @@ root.mainloop()
 
 ## 标签
 
-``` Python
+```Python
 标签 = Label(root, text="标签")
 标签.pack()
 ```
 
 ## 图片框
 
-``` Python
+```Python
 图片框 = Label(root, image=PhotoImage(file=""))
 图片框.pack()
 ```
 
 ## 按钮
 
-``` Python
+```Python
 按钮 = Button(root, text="按钮",command=调用的方法名)
 BeautifyButton(按钮)
 按钮.pack()
@@ -33,7 +32,7 @@ BeautifyButton(按钮)
 
 ## 编辑框
 
-``` Python
+```Python
 编辑框 = Text(root, wrap=NONE)
 编辑框.insert(END, '编辑框默认内容')
 编辑框.pack()
@@ -41,7 +40,7 @@ BeautifyButton(按钮)
 
 ## 组合框
 
-``` Python
+```Python
 组合框 = ttk.Combobox(root, values=(
     '1', '2', '3', '4', '5'), state='readonly')
 组合框.current(0)
@@ -50,25 +49,25 @@ BeautifyButton(按钮)
 
 ## 下拉列表框
 
-``` Python
+```Python
 w = Spinbox(root, values=("1", "2", "3", "4", "5"))
 w.pack()
 ```
 
 ## 信息框
 
-``` Python
+```Python
 # 确认提示框
 messagebox.showinfo(root.title() + " - 提示", message="内容")
 # 是否提示框，选择是返回YES，选择否返回NO
     messagebox.askquestion(title=root.title() + " - 提示", message="内容")
 ```
 
-## 窗口Demo
+## 窗口 Demo
 
 ::: details 点击查看代码
 
-``` Python
+```Python
 import os
 import subprocess
 import tkinter.font as tkFont

@@ -2,13 +2,13 @@
 
 ## 概念
 
-Ajax : Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）  
+Ajax : Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）
 
 主要作用是请求服务器上的文件并返回内容，用于 无刷新数据读取
 
 ## 阻止缓存
 
-在请求URL后加上没有用的参数，如当前时间
+在请求 URL 后加上没有用的参数，如当前时间
 
 ## GET POST
 
@@ -18,11 +18,11 @@ Ajax : Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）
 
 ### Post
 
-由requestbody携带，一般用于提交
+由 requestbody 携带，一般用于提交
 
 ## Ajax
 
-``` JavaScript
+```JavaScript
   function Ajax(url, method, SuccessFunction, ErrorFunction) {
     //创建Ajax对象
     let Ajax
@@ -65,7 +65,7 @@ Ajax : Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）
 
 使用：
 
-``` JavaScript
+```JavaScript
 Ajax(URL链接, "get", (text) => {
   alert(text)
 }, (status) => {
@@ -75,6 +75,5 @@ Ajax(URL链接, "get", (text) => {
 
 ## 同步和异步
 
-* 同步：一件一件来
-* 异步：多件事一起，各干各的
-
+- 同步：一件一件来
+- 异步：多件事一起，各干各的

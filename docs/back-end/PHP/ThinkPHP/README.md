@@ -6,56 +6,56 @@
 
 ### 配置 Composer
 
-Composer 是PHP包管理工具  
+Composer 是 PHP 包管理工具
 
 将 composer.bat 、composer.phar 放置于 php.exe 同目录内，并将此目录增加环境变量
 
 ### 设置淘宝镜像
 
-```composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/```
+`composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/`
 
 ## 创建项目
 
 ### 创建
 
-```composer create-project topthink/think 项目路径```
+`composer create-project topthink/think 项目路径`
 
 ### 更新
 
-```composer update topthink/framework```
+`composer update topthink/framework`
 
 ### 运行
 
-执行```php think run```后打开```127.0.0.1:8000```
+执行`php think run`后打开`127.0.0.1:8000`
 
 ### 开启调试模式
 
-将根目录中的```.example.env```重命名为```.env```
+将根目录中的`.example.env`重命名为`.env`
 
-## URL访问模式
+## URL 访问模式
 
-* 多应用: http://serverName/index.php/应用/控制器/方法名/参数名/值;
-* 单应用: http://serverName/index.php/控制器/方法名/参数名/值;
+- 多应用: http://serverName/index.php/应用/控制器/方法名/参数名/值;
+- 单应用: http://serverName/index.php/控制器/方法名/参数名/值;
 
 ::: tip 提示
-**index.php**可以省略，需要设置URL重写
+**index.php**可以省略，需要设置 URL 重写
 :::
 
 控制器： controller 目录下的文件
 
 ## 控制器
 
-控制器存放于 ``controller`` 目录
+控制器存放于 `controller` 目录
 
-* 如果创建的名字是驼峰式，可以直接访问，也可在大写字母前加``_``进行访问
-* 控制器方法使用return返回数据，可使用```json($data)```输出json
-* 使用``halt("信息")``中断，进行调试
+- 如果创建的名字是驼峰式，可以直接访问，也可在大写字母前加`_`进行访问
+- 控制器方法使用 return 返回数据，可使用`json($data)`输出 json
+- 使用`halt("信息")`中断，进行调试
 
 ### 创建控制器
 
 \app\controller\控制器名.php
 
-``` PHP
+```PHP
 <?php
 namespace app\controller;
 
@@ -70,13 +70,13 @@ class 控制器名{
 }
 ```
 
-访问方法：``/控制器名/方法名/参数名/值``
+访问方法：`/控制器名/方法名/参数名/值`
 
 ### 空控制器
 
-定义Error类控制器，自定义错误
+定义 Error 类控制器，自定义错误
 
-``` PHP
+```PHP
 class Error{
     public function index(){
         return "当前控制器不存在";
@@ -86,11 +86,11 @@ class Error{
 
 ### 多级控制器
 
-在 ``controller``目录再建立目录并创建控制器
+在 `controller`目录再建立目录并创建控制器
 
 \controller\目录名\控制器名.php
 
-``` PHP
+```PHP
 class 控制器名{
     public function index(){
       return "Hello World";
@@ -98,7 +98,7 @@ class 控制器名{
 }
 ```
 
-访问方法：``/目录名.控制器名/方法名/参数名/值``
+访问方法：`/目录名.控制器名/方法名/参数名/值`
 
 # 数据库
 
@@ -108,7 +108,7 @@ class 控制器名{
 
 ## 配置
 
-开发环境：  
+开发环境：
 
 \.env
 
@@ -124,11 +124,11 @@ CHARSET = utf8
 DEBUG = true
 ```
 
-部署环境：  
+部署环境：
 
 \config\database.php
 
-``` PHP
+```PHP
 'connections'     => [
     'mysql' => [
         // 数据库类型
@@ -151,13 +151,13 @@ DEBUG = true
 
 ### 声明
 
-数据库的表名即为模型名（不区分大小写）  
+数据库的表名即为模型名（不区分大小写）
 
-新建 ``\app\model\模型名.php``
+新建 `\app\model\模型名.php`
 
-``` PHP
+```PHP
 class 模型名 extends Model {
-    
+
 
 }
 ```
@@ -166,7 +166,7 @@ class 模型名 extends Model {
 
 #### 查询所有数据
 
-``` PHP
+```PHP
 public function index() {
     $数据集对象 = $模型名::select();
     return json($数据集对象);
@@ -175,9 +175,9 @@ public function index() {
 
 #### 单数据查询
 
-查询符合条件的**第一条数据**，如果没有找到则会返回null
+查询符合条件的**第一条数据**，如果没有找到则会返回 null
 
-``` PHP
+```PHP
 $数据集对象 = $模型名::where("字段名",值)->find();
 
 //条件查询
@@ -201,7 +201,7 @@ return json($数据集对象);
 
 #### 数据集查询
 
-``` PHP
+```PHP
 $数据集对象 = $模型名::where("字段名",值)->select();
 return json($数据集对象);
 ```
@@ -210,7 +210,7 @@ return json($数据集对象);
 
 成功返回影响行数
 
-``` php
+```php
 $模型名 = new 模型名();
 $模型名->字段名 = 值;
 $模型名->字段名 = 值;
@@ -219,14 +219,14 @@ $模型名->save();
 
 ### 删除数据
 
-``` PHP
+```PHP
 模型名::where("字段名",值)->delete();
 模型名::where("字段名",">",值)->delete();
 ```
 
 ### 修改数据
 
-``` PHP
+```PHP
 $模型名 = 模型名::where("字段名",值)->find();
 $模型名->字段名 = 值;
 $模型名->字段名 = 值;
@@ -235,7 +235,7 @@ $模型名->save();
 
 批量修改数据
 
-``` PHP
+```PHP
 模型名::update([
     "字段名" => 值,
     "字段名" => 值
@@ -246,7 +246,7 @@ $模型名->save();
 
 ### 查询所有数据
 
-``` PHP
+```PHP
 public function index() {
     $数据集对象 = Db::name("表名")->select();
     return json($数据集对象);
@@ -255,9 +255,9 @@ public function index() {
 
 ### 单数据查询
 
-查询符合条件的**第一条数据**，如果没有找到则会返回null
+查询符合条件的**第一条数据**，如果没有找到则会返回 null
 
-``` PHP
+```PHP
 $数据集对象 = Db::name("表名")->where("字段名",值)->find();
 
 //条件查询
@@ -281,35 +281,35 @@ return json($数据集对象);
 
 ### 数据集查询
 
-``` PHP
+```PHP
 $数据集对象 = Db::name("表名")->where("字段名",值)->select();
 return json($数据集对象);
 ```
 
 ### 通配符查询
 
-``` PHP
+```PHP
 $数据集对象 = Db::name("表名")->whereLike("字段名","通配符表达式")->find();
 return json($数据集对象);
 ```
 
 ### 区间查询
 
-``` PHP
+```PHP
 $数据集对象 = Db::name("表名")->whereBetween("字段名", [起始值,结束值])->select();
 return json($数据集对象);
 ```
 
 ### 显示指定字段
 
-``` PHP
+```PHP
 $数据集对象 = Db::name("表名")->field("字段名,字段名")->select();
 return json($数据集对象);
 ```
 
 ### 分页查询
 
-``` PHP
+```PHP
 $数据集对象 = Db::name("表名")->page(当前页数,总页数)->select();
 return json($数据集对象);
 ```
@@ -318,7 +318,7 @@ return json($数据集对象);
 
 返回指定字段
 
-``` PHP
+```PHP
 $值 = Db::name("表名")->where("字段名", 值)->value("字段名");
 ```
 
@@ -326,7 +326,7 @@ $值 = Db::name("表名")->where("字段名", 值)->value("字段名");
 
 修改成功返回影响行数
 
-``` PHP
+```PHP
 $data = [
     "字段名" => 值,
     "字段名" => 值,
@@ -339,7 +339,7 @@ Db::name("表名")->insert($data);
 
 返回成功增加数据的个数
 
-``` PHP
+```PHP
 $data = [
     "字段名" => 值,
     "字段名" => 值,
@@ -354,7 +354,7 @@ Db::name("表名")->insert($data);
 
 ### 数据集对象方法
 
-``` PHP
+```PHP
 $数据集对象 = Db::name("表名")->select();
 
 //转换为数组
@@ -380,7 +380,7 @@ $数据集对象->sum();
 
 sava() 方法可以自动判断是新增还是修改数据。如主键存在则修改，不存在则新增，修改成功返回影响行数
 
-``` PHP
+```PHP
 $data = [
     "字段名" => 值,
     "字段名" => 值,
@@ -392,7 +392,7 @@ Db::name("表名")->save($data);
 
 修改成功返回影响行数
 
-``` PHP
+```PHP
 $data = [
     "字段名" => 值
 ];
@@ -400,47 +400,47 @@ return Db::name("表名")->where("字段名",值)->update($data);
 ```
 
 ::: tip 提示
-如果修改的数据包含了主键信息（如id），则可省略where条件
+如果修改的数据包含了主键信息（如 id），则可省略 where 条件
 :::
 
 ## 删除数据
 
 删除成功返回影响行数
 
-``` PHP
+```PHP
 Db::name("表名")->where("字段名",值)->delete();
 Db::name("表名")->where("字段名",">",值)->delete();
 ```
 
-## 返回上一次操作的SQL语句
+## 返回上一次操作的 SQL 语句
 
-``` PHP
+```PHP
 Db::getLastSQL();
 ```
 
-##  原生SQL查询
+## 原生 SQL 查询
 
 ### 查询数据
 
-错误返回false
+错误返回 false
 
-``` PHP
+```PHP
 Db::query("SQL语句");
 ```
 
 ### 修改数据
 
-``` PHP
+```PHP
 Db::execute("SQL语句");
 ```
 
 ## 事务处理
 
-事务处理，指的是需要执行多个SQL查询，一旦中途的某条数据执行失败，则回滚为初始状态
+事务处理，指的是需要执行多个 SQL 查询，一旦中途的某条数据执行失败，则回滚为初始状态
 
 ### 自动
 
-``` PHP
+```PHP
 Db::Transaction(function (){
     // 查询代码段
 });
@@ -448,7 +448,7 @@ Db::Transaction(function (){
 
 ### 手动
 
-``` PHP
+```PHP
 Db::startTrans();
 try {
     // 查询代码段
@@ -463,7 +463,7 @@ try {
 
 将查询的数据字段进行处理
 
-``` PHP
+```PHP
 Db::name("表名")->withAttr("字段名",function($value,$data){
     //进行处理
     return $value
@@ -472,7 +472,7 @@ Db::name("表名")->withAttr("字段名",function($value,$data){
 
 ## 数据库事件
 
-``` PHP
+```PHP
 class 控制器名 extends BaseController {
     public function initialize() {
         Db::event("before_select",function ($query){

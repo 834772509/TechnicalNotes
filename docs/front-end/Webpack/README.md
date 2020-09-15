@@ -5,4 +5,4 @@ webpack 是一个现代 JavaScript 应用程序的静态模块打包器 (module 
 
 ![webpack](./img/webpack.jpg)
 
-``webpack ./src/main.js ./dist/bundle.js``
+`webpack ./src/main.js ./dist/bundle.js`

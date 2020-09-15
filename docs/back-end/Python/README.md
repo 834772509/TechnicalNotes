@@ -7,16 +7,16 @@
 
 环境变量：
 
-* ``\Python\``
-* ``\Python\Scripts``
+- `\Python\`
+- `\Python\Scripts`
 
-## 解决pip速度慢的问题
+## 解决 pip 速度慢的问题
 
-1. 在user目录中新建pip目录
-2. 新建文件pip.ini
+1. 在 user 目录中新建 pip 目录
+2. 新建文件 pip.ini
 3. 内容如下：
 
-``` ini
+```ini
 [global]
 index-url=http://mirrors.aliyun.com/pypi/simple/
 [install]
@@ -27,58 +27,58 @@ trusted-host=mirrors.aliyun.com
 
 ### 导入
 
-```pip install -r requirements.txt``
+`pip install -r requirements.txt`
 
 ### 导出
 
-安装pipreqs：```pip install pipreqs``
+安装 pipreqs：`pip install pipreqs`
 
 1. 进入项目目录
-2. 输入```pipreqs ./ --encoding utf8``
+2. 输入`pipreqs ./ --encoding utf8`
 
 ## 打包程序
 
-安装PyInstalle：```pip install pyinstaller``
-打包：```pyinstaller -F -w --clean "源码路径"``
+安装 PyInstalle：`pip install pyinstaller`  
+打包： `pyinstaller -F -w --clean "源码路径"`
 
 ## 数据类型
 
 ### 常用数据类型
 
-| 数据类型        | 说明           |
-| ------------- |:-------------:|
-| str  | 字符串|
-| bool | 布尔类型|
-| int | 整形|
-| float  | 浮点型|
+| 数据类型 |   说明   |
+| -------- | :------: |
+| str      |  字符串  |
+| bool     | 布尔类型 |
+| int      |   整形   |
+| float    |  浮点型  |
 
 转换：
 
-到数值：```int(参数值)``
-到浮点：```float(参数值)``
-到字符串：```str(参数值)``
-取长度：```len(参数值)``
+- 到数值：`int(参数值)`
+- 到浮点： `float(参数值)`
+- 到字符串：`str(参数值)`
+- 取长度：`len(参数值)`
 
 ## 基本语法
 
 ### 三元运算符
 
-``` Python
+```Python
 small = x if x < y else y
 ```
 
 ### 循环语句
 
-* while循环语句
+- while 循环语句
 
-``` Python
+```Python
 while 条件:
   循环体
 ```
 
-* for循环语句
+- for 循环语句
 
-``` Python
+```Python
 for 目标 in 表达式:
     循环体
 
@@ -87,16 +87,15 @@ for 目标 in range(5):
   循环体
 ```
 
-* range()函数：range([start], stop[, step=1])，有三个参数，中括号中的内容可选，step是步进，这个BIF的作用是生成一个从start参数的值开始到stop参数的值结束的数字序列，经常与for循环联合使用。记住，是左闭右开区间
-* break：跳出循环体
-* continue：终止本轮 循环，并开始下一轮循环（如果下一轮循环的条件为真）
-
+- range()函数：range([start], stop[, step=1])，有三个参数，中括号中的内容可选，step 是步进，这个 BIF 的作用是生成一个从 start 参数的值开始到 stop 参数的值结束的数字序列，经常与 for 循环联合使用。记住，是左闭右开区间
+- break：跳出循环体
+- continue：终止本轮 循环，并开始下一轮循环（如果下一轮循环的条件为真）
 
 ### print
 
 打印指定的内容
 
-``` Python
+```Python
 print()
 ```
 
@@ -104,36 +103,36 @@ print()
 
 接收用户的输入并返回
 
-``` Python
+```Python
 temp = input("请输入：")
 ```
 
-### lambda表达式
+### lambda 表达式
 
 类似前端的箭头函数
 
-``` Python
+```Python
 lambda 参数1[,参数2] : 表达式
 ```
 
 ### 格式化字符串
 
-``` Python
+```Python
 print(f"内容：{变量名}")
 print("内容：{}". format(变量名))
 ```
 
 ### 分割字符串
 
-``` Python
+```Python
 字符串.split(分割符)
 ```
 
-### with语法
+### with 语法
 
-with语法用于简化try异常语句
+with 语法用于简化 try 异常语句
 
-``` Python
+```Python
 # 捕获异常方式
 with 命令 as 命令返回值:
     pass
@@ -143,7 +142,7 @@ with 命令 as 命令返回值:
 
 ### 声明自定义函数
 
-``` Python
+```Python
 def 函数名():
         """
         函数说明
@@ -162,7 +161,7 @@ def 函数名(参数1,参数2="默认值"):
 
 ## 类
 
-``` Python
+```Python
 class 类名:
     属性名 = 值
 
@@ -185,7 +184,7 @@ class 类名(父类名):
 
 使用：
 
-``` Python
+```Python
 # 实例化
 实例名 = 类名()
 实例名 = 类名(实例属性值1,实例属性值2)
@@ -198,9 +197,9 @@ class 类名(父类名):
 
 ::: tip 提示
 
-* 在方法名前加``@staticmethod``表示方法是**静态方法**（无法访问**实例属性**）
-* self参数不需要填写值
-* 子类可以重写父类的属性、方法
+- 在方法名前加`@staticmethod`表示方法是**静态方法**（无法访问**实例属性**）
+- self 参数不需要填写值
+- 子类可以重写父类的属性、方法
 
 :::
 
@@ -208,7 +207,7 @@ class 类名(父类名):
 
 ### 语法
 
-``` Python
+```Python
 try:
     pass
 except 错误类型:
@@ -218,7 +217,7 @@ except Exception as e:
 ```
 
 ::: tip 提示
-所有异常都是```Exception``的子类，可以匹配所有异常
+所有异常都是``Exception`的子类，可以匹配所有异常
 :::
 
 ## 集合
@@ -227,25 +226,25 @@ except Exception as e:
 
 ### 声明
 
-``` Python
+```Python
 集合名 = {0,1,2,3,4,5}
 ```
 
 ### 增加元素
 
-``` Python
+```Python
 集合名.add(元素)
 ```
 
 ### 删除元素
 
-``` Python
+```Python
 集合名.remove(元素)
 ```
 
 ### 判断元素是否存在
 
-``` Python
+```Python
 元素 in 集合名
 ```
 
@@ -253,31 +252,31 @@ except Exception as e:
 
 列表可以存放任何的数据类型
 
-``` Python
+```Python
 列表名 = [1, 字符串, 3.14, [1, 2, 3]]
 ```
 
 ### 添加元素
 
-``` Python
+```Python
 # 注意每次只能添加一个元素，被添加的元素自动添加到列表末尾
 列表名.append(要添加的元素)
 ```
 
-``` Python
+```Python
 # 以列表的形式追加新元素到原列表，每次可以添加多个元素，被添加的元素自动添加到列表末尾
 列表名.extend([元素1,元素2])，
 ```
 
 ### 插入元素
 
-``` Python
+```Python
 列表名.insert(追加的位置,元素)
 ```
 
 ### 访问元素
 
-``` Python
+```Python
 列表名[0]
 ```
 
@@ -287,25 +286,25 @@ except Exception as e:
 
 ### 声明
 
-``` Python
+```Python
 元组名 = (元素1,元素2,元素3)
 ```
 
 ### 返回元组中元素最大值
 
-``` Python
+```Python
 max(元组名)
 ```
 
 ### 返回元组中元素最小值
 
-``` Python
+```Python
 min(元组名)
 ```
 
 ### 比较元组
 
-``` Python
+```Python
 import operator
 
 operator.eq(元组1,元组2)
@@ -313,32 +312,32 @@ operator.eq(元组1,元组2)
 
 ### 计算元组元素个数
 
-``` Python
+```Python
 len(元组名)
 ```
 
 ### 将列表转换为元组
 
-``` Python
-tuple(元组名)  
+```Python
+tuple(元组名)
 ```
 
 ### 返回某个参数在元组中的位置
 
-``` Python
+```Python
 元组名.index(参数)
 ```
 
 ### 计算某个参数在元组中出现的次数
 
-``` Python
+```Python
 元组名.count(参数)
 ```
 
 ::: tip 提示
 
-* 当内容不被轻易改写的时候，使用元组
-* 当需要频繁修改数据，使用列表
+- 当内容不被轻易改写的时候，使用元组
+- 当需要频繁修改数据，使用列表
 
 :::
 
@@ -348,7 +347,7 @@ tuple(元组名)
 
 ### 声明
 
-``` Python
+```Python
 字典名 = {
     "键1":"值1",
     "键2":"值2",
@@ -358,25 +357,25 @@ tuple(元组名)
 
 ### 使用
 
-``` Python
+```Python
 字典名["键名"]
 ```
 
 ### 增加
 
-``` Python
+```Python
 字典名["键名"] = 值
 ```
 
 ### 修改
 
-``` Python
+```Python
 字典名["键名"] = 值
 ```
 
 ### 删除
 
-``` Python
+```Python
 del 字典名["键名"]
 ```
 
@@ -384,23 +383,21 @@ del 字典名["键名"]
 
 遍历键
 
-``` Python
+```Python
 for key in 字典名.keys():
     print(key)
 ```
 
 遍历值
 
-``` Python
+```Python
 for value in 字典名.values():
     print(value)
 ```
 
-
-
 ## 绘图
 
-``` Python
+```Python
 import turtle
 
 # 向左转向
@@ -435,7 +432,7 @@ turtle.exitonclick()
 
 ### 使用
 
-``` Python
+```Python
 from threading import Thread
 from time import sleep
 
@@ -454,8 +451,8 @@ def 函数名(参数1,参数2):
 
 ::: tip 提示
 
-* 可使用``sleep(时间)``进行延时，单位为秒
-* 可使用``线程名.join()``等待线程执行完成
+- 可使用`sleep(时间)`进行延时，单位为秒
+- 可使用`线程名.join()`等待线程执行完成
 
 :::
 
@@ -463,7 +460,7 @@ def 函数名(参数1,参数2):
 
 解决多个线程操作数据时的冲突问题，在申请获取锁之后其他线程暂时无法访问数据，直到申请释放锁
 
-``` Python
+```Python
 from threading import Thread,Lock
 from time import sleep
 
@@ -487,33 +484,33 @@ def 函数名():
 
 ### 打开文件
 
-``` Python
+```Python
 # 捕获异常方式
 with open(文件路径,打开方式,[encoding=编码]) as 文件对象:
 # 普通方式
 文件对象 = open(文件路径,打开方式,[encoding=编码])
 ```
 
-``` Python
+```Python
 f = open('tmp.txt','w',encoding='utf8')
 ```
 
 打开方式（字符串）
 
-* r : 只读
-* w : 只写
-* a : 在文件末尾附加
-* r+ : 读写
+- r : 只读
+- w : 只写
+- a : 在文件末尾附加
+- r+ : 读写
 
 ### 写入文件
 
-``` Python
+```Python
 文件对象.write("内容")
 ```
 
 ### 读入文件
 
-``` Python
+```Python
 # 全部读取
 全部内容 = 文件对象.read()
 # 读取文件下一行
@@ -524,7 +521,7 @@ f = open('tmp.txt','w',encoding='utf8')
 
 ### 关闭文件
 
-``` Python
+```Python
 文件对象.close()
 ```
 
@@ -532,7 +529,7 @@ f = open('tmp.txt','w',encoding='utf8')
 
 ### 创建目录
 
-``` python
+```python
 import os
 
 os.makedirs(目录路径,exist_ok=True)
@@ -540,15 +537,15 @@ os.makedirs(目录路径,exist_ok=True)
 
 ### 删除文件或目录
 
-* 删除文件
+- 删除文件
 
-``` Python
+```Python
 os.remove(文件路径)
 ```
 
-* 删除目录
+- 删除目录
 
-``` Python
+```Python
 import shutil
 
 shutil.rmtree(目录路径)
@@ -556,7 +553,7 @@ shutil.rmtree(目录路径)
 
 ### 复制文件
 
-``` Python
+```Python
 from shutil import copyfile
 
 copyfile(源文件路径, 目标文件路径)
@@ -568,7 +565,7 @@ copyfile(源文件路径, 目标文件路径)
 
 ### 复制目录
 
-``` Python
+```Python
 from shutil import copytree
 
 copytree(源目录路径,目标目录路径)
@@ -580,7 +577,7 @@ copytree(源目录路径,目标目录路径)
 
 ### 修改文件名、目录名
 
-``` Python
+```Python
 import os
 
 # 修改目录名
@@ -591,7 +588,7 @@ os.rename(原文件路径,文件路径+新文件名称)
 
 ### 对文件路径名的操作
 
-``` Python
+```Python
 import os
 
 # 获取路径中的文件名部分
@@ -602,7 +599,7 @@ os.path.dirname(文件路径)
 
 ### 判断文件、目录是否存在
 
-``` Python
+```Python
 import os
 
 os.path.exists(文件路径)
@@ -611,7 +608,7 @@ os.path.exists(目录路径)
 
 ### 判断路径是否为文件
 
-``` Python
+```Python
 import os
 
 os.path.isfile(文件路径)
@@ -619,7 +616,7 @@ os.path.isfile(文件路径)
 
 ### 判断路径是否为目录
 
-``` Python
+```Python
 import os
 
 os.path.isdir(目录路径)
@@ -627,13 +624,13 @@ os.path.isdir(目录路径)
 
 ### 获取目录大小
 
-``` Python
+```Python
 os.path.getsize(目录路径)
 ```
 
 ### 获取目录日期
 
-``` Python
+```Python
 import time
 
 os.path.getmtime(目录路径)
@@ -643,7 +640,7 @@ time.ctime(os.path.getmtime(目录路径))
 
 ### 递归的遍历目录下面所有的文件
 
-``` Python
+```Python
 import os
 
 # 目标目录
@@ -666,7 +663,7 @@ print(dirs)
 
 ### 得到目录中所有的文件和子目录名
 
-``` Python
+```Python
 import os
 
 ## 目标目录
@@ -677,11 +674,11 @@ files =  os.listdir(目标目录)
 print(files)
 ```
 
-listdir返回的是该目录下面所有的文件和子目录。
+listdir 返回的是该目录下面所有的文件和子目录。
 
 如果我们只需要获取目录中所有的文件，或者只需要子目录，可以这样
 
-``` Python
+```Python
 import os
 from os.path import isfile, join,isdir
 
@@ -700,7 +697,7 @@ print([f for f in os.listdir(目标目录) if isdir(join(目标目录, f))])
 
 ### 得到目录中指定扩展名的文件和子目录
 
-``` Python
+```Python
 import glob
 
 exes = glob.glob(r'文件路径')

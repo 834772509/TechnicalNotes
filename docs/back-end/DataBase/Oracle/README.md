@@ -2,7 +2,7 @@
 
 ## 安装
 
-### 开启Oracle数据库服务
+### 开启 Oracle 数据库服务
 
 ```
 @echo off
@@ -28,9 +28,8 @@ goto :eof
 
 \oraclexe\app\oracle\product\11.2.0\server\network\ADMIN\tnsnames.ora
 
-* 服务名 : XE（第一行）
-* 端口 : 1521
-* 用户名 : sys
+- 服务名 : XE（第一行）
+- 端口 : 1521
+- 用户名 : sys
 
-``oci.dll``使用Navicat自带的``oci.dll``
-
+`oci.dll`使用 Navicat 自带的`oci.dll`

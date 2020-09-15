@@ -607,7 +607,7 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 ### 文件存储
 
-所有的文件默认会存放于 `` /data/data/包名/files `` 目录下
+所有的文件默认会存放于 `/data/data/包名/files` 目录下
 
 #### 写入文件
 
