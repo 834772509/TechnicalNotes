@@ -209,8 +209,11 @@ ReactDOM.render(
 ### 普通使用
 
 ::: tip 提示
-如获取的数据为空请检查`actionCreators`中的`功能方法名`内参数是否正确
-:::
+如获取的数据为空请检查：
+
+1. `actionCreators`中的`功能方法名`内参数是否正确
+2. 派发 Action 时的`get功能方法名Action()`是否增加括号
+   :::
 
 \组件名.js
 
@@ -252,8 +255,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(组件名);
 ### Hooks 使用
 
 ::: tip 提示
-如获取的数据为空请检查`actionCreators`中的`功能方法名`内参数是否正确
-:::
+如获取的数据为空请检查：
+
+1. `actionCreators`中的`功能方法名`内参数是否正确
+2. 派发 Action 时的`get功能方法名Action()`是否增加括号
+   :::
 
 ```js
 import React, { memo } from "react";
