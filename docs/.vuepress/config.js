@@ -115,6 +115,7 @@ module.exports = {
               { text: "Spring", link: "/back-end/Java/Spring/" },
               { text: "SpringMVC", link: "/back-end/Java/SpringMVC/" },
               { text: "SpringBoot", link: "/back-end/Java/SpringBoot/" },
+              { text: "JVM", link: "/back-end/Java/JVM/" },
             ],
           },
           {
