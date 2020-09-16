@@ -176,29 +176,26 @@ a {
   - max-width: 定义输出设备中页面最大可见区域宽度
 
 ```css
-/* 大型设备（大台式电脑） */
-@media screen and (min-width: 4096px) {
-  选择器 {
-    属性名: 值;
-  }
-}
-
-/* 中型设备（台式电脑） */
-@media screen and (min-width: 2560px) {
-  选择器 {
-    属性名: 值;
-  }
-}
-
-/* 小型设备（平板电脑） */
-@media screen and (min-width: 1920px) {
-  选择器 {
-    属性名: 值;
-  }
-}
-
 /* 超小设备（手机） */
-@media screen and (min-width: 750px) {
+@media screen and (max-width: 768px) {
+  选择器 {
+    属性名: 值;
+  }
+}
+/* 小型设备（平板电脑） */
+@media screen and (min-width: 768px) {
+  选择器 {
+    属性名: 值;
+  }
+}
+/* 中型设备（台式电脑） */
+@media screen and (min-width: 992px) {
+  选择器 {
+    属性名: 值;
+  }
+}
+/* 大型设备（大台式电脑） */
+@media screen and (min-width: 1200px) {
   选择器 {
     属性名: 值;
   }
