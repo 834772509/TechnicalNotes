@@ -115,3 +115,82 @@ Bootstrap 里面 container 宽度是固定的，但是不同屏幕下，containe
 ### 列嵌套
 
 栅格系统内置的栅格系统将内容再次嵌套。简单理解就是一个列内再分成若干份小列。我们可以通过添加一个新的.row 元素和一系列 `.col-sm-*` 元素到已经存在的 `.col-sm-*` 元素内。
+
+![列嵌套](./img/Bootstrap/列嵌套.jpg)
+
+::: tip 提示
+列嵌套时最好加 1 个行 row，可以取消父元素的 padding 值，且高度自动和父级一致
+:::
+
+```html
+<div class="col-md-4">
+  <div class="row">
+    <div class="col-md-6">小列</div>
+    <div class="col-md-6">小列</div>
+  </div>
+</div>
+```
+
+### 列偏移
+
+使用`.col-md-offset-*`类可以将列向右侧偏移。这些类实际是通过使用\*选择器为当前元素增加了左侧的边距( margin )
+
+![列偏移](./img/Bootstrap/列偏移.jpg)
+
+- 基本使用
+
+```html
+<div class="row">
+  <div class="col-md-4">左侧</div>
+  <div class="col-md-4 col-md-offset-4">右侧</div>
+</div>
+```
+
+- 居中对齐
+
+偏移量 = (12 - 盒子份数) ÷ 2
+
+```html
+<div class="row">
+  <div class="col-md-盒子份数 col-md-offset-偏移量">中间</div>
+</div>
+```
+
+### 列排序
+
+通过使用 `.col-md-push-*` 和 `.col-md-pull-*` 类就可以很容易的改变列( column）的顺序。
+
+![列排序](./img/Bootstrap/列排序.jpg)
+
+```html
+<div class="row">
+  <div class="col-md-4 col-md-push-8">左侧</div>
+  <div class="col-md-8 col-md-pull-4">右侧</div>
+</div>
+```
+
+### 响应式工具
+
+为了加快对移动设备友好的页面开发工作，利用媒体查询功能，并使用这些工具类可以方便的针对不同设备展示或隐藏页面内容。
+
+|                   | 超小屏幕 手机 \(<768px\) | 小屏幕 平板 \(≥768px\) | 中等屏幕 桌面 \(≥992px\) | 大屏幕 桌面 \(≥1200px\) |
+| ----------------- | ------------------------ | ---------------------- | ------------------------ | ----------------------- |
+| \.visible\-xs\-\* | 可见                     | 隐藏                   | 隐藏                     | 隐藏                    |
+| \.visible\-sm\-\* | 隐藏                     | 可见                   | 隐藏                     | 隐藏                    |
+| \.visible\-md\-\* | 隐藏                     | 隐藏                   | 可见                     | 隐藏                    |
+| \.visible\-lg\-\* | 隐藏                     | 隐藏                   | 隐藏                     | 可见                    |
+| \.hidden\-xs      | 隐藏                     | 可见                   | 可见                     | 可见                    |
+| \.hidden\-sm      | 可见                     | 隐藏                   | 可见                     | 可见                    |
+| \.hidden\-md      | 可见                     | 可见                   | 隐藏                     | 可见                    |
+| \.hidden\-lg      | 可见                     | 可见                   | 可见                     | 隐藏                    |
+
+```html
+<div class="row">
+  <!-- 超大屏幕下自动显示 -->
+  <div class="col-xs-3 visible-lg">1</div>
+  <div class="col-xs-3">2</div>
+  <!-- 超小屏幕下自动隐藏 -->
+  <div class="col-xs-3 hidden-xs">3</div>
+  <div class="col-xs-3">4</div>
+</div>
+```
