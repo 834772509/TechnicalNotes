@@ -28,7 +28,7 @@ Modal 的效果是显示一个对话框，默认有“确定”、“取消”�
     content: "内容",
     // 自定义取消按钮文本
     cancelText: "退出",
-    success: function (res) {
+    success: function(res) {
       if (res.confirm) {
         console.log("点击了确定按钮");
       }
@@ -46,7 +46,7 @@ Modal 的效果是显示一个对话框，默认有“确定”、“取消”�
     title: "标题",
     content: "内容",
     showCancel: false,
-    success: function (res) {
+    success: function(res) {
       if (res.confirm) {
         console.log("点击了确定按钮");
       }
@@ -83,7 +83,7 @@ showActionSheet 的效果是：从底部显示一个菜单，用户可以选择
 ```js
 wx.showActionSheet({
   itemList: ["菜单1", "菜单2", "菜单3"],
-  success: function (res) {
+  success: function(res) {
     switch (res.tapIndex) {
       case 0:
         console.log("0");

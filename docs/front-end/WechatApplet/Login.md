@@ -9,7 +9,7 @@ App({
   globalData: {
     token: "",
   },
-  onLaunch: function () {
+  onLaunch: function() {
     // 判断缓存中是否有token
     const token = wx.getStorageSync(TOKEN);
     if (token && token.length !== 0) {

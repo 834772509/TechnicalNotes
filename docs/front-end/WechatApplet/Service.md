@@ -17,10 +17,10 @@ wx.request({
   data: {
     参数名: 值,
   },
-  success: function (res) {
+  success: function(res) {
     console.log(res);
   },
-  fail: function (err) {
+  fail: function(err) {
     console.log(err);
   },
 });
@@ -36,10 +36,10 @@ wx.request({
   data: {
     参数名: 值,
   },
-  success: function (res) {
+  success: function(res) {
     console.log(res);
   },
-  fail: function (err) {
+  fail: function(err) {
     console.log(err);
   },
 });

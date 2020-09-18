@@ -1,6 +1,6 @@
 # Cookie
 
-`` Cookie `` 用来保存信息，如自动登录的用户名
+`Cookie` 用来保存信息，如自动登录的用户名
 
 - 同一个网站的所有页面共享一套 Cookie
 - Cookie 的数量、大小有限
@@ -38,7 +38,7 @@ document.cookie = "键=值"
 ```
 
 ::: tip 提示
-`` document.cookie = `` 是增加数据，不是覆盖数据
+`document.cookie =` 是增加数据，不是覆盖数据
 :::
 
 ## 设置 Cookie 过期时间
