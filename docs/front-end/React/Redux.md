@@ -1,4 +1,4 @@
-# Redux
+# Redux 状态管理
 
 Redux 就是一个帮助我们管理 State 的容器：Redux 是 JavaScript 的状态容器，提供了可预测的状态管理  
 Redux 除了和 React 一起使用之外，它也可以和其他界面库一起来使用（比如 Vue），并且它非常小（包括依赖在内，只有 2kb）
@@ -176,10 +176,10 @@ const change功能方法名Action = (全局变量名) => ({
   全局变量名,
 });
 
-export const get功能方法名Action = (id) => {
+export const get功能方法名Action = (参数名) => {
   return (dispatch) => {
     // 此处可进行网络请求，通过 dispatch(方法名(值)) 来设置数据
-    网络请求(id).then((res) => {
+    网络请求(参数名).then((res) => {
       dispatch(change功能方法名Action(res));
     });
   };
@@ -262,7 +262,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(组件名);
    :::
 
 ```js
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
 
 export default memo(function 组件名(props) {

@@ -1146,12 +1146,10 @@ div {
 
 - 单行文本溢出显示省略号
 
-::: tip 提示
-需要在父级设置才有效
-:::
-
 ```css
 p {
+  display: inline-block;
+  width: 100%;
   /* 强制显示一行文本 */
   white-space: nowrap;
   /* 超出部分隐藏 */

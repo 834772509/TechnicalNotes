@@ -1,4 +1,4 @@
-# Axios
+# Axios 网络请求
 
 Axios (ajax i/o system) 是目前前端使用非常广泛的网络请求库，包括Vue作者也是推荐在Vue中使用axios。  
 主要特点包括：在浏览器中发送XMLHttpRequests请求、在node.js中发送http请求、支持Promise API、拦截请求和响应、转换请求和响应数据等等。

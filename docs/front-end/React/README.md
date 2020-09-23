@@ -1,4 +1,4 @@
-# React
+# React 基础
 
 React 用于构建用户界面的 JavaScript 库
 
@@ -857,6 +857,12 @@ class 组件名 extends PureComponent {
 在之前的开发中，我们总是在一个组件中返回内容时包裹一个 div 元素。  
 但我们又希望可以不渲染这样一个 div 应该使用 Fragment，Fragment 允许将子列表分组，而无需向 DOM 添加额外节点
 
+::: tip 提示
+短语法不支持增加属性。key 是唯一可以传递给 Fragment 的属性。
+:::
+
+- 基本使用
+
 ```js
 <Fragment>
   {/* 组件内容 */}
@@ -865,7 +871,7 @@ class 组件名 extends PureComponent {
 </Fragment>
 ```
 
-短语法：
+- 短语法
 
 ```js
 <>
@@ -875,9 +881,15 @@ class 组件名 extends PureComponent {
 </>
 ```
 
-::: tip 提示
-短语法不支持增加属性（如 key 等）
-:::
+- 带 key 的 Fragments
+
+```js
+<React.Fragment key={index}>
+  {/* 组件内容 */}
+  <h2></h2>
+  <p></p>
+</React.Fragment>
+```
 
 ### StrictMode
 

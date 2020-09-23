@@ -126,6 +126,12 @@ useEffect 的第二个参数表示依赖的变量，只有当依赖的变量发�
 如果不传值，则 DOM 重新渲染时会重新调用此 Hook。传递空数组则表示只执行一次
 :::
 
+<!-- ::: tip 提示
+不能在 useEffect 中使用 setState。
+useEffect 通知 React 组件需要在渲染后执行什么操作。每次 render 之后都会执行 useEffect。
+而 setState 用于渲染 dom 的时候，会触发 useEffect，从而触发循环，导致内存耗尽。
+::: -->
+
 ```js
 import React, { useEffect } from "react";
 
