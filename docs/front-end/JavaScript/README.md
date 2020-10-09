@@ -14,14 +14,11 @@
 
 ```JavaScript
 //单行注释
-/* 多行注释 */
 
-/**
-函数文档注释
-*/
-function 函数名() {
-
-}
+/*
+    多行注释
+    多行注释
+ */
 ```
 
 ### 声明变量
@@ -37,34 +34,57 @@ const 变量名;
 ```
 
 ::: tip 提示
-变量和常量区分大小写
-首字母必须是字母或*或\$，其他字母可以是*或\$或数组
-:::
+
+- 变量和常量区分大小写
+- 首字母必须是字母或*或\$，其他字母可以是*或\$或数组
+  :::
 
 ### 数据类型
 
+::: tip 提示
+
+- ture 参与加法运算当 1 来看， false 参与加法运算当 0 来看。
+- Undefined 和 数字相加 最后的结果是 NaN (Not a number)
+  :::
+
 - Nubmer : 数值
-- Float : 浮点型
+  - Float : 浮点型
 - String : 字符串
-- Boolearn : 布尔值
-
-### 获取数据类型
-
-```JavaScript
-typeof 变量
-```
+- Boolean : 布尔值
+- Undefined : 声明了变量但没有赋值，此时变量的值为 Undefined
+- Null : 声明的变量为空值
+- object : 对象
 
 ### 数据类型转换
-
-转数值：`Number()`  
-转整数：`parseInt()`  
-转浮点：`parseFloat()`  
-转文本：`String()`  
-转布尔：`Boolean()`
 
 ::: tip 提示
 转布尔除 `""`、`0`、`undefined`、`null`、`NaN`值均为 true
 :::
+
+- 转数字：
+  - **转整数**：`parseInt(变量)`
+  - **转浮点**：`parseFloat(变量)`
+  - 强制转换：`Number(变量)`
+  - 隐式转换：`"10" - 0`
+- 转文本：
+  - 强制转换：`String(变量);`
+  - 转成字符串： `变量.toString()`
+  - **加号拼接字符串**：`变量 + "字符串"`
+- 转布尔：`Boolean(变量)`
+
+### 获取数据类型
+
+```JavaScript
+typeof 变量;
+```
+
+### 判断是否为数字
+
+如果是数字则返回 true，不是则返回 false
+
+```JavaScript
+isNaN(值);
+```
 
 ### 关系运算符
 
@@ -85,17 +105,11 @@ typeof 变量
 ### 三元运算符
 
 ```JavaScript
-返回值 = 条件 ? 真 - 返回值 : 假 - 返回值
+返回值 = 条件 ? 真 - 返回值 : 假 - 返回值;
 ```
 
 ```JavaScript
-let a = x > 10 ? 'red' : 'blue'
-```
-
-### 模板字符串
-
-```JavaScript
-const 变量 = `字符串：${变量}`
+let a = x > 10 ? 'red' : 'blue';
 ```
 
 ### 四舍五入
@@ -103,7 +117,33 @@ const 变量 = `字符串：${变量}`
 将数字四舍五入，转为指定小数位的数字
 
 ```JavaScript
-变量.toFixed(小数位数)
+变量.toFixed(小数位数);
+```
+
+### 打印内容
+
+```JavaScript
+console.log('打印内容');
+```
+
+### 弹出提示
+
+```JavaScript
+alert("提示信息");
+```
+
+### 生成随机数
+
+```javaScript
+randomNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+```
+
+### 跳转页面
+
+```JavaScript
+location.href = '页面路径';
 ```
 
 ## 函数
@@ -141,10 +181,10 @@ function 函数名([参数1, 参数2 = 默认值]) {
 ```JavaScript
 let 变量 = function 函数名() {
 
-}
+};
 
 // 使用
-变量()
+变量();
 ```
 
 匿名函数表达式：
@@ -152,10 +192,10 @@ let 变量 = function 函数名() {
 ```JavaScript
 let 变量 = function() {
 
-}
+};
 
 // 使用
-变量()
+变量();
 ```
 
 ::: tip 提示
@@ -177,10 +217,10 @@ let 变量 = function() {
 ```JavaScript
 const 箭头函数 = () => {
 
-}
+};
 const 箭头函数 = (参数1, 参数2) => {
 
-}
+};
 ```
 
 ### 纯函数
@@ -213,9 +253,9 @@ function add(num) {
     return foo + num;
 }
 
-add(5) //15
-foo = 20
-add(5) //25
+add(5); //15
+foo = 20;
+add(5); //25
 
 // 不是纯函数
 const baz = {
@@ -226,7 +266,7 @@ function add3(num) {
     return bar.count + num;
 }
 
-baz.count = 20
+baz.count = 20;
 ```
 
 ## 类和方法
@@ -249,9 +289,9 @@ calss 类名 {
 ### 实例化类
 
 ```JavaScript
-let 对象 = new 类名()
-console.log(对象.属性)
-对象.方法名()
+let 对象 = new 类名();
+console.log(对象.属性);
+对象.方法名();
 ```
 
 ### 继承类
@@ -259,7 +299,7 @@ console.log(对象.属性)
 ```JavaScript
 calss 类名 extends 继承类名 {
     // 子类中必须初始化父类对象
-    super()
+    super();
 }
 ```
 
@@ -268,25 +308,25 @@ calss 类名 extends 继承类名 {
 ### 声明
 
 ```JavaScript
-let 变量名 = ['值1', '值2', '值3', '值4']
+let 数组名 = ["值1", "值2", "值3", "值4"];
 ```
 
 ### 使用
 
 ```JavaScript
-console.log(变量名[0])
+console.log(数组名[0]);
 ```
 
 ### 获取数组长度
 
 ```JavaScript
-console.log(变量名.length)
+console.log(数组名.length);
 ```
 
 ### 获取指定数据索引
 
 ```JavaScript
-变量名.indexOf(指定数据)
+数组名.indexOf(指定数据);
 ```
 
 ### 遍历数组
@@ -295,7 +335,7 @@ console.log(变量名.length)
 
 ```JavaScript
 for (let item of 数组名) {
-    console.log(item)
+    console.log(item);
 }
 ```
 
@@ -303,7 +343,7 @@ for (let item of 数组名) {
 
 ```JavaScript
 数组名.forEach(function(item) {
-    console.log(item)
+    console.log(item);
 })
 ```
 
@@ -311,11 +351,49 @@ for (let item of 数组名) {
 
 ```JavaScript
 for (let n in 数组名) {
-    console.log(数组名[n])
+    console.log(数组名[n]);
 }
 ```
 
-### 分割数组
+### 增加元素
+
+- 在数组最签前面增加元素（支持多个参数）
+
+  ```javaScript
+  数组名.unshift(元素名称);
+  ```
+
+- 在数组最后增加元素（支持多个参数）
+
+  ```javaScript
+  数组名.push(元素名称);
+  ```
+
+### 修改元素
+
+```JavaScript
+数组名[下标] = 值;
+```
+
+### 删除元素
+
+- 删除数组第一个元素
+
+  ```javaScript
+  数组名.shift();
+  ```
+
+- 删除数组最后的一个元素
+
+  ```javaScript
+  数组名.pop();
+  ```
+
+### slice
+
+::: tip 提示
+slice()方法不会改变原数组
+:::
 
 ```JavaScript
 新数组 = 数组.slice(起始位置, 结束位置);
@@ -324,49 +402,21 @@ for (let n in 数组名) {
 新数组 = 数组.slice(0, 4);
 ```
 
-### 增加元素 unshift
-
-在数组最签前面增加元素（支持多个参数）
-
-```javaScript
-数组名.unshift(元素名称)
-```
-
-### 增加 push
-
-在数组最后增加元素（支持多个参数）
-
-```javaScript
-数组名.push(元素名称)
-```
-
-### shift
-
-删除数组第一个元素
-
-```javaScript
-数组名.shift()
-```
-
-### pop
-
-删除数组最后的一个元素
-
-```javaScript
-数组名.pop()
-```
-
 ### splice
 
+::: tip 提示
+splice()方法会改变原数组
+:::
+
 ```JavaScript
-//删除元素：
-数组名.splice(位置, 删除几个元素)
-//插入元素：
-数组名.splice(位置, 0, 插入的元素[, 插入的元素]...)
-//替换元素：
-数组名.splice(位置, 替换几个元素, 替换的值[, 替换的值]...)
-//截取元素个数：
-数组名.splice(起始位置, 结束位置)
+//删除元素
+数组名.splice(位置, 删除几个元素);
+//插入元素
+数组名.splice(位置, 0, 插入的元素[, 插入的元素]...);
+//替换元素
+数组名.splice(位置, 替换几个元素, 替换的值[, 替换的值]...);
+//截取元素个数
+数组名.splice(起始位置, 结束位置);
 ```
 
 ## Object 对象
@@ -381,29 +431,57 @@ let 对象名 = {
         内嵌键名1: 值,
         内嵌键名2: 值,
     },
-}
+};
 ```
 
 ### 使用
 
 ```JavaScript
-console.log(对象名.键名)
+console.log(对象名.键名);
 ```
 
 ## 字符串
+
+### 模板字符串
+
+```JavaScript
+const 变量 = `字符串：${变量}`;
+```
+
+### 字符串的拼接
+
+::: tip 提示
+只要有字符串和其他类型相拼接，最终的结果是字符串类型。
+:::
+
+::: tip 提示
+数值相加，字符相连
+:::
+
+```JavaScript
+let 字符串 = "文本" + "文本"; // 文本文本
+let 字符串 = "文本" + 1; // 文本1
+let 字符串 = "文本" + ture; // 文本ture
+```
 
 ### 寻找字符串
 
 找到则返回字符串所在的位置，否则返回-1
 
 ```JavaScript
-位置 = 字符串.indexOf(寻找的字符串)
+位置 = 字符串.indexOf(寻找的字符串);
+```
+
+### 获取字符串长度
+
+```JavaScript
+长度 = 字符串.length("字符串");
 ```
 
 ### 分割字符串
 
 ```JavaScript
-集合 = 字符串.split("需要分割的文本")
+集合 = 字符串.split("需要分割的文本");
 ```
 
 ## Json
@@ -427,7 +505,7 @@ JSON.parse(Json);
 将小数向上取整，如 4.5 为 5
 
 ```JavaScript
-Math.ceil(数字)
+Math.ceil(数字);
 ```
 
 ### 向下取整
@@ -435,13 +513,13 @@ Math.ceil(数字)
 将小数向下取整，如 4.5 为 4
 
 ```JavaScript
-Math.floor(数字)
+Math.floor(数字);
 ```
 
 ### 取绝对值
 
 ```JavaScript
-Math.abs(数字)
+Math.abs(数字);
 ```
 
 ## Date 类
@@ -502,8 +580,8 @@ Date.now();
 使用：
 
 ```JavaScript
-const date = new Date(时间（ 秒） * 1000)
-console.log(formatDate(date, 'yyyy-MM-dd hh-mm'))
+const date = new Date(时间（ 秒） * 1000);
+console.log(formatDate(date, 'yyyy-MM-dd hh-mm'));
 ```
 
 ::: details 点击查看代码
@@ -541,40 +619,6 @@ function padLeftZero(str) {
 
 :::
 
-## 常用方法
-
-### 打印内容
-
-```JavaScript
-console.log('打印内容');
-```
-
-### 弹出提示
-
-```JavaScript
-alert("提示信息");
-```
-
-### 转换为 JSON 数据
-
-```JavaScript
-JSON数据 = JSON.stringify(需要转换为JSON的数据);
-```
-
-### 生成随机数
-
-```javaScript
-randomNum(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-```
-
-### 跳转页面
-
-```JavaScript
-location.href = '页面路径';
-```
-
 ## 定时器
 
 ### setTimeout
@@ -584,10 +628,10 @@ location.href = '页面路径';
 ```JavaScript
 对象 = setTimeout(() => {
 
-}, 时间[毫秒])
+}, 时间[毫秒]);
 
 //停止定时器
-clearTimeout(对象)
+clearTimeout(对象);
 ```
 
 ### setInterval
@@ -628,16 +672,16 @@ filter 中的的回调函数需要返回一个布尔值
 ```javaScript
 let 新数组名 = 数组名.filter((item) => {
 
-})
+});
 ```
 
 ```javaScript
 //需求：过滤数组中小于50的数字
-let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 let newnubs = nums.filter((item) => {
-    return item < 50
-})
-console.log(newnubs)
+    return item < 50;
+});
+console.log(newnubs);
 //结果：[10, 20, 40, 50]
 ```
 
@@ -656,16 +700,16 @@ console.log(newnubs)
 ```javaScript
 let 新数组名 = 数组.map((item) => {
 
-})
+});
 ```
 
 ```javaScript
 //需求：将数组中的左右数据都乘2
-newnubs = [10, 20, 40, 50]
+newnubs = [10, 20, 40, 50];
 let new2nums = newnubs.map((item) => {
-    return item * 2
-})
-console.log(newnubs)
+    return item * 2;
+});
+console.log(newnubs);
 //结果：[20, 40, 80, 100]
 ```
 
@@ -676,16 +720,16 @@ console.log(newnubs)
 ```javaScript
 新数组名称 = 数组名称.reduce((上一次值, item) => {
 
-}, 初始值)
+}, 初始值);
 ```
 
 ```javaScript
 //需求：将数组内的所有数字进行求和
-new2Nums = [20, 40, 80, 100]
+new2Nums = [20, 40, 80, 100];
 total = new2Nums.reduce((preValue, item) => {
-    return preValue + item
-}, 0)
-console.log(total)
+    return preValue + item;
+}, 0);
+console.log(total);
 //结果：240
 ```
 
@@ -698,16 +742,16 @@ console.log(total)
 匹配指定 CSS 选择器，找出所有匹配的节点并**返回数组**
 
 ```JavaScript
-document.querySelectorALL(CSS选择器)
+document.querySelectorALL(CSS选择器);
 ```
 
 ```JavaScript
 //通过id查询
-document.querySelectorALL("#div1")
+document.querySelectorALL("#div1");
 //通过class查询
-document.querySelectorALL(".div1")
+document.querySelectorALL(".div1");
 //通过标签查询
-document.querySelectorALL("h1")
+document.querySelectorALL("h1");
 ```
 
 #### querySelector
@@ -715,38 +759,38 @@ document.querySelectorALL("h1")
 匹配指定 CSS 选择器，找到第一个匹配节点后就返回节点对象
 
 ```JavaScript
-document.querySelector(CSS选择器)
+document.querySelector(CSS选择器);
 ```
 
 ```JavaScript
 //通过id查询
-document.querySelector("#div1")
+document.querySelector("#div1");
 //通过class查询
-document.querySelector(".div1")
+document.querySelector(".div1");
 //通过标签查询
-document.querySelector("h1")
+document.querySelector("h1");
 ```
 
 #### 通过元素的 ID 属性获取
 
 ```JavaScript
-document.getElementById(ID名)
+document.getElementById(ID名);
 ```
 
 #### 通过元素的标签名获取
 
 ```JavaScript
-document.getElementsByTagName("标签名")
+document.getElementsByTagName("标签名");
 ```
 
 ```JavaScript
-document.getElementsByTagName("input")
+document.getElementsByTagName("input");
 ```
 
 #### 通过元素的类名获取
 
 ```JavaScript
-document.getElementsByClassName("类名")
+document.getElementsByClassName("类名");
 ```
 
 ### 节点操作
@@ -793,37 +837,37 @@ DOM 的元素可通过 `元素. 属性名` 来访问
 设置元素属性：
 
 ```JavaScript
-元素.setAttribute("名称", "值")
+元素.setAttribute("名称", "值");
 ```
 
 ```JavaScript
-txt1.setAttribute("value", "aaa")
+txt1.setAttribute("value", "aaa");
 ```
 
 获取元素属性：
 
 ```JavaScript
-元素.getAttribute("名称")
+元素.getAttribute("名称");
 ```
 
 删除元素属性：
 
 ```JavaScript
-元素.removeAttribute("名称")
+元素.removeAttribute("名称");
 ```
 
 ### 创建元素
 
 ```JavaScript
-const 元素 = document.createElement("标签名")
-元素.innerHTML = "内容"
-父元素.appendChild((元素)
+const 元素 = document.createElement("标签名");
+元素.innerHTML = "内容";
+父元素.appendChild((元素);
 ```
 
 ```JavaScript
-const li = document.createElement('li')
-li.innerText = "内容"
-元素.appendChild(li)
+const li = document.createElement('li');
+li.innerText = "内容";
+元素.appendChild(li);
 ```
 
 ### 插入元素
@@ -831,8 +875,8 @@ li.innerText = "内容"
 在原有节点之前插入元素
 
 ```JavaScript
-const 元素 = document.createElement("标签名")
-insertBefore(节点, 原有节点)
+const 元素 = document.createElement("标签名");
+insertBefore(节点, 原有节点);
 ```
 
 ## 运动框架
@@ -1028,13 +1072,13 @@ window.onload = function() {
 ### 打开标签页
 
 ```JavaScript
-window.open(URL)
+window.open(URL);
 ```
 
 ### 关闭标签页
 
 ```JavaScript
-window.close(URL)
+window.close(URL);
 ```
 
 ### 获取 UA
@@ -1046,7 +1090,7 @@ console.log(window.navigator.userAgent);
 ### 获取 URL 路径
 
 ```JavaScript
-console.log(window.location)
+console.log(window.location);
 ```
 
 ### 获取滚动条位置
@@ -1061,11 +1105,11 @@ window.onscroll = function () {
 
 ```JavaScript
 //警告框
-alert("内容")
+alert("内容");
 //选择框，选择确定返回true，否则返回false
-confirm("内容")
+confirm("内容");
 //输入框，返回输入的内容
-prompt("内容")
+prompt("内容");
 ```
 
 ## Generator
