@@ -8,6 +8,46 @@
 - ECharts 图表数据插件：[ECharts](http://echarts.baidu.com/index.html)
 - Highcharts 图表数据插件：[Highcharts](http://www.hcharts.cn/index.php)
 
+## 基本概念
+
+### 预解析
+
+JavaScript 代码是由浏览器中的 JavaScript 解析器来执行的。JavaScript 解析器在运行 JavaScript 代码的时候分为两步：预解析和代码执行。
+
+1. JavaScript 引擎运行 JavaScript 分为两步：预解析、代码执行
+
+   - (1) 预解析 JavaScript 引擎会把 JavaScript 里面所有的 let 还有 function 提升到当前作用域的最前面
+   - (2) 代码执行按照代码书写的顺序从上往下执行
+
+2. 预解析分为变量预解析（变量提升）和函数预解析（函数提升）
+   - (1) 变量提升：把所有的变量声明提升到当前的作用域最前面，不提升赋值操作
+   - (2) 函数提升：把所有的函数声明提升到当前作用域的最前面，不调用函数
+
+```JavaScript
+let num = 10;
+function fn(){
+    console.log(num);
+    let num = 20;
+    console.log(num);
+}
+fn();
+
+// 相当于以下代码：
+let num;
+function fn(){
+    let num;
+    console.log(num);
+    num = 20;
+    console.log(num);
+}
+num = 10;
+fn();
+
+// 结果：
+// undefind
+// 20
+```
+
 ## 基本语法
 
 ### 注释
@@ -114,10 +154,14 @@ let a = x > 10 ? 'red' : 'blue';
 
 ### 四舍五入
 
-将数字四舍五入，转为指定小数位的数字
+将数字四舍五入，转为指定小数位的数字，返回字符串。
 
 ```JavaScript
 变量.toFixed(小数位数);
+
+const num = 100.153;
+console.log(num.toFixed(1)); // 100.1
+console.log(num.toFixed(2)); // 100.15
 ```
 
 ### 打印内容
@@ -132,14 +176,6 @@ console.log('打印内容');
 alert("提示信息");
 ```
 
-### 生成随机数
-
-```javaScript
-randomNum(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-```
-
 ### 跳转页面
 
 ```JavaScript
@@ -147,13 +183,6 @@ location.href = '页面路径';
 ```
 
 ## 函数
-
-::: tip 提示
-
-- 所有参数会放在函数的`arguments`对象中，可当作数组使用
-- 立即执行函数用完即销毁，返回值为`undefine`
-
-:::
 
 ### 声明写法
 
@@ -202,9 +231,22 @@ let 变量 = function() {
 在`{}`后加`()`即可成为立即执行函数
 :::
 
+### 可变参
+
+::: tip 提示
+所有参数会放在函数的`arguments`对象中，可当作数组使用。  
+arguments 对象是伪数组，没有数组的一些方法（如 pop()、push()）
+:::
+
+```JavaScript
+function 函数名() {
+    console.log(arguments)
+}
+```
+
 ### 立即执行函数
 
-定义后便会立即执行的函数
+定义后便会立即执行的函数，返回值为`undefine`
 
 ```JavaScript
 (function() {
@@ -308,7 +350,13 @@ calss 类名 extends 继承类名 {
 ### 声明
 
 ```JavaScript
+// 字面量声明
 let 数组名 = ["值1", "值2", "值3", "值4"];
+
+// new Array
+let 数组名 = new Array(); // 创建空数组
+let 数组名 = new Array(10); // 创建长度为10的数组
+let 数组名 = new Array(1,2); // 创建数组：[1,2]
 ```
 
 ### 使用
@@ -323,47 +371,75 @@ console.log(数组名[0]);
 console.log(数组名.length);
 ```
 
+### 判断是否为数组
+
+- instanceof 运算符
+
+  ```JavaScript
+  console.log(数组名 instanceof Array);
+  ```
+
+- Array.isArray
+
+  ```JavaScript
+  console.log(Array.isArray(数组名));
+  ```
+
 ### 获取指定数据索引
+
+如果存在返回索引号，不存在则返回-1。
+
+::: tip 提示
+只返回满足条件的第一个索引
+:::
 
 ```JavaScript
 数组名.indexOf(指定数据);
+```
+
+### 获取最后一个索引
+
+如果存在返回索引号，不存在则返回-1。
+
+```JavaScript
+数组名.lastIndexOf();
 ```
 
 ### 遍历数组
 
 - 值遍历
 
-```JavaScript
-for (let item of 数组名) {
-    console.log(item);
-}
-```
+  ```JavaScript
+  for (let item of 数组名) {
+      console.log(item);
+  }
+  ```
 
 - forEach
 
-```JavaScript
-数组名.forEach(function(item) {
-    console.log(item);
-})
-```
+  ```JavaScript
+  数组名.forEach(function(item) {
+      console.log(item);
+  })
+  ```
 
 - 下标遍历
 
-```JavaScript
-for (let n in 数组名) {
-    console.log(数组名[n]);
-}
-```
+  ```JavaScript
+  for (let n in 数组名) {
+      console.log(数组名[n]);
+  }
+  ```
 
 ### 增加元素
 
-- 在数组最签前面增加元素（支持多个参数）
+- 在数组最前面增加元素（支持多个参数），返回值为新数组的长度
 
   ```javaScript
   数组名.unshift(元素名称);
   ```
 
-- 在数组最后增加元素（支持多个参数）
+- 在数组最后增加元素（支持多个参数），返回值为新数组的长度
 
   ```javaScript
   数组名.push(元素名称);
@@ -419,6 +495,58 @@ splice()方法会改变原数组
 数组名.splice(起始位置, 结束位置);
 ```
 
+### 颠倒数组
+
+```JavaScript
+数组.reverse();
+```
+
+### 数组排序
+
+::: tip 提示
+sort()方法默认按照转换为的字符串的诸个字符的 Unicode 位点进行排序，因此需要指定一个排序函数。
+:::
+
+```JavaScript
+数组名.sort(function (a, b) {
+  return a - b; // 升序的顺序排列
+  //return b - a; // 降序的顺序排列
+});
+```
+
+### 数组去重
+
+```JavaScript
+function unique(arr) {
+    let newArr = [];
+    for(let i = 0; i < arr.length;i++){
+        if(newArr.indexOf(arr[i]) === -1){
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
+```
+
+### 数组转字符串
+
+- toString
+
+  ```JavaScript
+  let arr = [1,2,3];
+  console.log(数组名.toString()); //1,2,3
+  ```
+
+- join
+
+  ```JavaScript
+  let arr = ["a","b","c"];
+
+  console.log(arr.join()); //a,b,c
+  console.log(arr.join("-")); // a-b-c
+  console.log(arr.join("&")); // a&b&c
+  ```
+
 ## Object 对象
 
 ### 声明
@@ -431,6 +559,9 @@ let 对象名 = {
         内嵌键名1: 值,
         内嵌键名2: 值,
     },
+    函数名: function() {
+
+    }
 };
 ```
 
@@ -438,6 +569,78 @@ let 对象名 = {
 
 ```JavaScript
 console.log(对象名.键名);
+console.log(对象名["键名"]);
+对象名.函数名();
+```
+
+### 增加元素
+
+```JavaScript
+对象名.键名 = 值;
+```
+
+### 修改元素
+
+```JavaScript
+对象名.键名 = 值;
+```
+
+## Set 集合
+
+Set 集合中的元素不可重复
+
+### 声明
+
+```js
+let 集合名 = new Set();
+```
+
+### 集合方法
+
+- 增加元素
+
+```js
+集合名.add(元素);
+```
+
+- 删除元素
+
+```js
+集合名.delete(元素);
+```
+
+- 清空集合
+
+```js
+集合名.clear();
+```
+
+- 判断元素是否存在
+
+存在返回 true，不存在返回 false
+
+```js
+集合名.has(元素);
+```
+
+- 获取集合大小
+
+```js
+集合名.size;
+```
+
+- 遍历集合
+
+```js
+集合名.forEach((item) => {
+  console.log(item);
+});
+```
+
+### 转换数组
+
+```js
+lety 数组名 = Array.from(集合名);
 ```
 
 ## 字符串
@@ -500,6 +703,12 @@ JSON.parse(Json);
 
 ## Math 类
 
+### 圆周率
+
+```JavaScript
+Math.PI
+```
+
 ### 向上取整
 
 将小数向上取整，如 4.5 为 5
@@ -520,6 +729,45 @@ Math.floor(数字);
 
 ```JavaScript
 Math.abs(数字);
+```
+
+### 取最大值
+
+返回给定的一组数字中的最大值。如果给定的参数中至少有一个参数无法被转换成数字，则会返`NaN`。
+
+```JavaScript
+Math.max(1,10,20)
+```
+
+### 取最小值
+
+返回给定的一组数字中的最小值。如果给定的参数中至少有一个参数无法被转换成数字，则会返`NaN`。
+
+```JavaScript
+Math.min(1,10,20)
+```
+
+### 四舍五入
+
+其他数字都是四舍五入，但是.5 特殊，它往大了取
+
+```JavaScript
+Math.round(数字);
+```
+
+### 生成随机数
+
+`Math.random()`会返回区间`[0,1)`的随机小数
+
+```javaScript
+/**
+ * 取随机数，区间为：[最小值,最大值]
+ * @param min 最小值
+ * @param max 最大值
+ */
+function randomNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
 ```
 
 ## Date 类
