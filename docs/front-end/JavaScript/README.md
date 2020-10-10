@@ -645,6 +645,10 @@ lety 数组名 = Array.from(集合名);
 
 ## 字符串
 
+### 字符串的不可变
+
+指的是里面的值不可变，虽然看上去可以改变内容，但其实是地址变了，内存中新开辟了一个内存空间。所以字符串不能大量拼接，会消耗性能。
+
 ### 模板字符串
 
 ```JavaScript
@@ -669,11 +673,37 @@ let 字符串 = "文本" + ture; // 文本ture
 
 ### 寻找字符串
 
-找到则返回字符串所在的位置，否则返回-1
+- 找到则返回字符串所在的位置，否则返回-1
 
-```JavaScript
-位置 = 字符串.indexOf(寻找的字符串);
-```
+  ```JavaScript
+  位置 = 字符串.indexOf(寻找的字符串,[起始位置]);
+  ```
+
+- 从后往前寻找字符串，找到则返回字符串所在的位置，否则返回-1
+
+  ```JavaScript
+  位置 = 字符串.lastIndexOf(寻找的字符串,[起始位置]);
+  ```
+
+### 根据位置返回字符
+
+- 返回指定位置的字符
+
+  ```JavaScript
+  字符串.charAt(位置);
+  ```
+
+- 返回指定位置的字符的 ASCII 码
+
+  ```JavaScript
+  字符串.charCodeAt(位置);
+  ```
+
+- 获取指定位置处字符
+
+  ```JavaScript
+  字符串.str(位置);
+  ```
 
 ### 获取字符串长度
 
@@ -685,6 +715,49 @@ let 字符串 = "文本" + ture; // 文本ture
 
 ```JavaScript
 集合 = 字符串.split("需要分割的文本");
+```
+
+### 截取字符串
+
+- 截取指定个数
+
+```JavaScript
+字符串.substr(起始位置,字符个数);
+```
+
+- 截取指定位置，区间：`[起始位置,结束位置)`
+
+```JavaScript
+字符串.slice(起始位置,结束位置);
+```
+
+- 截取指定位置，不接受负值，区间：`[起始位置,结束位置)`
+
+```JavaScript
+字符串.substring(起始位置,结束位置);
+```
+
+### 替换字符串
+
+::: tip 提示
+replace() 方法只会替换第一个字符
+:::
+
+```JavaScript
+/**
+ * 替换字符串
+ * @param {String} str 字符串
+ * @param {String} subStr 需要替换的字符串
+ * @param {String} replacement 替换内容
+ * @return {String}
+ */
+function replaceString(str, subStr, replacement) {
+  let result = str;
+  while (result.indexOf(subStr) !== -1) {
+    result = result.replace(subStr, replacement);
+  }
+  return result;
+}
 ```
 
 ## Json
