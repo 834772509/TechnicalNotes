@@ -63,21 +63,46 @@ fn();
 
 ### 声明变量
 
+::: tip 提示
+变量区分大小写
+:::
+
 ```JavaScript
 let 变量名;
 ```
 
 ### 声明常量
 
+::: tip 提示
+常量区分大小写
+:::
+
 ```JavaScript
 const 变量名;
 ```
 
+### 解构赋值
+
 ::: tip 提示
 
-- 变量和常量区分大小写
-- 首字母必须是字母或*或\$，其他字母可以是*或\$或数组
-  :::
+- 左右两边结构必须一样
+- 右边必须是个东西
+- 声明和赋值赋值不能分开，必须在一句话里
+
+:::
+
+```JavaScript
+// 结构 Object 对象
+let 变量 = {元素1: 值, 元素2: 值};
+const {元素1, 元素2} = 变量;
+
+// 结构数组
+let [元素1, 元素2, 元素3] = [1, 2, 3];
+console.log(元素1, 元素2, 元素3)
+
+let [元素1, 元素2, 元素3, 元素4] = [{ 键: 值, 键: 值 }, [1, 2, 3], 8, "字符串"]
+console.log(元素1, 元素2, 元素3, 元素4)
+```
 
 ### 数据类型
 
@@ -198,7 +223,7 @@ function 函数名() {
 
 }
 
-function 函数名([参数1, 参数2 = 默认值]) {
+function 函数名(参数1, 参数2 = 默认值) {
     return 返回值;
 }
 ```
@@ -240,7 +265,17 @@ arguments 对象是伪数组，没有数组的一些方法（如 pop()、push()�
 
 ```JavaScript
 function 函数名() {
-    console.log(arguments)
+  console.log(arguments)
+}
+```
+
+### 剩余参数
+
+收集剩余的参数，必须当到最后一个参数位置
+
+```JavaScript
+function 函数名(参数1, 参数2, ...剩余参数) {
+  console.log(参数1, 参数2, 剩余参数);
 }
 ```
 
@@ -363,6 +398,8 @@ let 数组名 = new Array(1,2); // 创建数组：[1,2]
 
 ```JavaScript
 console.log(数组名[0]);
+// 展开使用
+console.log(...数组名);
 ```
 
 ### 获取数组长度
@@ -418,8 +455,8 @@ console.log(数组名.length);
 - forEach
 
   ```JavaScript
-  数组名.forEach(function(item) {
-      console.log(item);
+  数组名.forEach((item,index)=> {
+    console.log(index,item);
   })
   ```
 
@@ -1068,4 +1105,58 @@ total = new2Nums.reduce((preValue, item) => {
 }, 0);
 console.log(total);
 //结果：240
+```
+
+## Promise
+
+Promise 让异步操作写起来，像在写同步操作的流程，不必一层层地嵌套回调函数。
+
+特点：
+
+- 改善了可读性，对于多层嵌套的回调函数很方便
+- 充当异步操作与回调函数之间的中介，使得异步操作具备同步操作的接口
+
+### 定义
+
+```JavaScript
+let Promise名 = new Promise((resolve, reject) => {
+  if (1 === 1) {
+    resolve("成功");
+  } else {
+    reject("失败");
+  }
+});
+```
+
+### 使用
+
+- 基本使用
+
+```JavaScript
+Promise名.then((res) => {
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+});
+```
+
+- 链式调用
+
+```JavaScript
+new Promise((resolve, reject) => {})
+  .then((res) => {
+    //对结果进行处理
+    return res + 1;
+  })
+  .then((res) => {
+    //对结果进行处理
+    return res + 1;
+  })
+  .then((res) => {
+    //对结果进行处理
+    return res + 1;
+  })
+  .catch((err) => {
+    // 错误处理
+  });
 ```
