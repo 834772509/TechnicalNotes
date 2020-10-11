@@ -100,14 +100,6 @@ document.getElementsByClassName("类名");
 }
 ```
 
-### 页面加载完成事件
-
-```JavaScript
-window.onload = function() {
-
-}
-```
-
 ### 鼠标事件
 
 - 移入事件
@@ -209,6 +201,14 @@ onkeydown 和 onkeyup 不区分字母大小写，onkeypress 区分字母大小�
 
   }
   ```
+
+### 滚动事件
+
+```JavaScript
+window.onscroll = function () {
+  console.log(document.documentElement.scrollTop)
+}
+```
 
 ### 自定义右键菜单
 

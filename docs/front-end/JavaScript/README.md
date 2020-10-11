@@ -179,7 +179,7 @@ alert("提示信息");
 ### 跳转页面
 
 ```JavaScript
-location.href = '页面路径';
+location.assign("URL");
 ```
 
 ## 函数
@@ -554,7 +554,7 @@ function unique(arr) {
 ```JavaScript
 let 对象名 = {
     键名1: 值,
-    键名2: ['数组1', '数组2', '数组3'],
+    键名2: ["数组1", "数组2", "数组3"],
     键名3: {
         内嵌键名1: 值,
         内嵌键名2: 值,
@@ -959,34 +959,6 @@ function padLeftZero(str) {
 ```
 
 :::
-
-## 定时器
-
-### setTimeout
-
-延时执行代码
-
-```JavaScript
-对象 = setTimeout(() => {
-
-}, 时间[毫秒]);
-
-//停止定时器
-clearTimeout(对象);
-```
-
-### setInterval
-
-每隔一段时间执行代码
-
-```JavaScript
-对象 = setInterval(() => {
-
-}, 1000);
-
-//停止定时器
-clearInterval(对象)
-```
 
 ## Generator
 
