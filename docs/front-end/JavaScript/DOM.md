@@ -4,7 +4,7 @@
 
 ### 什么是 DOM
 
-文档对象模型(DocumentObject Model，简称 **DOM**），是 W3C 组织推荐的处理可扩展标记语言(HTML 或者 XML）的标准**编程接口**。
+文档对象模型（DocumentObject Model，简称 **DOM**），是 W3C 组织推荐的处理可扩展标记语言（HTML 或者 XML）的标准**编程接口**。
 W3C 已经定义了一系列的 DOM 接口，通过这些 DOM 接口可以改变网页的内容、结构和样式。
 
 ### DOM 树
