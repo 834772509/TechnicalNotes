@@ -17,6 +17,40 @@ W3C 已经定义了一系列的 DOM 接口，通过这些 DOM 接口可以改变
 
 ## 获取元素
 
+### querySelector（推荐）
+
+匹配指定 CSS 选择器，找到第一个匹配节点后就返回节点对象
+
+```JavaScript
+document.querySelector(CSS选择器);
+```
+
+```JavaScript
+//通过id查询
+document.querySelector("#div1");
+//通过class查询
+document.querySelector(".div1");
+//通过标签查询
+document.querySelector("h1");
+```
+
+### querySelectorALL（推荐）
+
+匹配指定 CSS 选择器，找出所有匹配的节点并**返回数组**。
+
+```JavaScript
+document.querySelectorALL(CSS选择器);
+```
+
+```JavaScript
+//通过id查询
+document.querySelectorALL("#div1");
+//通过class查询
+document.querySelectorALL(".div1");
+//通过标签查询
+document.querySelectorALL("h1");
+```
+
 ### 通过元素的 ID 属性获取
 
 使用 getElementByld()方法可以获取带有 ID 的元素对象。
@@ -49,83 +83,13 @@ document.getElementsByTagName("input");
 document.getElementsByClassName("类名");
 ```
 
-### querySelector
-
-匹配指定 CSS 选择器，找到第一个匹配节点后就返回节点对象
-
-```JavaScript
-document.querySelector(CSS选择器);
-```
-
-```JavaScript
-//通过id查询
-document.querySelector("#div1");
-//通过class查询
-document.querySelector(".div1");
-//通过标签查询
-document.querySelector("h1");
-```
-
-### querySelectorALL
-
-匹配指定 CSS 选择器，找出所有匹配的节点并**返回数组**。
-
-```JavaScript
-document.querySelectorALL(CSS选择器);
-```
-
-```JavaScript
-//通过id查询
-document.querySelectorALL("#div1");
-//通过class查询
-document.querySelectorALL(".div1");
-//通过标签查询
-document.querySelectorALL("h1");
-```
-
 ## 事件基础
-
-`document`是整个页面的集合，第一个子节点是`<! DOCTYPE>`，第二个子节点是`<html>`
-
-::: tip 提示
-在 body 中，没有内容即没有高度
-:::
 
 ### 事件三要素
 
 1. 事件源：事件被触发的对象
 2. 事件类型：如何触发,什么事件
 3. 事件处理程序：通过一个函数赋值的方式
-
-### 绑定事件
-
-`addEventListener`适用于**多次绑定事件**，on 事件多次绑定会**覆盖**
-
-```JavaScript
-组件.addEventListener("事件名", function() {
-
-}
-```
-
-::: tip 提示
-事件名不带**on**
-:::
-
-### 解除绑定事件
-
-```JavaScript
-组件.detachEvent("事件名", 函数);
-```
-
-### 事件冒泡
-
-事件除了触发本级，还会向父级传递
-
-禁止事件冒泡：
-
-```JavaScript
-event.cancelBubble = true;
-```
 
 ### 点击事件
 
@@ -146,7 +110,7 @@ window.onload = function() {
 
 ### 鼠标事件
 
-- 移入
+- 移入事件
 
   ```JavaScript
   组件.onmouseover = function(event) {
@@ -154,7 +118,7 @@ window.onload = function() {
   }
   ```
 
-- 移出
+- 移出事件
 
   ```JavaScript
   组件.onmouseout = function(event) {
@@ -162,7 +126,7 @@ window.onload = function() {
   }
   ```
 
-- 移动
+- 移动事件
 
   ```JavaScript
   组件.onmousemove = function(event) {
@@ -171,13 +135,33 @@ window.onload = function() {
   }
   ```
 
+- 右键事件
+
+  ```JavaScript
+  document.addEventListener("contextmenu",function(event){
+
+  })
+  ```
+
+- 选中文字
+
+  ```JavaScript
+  document.addEventListener("selectstart",function(event){
+
+  })
+  ```
+
 ### 键盘事件
+
+::: tip 提示
+onkeydown 和 onkeyup 不区分字母大小写，onkeypress 区分字母大小写。
+:::
 
 - 按键：
 
   ```JavaScript
   组件.onkeypress = function(event) {
-      console.log("按键：" + event.key);
+      console.log("按键：", event.KeyCode,event.key);
   }
   ```
 
@@ -185,7 +169,8 @@ window.onload = function() {
 
   ```JavaScript
   组件.onkeydown = function(event) {
-      console.log("按下的按键：" + event.key);
+      console.log("按下的按键：", event.KeyCode,event.key);
+
   }
   ```
 
@@ -193,7 +178,7 @@ window.onload = function() {
 
   ```JavaScript
   组件.onkeyup = function(event) {
-      console.log("按下的按键：" + event.key);
+      console.log("弹起的按键：", event.KeyCode,event.key);
   }
   ```
 
@@ -243,6 +228,108 @@ document.oncontextmenu = function(event) {
   //阻止默认事件
   return false;
 }
+```
+
+## 事件高级
+
+### 传统注册事件方式
+
+特点：注册事件的唯一性。同一个元素同一个事件只能设置一个处理函数，最后注册的处理函数将会覆盖前面注册的处理函数
+
+### 绑定事件
+
+方法监听注册方式绑定事件，w3c 标准推荐方式。  
+特点 ∶ 同一个元素同一个事件可以注册多个监听器
+
+组件.addEventListener()方法将指定的监听器注册到 eventTarget（目标对象）上，当该对象触发指定的事件时，就会执行事件处理函数。
+
+::: tip 提示
+事件名不带**on**
+:::
+
+```JavaScript
+组件.addEventListener("事件名", function() {
+
+}
+```
+
+::: tip 提示
+`attachEvent()`为非标准，请尽量不要在生产环境中使用它
+:::
+
+### 解绑事件
+
+```JavaScript
+组件.removeEventListener("事件名", 函数名);
+```
+
+### 事件对象
+
+事件发生后，**跟事件相关的一系列信息数据的集合**都放到这个对象里面，这个对象就是事件对象 event，它有很多属性和方法。
+
+```JavaScript
+组件.addEventListener("事件名", function(event) {
+
+}
+```
+
+### event.target 和 this 区别
+
+1. event.target 返回的是触发事件的对象（元素），this 返回的是绑定事件的对象
+2. event.target 点击了哪个元素，就返回哪个元素，this 哪个元素绑定了这个点击事件，那么就返回谁
+
+### 事件流
+
+事件流描述的是从页面中接收事件的顺序。事件发生时会在元素节点之间按照特定的顺序传播，这个传播过程即 DOM 事件流。
+
+DOM 事件流分为 3 个阶段 ∶
+
+1. 捕获阶段：由 DOM 最顶层节点开始，然后逐级向下传播到到最具体的元素接收的过程
+2. 当前目标阶段
+3. 冒泡阶段：事件开始时由最具体的元素接收，然后逐级向上传播到到 DOM 最顶层节点的过程
+
+### 事件冒泡
+
+事件除了触发本级，还会向父级传递
+
+禁止事件冒泡：
+
+::: tip 提示
+`event.cancelBubble`为非标准，请尽量不要在生产环境中使用它
+:::
+
+```JavaScript
+event.stopPropagation()
+```
+
+### 阻止默认行为
+
+::: tip 提示
+`returnValue()`为非标准，请尽量不要在生产环境中使用它
+:::
+
+```JavaScript
+event.preventDefault();
+```
+
+### 事件委托
+
+事件委托：不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，然后利用冒泡原理影响设置每个子节点。  
+事件委托的作用：只操作一次 DOM，提高了程序的性能
+
+```HTML
+<ul>
+  <li>子元素</li>
+  <li>子元素</li>
+  <li>子元素</li>
+</ul>
+```
+
+```JavaScript
+let u1 = document.querySelector("ul");
+u1.addEventListener("click",function(){
+  console.log("点击");
+})
 ```
 
 ## 操作元素
@@ -440,21 +527,64 @@ const 元素 = document.createElement("标签名");
 
    将一个节点添加到父节点的指定子节点前面。类似于 css 里面的 before 伪元素。
 
-创建元素：
-
-```JavaScript
-const ul = document.createElement('ul');
-const li = document.createElement('li');
-li.innerText = "内容";
-ul.appendChild(li);
-```
-
 ### 删除节点
 
 node.removeChild()方法从 DOM 中删除一个子节点，返回删除的节点。
 
 ```JavaScript
 元素.removechild(子节点);
+```
+
+### 复制节点
+
+node.cloneNode()方法返回调用该方法的节点的一个副本。也称为克隆节点/拷贝节点
+
+::: tip 提示
+
+- 如果括号参数为**空或者为 false**，则是**浅拷贝**，即只克隆复制节点本身，不克隆里面的子节点
+- 如果括号参数为 true，则是**深度拷贝**，会复制节点本身以及里面所有的子节点
+
+:::
+
+```JavaScript
+// 仅复制节点本身
+const 克隆元素 = 元素.cloneNode();
+// 复制节点本身以及里面所有的子节点
+const 克隆元素 = 元素.cloneNode(true);
+```
+
+## 创建元素
+
+### document.write()
+
+document.write()直接写入页面的内容流，但是**文档流执行完毕，则它会导致页面全部重绘**
+
+```JavaScript
+document.write("<div>内容</div>");
+```
+
+### innerHTML
+
+innerHTML 是将内容写入某个 DoM 节点，不会导致页面全部重绘
+
+::: tip 提示
+**innerHTML 创建多个元素效率更高**(不要拼接字符串，采取数组形式拼接），结构稍微复杂
+:::
+
+```JavaScript
+let 元素 = document.querySelector(".div");
+元素.innerHTML = "<div>内容</div>";
+```
+
+### document.createElement()
+
+createElement()创建多个元素效率稍低一点点，但是结构更清晰
+
+```JavaScript
+const ul = document.createElement('ul');
+const li = document.createElement('li');
+li.innerText = "内容";
+ul.appendChild(li);
 ```
 
 ## 运动框架

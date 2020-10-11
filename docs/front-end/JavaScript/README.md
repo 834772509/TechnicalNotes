@@ -649,6 +649,26 @@ lety 数组名 = Array.from(集合名);
 
 指的是里面的值不可变，虽然看上去可以改变内容，但其实是地址变了，内存中新开辟了一个内存空间。所以字符串不能大量拼接，会消耗性能。
 
+- 拼接字符串，消耗性能
+
+  ```JavaScript
+  let str = "";
+  for (let i = 1; i <= 1000000; i++) {
+    str += i;
+  }
+  console.log(str);
+  ```
+
+- 数组形式拼接，效率较高
+
+  ```JavaScript
+  let arr = [];
+  for (let i = 1; i <= 1000000; i++) {
+    arr.push(i);
+  }
+  console.log(arr.join(""));
+  ```
+
 ### 模板字符串
 
 ```JavaScript
