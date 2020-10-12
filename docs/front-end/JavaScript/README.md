@@ -1216,3 +1216,12 @@ Promise.race([p1, p2]).then((res) => {
   console.log(res);
 });
 ```
+
+## Async Await
+
+``` JavaScript
+async function 函数名() {
+  console.log(1)
+  await console.log(2)
+}
+```

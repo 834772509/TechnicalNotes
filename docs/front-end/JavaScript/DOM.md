@@ -425,6 +425,89 @@ dataset 是一个集合，里面存放了所有以 data 开头的自定义属性
 元素.className = "类名";
 ```
 
+## 元素偏移量 offset
+
+offset 系列经常用于获得元素位置（ offsetLeft offsetTop）
+
+### offset 概述
+
+offset 翻译过来就是偏移量，我们使用 offset 系列相关属性可以**动态**的得到该元素的位置（偏移）、大小等。
+
+- 获得元素距离带有定位父元素的位置
+- 获得元素自身的大小（宽度高度）
+- 注意：返回的数值都不带单位
+
+### offset 常用属性
+
+| offset 系列属性       | 作用                                                          |
+| --------------------- | ------------------------------------------------------------- |
+| element\.offsetParent | 返回作为该元素带有定位的父级元素如果父级都没有定位则返回 body |
+| element\.offsetTop    | 返回元素相对带有定位父元素上方的偏移                          |
+| element\.offsetLeft   | 返回元素相对带有定位父元素左边框的偏移                        |
+| element\.offsetX      | 返回元素相对带有定位父元素 X 坐标                             |
+| element\.offseY       | 返回元素相对带有定位父元素 Y 坐标                             |
+| element\.offsetWidth  | 返回自身包括 padding、边框、内容区的宽度，返回数值不带单位    |
+| element\.offsetHeight | 返回自身包括 padding、边框、内容区的高度，返回数值不带单位    |
+
+### offset 与 style 区别
+
+- offset
+
+  - offset 可以得到任意样式表中的样式值
+  - offset 系列获得的数值是没有单位的
+  - offsetWidth 包含 padding+border+width
+  - offsetWidth 等属性是只读属性，只能获取不能赋值
+  - **我们想要获取元素大小位置，用 offset 更合适**
+
+- style
+
+  - style 只能得到行内样式表中的样式值
+  - style.width 获得的是带有单位的字符串
+  - style.width 获得不包含 padding 和 border 的值
+  - style.width 是可读写属性，可以获取也可以赋值
+  - **我们想要给元素更改值，则需要用 style 改变**
+
+## 元素可视区 client
+
+client 经常用于获取元素大小（ clientWidth clientHeight）
+
+### client 概述
+
+client 翻译过来就是客户端，我们使用 client 系列的相关属性来获取元素可视区的相关信息。通过 client 系列的相关属性可以动态的得到该元素的边框大小、元条大小等。
+
+::: tip 提示
+
+- 和 offset 最大的区别是 client 不包含边框
+- 如果内容超出了自身，则可以使用`element.scrollWidth`返回自身实际的宽度
+
+:::
+
+### offset 系列属性
+
+| client 系列属性       | 作用                                                           |
+| --------------------- | -------------------------------------------------------------- |
+| element\.clientTop    | 返回元素上边框的大小                                           |
+| element\.clientLeft   | 返回元素左边框的大小                                           |
+| element\.clientWidth  | 返回自身包括 padding、内容区的宽度，不含边框，返回数值不带单位 |
+| element\.clientHeight | 返回自身包括 padding、内容区的宽度，不含边框，返回数值不带单位 |
+
+## 元素滚动 scroll
+
+scroll 经常用于获取滚动距离 （scrollTop scrollleft）
+
+### scroll 概述
+
+scroll 翻译过来就是滚动的，我们使用 scroll 系列的相关属性可以动态的得到该元素的大小、滚动距离等。
+
+### scroll 系列属性
+
+| scroll 系列属性       | 作用                                           |
+| --------------------- | ---------------------------------------------- |
+| element\.scrollTop    | 返回被卷去的上侧距离，返回数值不带单位         |
+| element\.scrollLeft   | 返回被卷去的左侧距离，返回数值不带单位         |
+| element\.scrollWidth  | 返回自身实际的宽度，不含边框，返回数值不带单位 |
+| element\.scrollHeight | 返回自身实际的高度，不含边框，返回数值不带单位 |
+
 ## 节点操作
 
 ### 为什么学节点操作
@@ -589,56 +672,57 @@ ul.appendChild(li);
 
 ## 运动框架
 
+### 缓动
+
+缓动动画：盒子当前的位置＋变化的值。即：(目标值 – 现在的位置)/10
+
 ```JavaScript
+/**
+ * 缓动函数
+ * @param {Object} obj 需要增加动画的对象
+ * @param {*} json { "样式名": 值, "样式名": 值 }
+ * @param {*} callback 结束回调函数（可选）
+ */
 function startMove(obj, json, endFun) {
-    function getStyle(obj, attr) {
-        if (obj.currentStyle) {
-            return obj.currentStyle[attr];
-        } else {
-            return getComputedStyle(obj, false)[attr];
-        }
+  function getStyle(obj, attr) {
+    if (obj.currentStyle) {
+      return obj.currentStyle[attr];
+    } else {
+      return getComputedStyle(obj, false)[attr];
     }
-    //开始前关闭之前obj上的定时器
-    clearInterval(obj.timer);
-    //定时器
-    obj.timer = setInterval(function() {
-        let bStop = true; //假设所有值都到目标
-        for (let attr in json) { //循环json数组
-            //单独处理透明度
-            let cur
-            if (attr == 'opacity') {
-                cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
-            } else {
-                cur = parseInt(getStyle(obj, attr));
-            }
-            //速度处理
-            let speed = (json[attr] - cur) / 6;
-            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-            //如果当前的没到目标值
-            if (cur != json[attr])
-                bStop = false;
-            //运动
-            if (attr == 'opacity') {
-                obj.style.opacity = (cur + speed) / 100;
-                obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
-            } else {
-                obj.style[attr] = cur + speed + 'px';
-            }
-        }
-        //所有的都到达目标值
-        if (bStop) {
-            clearInterval(obj.timer);
-            if (endFun) endFun();
-        }
-    }, 15);
+  }
+  //开始前关闭之前obj上的定时器
+  clearInterval(obj.timer);
+  //定时器
+  obj.timer = setInterval(function () {
+    let bStop = true; //假设所有值都到目标
+    for (let attr in json) {
+      //循环json数组
+      //单独处理透明度
+      let cur;
+      if (attr == "opacity") {
+        cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+      } else {
+        cur = parseInt(getStyle(obj, attr));
+      }
+      //速度处理
+      let speed = (json[attr] - cur) / 6;
+      speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+      //如果当前的没到目标值
+      if (cur != json[attr]) bStop = false;
+      //运动
+      if (attr == "opacity") {
+        obj.style.opacity = (cur + speed) / 100;
+        obj.style.filter = "alpha(opacity:" + (cur + speed) + ")";
+      } else {
+        obj.style[attr] = cur + speed + "px";
+      }
+    }
+    //所有的都到达目标值
+    if (bStop) {
+      clearInterval(obj.timer);
+      if (callback) callback();
+    }
+  }, 15);
 }
-```
-
-使用：
-
-```JavaScript
-startMove(div1, {
-    width: 200,
-    height: 200
-})
 ```
