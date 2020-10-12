@@ -1118,6 +1118,8 @@ Promise 让异步操作写起来，像在写同步操作的流程，不必一层
 
 ### 定义
 
+- 基本使用
+
 ```JavaScript
 let Promise名 = new Promise((resolve, reject) => {
   if (1 === 1) {
@@ -1128,35 +1130,89 @@ let Promise名 = new Promise((resolve, reject) => {
 });
 ```
 
+- 传参
+
+```JavaScript
+function Promise名(参数名) {
+  return new Promise((resolve, reject) => {
+    if (1 === 1) {
+      console.log(参数名);
+      resolve("成功");
+    } else {
+      reject("失败");
+    }
+  });
+}
+```
+
 ### 使用
 
 - 基本使用
 
-```JavaScript
-Promise名.then((res) => {
-  console.log(res);
-}).catch((err) => {
-  console.log(err);
-});
-```
+  ```JavaScript
+  Promise名.then((res) => {
+    console.log(res);
+  }).catch((err) => {
+    console.log(err);
+  });
+  ```
+
+- 传参
+
+  ```JavaScript
+  Promise名("aaa").then((res) => {
+    console.log(res);
+  }).catch((err) => {
+    console.log(err);
+  });
+  ```
 
 - 链式调用
 
+  ```JavaScript
+  new Promise((resolve, reject) => {})
+    .then((res) => {
+      //对结果进行处理
+      return res + 1;
+    })
+    .then((res) => {
+      //对结果进行处理
+      return res + 1;
+    })
+    .then((res) => {
+      //对结果进行处理
+      return res + 1;
+    })
+    .catch((err) => {
+      // 错误处理
+    });
+  ```
+
+### Promise.all
+
+将多个 Promise 对象实例包装，生成并返回一个新的 Promise 实例
+
+promise 数组中所有的 promise 实例都变为 resolve 的时候，该方法才会返回，并将所有结果传递 results 数组中
+promise 数组中任何一个 promise 为 reject 的话，则整个 Promise.all 调用会立即终止，并返回一个 reject 的新的 promise 对象
+
 ```JavaScript
-new Promise((resolve, reject) => {})
-  .then((res) => {
-    //对结果进行处理
-    return res + 1;
-  })
-  .then((res) => {
-    //对结果进行处理
-    return res + 1;
-  })
-  .then((res) => {
-    //对结果进行处理
-    return res + 1;
-  })
-  .catch((err) => {
-    // 错误处理
-  });
+const p1 = Promise名(参数);
+const p2 = Promise名(参数);
+
+Promise.all([p1, p2]).then((res) => {
+  console.log(res);
+});
+```
+
+### Promise.race
+
+Promise.race() 类似于 Promise.all() ，区别在于**它有任意一个完成就算完成**
+
+```JavaScript
+const p1 = Promise名(参数);
+const p2 = Promise名(参数);
+
+Promise.race([p1, p2]).then((res) => {
+  console.log(res);
+});
 ```
