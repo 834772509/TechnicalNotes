@@ -123,6 +123,10 @@ module.exports = {
             items: [{ text: "Rust 基础", link: "/back-end/Rust/" }],
           },
           {
+            text: "Node.js",
+            items: [{ text: "Node.js", link: "/back-end/Node.js/" }],
+          },
+          {
             text: "Python",
             items: [
               { text: "Python 基础", link: "/back-end/Python/" },
