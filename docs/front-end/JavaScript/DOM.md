@@ -105,26 +105,26 @@ document.getElementsByClassName("类名");
 - 移入事件
 
   ```JavaScript
-  组件.onmouseover = function(event) {
+  组件.addEventListener("mouseenter", (event) => {
 
-  }
+  });
   ```
 
 - 移出事件
 
   ```JavaScript
-  组件.onmouseout = function(event) {
+  组件.addEventListener("mouseleave", (event) => {
 
-  }
+  });
   ```
 
 - 移动事件
 
   ```JavaScript
-  组件.onmousemove = function(event) {
-      console.log("X坐标：" + event.pageX);
-      console.log("Y坐标：" + event.pageY);
-  }
+  组件.addEventListener("mousemove", (event) => {
+    console.log("X坐标：" + event.pageX);
+    console.log("Y坐标：" + event.pageY);
+  });
   ```
 
 - 右键事件
@@ -670,7 +670,28 @@ li.innerText = "内容";
 ul.appendChild(li);
 ```
 
-## 运动框架
+## 常见网页特效
+
+### 拖拽
+
+```JavaScript
+拖动组件.addEventListener("mousedown", (event) => {
+  // 鼠标移动的时候，把鼠标在页面中的坐标，减去 鼠标在盒子内的坐标就是模态框的left和top值
+  let x = event.pageX - 父组件.offsetLeft;
+  let y = event.pageY - 父组件.offsetTop;
+
+  document.addEventListener("mousemove", move);
+  function move(event) {
+    父组件.style.left = event.pageX - x + "px";
+    父组件.style.top = event.pageY - y + "px";
+  }
+
+  // 鼠标弹起，就让鼠标移动事件移除
+  document.addEventListener("mouseup", () => {
+    document.removeEventListener("mousemove", move);
+  });
+});
+```
 
 ### 缓动
 
