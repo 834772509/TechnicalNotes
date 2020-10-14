@@ -1,5 +1,7 @@
 # Node.js
 
+[Node.js 中文文档](http://nodejs.cn/api/)
+
 ## 基本概念
 
 ### 浏览器内核
@@ -83,3 +85,135 @@ REPL 是 Read-Eval-Print Loop 的简称，翻译为“读取-求值-输出”循
 
 LTS 版本：相对稳定一些，推荐线上环境使用该版本；
 Current 版本：最新的 Node 版本，包含很多新特性；
+
+## Node 程序传递参数
+
+`process.argv`中，第一个元素为 Node 路径，第二个元素为当前程序路径
+
+```JavaScript
+console.log(process.argv);
+process.argv.slice(2).forEach((item) => {
+  console.log(item);
+});
+```
+
+## 常见的全局对象
+
+Node 中给我们提供了一些全局对象，方便我们进行一些操作
+
+### 特殊的全局对象
+
+这些全局对象实际上是模块中的变量，只是每个模块都有，看来像是全局变量，在命令行交互中是不可以使用的。
+
+- 当前目录
+
+  ```JavaScript
+  console.log(__dirname);
+  ```
+
+- 当前文件路径
+
+  ```JavaScript
+  console.log(__filename);
+  ```
+
+### 常见的全局对象
+
+- process
+
+  Node 进程相关信息（Node 的运行环境、参数信息等）
+
+  ```JavaScript
+  console.log(process);
+  ```
+
+- console 对象
+
+  ```JavaScript
+  // 打印输出
+  console.log();
+  // 清空控制台
+  console.clear();
+  // 打印函数的调用栈
+  console.trace();
+  ```
+
+- 定时器函数
+
+  ```JavaScript
+  setTimeout(() => {
+    console.log("setTimeout");
+  }, 1000);
+
+  setInterval(() => {
+    console.log("setInterval");
+  }, 1000);
+
+  setImmediate(() => {
+    console.log("setImmediate");
+  });
+
+  process.nextTick(() => {
+    console.log("process.nextTick");
+  })
+  ```
+
+- global 对象
+
+  global 是一个全局对象，process、console、setTimeout 等都有被放到 global 中：
+
+  ::: tip 提示
+  在 node 中，我们通过 var 定义一个变量，它只是在当前模块中有一个变量，不会放到全局中
+  :::
+
+  ```JavaScript
+  console.log(global);
+  ```
+
+## 模块化
+
+### CommonJS
+
+CommonJS 是**一个规范**，最初提出来是在浏览器以外的地方使用，并且当时被命名为 **ServerJS**，后来为了体现它的广泛性，修改为 **CommonJS**，平时我们也会简称为 **CJS**。
+
+- Node 是 CommonJS 在服务器端一个具有代表性的实现；
+- Browserify 是 CommonJS 在浏览器中的一种实现；
+- webpack 打包工具具备对 CommonJS 的支持和转换；
+
+Node 中对 CommonJS 进行了支持和实现，让我们在开发 node 的过程中可以方便的进行模块化开发：
+
+- 在 Node 中每一个 js 文件都是一个单独的模块；
+- 这个模块中包括 CommonJS 规范的核心变量：exports、module.exports、require；
+- 我们可以使用这些变量来方便的进行模块化开发；
+
+前面我们提到过模块化的核心是导出和导入，Node 中对其进行了实现：
+
+- exports 和 module.exports 可以负责对模块中的内容进行导出；
+- require 函数可以帮助我们导入其他模块（自定义模块、系统模块、第三方库模块）中的内容；
+
+\模块名.js
+
+```JavaScript
+const 变量名 = 值;
+function 函数名() {
+}
+
+// module.exports 方式导出
+module.exports = {
+  变量名,
+  函数名,
+};
+
+// exports 直接导出
+exports.变量名 = 变量名;
+exports.函数名 = 函数名;
+```
+
+\index.js
+
+```JavaScript
+const { 变量名, 函数名 } = require("./模块名");
+
+console.log(变量名);
+函数名();
+```

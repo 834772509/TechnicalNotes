@@ -281,7 +281,7 @@ function 函数名(参数1, 参数2, ...剩余参数) {
 
 ### 立即执行函数
 
-定义后便会立即执行的函数，返回值为`undefine`
+立即执行函数，IIFE(Immediately Invoked Function Expression)，定义后便会立即执行的函数，返回值为`undefine`
 
 ```JavaScript
 (function() {
@@ -1219,7 +1219,7 @@ Promise.race([p1, p2]).then((res) => {
 
 ## Async Await
 
-``` JavaScript
+```JavaScript
 async function 函数名() {
   console.log(1)
   await console.log(2)

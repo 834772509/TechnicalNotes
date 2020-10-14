@@ -672,7 +672,7 @@ ul.appendChild(li);
 
 ## 常见网页特效
 
-### 拖拽
+### 提示框拖拽
 
 ```JavaScript
 拖动组件.addEventListener("mousedown", (event) => {
