@@ -217,3 +217,183 @@ const { 变量名, 函数名 } = require("./模块名");
 console.log(变量名);
 函数名();
 ```
+
+### require 细节
+
+require 是一个函数，可以帮助我们引入一个文件（模块）中导入的对象。
+
+```JavaScri-t
+require(X);
+```
+
+查找规则：
+
+1. 核心模块，比如 -ath、htt-。直接返回核心模块，并且停止查找
+2. 以 ./ 或 ../ 或 /（根目录）开头的。
+   - 第一步：将 X 当做一个文件在对应的目录下查找；
+     - 如果有后缀名，按照后缀名的格式查找对应的文件
+     - 如果没有后缀名，会按照如下顺序：
+       1. 直接查找文件 X
+       2. 查找 X.js 文件
+       3. 查找 X.json 文件
+       4. 查找 X.node 文件
+   - 第二步：没有找到对应的文件，将 X 作为一个目录
+     - 查找目录下面的 index 文件
+       1. 查找 X/index.js 文件
+       2. 查找 X/index.json 文件
+       3. 查找 X/index.node 文件
+   - 如果没有找到，那么报错：not found
+3. 直接是一个 X（没有路径），并且 X 不是一个核心模块
+   从当前目录开始，查找所有目录下的`node_modules`目录
+
+### 模块的加载过程
+
+1. 模块在被第一次引入时，模块中的 JavaScri-t 代码会被运行一次
+2. 模块被多次引入时，会缓存，最终只加载（运行）一次
+   - 每个模块对象 module 都有一个属性：loaded。
+   - false 表示还没有加载，为 true 表示已经加载；
+3. 如果有循环引入，那么加载顺序是一种图结构
+   - 图结构在遍历的过程中，有深度优先搜索（DFS, de-th first search）和广度优先搜索（BFS, breadth first search）；
+   - Node 采用的是深度优先算法
+
+### AMD 规范（了解）
+
+AMD 主要是应用于浏览器的一种模块化规范：
+
+- AMD 是 Asynchronous Module Definition（异步模块定义）的缩写；
+- 它采用的是异步加载模块；
+- 事实上 AMD 的规范还要早于 CommonJS，但是 CommonJS 目前依然在被使用，而 AMD 使用的较少了；
+
+### CMD 规范
+
+CMD 规范也是应用于浏览器的一种模块化规范：
+
+- CMD 是 Common Module Definition（通用模块定义）的缩写；
+- 它也采用了异步加载模块，但是它将 CommonJS 的优点吸收了过来；
+- 但是目前 CMD 使用也非常少了；
+- CMD 也有自己比较优秀的实现方案：[SeaJS](https://github.com/seajs/seajs)
+
+### ES Module
+
+ES Module 模块采用 export 和 import 关键字来实现模块化：
+
+- export 负责将模块内的内容导出；
+- import 负责从其他模块导入内容；
+
+ES Module 和 CommonJS 的模块化有一些不同之处：
+
+- 一方面它使用了 import 和 export 关键字；
+- 另一方面它采用编译期的静态分析，并且也加入了动态引用的方式；
+
+- index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script src="./index.js" type="module"></script>
+</html>
+```
+
+- /modules/模块名.js
+
+::: tip 提示
+`export{}`中的`{}`不是对象，里面放置要导出的变量引用列表。
+:::
+
+```JavaScript
+const 变量名 = 值;
+const 函数名 = function () {
+
+};
+
+// 导出方式1
+export const 变量名 = 值;
+export const 函数名 = function () {
+
+};
+
+// 导出方式2（常用）
+export {
+  变量名,
+  函数名,
+};
+
+// 导出方式3，起别名
+export {
+  变量名 as 别名,
+  函数名 as 别名,
+};
+```
+
+- index.js
+
+```JavaScript
+// 导入方式1
+import { 变量名, 函数名 } from "./modules/模块名.js";
+console.log(变量名);
+
+// 方式2：导出变量后起别名
+import { 变量名 as 别名, 函数名 as 别名 } from "./modules/模块名.js";
+console.log(别名);
+
+// 方式3：* as 别名
+import * as 别名 from "./modules/模块名.js";
+console.log(别名.name);
+```
+
+- Export 和 Import 结合使用
+
+  在开发和封装一个功能库时，通常我们希望将暴露的所有接口放到一个文件中；
+
+  - 这样方便指定统一的接口规范，也方便阅读；
+  - 这个时候，我们就可以使用 export 和 import 结合使用；
+
+  ```JavaScript
+  export { 变量名, 函数名 } from "./modules/模块名.js";
+  ```
+
+- default 用法
+
+  默认导出（default export）
+
+  - 默认导出 export 时可以不需要指定名字；
+  - 在导入时不需要使用 {}，并且可以自己来指定名字；
+  - 它也方便我们和现有的 CommonJS 等规范相互操作；
+
+  ::: tip 提示
+  在一个模块中，只能有一个默认导出（default export）
+  :::
+
+  ```JavaScript
+  // 默认导出函数
+  export default 函数名 () {
+
+  }
+  // 默认导出变量
+  export default 变量名;
+  ```
+
+  ```JavaScript
+  import 函数名 from "./modules/模块名.js";
+  函数名();
+  ```
+
+### ES Module 加载过程
+
+ES Module 加载 js 文件的过程是编译（解析）时加载的，并且是异步的：
+
+- 编译时（解析）时加载，意味着 import 不能和运行时相关的内容放在一起使用：
+- 比如 from 后面的路径需要动态获取；
+- 比如不能将 import 放到 if 等语句的代码块中；
+- 所以我们有时候也称 ES Module 是静态解析的，而不是动态或者运行时解析的；
+
+异步的意味着：JS 引擎在遇到 import 时会去获取这个 js 文件，但是这个获取的过程是异步的，并不会阻塞主线程继续执行；
+
+- 也就是说设置了 type=module 的代码，相当于在 script 标签上也加上了 async 属性；
+- 如果我们后面有普通的 script 标签以及对应的代码，那么 ES Module 对应的 js 文件和代码不会阻塞它们的执行；
