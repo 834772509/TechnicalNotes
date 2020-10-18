@@ -397,3 +397,115 @@ ES Module 加载 js 文件的过程是编译（解析）时加载的，并且是
 
 - 也就是说设置了 type=module 的代码，相当于在 script 标签上也加上了 async 属性；
 - 如果我们后面有普通的 script 标签以及对应的代码，那么 ES Module 对应的 js 文件和代码不会阻塞它们的执行；
+
+### CommonJS 和 ES Module 交互
+
+- 结论一：通常情况下，CommonJS 不能加载 ES Module
+  - 因为 CommonJS 是同步加载的，但是 ES Module 必须经过静态分析等，无法在这个时候执行 JavaScript 代码；
+  - 但是这个并非绝对的，某些平台在实现的时候可以对代码进行针对性的解析，也可能会支持；
+  - Node 当中是不支持的；
+- 结论二：多数情况下，ES Module 可以加载 CommonJS
+  - ES Module 在加载 CommonJS 时，会将其 module.exports 导出的内容作为 default 导出方式来使用；
+  - 这个依然需要看具体的实现，比如 webpack 中是支持的、Node 最新的 Current 版本也是支持的；
+  - 但是在最新的 LTS 版本中就不支持；
+
+## 内置模块 Path
+
+### 基本方法
+
+- 取文件路径
+
+  ```JavaScript
+  path.dirname("路径");
+  ```
+
+- 取文件名（含后缀）
+
+  ```JavaScript
+  path.basename("路径");
+  ```
+
+- 取文件后缀（带.）
+
+  ```JavaScript
+  path.extname("路径");
+  ```
+
+### 拼接路径
+
+- resolve 方法
+
+  resolve 会判断拼接的路径字符串中，是否有以`/`或`./`或`../`开头的路径。如果有表示是一个绝对路径，会返回对应的拼接路径，如果没有，那么会和当前执行文件所在的文件夹进行路径的拼接。
+
+  ```JavaScript
+  const path = require("path");
+
+  const filePath = path.resolve("路径", "文件名");
+  ```
+
+- join 方法
+
+  ```JavaScript
+  path.join("路径", "文件名");
+  ```
+
+### 文件描述符
+
+文件描述符（File descriptors）：
+
+- 在 POSIX 系统上，对于每个进程，内核都维护着一张当前打开着的文件和资源的表格。
+- 每个打开的文件都分配了一个称为文件描述符的简单的数字标识符。
+- 在系统层，所有文件系统操作都使用这些文件描述符来标识和跟踪每个特定的文件。
+- Windows 系统使用了一个虽然不同但概念上类似的机制来跟踪资源。
+
+```JavaScript
+fs.open("文件路径", (err, fd) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+  fs.fstat(fd, (err, info) => {
+    console.log(info);
+  });
+});
+```
+
+## 内置模块 fs
+
+fs (File System)，文件系统。对于任何一个为服务器端服务的语言或者框架通常都会有自己的文件系统：
+
+- 因为服务器需要将各种数据、文件等放置到不同的地方；
+- 比如用户数据可能大多数是放到数据库中；
+- 比如某些配置文件或者用户资源（图片、音视频）都是以文件的形式存在于操作系统上的；
+
+### 大多数 API 都提供三种操作方式：
+
+- 方式一：同步操作文件：代码会被阻塞，不会继续执行；
+
+```JavaScript
+const info = fs.statSync("文件路径");
+console.log(info);
+```
+
+- 方式二：异步回调函数操作文件：代码不会被阻塞，需要传入回调函数，当获取到结果时，回调函数被执行；
+
+```JavaScript
+fs.stat("文件路径", (err, stat) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(stat);
+})
+```
+
+- 方式三：异步 Promise 操作文件：代码不会被阻塞，通过 fs.promises 调用方法操作，会返回一个 Promise，可以通过 then、catch 进行处理；
+
+```JavaScript
+fs.promises.stat("文件路径").then(info => {
+  console.log(info);
+}).catch(err => {
+  console.log(err);
+})
+```
