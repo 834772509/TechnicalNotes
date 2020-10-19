@@ -60,6 +60,14 @@ module.exports = {
     ["@vuepress/medium-zoom"],
     // 显示最后更新时间
     ["@vuepress/last-updated"],
+    // PWA
+    [
+      "@vuepress/pwa",
+      {
+        serviceWorker: true,
+        updatePopup: true,
+      },
+    ],
   ],
   // 配置图片，支持图片中文命名
   markdown: {
