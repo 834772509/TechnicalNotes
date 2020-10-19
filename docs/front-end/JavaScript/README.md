@@ -207,6 +207,12 @@ alert("提示信息");
 location.assign("URL");
 ```
 
+### 自动补齐数字
+
+```JavaScript
+需要补充的数字.padStart(位数,填充数字)
+```
+
 ## 函数
 
 ### 声明写法
@@ -291,10 +297,13 @@ function 函数名(参数1, 参数2, ...剩余参数) {
 
 ### 箭头函数
 
+箭头函数不绑定 this，也不绑定 argument 数组
+
 ```JavaScript
 const 箭头函数 = () => {
 
 };
+
 const 箭头函数 = (参数1, 参数2) => {
 
 };

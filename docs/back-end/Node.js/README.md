@@ -459,6 +459,8 @@ ES Module 加载 js 文件的过程是编译（解析）时加载的，并且是
 - Windows 系统使用了一个虽然不同但概念上类似的机制来跟踪资源。
 
 ```JavaScript
+const fs = require("fs");
+
 fs.open("文件路径", (err, fd) => {
   if (err) {
     console.log(err);
@@ -484,6 +486,8 @@ fs (File System)，文件系统。对于任何一个为服务器端服务的语�
 - 方式一：同步操作文件：代码会被阻塞，不会继续执行；
 
 ```JavaScript
+const fs = require("fs");
+
 const info = fs.statSync("文件路径");
 console.log(info);
 ```
@@ -491,6 +495,8 @@ console.log(info);
 - 方式二：异步回调函数操作文件：代码不会被阻塞，需要传入回调函数，当获取到结果时，回调函数被执行；
 
 ```JavaScript
+const fs = require("fs");
+
 fs.stat("文件路径", (err, stat) => {
   if (err) {
     console.log(err);
@@ -509,3 +515,159 @@ fs.promises.stat("文件路径").then(info => {
   console.log(err);
 })
 ```
+
+### 文件的读写
+
+- 写文件
+
+```JavaScript
+const fs = require("fs");
+
+fs.writeFile("文件路径", "文件内容", { flag: "flag选项" }, (err) => {
+  console.log(err);
+});
+```
+
+flag 选项：
+
+- w : 打开文件写入，默认值；
+- w+ : 打开文件进行读写，如果不存在则创建文件；
+- r+ : 打开文件进行读写，如果不存在那么抛出异常；
+- r : 打开文件读取，读取时的默认值；
+- a : 打开要写入的文件，将流放在文件末尾。如果不存在则创建文件；
+- a+ : 打开文件以进行读写，将流放在文件末尾。如果不存在则创建文件
+
+- 读文件
+
+::: tip 提示
+如果不填写 encoding，返回的结果是 Buffer
+:::
+
+```JavaScript
+const fs = require("fs");
+
+fs.readFile("文件路径", {encoding: "utf8"}, (err, data) => {
+  console.log(data);
+})
+```
+
+### 文件夹操作
+
+- 判断是否为文件夹
+
+```JavaScript
+const fs = require("fs");
+
+fs.stat("文件夹路径", (err, stat) => {
+  console.log(stat.isDirectory());
+})
+```
+
+- 判断文件夹是否存在
+
+```JavaScript
+const fs = require("fs");
+
+fs.existsSync("文件夹路径");
+```
+
+- 创建文件夹
+
+```JavaScript
+const fs = require("fs");
+
+fs.mkdir("文件夹路径", err => {
+  console.log(err);
+})
+```
+
+- 读取文件夹中的所有文件
+
+```JavaScript
+const fs = require("fs");
+
+fs.readdir("文件夹路径", (err,files) => {
+  console.log(files);
+})
+```
+
+```JavaScript
+/**
+ * 枚举文件夹内的所有文件，包括子目录
+ * @param {String} dirname 文件夹路径
+ */
+function getFiles(dirname) {
+  fs.readdir(dirname, { withFileTypes: true }, (err, files) => {
+    files.forEach((item) => {
+      if (item.isDirectory()) {
+        const filePath = path.resolve(dirname, item.name);
+        getFiles(filePath);
+      } else {
+        console.log(path.resolve(dirname, item.name));
+      }
+    });
+  });
+}
+```
+
+- 重命名文件夹
+
+```JavaScript
+const fs = require("fs");
+
+fs.rename("文件夹路径", "新路径", (err) => {
+  console.log(err);
+});
+```
+
+## 内置模块 events
+
+Node 中的核心 API 都是基于异步事件驱动的：
+
+- 在这个体系中，某些对象（发射器（Emitters））发出某一个事件；
+- 我们可以监听这个事件（监听器 Listeners），并且传入的回调函数，这个回调函数会在监听到事件时调用；
+
+### 基本使用
+
+```JavaScript
+const EventEmitter = require("events");
+
+// 创建发射器
+const emitter = new EventEmitter();
+
+// 监听事件
+emitter.on("事件名", (参数) => {
+  console.log("监听到事件", 参数);
+});
+
+const 事件名 = (参数) => {
+  console.log("监听到事件", 参数);
+};
+emitter.on("事件名", 事件名);
+
+// 发射事件
+emitter.emit("事件名", "参数值");
+
+// 关闭事件
+emitter.off("事件名", 事件名);
+```
+
+### 常见的属性
+
+- 获取 EventEmitter 对象注册的事件
+
+  ```JavaScript
+  console.log(emitter.eventNames());
+  ```
+
+- 获取 EventEmitter 对象某一个事件名称中监听器的个数
+
+  ```JavaScript
+  console.log(emitter.listenerCount("事件名"));
+  ```
+
+- 获取 EventEmitter 对象某个事件监听器上所有的监听器
+
+  ```JavaScript
+  console.log(emitter.listeners("事件名"));
+  ```
