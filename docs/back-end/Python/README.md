@@ -64,7 +64,7 @@ trusted-host=mirrors.aliyun.com
 ### 三元运算符
 
 ```Python
-small = x if x < y else y
+变量 = 真值 if 条件 else 假值
 ```
 
 ### 循环语句
