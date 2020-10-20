@@ -465,6 +465,23 @@ const store = createStore(reducer, composeEnhancers(storeEnhancer));
 export default store;
 ```
 
+### 生产环境下不使用 Redux-Devtools
+
+```JavaScript
+let store;
+if (
+  process.env.NODE_ENV === "development" &&
+  (window.__REDUX_DEVTOOLS_EXTENSION__ || window.__REDUX_DEVTOOLS_EXTENSION__)
+) {
+  // 开发环境且已安装 Redux-Devtools 插件
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
+  store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+} else {
+  // 生产环境
+  store = createStore(reducer, applyMiddleware(thunk));
+}
+```
+
 ### 隐藏 react devtools 标记
 
 [Flag to disable devtools](https://github.com/facebook/react-devtools/issues/191)
