@@ -81,10 +81,16 @@ REPL 是 Read-Eval-Print Loop 的简称，翻译为“读取-求值-输出”循
 
 ## 环境搭建
 
+### 安装Node.js
+
 [下载 Node.js](https://nodejs.org/zh-cn/)
 
 LTS 版本：相对稳定一些，推荐线上环境使用该版本；
 Current 版本：最新的 Node 版本，包含很多新特性；
+
+### 配置淘宝镜像
+
+`npm config set registry https://registry.npm.taobao.org`
 
 ## Node 程序传递参数
 
@@ -671,3 +677,82 @@ emitter.off("事件名", 事件名);
   ```JavaScript
   console.log(emitter.listeners("事件名"));
   ```
+
+## NPM 包管理工具
+
+### 项目配置文件常见属性
+
+**必须填写的属性：name、version**
+
+- name 是项目的名称；
+- version 是当前项目的版本号；
+- description 是描述信息，很多时候是作为项目的基本描述；
+- author 是作者相关信息（发布时用到）；
+- license 是开源协议（发布时用到）；
+
+**private 属性：**
+
+- private 属性记录当前的项目是否是私有的；
+- 当值为 true 时，npm 是不能发布它的，这是防止私有项目或模块发布出去的方式；
+
+**main 属性：**
+
+- 设置程序的入口。
+
+**scripts 属性**
+
+::: tip 提示
+npm start 和 npm run start 的区别：
+
+- 它们是等价的；
+- 对于常用的 start、 test、stop、restart 可以省略掉 run 直接通过 npm start 等方式运行；
+
+:::
+
+- scripts 属性用于配置一些脚本命令，以键值对的形式存在；
+- 配置后我们可以通过 npm run 命令的 key 来执行这个命令；
+
+**dependencies 属性**
+
+- dependencies 属性是指定无论开发环境还是生成环境都需要依赖的包；
+- 通常是我们项目实际开发用到的一些库模块；
+- 与之对应的是 devDependencies；
+
+**devDependencies 属性**
+
+- 一些包在生成环境是不需要的，比如 webpack、babel 等；
+- 这个时候我们会通过 npm install webpack --save-dev，将它安装到 devDependencies 属性中；
+
+### 版本规范
+
+semver 版本规范是 X.Y.Z：
+
+- X 主版本号（major）：当你做了不兼容的 API 修改（可能不兼容之前的- ）；
+- Y 次版本号（minor）：当你做了向下兼容的功能性新增（新功能增加，但- 容之前的版本）；
+- Z 修订号（patch）：当你做了向下兼容的问题修正（没有新功能，修复了之前版本的 bug）；
+
+::: tip 提示
+`^x.y.z`：表示 x 是保持不变的，y 和 z 永远安装最新的版本；  
+`~x.y.z`：表示 x 和 y 保持不变的，z 永远安装最新的版本；
+:::
+
+### npm install 命令
+
+::: tip 提示
+通常使用 npm 全局安装的包都是一些工具包：yarn、webpack 等；
+并不是类似于 axios、express、koa 等库文件；
+全局安装了之后并不能让我们在所有的项目中使用 axios 等库；
+:::
+
+- 全局安装 ： `npm install 包名 -g`
+- 局部安装 ： `npm install 包名`
+
+### npm install 原理
+
+![npm install原理](./img/npminstall原理.jpg)
+
+### npm 其他命令
+
+- 卸载依赖: `npm unstall 包名`
+- 强制重新 build: `npm rebuild`
+- 清除缓存: `npm cache clean`
