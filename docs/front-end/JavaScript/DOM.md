@@ -693,6 +693,23 @@ ul.appendChild(li);
 });
 ```
 
+### 回到顶部（缓动）
+
+```JavaScript
+组件.addEventListener("click", function () {
+  clearInterval(window.timer);
+  window.timer = setInterval(function () {
+    let step = (0 - window.pageYOffset) / 10;
+    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+    if (window.pageYOffset == 0) {
+      clearInterval(window.timer);
+      callback && callback();
+    }
+    window.scroll(0, window.pageYOffset + step);
+  }, 15);
+}
+```
+
 ### 缓动
 
 缓动动画：盒子当前的位置＋变化的值。即：(目标值 – 现在的位置)/10
