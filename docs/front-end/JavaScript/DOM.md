@@ -703,7 +703,6 @@ ul.appendChild(li);
     step = step > 0 ? Math.ceil(step) : Math.floor(step);
     if (window.pageYOffset == 0) {
       clearInterval(window.timer);
-      callback && callback();
     }
     window.scroll(0, window.pageYOffset + step);
   }, 15);
