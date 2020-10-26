@@ -81,7 +81,7 @@ REPL 是 Read-Eval-Print Loop 的简称，翻译为“读取-求值-输出”循
 
 ## 环境搭建
 
-### 安装Node.js
+### 安装 Node.js
 
 [下载 Node.js](https://nodejs.org/zh-cn/)
 
@@ -756,3 +756,57 @@ semver 版本规范是 X.Y.Z：
 - 卸载依赖: `npm unstall 包名`
 - 强制重新 build: `npm rebuild`
 - 清除缓存: `npm cache clean`
+
+## Commander
+
+Commander 是一个帮助快速开发 Nodejs 命令行工具的 package
+
+### 安装
+
+`npm install commander --save`
+
+### 解析终端命令
+
+::: tip 提示
+此行代码需要放置最后
+:::
+
+```JavaScript
+const program = require("commander");
+
+program.parse(process.argv);
+```
+
+### 查看版本号
+
+```JavaScript
+program.version(require("./package.json").version);
+```
+
+### 自定义 Option
+
+```JavaScript
+// 无参
+program.option("-命令行缩写 --命令行", "命令行描述");
+// 有参
+program.option("-命令行缩写 --命令行 <参数名>", "命令行描述");
+```
+
+### 监听 Option
+
+```JavaScript
+program.on("--命令行", function () {
+
+});
+```
+
+### 自定义命令
+
+```JavaScript
+program
+  .command("命令行 <参数名> [其他参数...]")
+  .description("命令行描述")
+  .action((参数名,其他参数)=>{
+
+  });
+```
