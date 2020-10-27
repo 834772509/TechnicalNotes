@@ -587,6 +587,25 @@ fs.mkdir("文件夹路径", err => {
 })
 ```
 
+- 递归创建文件夹
+
+```JavaScript
+/**
+ * 创建文件夹（包括子目录）
+ * @param {String} pathName 目录路径
+ */
+const createDirSync = (pathName) => {
+  if (fs.existsSync(pathName)) {
+    return true;
+  } else {
+    if (createDirSync(path.dirname(pathName))) {
+      fs.mkdir(pathName);
+      return true;
+    }
+  }
+};
+```
+
 - 读取文件夹中的所有文件
 
 ```JavaScript
