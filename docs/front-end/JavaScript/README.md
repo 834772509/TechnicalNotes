@@ -1228,6 +1228,11 @@ Promise.race([p1, p2]).then((res) => {
 
 ## Async Await
 
+async、awai 是 Promise 的一个语法糖:
+
+- 可以将 await 关键字后面执行的代码，看做是包裹在(resolve，reject)=>{函数执行}中的代码;
+- await 的下一条语句。可以看做是 then(res =>{函数执行})中的代码;
+
 ```JavaScript
 async function 函数名() {
   console.log(1)
