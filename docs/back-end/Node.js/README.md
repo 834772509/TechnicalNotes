@@ -526,13 +526,13 @@ fs.promises.stat("文件路径").then(info => {
 
 - 写文件
 
-```JavaScript
-const fs = require("fs");
+  ```JavaScript
+  const fs = require("fs");
 
-fs.writeFile("文件路径", "文件内容", { flag: "flag选项" }, (err) => {
-  console.log(err);
-});
-```
+  fs.writeFile("文件路径", "文件内容", { flag: "flag选项" }, (err) => {
+    console.log(err);
+  });
+  ```
 
 flag 选项：
 
@@ -545,17 +545,17 @@ flag 选项：
 
 - 读文件
 
-::: tip 提示
-如果不填写 encoding，返回的结果是 Buffer
-:::
+  ::: tip 提示
+  如果不填写 encoding，返回的结果是 Buffer
+  :::
 
-```JavaScript
-const fs = require("fs");
+  ```JavaScript
+  const fs = require("fs");
 
-fs.readFile("文件路径", {encoding: "utf8"}, (err, data) => {
-  console.log(data);
-})
-```
+  fs.readFile("文件路径", {encoding: "utf8"}, (err, data) => {
+    console.log(data);
+  })
+  ```
 
 ### 文件夹操作
 
@@ -599,7 +599,7 @@ const createDirSync = (pathName) => {
     return true;
   } else {
     if (createDirSync(path.dirname(pathName))) {
-      fs.mkdir(pathName);
+      fs.mkdirSync(pathName);
       return true;
     }
   }
@@ -829,3 +829,45 @@ program
 
   });
 ```
+
+## 事件循环和异步 IO
+
+### 什么是事件循环
+
+- 事件循环可以理解成我们编写的 JavaScript 和浏览器或者 Node 之间的一个桥梁。
+- 浏览器的事件循环是一个我们编写的 JavaScript 代码和浏览器 API 调用(setTimeout/AJAX/监听事件等)的一个桥梁,桥梁之间他们通过回调函数进行沟通。
+- Node 的事件循环是一个我们编写的 JavaScript 代码和系统调用（file system、network 等）之间的一个桥梁, 桥梁之间他们通过回调函数进行沟通的.
+
+### 进程和线程
+
+线程和进程是操作系统中的两个概念：
+
+- 进程（process）：计算机已经运行的程序；
+  - 可以认为，启动一个应用程序，就会默认启动一个进程（也可能是多个进程）
+- 线程（thread）：操作系统能够运行运算调度的最小单位；
+  - 每一个进程中，都会启动一个线程用来执行程序中的代码，这个线程被称之为主线程
+
+### 浏览器和 JavaScript
+
+目前多数的浏览器其实都是多进程的，当我们打开一个 tab 页面时就会开启一个新的进程，这是为了防止一个页面卡死而造成所有页面无法响应，整个浏览器需要强制退出；
+
+- 每个进程中又有很多的线程，其中包括执行 JavaScript 代码的线程；
+
+但是 JavaScript 的代码执行是在一个单独的线程中执行的：
+
+- 这就意味着 JavaScript 的代码，在同一个时刻只能做一件事；
+- 如果这件事是非常耗时的，就意味着当前的线程就会被阻塞；
+
+### 宏任务和微任务
+
+事件循环中并非只维护着一个队列，事实上是有两个队列：
+
+- 宏任务队列（macrotask queue）：ajax、setTimeout、setInterval、DOM 监听、UI Rendering 等
+- 微任务队列（microtask queue）：Promise 的 then 回调、 Mutation Observer API、queueMicrotask()等
+
+事件循环对于两个队列的优先级：
+
+1. main script 中的代码优先执行（编写的顶层 script 代码）；
+2. 在执行任何一个宏任务之前（不是队列，是一个宏任务），都会先查看微任务队列中是否有任务需要执行
+   - 也就是**宏任务执行之前，必须保证微任务队列是空的**；
+   - 如果不为空，那么久优先执行微任务队列中的任务（回调）；
