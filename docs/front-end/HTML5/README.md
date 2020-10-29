@@ -277,6 +277,17 @@ table 有一个特殊的 CSS：`border-collapse: collapse;`，设置后可将相
 
 ## 表单标签
 
+### fieldset 标签
+
+`<fieldset>` 标签是对表单中的相关元素进行分组，效果是在上边框左侧显示标题
+
+```html
+<fieldset>
+  <legend>标题</legend>
+  <h2>内容</h2>
+</fieldset>
+```
+
 ### label 标签
 
 `<label>` 标签的作用是为鼠标用户改进可用性，当用户点击`<label>`标签中的文本时，浏览器就会自动将焦点转到和该标签相关联的控件上。`<label>`标签通常和`<input>`标签一起使用；
