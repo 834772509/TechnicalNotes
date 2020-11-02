@@ -69,23 +69,26 @@ trusted-host=mirrors.aliyun.com
 
 ### 循环语句
 
-- while 循环语句
+- 指定循环次数
 
 ```Python
-while 条件:
-  循环体
+for i in range(10):
+  print(i)
 ```
 
-- for 循环语句
+- while 循环
 
-```Python
-for 目标 in 表达式:
+  ```Python
+  while 条件:
     循环体
+  ```
 
-#range([起始],结束[,步长])
-for 目标 in range(5):
-  循环体
-```
+- for 循环
+
+  ```Python
+  for 目标 in 表达式:
+    循环体
+  ```
 
 - range()函数：range([start], stop[, step=1])，有三个参数，中括号中的内容可选，step 是步进，这个 BIF 的作用是生成一个从 start 参数的值开始到 stop 参数的值结束的数字序列，经常与 for 循环联合使用。记住，是左闭右开区间
 - break：跳出循环体

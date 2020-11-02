@@ -7,7 +7,7 @@ actionText: 了解更多 →
 
 features:
   - title: 个人介绍
-    details: 主要涉及技术：Web前端开发、Java、Python 后端开发、开源爱好者、FirPE作者
+    details: 主要涉及技术：Web前端开发、Java 后端开发、开源爱好者、FirPE作者
   - title: 开发笔记
     details: Web前端开发笔记、Java 后端开发笔记
   - title: 技术博客
