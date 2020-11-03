@@ -36,11 +36,11 @@ server.listen(8000, "0.0.0.0", () => {
 
 ### 热部署
 
-### 安装 nodemon
+- 安装 nodemon
 
 `npm install nodemon -g`
 
-### 启动项目
+- 启动项目
 
 `nodemon index.js`
 
@@ -173,3 +173,42 @@ const server = http.createServer((req, res) => {
     res.end("<h2>Hello Server</h2>");
   });
   ```
+
+## 发送网络请求
+
+### GET
+
+```JavaScript
+const http = require("http");
+
+http.get("URL", (res) => {
+  res.on("data", (data) => {
+    console.log(data);
+  });
+
+  res.on("end", () => {
+    console.log("获取了所有的结果");
+  })
+});
+```
+
+### POST
+
+```JavaScript
+const req = http.request(
+  {
+    method: "POST",
+    hostname: "localhost",
+    post: 8000,
+  },
+  (res) => {
+    res.on("data", (data) => {
+      console.log(data.toString());
+    });
+    res.on("end", () => {
+      console.log("获取了所有的结果");
+    });
+  }
+);
+req.end();
+```
