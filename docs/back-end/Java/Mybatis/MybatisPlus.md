@@ -1,12 +1,12 @@
 # MyBatisPlus
 
-Mybatis的升级,节省我们大量的工作时间,所有CRUD代码它都可以自动化
+Mybatis 的升级,节省我们大量的工作时间,所有 CRUD 代码它都可以自动化
 
 ## [官方文档](https://baomidou.com/guide/page.html)
 
 > 简介
 
-是什么? MyBatis是简化JDBC操作,它是简化Mybatis的操作
+是什么? MyBatis 是简化 JDBC 操作,它是简化 Mybatis 的操作
 
 > 特性
 
@@ -23,12 +23,10 @@ Mybatis的升级,节省我们大量的工作时间,所有CRUD代码它都可以�
 - **内置性能分析插件**：可输出 Sql 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询
 - **内置全局拦截插件**：提供全表 delete 、 update 操作智能分析阻断，也可自定义拦截规则，预防误操作
 
-
-
 ## 快速入门
 
 1. 创建数据库,导入数据
-2. IDEA创建Springboot项目
+2. IDEA 创建 Springboot 项目
 3. 导入依赖
 
 ```xml
@@ -55,15 +53,15 @@ spring:
     password: "密码"
     #数据库 8.0及以上的链接方式
     url: jdbc:mysql://127.0.0.1:3306/数据库名?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
-	#数据库8.0及以上驱动
+    #数据库8.0及以上驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
 ```
 
-5.mybatis-plus的步骤:
+5.mybatis-plus 的步骤:
 
 - 创建实体类
-- 创建Mapper接口
-- 继承BaseMapper接口
+- 创建 Mapper 接口
+- 继承 BaseMapper 接口
 
 ```Java
 //实体类
@@ -100,19 +98,15 @@ class MybatisPlusApplicationTests {
 }
 ```
 
-
-
 ## 配置日志
 
-看sql执行流程
+看 sql 执行流程
 
 ```yaml
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ```
-
-
 
 ## CRUD
 
@@ -138,17 +132,17 @@ user:
 User{id=1324912175405109250, name='QZS', age=18, email='22222@qq.com'}
 ```
 
-> 数据库插入的id的默认值为: 全局的唯一id
+> 数据库插入的 id 的默认值为: 全局的唯一 id
 
 ### 主键生成策略
 
-> 默认 ID_WORKER 全局唯一id
+> 默认 ID_WORKER 全局唯一 id
 
-​	分布式系统唯一id生成
+​ 分布式系统唯一 id 生成
 
 1. 雪花算法:
 
-   snowflake是Twitter开源的分布式ID生成算法，结果是一个long型的ID。其核心思想是：使用41bit作为毫秒数，10bit作为机器的ID（5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是0。
+   snowflake 是 Twitter 开源的分布式 ID 生成算法，结果是一个 long 型的 ID。其核心思想是：使用 41bit 作为毫秒数，10bit 作为机器的 ID（5 个 bit 是数据中心，5 个 bit 的机器 ID），12bit 作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是 0。
 
    ![img](https://upload-images.jianshu.io/upload_images/13382703-b64e38457ddd13e2.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/1021/format/webp)
 
@@ -178,7 +172,7 @@ User{id=1324912175405109250, name='QZS', age=18, email='22222@qq.com'}
 //第一次
 public void testUpdate(){
         User user = new User(1324912175405109250L,"QZS11",20,"22222@qq.com");
-     	
+
         int re = userMapper.updateById(user);
         System.out.println(re);
 }
@@ -193,12 +187,12 @@ public void testUpdate(){
 
 结果:
 //第一次
-UPDATE user SET name=?, age=?, email=? WHERE id=? 
+UPDATE user SET name=?, age=?, email=? WHERE id=?
 //第二次
-UPDATE user SET name=? WHERE id=? 
+UPDATE user SET name=? WHERE id=?
 ```
 
-发现:所有的sql都是自动帮你动态配置的!
+发现:所有的 sql 都是自动帮你动态配置的!
 
 ### 自动填充
 
@@ -208,8 +202,8 @@ UPDATE user SET name=? WHERE id=?
 
 1. 在表中新增字段 create_time,update_time
 2. 设置默认时间戳 和 更新时间戳
-3. 更新实体类 
-4. 测试 
+3. 更新实体类
+4. 测试
 
 > 方式二: 代码级别
 
@@ -227,8 +221,8 @@ UPDATE user SET name=? WHERE id=?
 3. 编写处理器来处理这个注解即可!
 
    ```java
-   
-   
+
+
    @Component //将处理器加入到IOC容器中
    public class MyMetaObjectHandler implements MetaObjectHandler {
        //插入是的填充策略
@@ -257,16 +251,16 @@ UPDATE user SET name=? WHERE id=?
 
 乐观锁实现方式：
 
-> - 取出记录时，获取当前version
-> - 更新时，带上这个version
+> - 取出记录时，获取当前 version
+> - 更新时，带上这个 version
 > - 执行更新时， set version = newVersion where version = oldVersion
-> - 如果version不对，就更新失败
+> - 如果 version 不对，就更新失败
 
-1. 数据库增加字段version 默认值为1
-2. 实体类增加属性version并加上乐观锁注解@Version
+1. 数据库增加字段 version 默认值为 1
+2. 实体类增加属性 version 并加上乐观锁注解@Version
 3. 注册组件
 
-3.0.5版本
+3.0.5 版本
 
 ```java
 //mybatis-plus  3.0.5 的方式
@@ -277,11 +271,11 @@ public class MybatisPlusConfig{
     public OptimisticLockerInterceptor optimisticLockerInterceptor(){
         return new OptimisticLockerInterceptor();
     }
-    
+
 }
 ```
 
-3.4.0版本 
+3.4.0 版本
 
 ```java
 @Configuration
@@ -296,8 +290,6 @@ public class MybatisPlusConfig {
     }
 }
 ```
-
-
 
 ### 查询
 
@@ -317,13 +309,11 @@ public void testQuery(){
 }
 ```
 
-
-
 ### 分页查询
 
- 1.配置拦截器组件
+1.配置拦截器组件
 
-3.0.5版本
+3.0.5 版本
 
 ```java
 public class MybatisPlusConfig{
@@ -335,7 +325,7 @@ public class MybatisPlusConfig{
 }
 ```
 
-3.4.0版本
+3.4.0 版本
 
 ```java
 @Configuration
@@ -370,7 +360,7 @@ public class MybatisPlusConfig {
 
 管理员可以查看被删除的记录!防止数据的丢失类似回收站!
 
-1. 增加一个字段deleted 默认值为0  **不要和数据库关键字delete冲突**
+1. 增加一个字段 deleted 默认值为 0 **不要和数据库关键字 delete 冲突**
 
 2. 实体类中增加属性并加上逻辑删除注解@TableLogic
 
@@ -396,13 +386,13 @@ public class MybatisPlusConfig {
    mybatis-plus:
      global-config:
        db-config:
-         logic-delete-value: 1      #删除
-         logic-not-delete-value: 0  #未删除
+         logic-delete-value: 1 #删除
+         logic-not-delete-value: 0 #未删除
    ```
 
    3.4.0 版本
 
-   步骤3不需要
+   步骤 3 不需要
 
 5. 测试
 
@@ -416,21 +406,21 @@ public class MybatisPlusConfig {
    UPDATE user SET deleted=1 WHERE id=? AND deleted=0
    参数:1324912175405109250(Long)
    返回值:1 一条数据被影响
-       
+
    再查询改条记录:
    sql语句:
-   SELECT id,name,age,email,create_time,update_time,version,deleted FROM user WHERE id=? AND deleted=0 
+   SELECT id,name,age,email,create_time,update_time,version,deleted FROM user WHERE id=? AND deleted=0
    参数:1324912175405109250(Long)
-   总数: 0  没有查找到 
+   总数: 0  没有查找到
    ```
 
    结论:
 
-   ​	逻辑删除走的是更新操作而不是删除操作
+   ​ 逻辑删除走的是更新操作而不是删除操作
 
-   ​	该插件查询的时候会自动过滤被逻辑删除的字段
+   ​ 该插件查询的时候会自动过滤被逻辑删除的字段
 
-   ​	
+   ​
 
 ## 性能分析插件
 
@@ -449,7 +439,7 @@ public class MybatisPlusConfig {
    }
    ```
 
-3.4.0  版本
+3.4.0 版本
 
 ```pro
 modulelist=com.baomidou.mybatisplus.extension.p6spy.MybatisPlusLogFactory,com.p6spy.engine.outage.P6OutageFactory
@@ -477,13 +467,11 @@ outagedetectioninterval=2
 
 ## 条件构造器
 
-十分重要 Wapper 作用类似动态sql
+十分重要 Wapper 作用类似动态 sql
 
-不用自己手写 如 like  is   between 这种
+不用自己手写 如 like is between 这种
 
-wapper这个类封装这些sql关键字
-
-
+wapper 这个类封装这些 sql 关键字
 
 ## 代码生成器
 
@@ -624,5 +612,4 @@ public class AutoCode {
 }
 ```
 
-前提: 把你需要用到底jar包提前导入进去 避免生成完成后,代码报错
-
+前提: 把你需要用到底 jar 包提前导入进去 避免生成完成后,代码报错
