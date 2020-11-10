@@ -147,8 +147,201 @@ app.listen(8000, () => {
   app.use(express.json());
   app.use(express.urlencoded(({extended: true})));
 
-  app.post("/login", (req, res, next) => {
+  app.post("/URL", (req, res, next) => {
     console.log(req.body);
     res.end();
   });
   ```
+
+- 解析 form-data
+
+  安装 multer：`npm install multer`
+
+  ```JavaScript
+  const multer = require("multer");
+
+  const upload = multer();
+
+  app.post("/URL", upload.any(), (req, res) => {
+    console.log(req.body);
+    res.end("用户登录成功");
+  });
+  ```
+
+- 上传文件
+
+  ```JavaScript
+  const path = require("path");
+  const multer = require("multer");
+
+  const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+      callback(null, "./上传路径/");
+    },
+    filename: (req, file, callback) => {
+      callback(null, Date.now() + path.extname(file.originalname));
+    },
+  });
+
+  const upload = multer({
+    storage,
+  });
+
+  app.post("/URL", upload.fields([{ name: "file", maxCount: 2 }]), (req, res, next) => {
+    console.log(req.files);
+    res.end("文件上传成功");
+  });
+  ```
+
+- 保存日志信息
+
+  安装 morgan：`npm install morgan`
+
+  ```JavaScript
+  const fs = require("fs");
+
+  const express = require("express");
+  const morgan = require("morgan");
+
+  const app = express();
+
+  const writeStream = fs.createWriteStream("./logs/access.log", {
+    flags: "a+",
+  });
+
+  app.use(morgan("combined", { stream: writeStream }));
+
+  app.get("/", (req, res, next) => {
+    res.end("Hello World");
+  });
+  ```
+
+### request 参数解析-params-query
+
+```JavaScript
+const express = require("express");
+const app = express();
+
+app.get("/url/:参数名/:参数名", (req, res, next) => {
+  console.log(req.params);
+  res.end();
+});
+```
+
+### response 响应结果
+
+```JavaScript
+const express = require("express");
+const app = express();
+
+app.get("/login", (req, res, next) => {
+  console.log(req.query);
+  // 设响应码
+  res.status(204);
+  // 设置内容
+  // res.json(["aaa", "bbb", "ccc"]);
+  res.json({ name: "why", age: 18 });
+});
+```
+
+## 路由
+
+express.Router 用来创建一个路由处理程序：
+
+- 一个 Router 实例拥有完整的中间件和路由系统；
+- 因此，它也被称为 迷你应用程序（mini-app）；
+
+- index.js
+
+  ```JavaScript
+  const express = require("express");
+
+  const userRouter = require("./routers/users");
+
+  const app = express();
+
+  app.use("/users", userRouter);
+
+  app.listen(8000, () => {
+    console.log("路由服务器启动成功");
+  });
+  ```
+
+- 路由名.js
+
+  ```JavaScript
+  const express = require("express");
+
+  const router = express.Router();
+
+  router.get("/", (req, res, next) => {
+    res.json(["why", "kobe", "lilei"]);
+  });
+
+  router.get("/:id", (req, res, next) => {
+    res.json(`${req.params.id}用户的信息`);
+  });
+
+  router.post("/", (req, res, next) => {
+    res.json("创建用户成功");
+  });
+
+  module.exports = router;
+  ```
+
+## 错误处理
+
+```JavaScript
+const express = require("express");
+
+const app = express();
+
+const USERNAME_DOES_NOT_EXISTS = "USERNAME_DOES_NOT_EXISTS";
+const USERNAME_ALREADY_EXISTS = "USERNAME_ALREADY_EXISTS";
+
+app.post("/login", (req, res, next) => {
+  const isLogin = true;
+  if (isLogin) {
+    res.json("用户登录成功");
+  } else {
+    next(new Error(USERNAME_DOES_NOT_EXISTS));
+  }
+});
+
+app.post("/register", (req, res, next) => {
+  const isExists = true;
+
+  if (!isExists) {
+    res.json("用户注册成功");
+  } else {
+    next(new Error(USERNAME_ALREADY_EXISTS));
+  }
+});
+
+app.use((err, req, res, next) => {
+  let status = 400;
+  let message = "";
+
+  switch (err.message) {
+    case USERNAME_DOES_NOT_EXISTS:
+      message = "用户名不存在";
+      break;
+    case USERNAME_ALREADY_EXISTS:
+      message = "用户名已存在";
+      break;
+    default:
+      message = "没有找到";
+  }
+
+  res.status(status);
+  res.json({
+    errCode: status,
+    errMsg: message,
+  });
+});
+
+app.listen(8000, () => {
+  console.log("错误处理服务器启动成功");
+});
+
+```
