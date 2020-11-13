@@ -96,17 +96,294 @@
 - 一条语句结束后，需要以 ; 结尾；
 - 如果遇到关键字作为表明或者字段名称，可以使用``包裹;
 
-### 数据库操作
+## 数据库操作
 
-- 创建数据库
+### 创建数据库
 
-  - 直接创建：`CREATE DATABASE 数据库名`
-  - 如果表不存在时则创建：`CREATE DATABASE IF NOT EXISTS 数据库名`
+- 直接创建：`CREATE DATABASE 数据库名`
+- 如果表不存在时则创建：`CREATE DATABASE IF NOT EXISTS 数据库名`
 
-- 删除数据库：`DROP DATABASE IF EXISTS 数据库名;`
-- 修改数据库编码：`ALTER DATABASE 数据库名 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci`
+### 删除数据库
 
-### 数据表的操作
+```sql
+DROP DATABASE IF EXISTS 数据库名;
+```
 
-- 创建表：`` CREATE TABLE IF NOT EXISTS`表名`(`字段名` 数据类型,`字段名`数据类型); ``
-- 删除表：`` DROP TABLE IF EXISTS`表名`; ``
+### 修改数据库编码
+
+```sql
+ALTER DATABASE 数据库名 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci
+```
+
+## 数据表的操作
+
+### 创建表
+
+```sql
+CREATE TABLE IF NOT EXISTS`表名`(`字段名` 数据类型,`字段名`数据类型);
+```
+
+### 删除表
+
+```sql
+DROP TABLE IF EXISTS`表名`;
+```
+
+### 修改表
+
+- 修改表名
+
+  ```sql
+  ALTER TABLE `表名` RENAME TO `新表名`;
+  ```
+
+- 添加一个新的列
+
+  ```sql
+  ALTER TABLE `表名` ADD `列名` 数据类型;
+  ```
+
+- 修改字段的名称
+
+  ```sql
+  ALTER TABLE `表名` CHANGE `字段名` `新字段名` 数据类型;
+  ```
+
+- 修改字段类型
+
+  ```sql
+  ALTER TABLE `表名` MODIFY `字段名` 数据类型;
+  ```
+
+- 删除某一个字段
+
+  ```sql
+  ALTER TABLE `表名` DROP `字段名`;
+  ```
+
+### 根据一个表结构创建另外一张表
+
+```sql
+CREATE TABLE `新表名` LIKE `表名`;
+```
+
+### 根据一个表中的所有内容，创建另外一张表
+
+```sql
+CREATE TABLE `新表名` (SELECT * FROM 表名);
+```
+
+### 查看表结构
+
+```sql
+DESC 表名;
+```
+
+### 查看创建表的 SQL 语句
+
+```sql
+SHOW CREATE TABLE `表名`;
+```
+
+## 数据库的增删改
+
+### 增加数据
+
+```sql
+INSERT INTO `表名` VALUES (值,值);
+```
+
+```sql
+INSERT INTO `表名` (`字段名`,`字段名`) VALUES (值,值);
+```
+
+### 删除数据
+
+- 删除所有数据
+
+  ```sql
+  DELETE FROM `表名`;
+  ```
+
+- 删除符合条件的数据
+
+  ```sql
+  DELETE FROM `表名` WHERE 字段名 = 值;
+  ```
+
+### 修改数据
+
+- 更新符合条件的数据
+
+  ```sql
+  UPDATE `表名` SET 字段名 = 值,字段名 = 值;
+  ```
+
+- 修改所有数据
+
+  ```sql
+  UPDATE `表名` SET 字段名 = 值,字段名 = 值 WHERE 字段名 = 值;
+  ```
+
+### 查询数据
+
+- 基本查询
+
+  ```sql
+  SELECT * FROM `表名`;
+  ```
+
+- 查询指定的字段
+
+  ```sql
+  SELECT 字段名,字段名 FROM `表名`;
+  ```
+
+- 对字段结果起别名
+
+  ```sql
+  SELECT 字段名 as 别名,字段名 as 别名 FROM `表名`;
+  ```
+
+### where 查询条件
+
+- 条件判断
+
+  ```sql
+  SELECT * from `表名` WHERE `字段名` < 值;
+  SELECT * from `表名` WHERE `字段名` = 值;
+  SELECT * from `表名` WHERE `字段名` != 值;
+  ```
+
+- 逻辑运算
+
+  ```sql
+  # 与
+  SELECT * FROM `表名` WHERE `字段名` >值 AND `字段名` <值;
+  SELECT * FROM `表名` WHERE `字段名` >值 && `字段名` <值;
+  # 或
+  SELECT * FROM `表名` WHERE `字段名` >值 || `字段名` = 值;
+  # [值1,值2]
+  SELECT * FROM `表名` WHERE `字段名` BETWEEN 值1 AND 值2;
+  ```
+
+- NULL
+
+  ```sql
+  # 将某些值设置为NULL
+  UPDATE `表名` SET url = NULL WHERE `字段名` >= 值 AND `字段名` <=值;
+  # 查询某一个值为NULL
+  SELECT * FROM `表名` WHERE `字段名` IS NULL;
+  # 查询某一个值为非NULL
+  SELECT * FROM `表名` WHERE `字段名` IS NOT NULL;
+  ```
+
+- 模糊查询
+
+  % 表示匹配任意个的任意字符；
+  \_ 表示匹配一个的任意字符；
+
+  ```sql
+  SELECT * FROM `表名` WHERE 字段名 LIKE '%字符%';
+  ```
+
+- IN
+
+  IN 表示取多个值中的其中一个
+
+  ```sql
+  SELECT * FROM `表名` WHERE 字段名 IN (值,值);
+  ```
+
+### 分页查询
+
+::: tip 提示
+LIMIT 内不支持计算符，需要程序去计算
+:::
+
+```sql
+SELECT * FROM `products` LIMIT 分页大小 OFFSET (当前页数-1)*分页大小;
+```
+
+```sql
+SELECT * FROM 表名 LIMIT (当前页数-1)*分页大小,分页大小
+```
+
+## SQL 的数据类型
+
+### 数字类型
+
+- 整数数字类型：INTEGER，INT，SMALLINT，TINYINT，MEDIUMINT，BIGINT；
+
+| 类型      | 储存空间（Bytes） | 最小值有符号 | 最小值无符号 | 最大值有符号 | 最大值无符号 |
+| --------- | ----------------- | ------------ | ------------ | ------------ | ------------ |
+| TINYINT   | 1                 | \-128        | 0            | 127          | 255          |
+| SMALLINT  | 2                 | \-32768      | 0            | 32767        | 65535        |
+| MEDIUMINT | 3                 | \-8388608    | 0            | 8388607      | 16777215     |
+| **INT**   | 4                 | \-2147483648 | 0            | 2147483647   | 4294967295   |
+| BIGINT    | 8                 | \-2^63       | 0            | 2^63\-1      | 2^64\-1      |
+
+- 精确数字类型：DECIMAL，NUMERIC（DECIMAL 是 NUMERIC 的实现形式）；
+- 浮点数字类型：FLOAT，DOUBLE（FLOAT 是 4 个字节，DOUBLE 是 8 个字节）；
+
+### 日期类型
+
+::: tip 提示
+DATETIME 或 TIMESTAMP 值可以包括在高达微秒（6 位）精度的后小数秒一部分。比如 DATETIME 表示的范围可以是'1000-01-01 00:00:00.000000'到'9999-12-31 23:59:59.999999';
+:::
+
+- YEAR 以 YYYY 格式显示值
+  - 范围 1901 到 2155，和 0000。
+- DATE 类型用于**具有日期部分但没有时间部分**的值：
+  - DATE 以格式 YYYY-MM-DD 显示值 ；
+  - 支持的范围是 '1000-01-01' 到 '9999-12-31'；
+- DATETIME 类型用于**包含日期和时间**部分的值：
+  - DATETIME 以格式'YYYY-MM-DD hh:mm:ss'显示值；
+  - 支持的范围是 1000-01-01 00:00:00 到 9999-12-31 23:59:59;
+- **TIMESTAMP** 数据类型被用于**同时包含日期和时间**部分的值：
+  - TIMESTAMP 以格式'YYYY-MM-DD hh:mm:ss'显示值；
+  - 但是它的范围是 UTC 的时间范围：'1970-01-01 00:00:01'到'2038-01-19 03:14:07';
+
+### 字符串类型
+
+- CHAR 类型在创建表时为固定长度，长度可以是 0 到 255 之间的任何值；
+  - 在被查询时，会删除后面的空格；
+- **VARCHAR** 类型的值是可变长度的字符串，长度可以指定为 0 到 65535 之间的值；
+  - 在被查询时，不会删除后面的空格；
+- BINARY 和 VARBINARY 类型用于存储二进制字符串，存储的是字节字符串；
+- BLOB 用于存储大的二进制类型；
+- TEXT 用于存储大的字符串类型；
+
+## 表约束
+
+### 主键 PRIMARY KEY
+
+::: tip 提示
+开发中主键字段应该是和业务无关的，尽量不要使用业务字段来作为主键
+:::
+
+一张表中，我们为了区分每一条记录的唯一性，必须有一个字段是永远不会重复，并且不会为空的，这个字段我们通常会
+将它设置为主键：
+
+- 主键是表中唯一的索引；
+- 并且必须是 **NOT NULL** 的，如果没有设置 NOT NULL，那么 MySQL 也会隐式的设置为 NOT NULL；
+- 主键也可以是多列索引，PRIMARY KEY( key_part, ...)，我们一般称之为联合主键；
+
+### 唯一 UNIQUE
+
+某些字段在开发中我们希望是唯一的，不会重复的，比如手机号码、身份证号码等，这个字段我们可以使用 UNIQUE 来约束 ：
+
+- 使用 UNIQUE 约束的字段在表中必须是不同的；
+- 对于所有引擎，UNIQUE 索引允许 NULL 包含的列具有多个值 NULL。
+
+### 不能为空：NOT NULL
+
+某些字段我们要求用户必须插入值，不可以为空，这个时候我们可以使用 NOT NULL 来约束；
+
+### 默认值：DEFAULT
+
+某些字段我们希望在没有设置值时给予一个默认值，这个时候我们可以使用 DEFAULT 来完成；
+
+### 自动递增：AUTO_INCREMENT
+
+某些字段我们希望不设置值时可以进行递增，比如用户的 id，这个时候可以使用 AUTO_INCREMENT 来完成；
