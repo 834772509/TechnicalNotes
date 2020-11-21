@@ -562,5 +562,3 @@ ALTER TABLE `表名` ADD FOREIGN KEY (外键字段名) REFERENCES 参考表(参�
   UNION
   (SELECT * FROM `右表名` RIGHT JOIN `左表名` ON 右表名.字段名 = 左表名.id WHERE 右表名.字段名 IS NULL);
   ```
-
-## 多对多关系数据
