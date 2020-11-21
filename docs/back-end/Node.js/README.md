@@ -178,7 +178,7 @@ Node 中给我们提供了一些全局对象，方便我们进行一些操作
 
 ## 模块化
 
-### CommonJS
+### CommonJS （推荐）
 
 CommonJS 是**一个规范**，最初提出来是在浏览器以外的地方使用，并且当时被命名为 **ServerJS**，后来为了体现它的广泛性，修改为 **CommonJS**，平时我们也会简称为 **CJS**。
 
@@ -696,6 +696,22 @@ emitter.off("事件名", 事件名);
   ```JavaScript
   console.log(emitter.listeners("事件名"));
   ```
+
+## 内置模块 crypto
+
+### MD5 加密
+
+```JavaScript
+/**
+ * MD5加密
+ * @param {Number} password 密码
+ */
+const md5Password = (password) => {
+  const md5 = crypto.createHash("md5");
+  const result = md5.update(password).digest("hex");
+  return result;
+};
+```
 
 ## NPM 包管理工具
 
