@@ -119,3 +119,11 @@ function delCookie(name) {
   setCookie(name, 1, -1);
 }
 ```
+
+### Cookie 的缺点
+
+- Cookie 会被附加在每个 HTTP 请求中，所以无形中增加了流量（事实上某些请求是不需要的）；
+- Cookie 是明文传递的，所以存在安全性的问题；
+- Cookie 的大小限制是 4KB，对于复杂的需求来说是不够的；
+- 对于**浏览器外的其他客户端（比如 iOS、Android），必须手动的设置 cookie 和 session**；
+- 对于**分布式系统和服务器集群中如何可以保证其他系统也可以正确的解析 session**

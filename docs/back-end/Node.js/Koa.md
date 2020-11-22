@@ -328,3 +328,81 @@ app.listen(8000, () => {
 因为 express 和 koa 框架他们的核心其实都是中间件：
 
 - 但是他们的中间件事实上，它们的中间件的执行机制是不同的，特别是针对某个中间件中包含异步操作时；
+
+## 登录凭证
+
+web 开发中，我们使用最多的协议是 http，但是 http 是一个无状态的协议（http 的每次请求都是一个单独的请求，与之前的请求没有关系）。
+
+### 凭证方式
+
+- Token 令牌；
+- cookie + session （已淘汰）；
+
+### Cookie
+
+Cookie（复数形态 Cookies），又称为“小甜饼”。类型为“小型文本文件，某些网站为了辨别用户身份而存储
+在用户本地终端（Client Side）上的数据。
+
+- 浏览器会在特定的情况下携带上 cookie 来发送请求，我们可以通过 cookie 来获取一些信息；
+- Cookie 总是保存在客户端中，按在客户端中的存储位置，Cookie 可以分为内存 Cookie 和硬盘 Cookie。
+  1. 内存 Cookie 由浏览器维护，保存在内存中，浏览器关闭时 Cookie 就会消失，其存在时间是短暂的；
+  2. 硬盘 Cookie 保存在硬盘中，有一个过期时间，用户手动清理或者过期时间到时，才会被清理；
+- 如果判断一个 cookie 是内存 cookie 还是硬盘 cookie 呢？
+  - 有设置过期时间，并且过期时间不为 0 或者负数的 cookie，是硬盘 cookie，需要手动或者到期时，才会删除；
+  - 没有设置过期时间，默认情况下 cookie 是内存 cookie，在关闭浏览器时会自动删除；
+
+```JavaScript
+// 设置 cookie
+ctx.cookies.set("cookie名", 值, {
+  maxAge: 50 * 1000,
+});
+
+// 读取 cookie
+const value = ctx.cookies.get("cookie名");
+```
+
+### Session
+
+安装 koa-session: `npm install koa-session`
+
+- 创建 Session 配置
+
+  ```JavaScript
+  const session = Session(
+    {
+      key: "Session名",
+      maxAge: 10 * 1000,
+      // 是否使用加密签名
+      signed: true,
+    },
+    app
+  );
+  app.keys = ["加密键值"];
+  app.use(session);
+  ```
+
+- 设置 Session
+
+  ```JavaScript
+  testRouter.get("/test", (ctx, next) => {
+    const id = 110;
+    const name = "coderwhy";
+
+    ctx.session.user = { id, name };
+
+    ctx.body = "test";
+  });
+  ```
+
+- 读取 Session
+
+  ```JavaScript
+  testRouter.get("/demo", (ctx, next) => {
+    console.log(ctx.session.user);
+    ctx.body = "test";
+  });
+  ```
+
+```
+
+```
