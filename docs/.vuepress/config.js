@@ -128,7 +128,7 @@ module.exports = {
           },
           {
             text: "Rust",
-            items: [{ text: "Rust 基础", link: "/back-end/Rust/" }],
+            items: [{ text: "Rust", link: "/back-end/Rust/" }],
           },
           {
             text: "Node.js",

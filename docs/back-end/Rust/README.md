@@ -44,14 +44,15 @@ check-revoke = false
 ### 集成开发环境插件
 
 - IDEA: `Rust`
-- Visual Studio Code: `Rust (rls)`  
+- Visual Studio Code: `Rust`  
   安装完成后需要在 Visual Studio Code 中设置  rust-client.channel  为  stable。 同时建议设置  editor.formatOnSave  为  true，以便在保存时使用 rust-fmt 格式化代码
 
 ## 创建项目
 
 - 创建项目: `cargo new 项目名`
+- 启动项目: `cargo run`
 - 语法检查: `cargo check`
-- 编译项目: `cargo build`
+- 编译项目: `cargo build --release`
 
 ## 基本语法
 
@@ -170,12 +171,27 @@ let mut 变量名: 数据类型;
 
 ### 定义常量
 
-```rust
-// 自动推导类型
-const 变量名 = 值;
+常量的类型必须标注。命名规范为全大写字母，每个单词之间用下划线分开。
 
-// 指定数据类型
+```rust
 const 变量名: 数据类型 = 值;
+```
+
+```rust
+const MAX_POINTS: u32 = 100;
+```
+
+### 隐藏
+
+在 Rust 中，可以声明相同名字的变量，新的变量会隐藏之前声明的同名变量。
+
+::: tip 提示
+使用 let 声明的同名新变量，类型可以与之前不同
+:::
+
+```rust
+let x = 5;
+let x= x + 1;
 ```
 
 ### 逻辑运算符
