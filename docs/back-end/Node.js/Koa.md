@@ -406,3 +406,95 @@ const value = ctx.cookies.get("cookie名");
 ```
 
 ```
+
+## Token
+
+### Token 介绍
+
+token 可以翻译为令牌；在验证了用户账号和密码正确的情况，给用户颁发一个令牌；这个令牌作为后续用户访问一些接口或者资源的凭证；可以根据这个凭证来判断用户是否有权限来访问；
+
+### 安装 JsonWebToken 库
+
+`npm install jsonwebtoken`
+
+### 对称加密
+
+- 生成 Token
+
+  ```JavaScript
+  const jwt = require("jsonwebtoken");
+
+  const SERCET_KEY = "密钥";
+
+  testRouter.post("/createToken", (ctx, next) => {
+    const user = { id: 110, name: "why" };
+    const token = jwt.sign(user, SERCET_KEY, { expiresIn: 10 });
+    ctx.body = token;
+  });
+  ```
+
+- 验证 Token
+
+  ```JavaScript
+  testRouter.get("/verifyToken", (ctx, next) => {
+    const authorization = ctx.headers.authorization;
+    const token = authorization.replace("Bearer ", "");
+
+    try {
+      const result = jwt.verify(token, SERCET_KEY);
+      ctx.body = result;
+    } catch (error) {
+      ctx.body = "token 是无效的";
+    }
+  });
+  ```
+
+### 生成私钥和公钥
+
+以管理员身份运行`git-bash.exe`，输入`openssl`进入 OpenSSL 命令行
+
+1. 生成私钥: `genrsa -out private.key 1024`
+2. 生成公钥：`rsa -in private.key -pubout -out public.key`
+
+### 非对称加密
+
+- 生成 Token
+
+  ```JavaScript
+  const fs = require("fs");
+  const jwt = require("jsonwebtoken");
+
+  const PRIVATE_KEY = fs.readFileSync("./keys/private.key");
+
+  testRouter.post("/createToken", (ctx, next) => {
+    const user = { id: 110, name: "why" };
+
+    const token = jwt.sign(user, PRIVATE_KEY, {
+      expiresIn: 10,
+      algorithm: "RS256",
+    });
+    ctx.body = token;
+  });
+  ```
+
+- 验证 Token
+
+  ```JavaScript
+  const fs = require("fs");
+  const jwt = require("jsonwebtoken");
+
+  const PUBLIC_KEY = fs.readFileSync("./keys/public.key");
+
+  testRouter.get("/verifyToken", (ctx, next) => {
+    const authorization = ctx.headers.authorization;
+    const token = authorization.replace("Bearer ", "");
+    try {
+      const result = jwt.verify(token, PUBLIC_KEY, {
+        algorithm: ["RS256"],
+      });
+      ctx.body = result;
+    } catch (error) {
+      ctx.body = "token 是无效的";
+    }
+  });
+  ```
