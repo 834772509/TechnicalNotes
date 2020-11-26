@@ -28,7 +28,7 @@ rustup-init.exe
 
 ### 配置国内镜像
 
-创建 C:\user\用户名\\.cargo\config
+创建 `C:\user\用户名\.cargo\config`
 
 ```ini
 [source.crates-io]
@@ -44,10 +44,9 @@ check-revoke = false
 ### 集成开发环境插件
 
 - IDEA: `Rust`
-- Visual Studio Code: `Rust`  
-  安装完成后需要在 Visual Studio Code 中设置  rust-client.channel  为  stable。 同时建议设置  editor.formatOnSave  为  true，以便在保存时使用 rust-fmt 格式化代码
+- Visual Studio Code: `Rust`
 
-## 创建项目
+## cargo
 
 - 创建项目: `cargo new 项目名`
 - 启动项目: `cargo run`
@@ -144,6 +143,18 @@ let mut 变量名;
 let mut 变量名: 数据类型;
 ```
 
+### 定义常量
+
+常量的类型必须标注。命名规范为全大写字母，每个单词之间用下划线分开。
+
+```rust
+const 变量名: 数据类型 = 值;
+```
+
+```rust
+const MAX_POINTS: u32 = 100;
+```
+
 ### 定义全局变量
 
 静态变量的声明周期是整个程序，从启动到退出，它占用的内存空间不会在执行过程中回收。
@@ -153,7 +164,8 @@ let mut 变量名: 数据类型;
 - 全局变量必须在声明时立即初始化，并且需要指定数据类型
 - 全局变量的初始化必须是编译期可确定的常量，不能包括执行期才能确定的表达式、语句和函数调用
 - 带有`mut`修饰的全局变量，在使用时必须使用`unsafe`
-  :::
+
+:::
 
 - 不可变全局变量
 
@@ -170,18 +182,6 @@ let mut 变量名: 数据类型;
   // 读取值
   unsafe { println!("{}", 变量名); }
   ```
-
-### 定义常量
-
-常量的类型必须标注。命名规范为全大写字母，每个单词之间用下划线分开。
-
-```rust
-const 变量名: 数据类型 = 值;
-```
-
-```rust
-const MAX_POINTS: u32 = 100;
-```
 
 ### 隐藏
 
@@ -211,110 +211,6 @@ let x= x + 1;
 - 小于等于: >=
 - 大于等于: <=
 
-### 打印输出
-
-```rust
-// 纯内容
-println!("内容");
-
-// 变量
-println!("变量: {}", 变量);
-```
-
-## 控制流
-
-::: tip 提示
-
-- continue: 跳过本次循环，进入下次循环
-- break: 跳出循环
-  :::
-
-### if-else
-
-::: tip 提示
-
-- if 语句后面的条件不接小括号
-- 如果使用 if-else 语句作为返回值表达式，一定要加 else 分支，否则默认 else 分支的返回值为()
-  :::
-
-- 普通使用
-
-```rust
-if 条件 {
-
-} else if 条件 {
-
-} else {
-
-}
-```
-
-- 结合 let
-
-```rust
-let mut 变量名 = if 条件 {
-  返回值
-} else {
-  返回值
-};
-```
-
-### loop 循环
-
-loop 表示一个无限循环
-
-- 普通使用
-
-```rust
-loop {
-  if 条件 {
-    break;
-  }
-}
-```
-
-- 结合 let
-
-```rust
-let mut 变量名 = loop {
-  if 条件 {
-    break 值;
-  }
-};
-```
-
-### while 循环
-
-while 语句是带条件判断的循环语句。如果条件满足，则持续循环执行结果语句块。
-
-```rust
-while 条件 {
-
-}
-```
-
-### for 循环
-
-```rust
-let mut 数组 = [1, 2, 3, 4, 5];
-for item in &数组 {
-    println!("{}",item);
-}
-```
-
-### match 匹配
-
-match 类似 switch 语句，通过关键字匹配
-
-```rust
-match 值 {
-  值1 => println!("1");
-  值2 => println!("2");
-  // 其他情况
-  _=> println!("其他");
-}
-```
-
 ## 函数
 
 ### 定义
@@ -324,7 +220,7 @@ fn 函数名() -> 返回值类型 {
   return 返回值;
 }
 
-// 返回表达式
+// 返回表达式（返回值后面不能加;）
 fn 函数名() -> 返回值类型 {
   返回值
 }
@@ -334,11 +230,12 @@ fn 函数名() -> 返回值类型 {
 
 ::: tip 提示
 
-- Rust 中，**必须**声明每个参数的类型
+- Rust 中，**必须声明每个参数的类型**
 - `&`表示指向值的引用（没有这个值的所有权）
-  :::
 
-* 声明
+:::
+
+- 声明
 
   ```rust
   fn 函数名(参数名: &参数类型) {
@@ -351,7 +248,7 @@ fn 函数名() -> 返回值类型 {
   }
   ```
 
-* 使用
+- 使用
 
   ```rust
   函数名(&参数);
@@ -369,6 +266,265 @@ let 变量名 = {
   let x = 3;
   x + 1
 };
+```
+
+## 控制流
+
+### if-else
+
+::: tip 提示
+
+- if 语句后面的条件不接小括号
+- 如果使用 if-else 语句作为返回值表达式，一定要加 else 分支，否则默认 else 分支的返回值为()
+
+:::
+
+- 普通使用
+
+  ```rust
+  if 条件 {
+
+  } else if 条件 {
+
+  } else {
+
+  }
+  ```
+
+- 结合 let
+
+  ```rust
+  let mut 变量名 = if 条件 {
+    返回值
+  } else {
+    返回值
+  };
+  ```
+
+### loop 循环
+
+loop 表示一个无限循环
+
+- 普通使用
+
+  ```rust
+  loop {
+    if 条件 {
+      break;
+    }
+  }
+  ```
+
+- 结合 let
+
+  ```rust
+  let mut 变量名 = loop {
+    if 条件 {
+      break 值;
+    }
+  };
+  ```
+
+### while 循环
+
+while 语句是带条件判断的循环语句。如果条件满足，则持续循环执行结果语句块。
+
+```rust
+while 条件 {
+
+}
+```
+
+### for 循环
+
+```rust
+let mut 数组 = [1, 2, 3, 4, 5];
+for item in &数组 {
+  println!("{}",item);
+}
+```
+
+### match 匹配
+
+match 类似 switch 语句，通过关键字匹配
+
+```rust
+match 值 {
+  值1 => println!("1");
+  值2 => println!("2");
+  // 其他情况
+  _=> println!("其他");
+}
+```
+
+## 数组
+
+数组也可以将多个值放在一个类型里，每个元素的类型必须相同，**数组的长度是固定的**。
+
+### 定义
+
+```rust
+// 自动推导
+let 数组名 = [值, 值];
+
+// 指定数据类型
+let 数组名: [数据类型; 个数] = [值, 值];
+```
+
+### 访问元素
+
+```rust
+println!("{}", 数组名[索引]);
+```
+
+### 遍历数组
+
+``` rust
+for item in 数组名.iter() {
+  println!("{}", item);
+}
+```
+
+## 元组 Tuple
+
+Tuple 可以将多个类型的多个值放在一个类型里，Tuple 的长度是固定的，一旦声明就无法改变
+
+### 定义
+
+```rust
+// 自动推导
+let 元组名 = (值, 值, 值);
+
+// 指定数据类型
+let 元组名: (数据类型, 数据类型) = (值, 值);
+```
+
+### 访问元素
+
+```rust
+println!("{}", 元组名.索引号);
+```
+
+### 元组的拆解
+
+```rust
+let 元组名 = (值, 值);
+
+let (item1, item2) = 元组名;
+println!("item1={} item2={}", item1, item2);
+```
+
+## Vector
+
+Vector 只能储存一系列**相同类型**的值。允许我们在一个单独的数据结构中储存多于一个的值，它在内存中彼此相邻地排列所有的值。
+
+### 定义
+
+```rust
+// 无初始值
+let mut Vector名: Vec<数据类型> = Vec::new();
+
+// 有初始值
+let mut Vector名 = vec![值, 值];
+```
+
+### 访问元素
+
+```rust
+// get方法（推荐）
+match Vector名.get(下标) {
+  Some(value) => println!("v1[0]={}", value),
+  None => println!("none"),
+}
+
+// 索引语法
+println!("{}", Vector名[下标]);
+```
+
+### 增加元素
+
+```rust
+Vector名.push(元素);
+```
+
+### 修改元素
+
+```rust
+Vector名[下标] = 值;
+```
+
+### 遍历元素
+
+- 只读遍历
+
+```rust
+for item in &Vector名 {
+  println!("{}", i);
+}
+```
+
+- 可写遍历
+
+```rust
+for item in &mut Vector名 {
+  *item = *item +1 ;
+  println!("{}", item);
+}
+```
+
+## HashMap
+
+### 创建
+
+```rust
+use std::collections::HashMap;
+
+// 指定数据类型
+let mut  HashMap名: HashMap<数据类型,数据类型> = HashMap::new();
+
+// 类型推导
+let mut  HashMap名 = HashMap::new();
+```
+
+### 增加元素
+
+当键不存在时则增加元素，存在时则修改元素
+
+```rust
+HashMap名.insert(键,值);
+
+// 不修改值，当键不存在时才插入
+HashMap名.entry(键).or_insert(值);
+```
+
+### 读取元素
+
+- 直接访问
+
+```rust
+println!("{}", HashMap名[键]);
+
+```
+
+- get 方法
+
+```rust
+match HashMap名.get(键) {
+  Some(value) => println!("{}", value),
+  None => println!("none"),
+}
+```
+
+### 遍历元素
+
+::: tip 提示
+遍历顺序为随机遍历
+:::
+
+```rust
+for (key, value) in HashMap名 {
+  println!("{}: {}", key, value);
+}
 ```
 
 ## 字符串
@@ -449,100 +605,6 @@ println!("Hell={}", &s[..4]);
 变量名.len();
 ```
 
-## 数组
-
-```rust
-// 自动推导
-let mut 数组名 = [值, 值, 值 ];
-
-// 指定数据类型
-let mut 数组名: [数据类型; 个数] = [值, 值, 值 ];
-```
-
-## 元组
-
-### 定义
-
-```rust
-// 自动推导
-let mut 元组名 = (值, 值, 值);
-
-// 指定数据类型
-let mut 元组名: (数据类型, 数据类型, 数据类型) = (值, 值, 值);
-```
-
-### 访问
-
-```rust
-元组名.下标
-```
-
-### 元组的拆解
-
-```rust
-let mut 元组名 = (值, 值, 值);
-
-let (x, y, z) = 元组名;
-println!("x={}",x);
-println!("y={}",y);
-println!("z={}",z);
-```
-
-## HashMap
-
-### 创建
-
-```rust
-use std::collections::HashMap;
-
-// 指定数据类型
-let mut  HashMap名: HashMap<数据类型,数据类型> = HashMap::new();
-
-// 类型推导
-let mut  HashMap名 = HashMap::new();
-```
-
-### 增加元素
-
-当键不存在时则增加元素，存在时则修改元素
-
-```rust
-HashMap名.insert(键,值);
-
-// 不修改值，当键不存在时才插入
-HashMap名.entry(键).or_insert(值);
-```
-
-### 读取元素
-
-- 直接访问
-
-```rust
-println!("{}", HashMap名[键]);
-
-```
-
-- get 方法
-
-```rust
-match HashMap名.get(键) {
-  Some(value) => println!("{}", value),
-  None => println!("none"),
-}
-```
-
-### 遍历元素
-
-::: tip 提示
-遍历顺序为随机遍历
-:::
-
-```rust
-for (key, value) in HashMap名 {
-  println!("{}: {}", key, value);
-}
-```
-
 ## 结构体
 
 ### 定义
@@ -618,64 +680,6 @@ let mut  实例名 = 结构体名 {
 println!("实例名={:?}",实例名);
 // 换行打印
 println!("实例名={:#?}",实例名);
-```
-
-## Vector
-
-Vector 用来储存一系列相同类型的值。允许我们在一个单独的数据结构中储存多于一个的值，它在内存中彼此相邻地排列所有的值。Vector 只能储存相同类型的值。它们在拥有一系列项的场景下非常实用，如 文件中的文本行或是购物车中商品的价格。
-
-### 定义
-
-```rust
-// 无初始值
-let mut Vector名: Vec<数据类型> = Vec::new();
-
-// 有初始值
-let mut Vector名 = vec![值, 值];
-```
-
-### 访问元素
-
-```rust
-// get方法（推荐）
-match Vector名.get(下标) {
-  Some(value) => println!("v1[0]={}", value),
-  None => println!("none"),
-}
-
-// 索引语法
-println!("{}", Vector名[下标]);
-```
-
-### 增加元素
-
-```rust
-Vector名.push(元素);
-```
-
-### 修改元素
-
-```rust
-Vector名[下标] = 值;
-```
-
-### 遍历元素
-
-- 只读遍历
-
-```rust
-for item in &Vector名 {
-  println!("{}", i);
-}
-```
-
-- 可写遍历
-
-```rust
-for item in &mut Vector名 {
-  *item = *item +1 ;
-  println!("{}", item);
-}
 ```
 
 ## 所有权
@@ -862,5 +866,3 @@ panic!("出现不可恢复错误");
 
 - 示例、代码原型、测试用 `panic!`、`unWrap`、`expect`
 - 实际项目中应使用 Result
-
-## 泛型

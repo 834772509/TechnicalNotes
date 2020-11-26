@@ -3,7 +3,11 @@
 Spring MVC 是 Spring Framework 的一部分，是基于 Java 实现 MVC 的轻量级 Web 框架。
 
 ::: tip 提示
-如项目无法加入 Controller 层，请检查 项目结构-构件-lib 目录 是否导入正确的依赖
+如项目无法加入 Controller 层，请检查：
+
+- 项目结构-构件-lib 目录 是否导入正确的依赖
+- 项目结构-模块-依赖 是否正确导入 Tomcat
+
 :::
 
 ## 基本概念
