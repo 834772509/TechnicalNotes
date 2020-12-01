@@ -379,7 +379,7 @@ println!("{}", 数组名[索引]);
 
 ### 遍历数组
 
-``` rust
+```rust
 for item in 数组名.iter() {
   println!("{}", item);
 }
@@ -414,7 +414,7 @@ let (item1, item2) = 元组名;
 println!("item1={} item2={}", item1, item2);
 ```
 
-## Vector
+## 动态数组 Vector
 
 Vector 只能储存一系列**相同类型**的值。允许我们在一个单独的数据结构中储存多于一个的值，它在内存中彼此相邻地排列所有的值。
 

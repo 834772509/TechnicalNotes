@@ -562,3 +562,39 @@ ALTER TABLE `表名` ADD FOREIGN KEY (外键字段名) REFERENCES 参考表(参�
   UNION
   (SELECT * FROM `右表名` RIGHT JOIN `左表名` ON 右表名.字段名 = 左表名.id WHERE 右表名.字段名 IS NULL);
   ```
+
+## 对象和数据类型
+
+### 将查询到的数据转成数组
+
+```sql
+SELECT JSON_ARRAYAGG(表名.字段名) FROM `表名`;
+```
+
+### 将查询到的数据转成对象
+
+```sql
+SELECT JSON_OBJECT('键名',表名.字段名,'键名',表名.字段名) FROM `表名`;
+```
+
+### 将联合查询到的数据转成对象
+
+```sql
+SELECT
+	左表名.字段名 别名, 左表名.字段名 别名,
+	JSON_OBJECT('别名', 右表名.字段名, '别名', 右表名.字段名) 别名
+FROM `左表名`
+LEFT JOIN `右表名` ON 左表名.字段名 = 右表名.右表名;
+```
+
+### 将查询到的多条数据，组织成对象，放入到一个数组中(多对多)
+
+```sql
+SELECT
+	stu.id, stu.name, stu.age,
+	JSON_ARRAYAGG(JSON_OBJECT('id', cs.id, 'name', cs.name, 'price', cs.price))
+FROM `students` stu
+JOIN `students_select_courses` ssc ON stu.id = ssc.student_id
+JOIN `courses` cs ON ssc.course_id = cs.id
+GROUP BY stu.id;
+```
