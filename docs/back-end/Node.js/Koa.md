@@ -177,7 +177,13 @@ app.listen(8000, () => {
 
 ## 文件上传
 
-请求地址：http://localhost:8000/根URL/子URL ，body 中 form-data 包含文件
+### 安装 koa-multer
+
+`npm install koa-multer`
+
+### 使用
+
+请求地址：`http://localhost:8000/根URL/子URL` ，body 中 form-data 包含文件
 
 ```JavaScript
 const path = require("path");
