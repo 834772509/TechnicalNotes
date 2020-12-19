@@ -6,6 +6,8 @@
 
 [IDEA 正版激活码](http://idea.medeming.com/jets/)
 
+[IDEA 破解补丁](https://tech.souyunku.com/?p=30970)
+
 ### 插件推荐
 
 - TabNine : 更好的代码提示

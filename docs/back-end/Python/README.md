@@ -5,16 +5,14 @@
 [Python 下载](https://www.python.org/downloads/windows)
 [Python 中文文档](https://yiyibooks.cn/xx/python_352/index.html)
 
-环境变量：
+### 配置环境变量
 
 - `\Python\`
 - `\Python\Scripts`
 
-## 解决 pip 速度慢的问题
+### 配置镜像 
 
-1. 在 user 目录中新建 pip 目录
-2. 新建文件 pip.ini
-3. 内容如下：
+`\user\用户名\pip\pip.ini`
 
 ```ini
 [global]
@@ -38,8 +36,8 @@ trusted-host=mirrors.aliyun.com
 
 ## 打包程序
 
-安装 PyInstalle：`pip install pyinstaller`  
-打包： `pyinstaller -F -w --clean "源码路径"`
+1. 安装 PyInstalle：`pip install pyinstaller`  
+2. 打包： `pyinstaller -F -w --clean "源码路径"`
 
 ## 数据类型
 

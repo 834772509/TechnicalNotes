@@ -53,6 +53,22 @@ check-revoke = false
 - 语法检查: `cargo check`
 - 编译项目: `cargo build --release`
 
+### 优化编译体积
+
+Cargo.toml
+
+```ini
+[profile.release]
+# 调整优化等级。默认的 release 优化等级为 3，这个等级下编译器会进行循环展开之类的操作以体积膨胀为代价提高程序运行速度
+opt-level = 'z'
+# 开启 LTO（链接时优化）。可以消除大量冗余代码，减小二进制体积，代价是更长的链接时间
+lto = true
+# 调整并行代码生成单元数量。默认会启用 16 个并行代码生成单元，对编译速度有提升，但是会妨碍某些优化的进行
+codegen-units = 1
+# Panic 时立刻终止。禁用生成栈回溯，注意：此选项会对程序的行为产生影响
+panic = 'abort'
+```
+
 ## 基本语法
 
 ### 数据类型
@@ -350,10 +366,10 @@ match 类似 switch 语句，通过关键字匹配
 
 ```rust
 match 值 {
-  值1 => println!("1");
-  值2 => println!("2");
+  值1 => println!("1"),
+  值2 => println!("2"),
   // 其他情况
-  _=> println!("其他");
+  _=> println!("其他")
 }
 ```
 
@@ -572,28 +588,32 @@ println!("str={}", str);
 
 - 字符遍历
 
-```rust
-let mut 字符串名 = String::from("内容");
+  ```rust
+  let mut 字符串名 = String::from("内容");
 
-for item in 字符串名.chars(){
-  println!("item={}",item);
-}
-```
+  for item in 字符串名.chars(){
+    println!("item={}",item);
+  }
+  ```
 
 - 字节遍历
 
-```rust
-let mut 字符串名 = String::from("内容");
+  ```rust
+  let mut 字符串名 = String::from("内容");
 
-for item in 字符串名.bytes(){
-  println!("item={}",item);
-}
-```
+  for item in 字符串名.bytes(){
+    println!("item={}",item);
+  }
+  ```
 
 ### 字符串切片
 
 ```rust
-let mut s = String::from("hello world");
+println!("{}", &字符串[开始索引..结束索引]);
+```
+
+```rust
+let mut s = String::from("Hello World");
 
 println!("Hello={}", &s[0..5]);
 println!("Hell={}", &s[..4]);
@@ -649,17 +669,17 @@ let mut  实例名 = 结构体名 {
 
 - 定义
 
-```rust
-struct 元组结构体名(数据类型, 数据类型);
-```
+  ```rust
+  struct 元组结构体名(数据类型, 数据类型);
+  ```
 
 - 使用
 
-```rust
-let mut  实例名 = 元组结构体名(值, 值);
+  ```rust
+  let mut  实例名 = 元组结构体名(值, 值);
 
-println!("实例名.0={}, 实例名.1={}", 实例名.0, 实例名.1);
-```
+  println!("实例名.0={}, 实例名.1={}", 实例名.0, 实例名.1);
+  ```
 
 ### 打印结构体
 
@@ -879,12 +899,6 @@ use 模块名::模块名;
 库名 = "版本"
 ```
 
-- 使用
-
-```rust
-extern crate 库名;
-```
-
 ## 错误
 
 ### 可恢复错误
@@ -911,3 +925,54 @@ panic!("出现不可恢复错误");
 
 - 示例、代码原型、测试用 `panic!`、`unWrap`、`expect`
 - 实际项目中应使用 Result
+
+## Json
+
+### 安装依赖
+
+Cargo.toml
+
+```ini
+[dependencies]
+rustc-serialize = "0.3.24"
+```
+
+### 转换 Json
+
+```Rust
+use rustc_serialize::json;
+
+#[derive(RustcDecodable, RustcEncodable)]
+pub struct Json数据 {
+  键: 数据类型,
+  键: 数据类型
+}
+
+fn main(){
+  let object = Json数据 {
+    键: 值,
+    键: 值
+  };
+
+  let encoded = json::encode(&object).unwrap();
+  println!("{}",encoded);
+}
+```
+
+### 解析 Json
+
+```Rust
+use rustc_serialize::json;
+
+#[derive(RustcDecodable, RustcEncodable)]
+pub struct Json数据 {
+  键: 数据类型,
+  键: 数据类型
+}
+
+fn main(){
+  let encoded = json::encode(&object).unwrap();
+  let decoded: Json数据 = json::decode(&encoded).unwrap();
+  println!("{:?}",decoded.键);
+}
+```
