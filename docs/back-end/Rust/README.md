@@ -4,7 +4,7 @@
 
 ## 环境搭建
 
-### 安装 Microsoft C++ 生成工具
+### 安装 Microsoft C++ build tools
 
 [VisualCppBuildTools](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
 
@@ -28,7 +28,7 @@ rustup-init.exe
 
 ### 配置国内镜像
 
-创建 `C:\user\用户名\.cargo\config`
+创建 `C:\users\用户名\.cargo\config`
 
 ```ini
 [source.crates-io]
@@ -48,10 +48,18 @@ check-revoke = false
 
 ## cargo
 
+### 脚手架
+
 - 创建项目: `cargo new 项目名`
 - 启动项目: `cargo run`
 - 语法检查: `cargo check`
 - 编译项目: `cargo build --release`
+
+### Rustup
+
+- 查看 Rust 版本: `rustup --version`
+- 升级 Rust: `rustup update`
+- 卸载 Rust: `rustup self uninstall`
 
 ### 优化编译体积
 
@@ -544,6 +552,11 @@ for (key, value) in HashMap名 {
 ```
 
 ## String 字符串
+
+出于内存安全的考虑，Rust 将字符串分成两种类型：
+
+1. str 字符串：固定长度，不可改变
+2. String 字符串：可变长度
 
 ### 创建
 
