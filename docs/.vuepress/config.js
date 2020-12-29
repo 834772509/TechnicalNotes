@@ -96,7 +96,6 @@ module.exports = {
             items: [
               { text: "Vue", link: "/front-end/Vue/" },
               { text: "React", link: "/front-end/React/" },
-              // { text: "Webpack", link: "/front-end/Webpack/" },
               { text: "微信小程序", link: "/front-end/WechatApplet/" },
               { text: "Electron", link: "/front-end/Electron/" },
             ],
@@ -138,7 +137,7 @@ module.exports = {
             text: "Python",
             items: [
               { text: "Python 基础", link: "/back-end/Python/" },
-              { text: "Django", link: "/back-end/Python/Django/" },
+              // { text: "Django", link: "/back-end/Python/Django/" },
               { text: "Flask", link: "/back-end/Python/Flask/" },
             ],
           },
@@ -146,7 +145,7 @@ module.exports = {
             text: "数据库",
             items: [
               { text: "MySQL", link: "/back-end/DataBase/MySQL/" },
-              { text: "Oracle", link: "/back-end/DataBase/Oracle/" },
+              // { text: "Oracle", link: "/back-end/DataBase/Oracle/" },
             ],
           },
           {
@@ -162,7 +161,6 @@ module.exports = {
         text: "其他",
         items: [
           { text: "Photoshop", link: "/Other/Photoshop/" },
-          { text: "Unity", link: "/Other/Unity/" },
           { text: "Git", link: "/Other/Git/" },
           { text: "WinPE", link: "/Other/WinPE/" },
         ],
