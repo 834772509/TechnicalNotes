@@ -797,6 +797,27 @@ let 数据 = 枚举名::属性名;
 let 数据 = 枚举名::属性名(值, 值);
 ```
 
+### Option 枚举
+
+Option 枚举 定义于标准库中，位于 Prelude (预导入模块)中。描述了：某个值可能存在(某种类型)或不存在的情况。
+
+Rust 中没有`Null`，但提供类类型`Null`概念的枚举：`Option<T>`：
+
+```rust
+enum Option<T> {
+  Some(T),
+  None,
+}
+```
+
+```rust
+let x = 1;
+let y = Some(1);
+
+let sum = x + y.unwrap();
+println!("{}", sum);
+```
+
 ## 所有权
 
 ### 什么是所有权
