@@ -6,7 +6,7 @@
 
 ### 安装 Microsoft C++ build tools
 
-[VisualCppBuildTools](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
+[VisualCppBuildTools 在线安装](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
 
 <!-- (Visuals Studio 安装程序)[https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16]
 
@@ -14,32 +14,45 @@
 2. 仅选择 生成工具 （MSVC v142 - VS 2019 C++ x64/x86 生成工具 ）
 3. 安装 -->
 
-### 安装 Rust
-
-[安装 Rsut](https://www.rust-lang.org/zh-CN/tools/install)
-
-打开 PowerShell，依次输入：
-
-```
-$ENV:RUSTUP_DIST_SERVER='https://mirrors.ustc.edu.cn/rust-static'
-$ENV:RUSTUP_UPDATE_ROOT='https://mirrors.ustc.edu.cn/rust-static/rustup'
-rustup-init.exe
-```
-
 ### 配置国内镜像
 
-创建 `C:\users\用户名\.cargo\config`
+1. 设置环境变量
+   - `RUSTUP_DIST_SERVER`: `https://mirrors.ustc.edu.cn/rust-static`
+   - `RUSTUP_UPDATE_ROOT`: `https://mirrors.ustc.edu.cn/rust-static/rustup`
+2. 创建 `C:\users\用户名\.cargo\config`
 
-```ini
-[source.crates-io]
-replace-with = 'ustc'
+   ```ini
+   [source.crates-io]
+   ; 默认中国科学技术大学，可根据实际情况进行修改
+   replace-with = 'ustc'
 
-[source.ustc]
-registry = "git://mirrors.ustc.edu.cn/crates.io-index"
+   ; 中国科学技术大学
+   [source.ustc]
+   registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 
-[http]
-check-revoke = false
-```
+   # 清华大学
+   [source.tuna]
+   registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
+
+   # 上海交通大学
+   [source.sjtu]
+   registry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index"
+
+   # rustcc社区
+   [source.crates-io-cn]
+   registry = "https://crates-io.cn/crates.io-index"
+
+   [http]
+   check-revoke = false
+   ```
+
+### 安装 Rust
+
+::: tip 提示
+默认为在线安装 Rust，需要先在环境变量内配置国内镜像
+:::
+
+[使用 Rustup 安装 Rsut](https://www.rust-lang.org/zh-CN/tools/install)
 
 ### 集成开发环境插件
 
