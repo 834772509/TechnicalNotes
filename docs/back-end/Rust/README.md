@@ -373,12 +373,31 @@ for item in &数组 {
 
 match 类似 switch 语句，通过关键字匹配
 
+::: tip 提示
+如无`_`匹配则 match 匹配必须穷举所有的可能
+:::
+
 ```rust
 match 值 {
-  值1 => println!("1"),
-  值2 => println!("2"),
+  值1 => 1,
+  值2 => 2,
+  值3 => {
+    return 3;
+  },
   // 其他情况
-  _=> println!("其他")
+  _=> -1
+}
+```
+
+### if let 匹配
+
+if let 处理只关心一种匹配而忽略其他匹配的情况。if let 放弃了穷举的可能，可以看作是 match 的语法糖
+
+```rust
+if let 具体值 = 匹配值 {
+
+} else {
+
 }
 ```
 
