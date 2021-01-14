@@ -23,10 +23,10 @@
 
    ```ini
    [source.crates-io]
-   ; 默认中国科学技术大学，可根据实际情况进行修改
+   # 默认中国科学技术大学，可根据实际情况进行修改
    replace-with = 'ustc'
 
-   ; 中国科学技术大学
+   # 中国科学技术大学
    [source.ustc]
    registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 
