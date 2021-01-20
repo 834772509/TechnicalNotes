@@ -414,6 +414,124 @@ if let 具体值 = 匹配值 {
 }
 ```
 
+## String 字符串
+
+出于内存安全的考虑，Rust 将字符串分成两种类型：
+
+1. str 字符串：固定长度，不可改变
+2. String 字符串：可变长度，可增长、可修改、可拥有
+
+### 创建
+
+```rust
+let mut 字符串名 = String::from("内容");
+let mut 字符串名 = "内容".to_string();
+```
+
+### 追加字符串
+
+将一个字符串切片附加到 String
+
+::: tip 提示
+可以不使用`&`，因为没有获得所有权
+:::
+
+```rust
+let mut 字符串名 = String::from("内容");
+
+字符串名.push_str("内容");
+println!("{}", 字符串名);
+```
+
+### 追加字符
+
+将**单个字符**附加到 String
+
+```rust
+let mut 字符串名 = String::from("内容");
+
+字符串名.push('a');
+println!("{}", 字符串名);
+```
+
+### 连接字符串
+
+`format!()`不会获得参数的所有权
+
+```rust
+let mut str1 = String::from("aa");
+let mut str2 = String::from("bb");
+let mut str3 = String::from("cc");
+
+let mut str = format!("{}{}{}", str1, str2, str3);
+println!("{}", str);
+```
+
+### 拼接字符串（不推荐）
+
+::: tip 提示
+
+- 只有 String 才能使用`+`，&String 不能使用`+`
+- 使用`+`只能将&str 增加到 String
+
+:::
+
+```rust
+let str1 = String::from("aaa");
+let str2 = String::from("bbb");
+
+let str3 = str1.clone() + &str2;
+
+println!("str1:{}", &str1);
+println!("str2:{}", &str2);
+println!("str3:{}", &str3);
+```
+
+### 遍历字符串
+
+- 字符遍历
+
+  ```rust
+  let mut 字符串名 = String::from("内容");
+
+  for item in 字符串名.chars(){
+    println!("item={}",item);
+  }
+  ```
+
+- 字节遍历
+
+  ```rust
+  let mut 字符串名 = String::from("内容");
+
+  for item in 字符串名.bytes(){
+    println!("item={}",item);
+  }
+  ```
+
+### 字符串切片
+
+::: tip 提示
+Rust 中，中文汉字以 3 个字符来存储
+:::
+
+```rust
+println!("{}", &字符串[开始索引..结束索引]);
+```
+
+```rust
+let mut s = String::from("Hello World");
+
+println!("Hello={}", &s[0..5]);
+println!("Hell={}", &s[..4]);
+```
+
+### 获取字符串长度
+
+```rust
+变量名.len();
+```
+
 ## 数组
 
 数组也可以将多个值放在一个类型里，每个元素的类型必须相同，**数组的长度是固定的**。
@@ -481,7 +599,7 @@ println!("item1={} item2={}", item1, item2);
 
 ## 动态数组（Vector）
 
-Vector 只能储存一系列**相同类型**的值。允许我们在一个单独的数据结构中储存多于一个的值，它在内存中彼此相邻地排列所有的值。
+Vector 只能储存一系列**相同类型**的值。允许我们在一个单独的数据结构中储存多于一个的值，它在内存中连续存放所有的值。
 
 ### 定义
 
@@ -491,19 +609,6 @@ let mut Vector名: Vec<数据类型> = Vec::new();
 
 // 有初始值
 let mut Vector名 = vec![值, 值];
-```
-
-### 访问元素
-
-```rust
-// get方法（推荐）
-match Vector名.get(下标) {
-  Some(value) => println!("v1[0]={}", value),
-  None => println!("none"),
-}
-
-// 索引语法
-println!("{}", Vector名[下标]);
 ```
 
 ### 增加元素
@@ -518,26 +623,55 @@ Vector名.push(元素);
 Vector名[下标] = 值;
 ```
 
+### 删除元素
+
+```rust
+Vector名.remove(下标);
+```
+
+### 访问元素
+
+::: tip 提示
+get 方法可以返回 Option 进行异常处理，索引语法发生异常时无法处理。
+:::
+
+- get 方法（推荐）
+
+  ```rust
+  match Vector名.get(下标) {
+    Some(value) => println!("v1[0]={}", value),
+    None => println!("none"),
+  }
+  ```
+
+- 索引语法
+
+  ```rust
+  println!("{}", Vector名[下标]);
+  ```
+
 ### 遍历元素
 
 - 只读遍历
 
-```rust
-for item in &Vector名 {
-  println!("{}", i);
-}
-```
+  ```rust
+  for item in &Vector名 {
+    println!("{}", item);
+  }
+  ```
 
 - 可写遍历
 
-```rust
-for item in &mut Vector名 {
-  *item = *item +1 ;
-  println!("{}", item);
-}
-```
+  ```rust
+  for item in &mut Vector名 {
+    *item = *item +1 ;
+    println!("{}", item);
+  }
+  ```
 
 ## HashMap
+
+HashMap 以 键值对的形式存储数据，一个键(Key)对应一个值(Value)
 
 ### 创建
 
@@ -545,10 +679,10 @@ for item in &mut Vector名 {
 use std::collections::HashMap;
 
 // 指定数据类型
-let mut  HashMap名: HashMap<数据类型,数据类型> = HashMap::new();
+let mut HashMap名: HashMap<数据类型,数据类型> = HashMap::new();
 
 // 类型推导
-let mut  HashMap名 = HashMap::new();
+let mut HashMap名 = HashMap::new();
 ```
 
 ### 增加元素
@@ -566,19 +700,18 @@ HashMap名.entry(键).or_insert(值);
 
 - 直接访问
 
-```rust
-println!("{}", HashMap名[键]);
-
-```
+  ```rust
+  println!("{}", HashMap名[键]);
+  ```
 
 - get 方法
 
-```rust
-match HashMap名.get(键) {
-  Some(value) => println!("{}", value),
-  None => println!("none"),
-}
-```
+  ```rust
+  match HashMap名.get(键) {
+    Some(value) => println!("{}", value),
+    None => println!("none"),
+  }
+  ```
 
 ### 遍历元素
 
@@ -592,99 +725,15 @@ for (key, value) in HashMap名 {
 }
 ```
 
-## String 字符串
-
-出于内存安全的考虑，Rust 将字符串分成两种类型：
-
-1. str 字符串：固定长度，不可改变
-2. String 字符串：可变长度
-
-### 创建
-
-```rust
-let mut 字符串名 = String::from("内容");
-```
-
-### 追加字符串
-
-::: tip 提示
-可以不使用`&`，因为没有获得所有权
-:::
-
-```rust
-let mut 字符串名 = String::from("内容");
-
-字符串名.push_str("内容");
-println!("{}", 字符串名);
-```
-
-### 追加字符
-
-```rust
-let mut 字符串名 = String::from("内容");
-
-字符串名.push('a');
-println!("{}", 字符串名);
-```
-
-### 格式化字符串
-
-```rust
-let mut str1 = String::from("aa");
-let mut str2 = String::from("bb");
-let mut str3 = String::from("cc");
-
-let mut str = format!("{}-{}-{}", str1, str2, str3);
-println!("str={}", str);
-```
-
-### 遍历字符串
-
-- 字符遍历
-
-  ```rust
-  let mut 字符串名 = String::from("内容");
-
-  for item in 字符串名.chars(){
-    println!("item={}",item);
-  }
-  ```
-
-- 字节遍历
-
-  ```rust
-  let mut 字符串名 = String::from("内容");
-
-  for item in 字符串名.bytes(){
-    println!("item={}",item);
-  }
-  ```
-
-### 字符串切片
-
-```rust
-println!("{}", &字符串[开始索引..结束索引]);
-```
-
-```rust
-let mut s = String::from("Hello World");
-
-println!("Hello={}", &s[0..5]);
-println!("Hell={}", &s[..4]);
-```
-
-### 获取字符串长度
-
-```rust
-变量名.len();
-```
-
 ## 结构体（Struct）
 
 ### 定义
 
 ::: tip 提示
-一旦 struct 的实例是可变的，那么实例中所有的字段都是可变的
+
+- 一旦 struct 的实例是可变的，那么实例中所有的字段都是可变的
+- struct 中的字段默认是私有的（private）
+
 :::
 
 ```rust
@@ -978,9 +1027,9 @@ fn takes_and_gives_back(a_string: String) -> String {
   }
   ```
 
-## Crate
+## 单元包 (Crate)
 
-模块 让我们可以将一个 crate 中的代码进行分组，以提高可读性与重用性。模块还可以控制项的 私有性，即项是可以被外部代码使用的（public），还是作为一个内部实现的内容，不能被外部代码使用（private）。
+模块 让我们可以将一个 crate 中的代码进行分组，以提高可读性与重用性。模块还可以控制项的私有性，即项是可以被外部代码使用的（public），还是作为一个内部实现的内容，不能被外部代码使用（private）。
 
 ### 声明
 
@@ -1015,30 +1064,51 @@ pub mod 模块名 {
 
 - 导入依赖
 
-\Cargo.toml
+  \Cargo.toml
 
-```ini
-[dependencies]
-模块名 = { path = "./模块名" }
-```
+  ```ini
+  [dependencies]
+  模块名 = { path = "./模块名" }
+  ```
 
 - use 关键字引用
 
-```rust
-use 模块名::模块名;
+  ```rust
+  use 模块名::模块名;
+  use 模块名::{模块名, 模块名};
 
-模块名::函数名();
-```
+  模块名::函数名();
+  ```
 
 - 绝对引用
 
+  ```rust
+  模块名::模块名::函数名();
+  ```
+
+### 拆分模块
+
+\模块名.rs
+
 ```rust
-模块名::模块名::函数名();
+pub fn 函数名() {
+
+}
+```
+
+\main.rs
+
+```rust
+mod 函数名;
+
+fn main() {
+  函数名::函数名();
+}
 ```
 
 ### 使用第三方库
 
-- 导入依赖
+导入依赖：
 
 \Cargo.toml
 
