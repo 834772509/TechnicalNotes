@@ -687,16 +687,23 @@ let mut HashMap名 = HashMap::new();
 
 ### 增加元素
 
-当键不存在时则增加元素，存在时则修改元素
+- 当键不存在时则增加元素，存在时则修改元素
 
-```rust
-HashMap名.insert(键,值);
+  ```rust
+  HashMap名.insert(键,值);
+  ```
 
-// 不修改值，当键不存在时才插入
-HashMap名.entry(键).or_insert(值);
-```
+- 仅当键不存在时增加元素
+
+  ```rust
+  HashMap名.entry(键).or_insert(值);
+  ```
 
 ### 读取元素
+
+::: tip 提示
+get 方法可以返回 Option 进行异常处理，直接访问语法发生异常时无法处理。
+:::
 
 - 直接访问
 
