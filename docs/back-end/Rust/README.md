@@ -91,6 +91,67 @@ codegen-units = 1
 panic = 'abort'
 ```
 
+### 增加文件版本信息
+
+[VersionInfo资源](https://docs.microsoft.com/zh-cn/windows/win32/menurc/versioninfo-resource?redirectedfrom=MSDN)
+
+- Cargo.toml
+
+  ```ini
+  [package]
+  build = "build.rs"
+
+  [build-dependencies]
+  embed-resource = "1.4"
+  ```
+
+- \build.rs
+
+  ```rust
+  extern crate embed_resource;
+
+  fn main() {
+    embed_resource::compile("./resource/version.rc");
+  }
+  ```
+
+- 新建`\resource`目录，将图标命名为`icon.ico`并放置于此
+
+- \resource\version.rc
+
+  ::: tip 提示
+  `version.rc`需为 GBK 编码，否则将导致编译后的版本信息乱码
+  :::
+
+  ```
+  /* 图标信息 */
+  IDI_ICON ICON "icon.ico"
+
+  /* 版本信息 */
+  1 VERSIONINFO
+  FILEVERSION 1, 0, 0, 0
+  PRODUCTVERSION 1, 0, 0, 0
+  BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+      BLOCK "080404b0"
+      BEGIN
+        VALUE "FileDescription", "文件描述\0"
+        VALUE "FileVersion", "1, 0, 0, 0\0"
+        VALUE "InternalName", "内部名称\0"
+        VALUE "LegalCopyright", "版权信息\0"
+        VALUE "OriginalFilename", "原始文件名.exe\0"
+        VALUE "ProductName", "产品名称\0"
+        VALUE "ProductVersion", "1, 0, 0, 0\0"
+      END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+      VALUE "Translation", 2052, 1200
+    END
+  END
+  ```
+
 ## 基本语法
 
 ### 数据类型
