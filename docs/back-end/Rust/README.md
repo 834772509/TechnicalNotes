@@ -2,6 +2,8 @@
 
 [Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/)
 
+[Crates 库](https://crates.io/)
+
 ## 环境搭建
 
 ### 安装 Microsoft C++ build tools
@@ -93,7 +95,7 @@ panic = 'abort'
 
 ### 增加文件版本信息
 
-[VersionInfo资源](https://docs.microsoft.com/zh-cn/windows/win32/menurc/versioninfo-resource?redirectedfrom=MSDN)
+[VersionInfo 资源](https://docs.microsoft.com/zh-cn/windows/win32/menurc/versioninfo-resource?redirectedfrom=MSDN)
 
 - Cargo.toml
 
@@ -123,8 +125,11 @@ panic = 'abort'
   `version.rc`需为 GBK 编码，否则将导致编译后的版本信息乱码
   :::
 
+  ::: details 点击查看代码
+
   ```
   /* 图标信息 */
+  #define IDI_ICON 0x101
   IDI_ICON ICON "icon.ico"
 
   /* 版本信息 */
@@ -151,6 +156,8 @@ panic = 'abort'
     END
   END
   ```
+
+  :::
 
 ## 基本语法
 
@@ -367,6 +374,134 @@ let 变量名 = {
 };
 ```
 
+## 所有权
+
+### 什么是所有权
+
+所有运行的程序都必须管理其使用计算机内存的方式。
+
+- 一些语言中具有垃圾回收机制，在程序运行时不断地寻找不再使用的内存；
+- 在另一些语言中，程序员必须亲自分配和释放内存。
+
+Rust 则选择了第三种方式：
+
+- 通过所有权系统管理内存，编译器在编译时会根据一系列的规则进行检查。
+- 在运行时，所有权系统的任何功能都不会减慢程序。
+
+### 栈内存与堆内存
+
+1. 栈内存(Stack)
+   按值的接受顺序来存储，按相反的顺序将它们移除（先进后出）。
+
+   - 所有存储在栈上的数据必须拥有已知的固定大小；
+   - 编译时大小未知的数据或运行时大小可能发生变化的数据必须保持到栈内存。
+
+   - 增加数据叫“压入栈”
+   - 删除数据叫“弹出栈”
+
+2. 堆内存(Heap)
+   操作系统首先需要找到一个足够大的空间来存放数据，做好记录方便下次分配
+
+### 所有权规则
+
+1. 每个值都有一个变量，这个变量是该值的所有者。
+2. 每个值同时只能有一个所有者。
+3. 当所有者超出作用域(scope)时，该值将被删除。
+
+### 内存和分配
+
+Rust 采用了不同的方式：对于某个值来说，当拥有它的变量走出作用范围时，内存会立即自动的交还给操作系统（调用 drop 函数）。
+
+### 所有权与函数
+
+把值传递给函数，会发生移动或复制。
+
+::: tip 提示
+基础类型会自动进行复制，不需要进行引用
+:::
+
+```rust
+fn main() {
+  let s = String::from("Hello World");
+  take_ownership(s);
+
+  let x =5;
+  makes_copy(x);
+
+  println!("x:{}", x);
+}
+
+fn take_ownership(some_string: String){
+  println!("{}", some_string);
+
+}
+
+fn makes_copy(some_number: i32){
+  println!("{}", some_number);
+}
+```
+
+### 返回值与作用域
+
+函数在返回值的过程中同样也会发生所有权的转移。
+
+一个变量的所有权总是遵循同样的模式：
+
+- 把一个值赋给其它变量时就会发生移动
+- 当一个包含 heap 数据的变量离开作用域时，它的值就会被 drop 函数清理，除非数据的所有权移动到另-一个变量上了
+
+```rust
+fn main() {
+  let s1 = gives_ownership();
+  let s2 = String::from("hello");
+  let s3 = takes_and_gives_back(s2);
+}
+
+fn gives_ownership() -> String {
+  let some_string = String::from("hello");
+  some_string
+}
+
+fn takes_and_gives_back(a_string: String) -> String {
+  a_string
+}
+```
+
+### 引用
+
+`&`表示指向值的引用，允许引用某些值而不取得其所有权
+
+- 引用的基本使用
+
+  ```rust
+  fn main() {
+    let mut s1 = String::from("hello");
+    let mut len = getLength(&s1);
+
+    println!("字符串={}, 长度={}", s1, len);
+
+    fn getLength(s: &String) -> usize {
+      return s.len();
+    }
+  }
+  ```
+
+- 可变引用
+  当需要改变参数时，需要使用可变引用。  
+  注意：在特定作用域中的特定数据只能有一个可变引用
+
+  ```rust
+  fn main() {
+    let mut s = String::from("hello");
+
+    change(&mut s);
+  }
+
+  fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+  }
+  ```
+
 ## 控制流
 
 ### if-else
@@ -437,7 +572,7 @@ while 条件 {
 ### for 循环
 
 ```rust
-let mut 数组 = [1, 2, 3, 4, 5];
+let 数组 = [1, 2, 3, 4, 5];
 for item in &数组 {
   println!("{}",item);
 }
@@ -967,133 +1102,57 @@ let sum = x + y.unwrap();
 println!("{}", sum);
 ```
 
-## 所有权
+## 错误
 
-### 什么是所有权
+- 示例、代码原型、测试用 `panic!`、`unWrap`、`expect`
+- 实际项目中应使用 Result
 
-所有运行的程序都必须管理其使用计算机内存的方式。
+### 可恢复错误
 
-- 一些语言中具有垃圾回收机制，在程序运行时不断地寻找不再使用的内存；
-- 在另一些语言中，程序员必须亲自分配和释放内存。
+可恢复错误通常代表向用户报告错误和重试操作是合理的情况>例如未找到文件。rust 中使用 `Result`枚举来实现
 
-Rust 则选择了第三种方式：
-
-- 通过所有权系统管理内存，编译器在编译时会根据一系列的规则进行检查。
-- 在运行时，所有权系统的任何功能都不会减慢程序。
-
-### 栈内存与堆内存
-
-1. 栈内存(Stack)
-   按值的接受顺序来存储，按相反的顺序将它们移除（先进后出）。
-
-   - 所有存储在栈上的数据必须拥有已知的固定大小；
-   - 编译时大小未知的数据或运行时大小可能发生变化的数据必须保持到栈内存。
-
-   - 增加数据叫“压入栈”
-   - 删除数据叫“弹出栈”
-
-2. 堆内存(Heap)
-   操作系统首先需要找到一个足够大的空间来存放数据，做好记录方便下次分配
-
-### 所有权规则
-
-1. 每个值都有一个变量，这个变量是该值的所有者。
-2. 每个值同时只能有一个所有者。
-3. 当所有者超出作用域(scope)时，该值将被删除。
-
-### 内存和分配
-
-Rust 采用了不同的方式：对于某个值来说，当拥有它的变量走出作用范围时，内存会立即自动的交还给操作系统（调用 drop 函数）。
-
-### 所有权与函数
-
-把值传递给函数，会发生移动或复制。
-
-::: tip 提示
-基础类型会自动进行复制，不需要进行引用
-:::
-
-```rust
-fn main() {
-  let s = String::from("Hello World");
-  take_ownership(s);
-
-  let x =5;
-  makes_copy(x);
-
-  println!("x:{}", x);
-}
-
-fn take_ownership(some_string: String){
-  println!("{}", some_string);
-
-}
-
-fn makes_copy(some_number: i32){
-  println!("{}", some_number);
-}
-```
-
-### 返回值与作用域
-
-函数在返回值的过程中同样也会发生所有权的转移。
-
-一个变量的所有权总是遵循同样的模式：
-
-- 把一个值赋给其它变量时就会发生移动
-- 当一个包含 heap 数据的变量离开作用域时，它的值就会被 drop 函数清理，除非数据的所有权移动到另-一个变量上了
-
-```rust
-fn main() {
-  let s1 = gives_ownership();
-  let s2 = String::from("hello");
-  let s3 = takes_and_gives_back(s2);
-}
-
-fn gives_ownership() -> String {
-  let some_string = String::from("hello");
-  some_string
-}
-
-fn takes_and_gives_back(a_string: String) -> String {
-  a_string
-}
-```
-
-### 引用
-
-`&`表示指向值的引用，允许引用某些值而不取得其所有权
-
-- 引用的基本使用
+- match
 
   ```rust
-  fn main() {
-    let mut s1 = String::from("hello");
-    let mut len = getLength(&s1);
-
-    println!("字符串={}, 长度={}", s1, len);
-
-    fn getLength(s: &String) -> usize {
-      return s.len();
-    }
-  }
+  let f = File::open("hello.txt");
+  let r = match f {
+    Ok(file) => file,
+    Err(error) => panic!("error: {:?}", error),
+  };
   ```
 
-- 可变引用
-  当需要改变参数时，需要使用可变引用。  
-  注意：在特定作用域中的特定数据只能有一个可变引用
+- unwrap 方法
+
+  unwrap 是 match 表达式的一个快捷方法，效果等同于以上代码。
+
+  - 如果 Result 结果是 Ok，返回 `Ok` 里面的值
+  - 如果 Result 结果是 Err，调用 `panic!` 宏
 
   ```rust
-  fn main() {
-    let mut s = String::from("hello");
-
-    change(&mut s);
-  }
-
-  fn change(some_string: &mut String) {
-    some_string.push_str(", world");
-  }
+  let f = File::open("hello.txt").unwrap();
   ```
+
+- expect 方法
+
+  和 `unwrap` 类似，但可指定错误信息。
+
+  ```rust
+  let f = File::open("hello.txt").expect("错误信息");
+  ```
+
+### 不可恢复错误
+
+不可恢复错误是 bug 的同义词，如尝试访问超过数组结尾的位置。
+
+当 `panic!` 宏执行:
+
+- 程序会打印一个错误信息
+- 展开(unwind) 、清理调用栈(Stack)
+- 退出程序
+
+```rust
+panic!("出现不可恢复错误");
+```
 
 ## 单元包 (Crate)
 
@@ -1130,15 +1189,6 @@ pub mod 模块名 {
 
 ### 使用
 
-- 导入依赖
-
-  \Cargo.toml
-
-  ```ini
-  [dependencies]
-  模块名 = { path = "./模块名" }
-  ```
-
 - use 关键字引用
 
   ```rust
@@ -1154,25 +1204,40 @@ pub mod 模块名 {
   模块名::模块名::函数名();
   ```
 
+- 重导出
+  使用 use 将路径(名称)导入到作用域内后，该名称在此作用域内是私有的。
+
+  `pubuse`: 重导出。
+  将条目引入作用域，该条目可以被外部代码引入到它们的作用域
+
+- 导入依赖法
+
+  \Cargo.toml
+
+  ```ini
+  [dependencies]
+  模块名 = { path = "./模块名" }
+  ```
+
 ### 拆分模块
 
-\模块名.rs
+- \模块名.rs
 
-```rust
-pub fn 函数名() {
+  ```rust
+  pub fn 函数名() {
 
-}
-```
+  }
+  ```
 
-\main.rs
+- \main.rs
 
-```rust
-mod 函数名;
+  ```rust
+  mod 函数名;
 
-fn main() {
-  函数名::函数名();
-}
-```
+  fn main() {
+    函数名::函数名();
+  }
+  ```
 
 ### 使用第三方库
 
@@ -1185,33 +1250,6 @@ fn main() {
 库名 = "版本"
 ```
 
-## 错误
-
-### 可恢复错误
-
-可恢复错误通常代表向用户报告错误和重试操作是合理的情况>例如未找到文件。rust 中使用 `Result<T,E>`来实现
-
-```rust
-let mut f = File::open("hello.txt");
-let mut r = match f {
-    Ok(file) => file,
-    Err(error) => panic!("error: {:?}", error),
-};
-```
-
-### 不可恢复错误
-
-不可恢复错误是 bug 的同义词，如尝试访问超过数组结尾的位置。rust 中通过 panic!来实现。
-
-```rust
-panic!("出现不可恢复错误");
-```
-
-### 异常捕获
-
-- 示例、代码原型、测试用 `panic!`、`unWrap`、`expect`
-- 实际项目中应使用 Result
-
 ## Json
 
 ### 安装依赖
@@ -1220,45 +1258,5 @@ Cargo.toml
 
 ```ini
 [dependencies]
-rustc-serialize = "0.3.24"
-```
-
-### 转换 Json
-
-```Rust
-use rustc_serialize::json;
-
-#[derive(RustcDecodable, RustcEncodable)]
-pub struct Json数据 {
-  键: 数据类型,
-  键: 数据类型
-}
-
-fn main(){
-  let object = Json数据 {
-    键: 值,
-    键: 值
-  };
-
-  let encoded = json::encode(&object).unwrap();
-  println!("{}",encoded);
-}
-```
-
-### 解析 Json
-
-```Rust
-use rustc_serialize::json;
-
-#[derive(RustcDecodable, RustcEncodable)]
-pub struct Json数据 {
-  键: 数据类型,
-  键: 数据类型
-}
-
-fn main(){
-  let encoded = json::encode(&object).unwrap();
-  let decoded: Json数据 = json::decode(&encoded).unwrap();
-  println!("{:?}",decoded.键);
-}
+serde = "1.0.123"
 ```
