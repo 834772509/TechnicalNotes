@@ -1140,6 +1140,44 @@ println!("{}", sum);
   let f = File::open("hello.txt").expect("错误信息");
   ```
 
+- `?`运算符
+
+  ::: tip 提示
+  `?`运算符只能运用于**返回值为`Result`、`Option`**的函数
+  :::
+
+  `?`运算符是传播错误的一种快捷方式，用于针对不同错误原因，返回同一种错误类型。
+
+  - 如果 Result 是 Ok: Ok 中的值就是表达式的结果，然后继续执行程序
+  - 如果 Result 是 Err: Err 就是**整个函数**的返回值，就像使用了 return
+
+  ```rust
+  fn readUsernameFromFile() -> Result<String, io::Error> {
+    let mut f = File::open("hello.txt")?;
+    let mut s = String::new();
+    f.read_to_string(&mut s)?;
+    Ok(s)
+  }
+  ```
+- `Box<dyn Error>`: 任何可能的错误类型
+
+  ```rust
+  use std::error::Error;
+  
+  pub fn main() {
+    match 函数名() {
+      Ok(value) => println!("{}", value),
+      Err(error) => println!("{}", error),
+    }
+  }
+
+  fn 函数名() -> Result<i32, Box<dyn Error>> {
+    let list = [1, 2];
+    let value = *list.get(3).ok_or("发生错误".to_owned())?;
+    Ok(value)
+  }
+  ```
+
 ### 不可恢复错误
 
 不可恢复错误是 bug 的同义词，如尝试访问超过数组结尾的位置。
