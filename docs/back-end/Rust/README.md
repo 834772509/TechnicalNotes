@@ -113,16 +113,16 @@ panic = 'abort'
   extern crate embed_resource;
 
   fn main() {
-    embed_resource::compile("./resource/version.rc");
+    embed_resource::compile("./resource/resource.rc");
   }
   ```
 
 - 新建`\resource`目录，将图标命名为`icon.ico`并放置于此
 
-- \resource\version.rc
+- \resource\resource.rc
 
   ::: tip 提示
-  `version.rc`需为 GBK 编码，否则将导致编译后的版本信息乱码
+  `resource.rc`需为 GBK 编码，否则将导致编译后的版本信息乱码
   :::
 
   ::: details 点击查看代码
@@ -1140,6 +1140,10 @@ println!("{}", sum);
   let f = File::open("hello.txt").expect("错误信息");
   ```
 
+- unwrap_or 方法
+
+  如果值不为 None 则返回 Some 中的值，否则是使用传入的参数代替
+
 - `?`运算符
 
   ::: tip 提示
@@ -1159,11 +1163,12 @@ println!("{}", sum);
     Ok(s)
   }
   ```
+
 - `Box<dyn Error>`: 任何可能的错误类型
 
   ```rust
   use std::error::Error;
-  
+
   pub fn main() {
     match 函数名() {
       Ok(value) => println!("{}", value),
