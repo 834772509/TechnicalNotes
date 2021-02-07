@@ -4,7 +4,7 @@
 
   ```ini
   [dependencies]
-  rust-embed = "5.9.0"
+  rust-embed = "~5.9.0"
   ```
 
 - 创建目录`assets`，并将内置资源放置于此
@@ -25,8 +25,8 @@
 
   /// 写到文件
   pub fn writeEmbedFile(filePath: &str, outFilePath: &PathBuf) -> Result<(), Box<dyn Error>> {
-      let file = Asset::get(filePath).unwrap();
-      File::create(outFilePath).unwrap().write(&file)?;
-      Ok(())
+    let file = Asset::get(filePath).unwrap();
+    File::create(outFilePath).unwrap().write(&file)?;
+    Ok(())
   }
   ```
