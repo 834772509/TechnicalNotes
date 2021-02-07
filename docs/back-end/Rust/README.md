@@ -6,9 +6,13 @@
 
 ## 环境搭建
 
-### 安装 Microsoft C++ build tools
+### 安装 C++生成工具
 
-[VisualCppBuildTools 在线安装](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
+[VisualCpp Build Tools 在线安装](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
+
+::: tip 提示
+仅安装 Microsoft C++ build tools 即可，`Windows10 SDK`可在以后需要时安装（建议也一并安装）。
+:::
 
 <!-- (Visuals Studio 安装程序)[https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16]
 
@@ -21,7 +25,11 @@
 1. 设置环境变量
    - `RUSTUP_DIST_SERVER`: `https://mirrors.ustc.edu.cn/rust-static`
    - `RUSTUP_UPDATE_ROOT`: `https://mirrors.ustc.edu.cn/rust-static/rustup`
-2. 创建 `C:\users\用户名\.cargo\config`
+2. 创建 `C:\users\用户名\.cargo\config`文件
+
+   ::: tip 提示
+   编码为 UTF-8
+   :::
 
    ```ini
    [source.crates-io]
@@ -51,8 +59,13 @@
 ### 安装 Rust
 
 ::: tip 提示
-默认为在线安装 Rust，需要先在环境变量内配置国内镜像
+默认为在线安装 Rust，需要先在环境变量内配置国内镜像才可进行正常下载
 :::
+
+自定义安装路径（设置环境变量）：
+
+- `CARGO_HOME`: `D:\Program Files\Rust\.cargo`
+- `RUSTUP_HOME`: `D:\Program Files\Rust\.rustup`
 
 [使用 Rustup 安装 Rsut](https://www.rust-lang.org/zh-CN/tools/install)
 
@@ -76,6 +89,11 @@
 - 查看 Rust 版本: `rustup --version`
 - 升级 Rust: `rustup update`
 - 卸载 Rust: `rustup self uninstall`
+
+### 编译 32 位程序
+
+1. 添加`i686-pc-windows-msvc`target: `rustup target add i686-pc-windows-msvc`
+2. 编译 32 位程序: `cargo build --release --target=i686-pc-windows-msvc`
 
 ### 优化编译体积
 
@@ -127,33 +145,49 @@ panic = 'abort'
 
   ::: details 点击查看代码
 
-  ```
+  ```c
   /* 图标信息 */
   #define IDI_ICON 0x101
   IDI_ICON ICON "icon.ico"
 
-  /* 版本信息 */
+  /* 文件信息 */
+  #define VER_COMPANYNAME_STR           "公司名\0"
+  #define VER_FILEDESCRIPTION_STR       "文件描述\0"
+  #define VER_INTERNALNAME_STR          "内部名称\0"
+  #define VER_LEGALCOPYRIGHT_STR        "版权\0"
+  #define VER_ORIGINALFILENAME_STR      "原始文件名.exe\0"
+  #define VER_PRODUCTNAME_STR           "产品名称\0"
+
+  /* 文件版本 */
+  #define VER_FILEVERSION               1,0,0,0
+  #define VER_FILEVERSION_STR           "1.0.0.0\0"
+
+  /* 产品版本 */
+  #define VER_PRODUCTVERSION            1,0,0,0
+  #define VER_PRODUCTVERSION_STR        "1.0.0.0\0"
+
   1 VERSIONINFO
-  FILEVERSION 1, 0, 0, 0
-  PRODUCTVERSION 1, 0, 0, 0
+  FILEVERSION     VER_FILEVERSION
+  PRODUCTVERSION  VER_PRODUCTVERSION
   BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-      BLOCK "080404b0"
+      BLOCK "StringFileInfo"
       BEGIN
-        VALUE "FileDescription", "文件描述\0"
-        VALUE "FileVersion", "1, 0, 0, 0\0"
-        VALUE "InternalName", "内部名称\0"
-        VALUE "LegalCopyright", "版权信息\0"
-        VALUE "OriginalFilename", "原始文件名.exe\0"
-        VALUE "ProductName", "产品名称\0"
-        VALUE "ProductVersion", "1, 0, 0, 0\0"
+          BLOCK "040904E4"
+          BEGIN
+              VALUE "CompanyName",      VER_COMPANYNAME_STR
+              VALUE "FileDescription",  VER_FILEDESCRIPTION_STR
+              VALUE "FileVersion",      VER_FILEVERSION_STR
+              VALUE "InternalName",     VER_INTERNALNAME_STR
+              VALUE "LegalCopyright",   VER_LEGALCOPYRIGHT_STR
+              VALUE "OriginalFilename", VER_ORIGINALFILENAME_STR
+              VALUE "ProductName",      VER_PRODUCTNAME_STR
+              VALUE "ProductVersion",   VER_PRODUCTVERSION_STR
+          END
       END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-      VALUE "Translation", 2052, 1200
-    END
+      BLOCK "VarFileInfo"
+      BEGIN
+          VALUE "Translation", 0x409, 1252
+      END
   END
   ```
 
@@ -163,7 +197,7 @@ panic = 'abort'
 
 ### 数据类型
 
-- 字符型（32 位）: char
+- 字符型（32 位）: `char`
 
   char 类型被用来描述语言中最基础的单个字符
 
@@ -182,25 +216,25 @@ panic = 'abort'
   :::
 
   - 有符号
-    i8 : 8 位，表达范围是：[-128,127]  
-    i16 : 16 位，表达范围是：[-32768,32767]  
-    i32 : 32 位，表达范围是：[-2147483648,2147483647]  
-    i64 : 64 位，表达范围是：[-9223372036854775808,9223372036854775807]
+    `i8` : 8 位，表达范围是：[-128,127]  
+    `i16` : 16 位，表达范围是：[-32768,32767]  
+    `i32` : 32 位，表达范围是：[-2147483648,2147483647]  
+    `i64` : 64 位，表达范围是：[-9223372036854775808,9223372036854775807]
   - 无符号
-    u8 : 8 位，表达范围是：[0,255]  
-    u16 : 16 位，表达范围是：[0,65535]  
-    u32 : 32 位，表达范围是：[0,4294967295]  
-    u64 : 64 位，表达范围是：[0,18446744073709551615]
+    `u8` : 8 位，表达范围是：[0,255]  
+    `u16` : 16 位，表达范围是：[0,65535]  
+    `u32` : 32 位，表达范围是：[0,4294967295]  
+    `u64` : 64 位，表达范围是：[0,18446744073709551615]
 
 - 浮点型
-  f32 : 32 位
-  f64 : 64 位
+  `f32` : 32 位
+  `f64` : 64 位
 
-- 字符串: String
-- 布尔型 : bool
+- 字符串: `String`
+- 布尔型 : `bool`
 - 自适应类型(长度随着平台的不同而不同)
-  - 有符号: isize
-  - 无符号: usize
+  - 有符号: `isize`
+  - 无符号: `usize`
 
 ### 数据类型转换
 
@@ -239,14 +273,23 @@ fn main(){
 如果变量没有`mut`关键字，则数据不可变
 :::
 
-Rust 具有隐藏性。即变量可定义多次，以最后定义的变量为准。
-
 ```rust
 // 自动推导类型
 let mut 变量名;
 
 // 指定数据类型
 let mut 变量名: 数据类型;
+```
+
+Rust 具有隐藏性。可以声明相同名字的变量，新的变量会隐藏之前声明的同名变量。
+
+::: tip 提示
+使用 let 声明的同名新变量，类型可以与之前不同
+:::
+
+```rust
+let x = 5;
+let x= x + 1;
 ```
 
 ### 定义常量
@@ -289,24 +332,11 @@ const MAX_POINTS: u32 = 100;
   unsafe { println!("{}", 变量名); }
   ```
 
-### 隐藏
-
-在 Rust 中，可以声明相同名字的变量，新的变量会隐藏之前声明的同名变量。
-
-::: tip 提示
-使用 let 声明的同名新变量，类型可以与之前不同
-:::
-
-```rust
-let x = 5;
-let x= x + 1;
-```
-
 ### 逻辑运算符
 
-- 与: &&
-- 或: ||
-- 取反: !
+- 与: `&&`
+- 或: `||`
+- 取反: `!`
 
 ### 关系运算符
 
@@ -688,7 +718,7 @@ println!("str3:{}", &str3);
 - 字符遍历
 
   ```rust
-  let mut 字符串名 = String::from("内容");
+  let 字符串名 = String::from("内容");
 
   for item in 字符串名.chars(){
     println!("item={}",item);
@@ -698,7 +728,7 @@ println!("str3:{}", &str3);
 - 字节遍历
 
   ```rust
-  let mut 字符串名 = String::from("内容");
+  let 字符串名 = String::from("内容");
 
   for item in 字符串名.bytes(){
     println!("item={}",item);
@@ -725,7 +755,27 @@ println!("Hell={}", &s[..4]);
 ### 获取字符串长度
 
 ```rust
-变量名.len();
+字符串名.len();
+```
+
+### 判断字符串是否存在指定内容
+
+存在返回`true`，不存在返回`false`
+
+```rust
+字符串名.contains("指定内容");
+```
+
+### 转小写
+
+```rust
+字符串名.to_lowercase();
+```
+
+### 转大写
+
+```rust
+字符串名.to_uppercase();
 ```
 
 ## 数组
@@ -1291,6 +1341,42 @@ pub mod 模块名 {
 ```ini
 [dependencies]
 库名 = "版本"
+```
+
+## 泛型
+
+泛型是具体类型或其它属性的抽象代替
+
+- 处理重复代码的问题，提高代码复用能力
+- 编写的代码不是最终的代码，而是一种模板，里面有一些”占位符“
+- 编译器在编译时将“占位符”替换为具体的类型
+
+```rust
+fn 函数名<T>(参数名: <T>)
+```
+
+## 环境变量
+
+### 访问环境变量
+
+常用环境变量：
+
+- `CARGO_PKG_VERSION`: Cargo.toml 版本号
+- `CARGO_PKG_AUTHORS`: Cargo.toml 作者
+- `WINDIR`: `C:\Windows`
+- `PROGRAMFILES`: `C:\Program Files`
+- `PROGRAMFILES(X86)`: `C:\Program Files (x86)`
+
+```rust
+env::var("环境变量名"));
+```
+
+### 遍历环境变量
+
+```rust
+for (key, value) in env::vars() {
+  println!("  {}  =>  {}", key, value);
+}
 ```
 
 ## Json

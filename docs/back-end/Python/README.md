@@ -10,9 +10,9 @@
 - `\Python\`
 - `\Python\Scripts`
 
-### 配置镜像 
+### 配置镜像
 
-`\user\用户名\pip\pip.ini`
+创建`\user\用户名\pip\pip.ini`文件
 
 ```ini
 [global]
@@ -36,7 +36,7 @@ trusted-host=mirrors.aliyun.com
 
 ## 打包程序
 
-1. 安装 PyInstalle：`pip install pyinstaller`  
+1. 安装 PyInstalle：`pip install pyinstaller`
 2. 打包： `pyinstaller -F -w --clean "源码路径"`
 
 ## 数据类型
