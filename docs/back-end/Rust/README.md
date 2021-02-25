@@ -8,11 +8,13 @@
 
 ### 安装 C++生成工具
 
-[VisualCpp Build Tools 在线安装](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
-
 ::: tip 提示
 仅安装 Microsoft C++ build tools 即可，`Windows10 SDK`可在以后需要时安装（建议也一并安装）。
 :::
+
+[VisualCpp Build Tools 在线安装](https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe)
+
+自定义安装路径（以管理员身份运行 cmd）：`visualcppbuildtools_full.exe /CustomInstallPath 安装路径`
 
 <!-- (Visuals Studio 安装程序)[https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16]
 
@@ -1433,13 +1435,86 @@ fn 函数名() -> Trait名 {
 }
 ```
 
-## 生命周期
+## 测试
 
-生命周期：引用保持有效的作用域。Rust 的每个引用都有自己的生命周期。大多数情况:生命周期是隐式的、可被推断的。当引用的生命周期可能以不同的方式互相关联时:手动标注生命周期。
+### 测试函数
 
-## 环境变量
+```rust
+#[test]
+fn 测试函数名() {
 
-### 访问环境变量
+}
+```
+
+测试命令：`cargo test`
+
+### 断言
+
+- `assert!`宏
+
+  `assert!`宏来自标准库，用来确定某个状态是否为 true。
+
+  - `true`: 测试通过
+  - `false`: 调用 panic!，测试失败
+
+  ```rust
+  assert!(true);
+  assert!(false, "自定义错误 {}", 0);
+  ```
+
+- `assert_eq!`宏
+
+  `assert_eq!`宏来自标准库，用来判断两个参数是否相等，如果断言失败则自动打印两个参数的值。
+
+  ```rust
+  assert_eq!(0, 0);
+  assert_eq!(0, 0, "自定义错误 {}", 0);
+  ```
+
+- `assert_ne!`宏
+
+  `assert_ne!`宏来自标准库，用来判断两个参数是否不等，如果断言失败则自动打印两个参数的值。
+
+  ```rust
+  assert_ne!(0, 1);
+  assert_ne!(0, 1, "自定义错误 {}", 0);
+  ```
+
+### 测试错误处理情况
+
+测试代码是否如预期的处理了发生错误的情况，可验证代码在特定情况下是否发生了 panic
+`should_panic` 属性(attribute):
+
+- 函数 panic: 测试通过
+- 函数没有 panic: 测试失败
+
+```rust
+#[test]
+#[should_panic]
+fn 测试函数名() {
+  panic!()
+}
+```
+
+### 测试中使用 Result
+
+无需 panic，可使用`Result<T,E>`作为返回类型编写测试:
+
+- 返回`Ok`: 测试通过
+- 返回`Err`: 测试失败
+
+```rust
+#[test]
+fn 测试函数名() -> Result<(), String> {
+  Ok(())
+}
+```
+
+::: tip 提示
+不要在使用`Result<T, E>`编写的测试上标注`should_panic`
+:::
+
+## 访问环境变量
 
 常用环境变量：
 
