@@ -754,6 +754,14 @@ println!("Hello={}", &s[0..5]);
 println!("Hell={}", &s[..4]);
 ```
 
+### 分割字符串
+
+```rust
+for item in 字符串.split("分隔符") {
+  println!("{}", item);
+}
+```
+
 ### 获取字符串长度
 
 ```rust
