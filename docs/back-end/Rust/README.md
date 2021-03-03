@@ -1460,6 +1460,7 @@ fn 测试函数名() {
 - 增加命令行: `cargo test --程序命令行`
 - 指定线程数测试（默认多线程）: `cargo test --test-threadds=1`
 - 测试成功时依然显示打印信息: `cargo test --show-output`
+- 按测试名称测试: `cargo test 测试函数名`
 
 ### 断言
 
