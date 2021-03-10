@@ -1528,6 +1528,65 @@ fn 测试函数名() -> Result<(), String> {
 不要在使用`Result<T, E>`编写的测试上标注`should_panic`
 :::
 
+### 忽略测试
+
+```rust
+#[test]
+#[ignore]
+fn 测试函数名(){
+
+}
+```
+
+运行被忽略的测试: `cargo test -- --ignored`
+
+### 单元测试
+
+单元测试小、专注，一次对一个模块进行隔离的测试，可测试`private`接口。
+
+```rust
+#[cfg(test)]
+mod tests {
+  #[test]
+  fn 测试函数名(){
+
+  }
+}
+```
+
+### 集成测试
+
+集成测试完全位于被测试库的外部，目的是测试被测试库的多个部分是否能正确的一起工作（集成测试的覆盖率很重要
+）。
+
+::: tip 提示
+
+- 如果项目是 binary crate，只含有 src/main.rs 没有 src/lib.rs:
+  - 不能在 tests 目录下创建集成测试
+  - 无法把 main.rs 的函数导入作用域
+- 只有 librarycrate 才能暴露函数给其它 crate 用
+- binary crate 意味着独立运行
+
+:::
+
+::: tip 提示
+
+- `tests`目录下的每个测试文件都是单独的一个 crate
+- 无需标注# [cfg(test)]，tests 目录被特殊对待
+- 需要将被测试库导入
+
+:::
+
+1. 创建`\test`目录
+2. 编写测试代码
+
+```rust
+#[test]
+fn 测试函数名(){
+
+}
+```
+
 ## 访问环境变量
 
 常用环境变量：
