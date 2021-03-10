@@ -1587,7 +1587,9 @@ fn 测试函数名(){
 }
 ```
 
-## 访问环境变量
+## env模块
+
+### 访问环境变量
 
 常用环境变量：
 
@@ -1601,12 +1603,19 @@ fn 测试函数名(){
 env::var("环境变量名"));
 ```
 
-### 遍历环境变量
+遍历环境变量：
 
 ```rust
 for (key, value) in env::vars() {
   println!("  {}  =>  {}", key, value);
 }
+```
+
+### 获取命令行参数
+
+```rust
+let args: Vec<String> = env::args().collect();
+println!("{:?}", args);
 ```
 
 ## Json
