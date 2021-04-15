@@ -4,7 +4,7 @@
 
 [IntelliJ IDEA 便携增强版](https://www.ghpym.com/idea.html)
 
-[IDEA 正版激活码](http://idea.medeming.com/jets/)
+[IDEA 正版激活码](http://idea.medeming.com/jets/) [IDEA 正版激活码](http://idea.94goo.com/key) (验证码: 666)
 
 [IDEA 破解补丁](https://tech.souyunku.com/?p=30970)
 

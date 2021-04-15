@@ -1,7 +1,9 @@
 # Rust 基础
 
 [Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/)
+
 [Rust 实例指南](https://rust-cookbook.budshome.com) [Rust 实践指南](https://rust-guide.budshome.com/)
+
 [Crates 库](https://crates.io/)
 
 ## 环境搭建
@@ -283,6 +285,13 @@ let mut 变量名;
 let mut 变量名: 数据类型;
 ```
 
+连续定义多个变量
+
+```rust
+let (变量名, 变量名) = (值, 值);
+let (mut 变量名, mut 变量名): (数据类型, 数据类型) = (值, 值);
+```
+
 Rust 具有隐藏性。可以声明相同名字的变量，新的变量会隐藏之前声明的同名变量。
 
 ::: tip 提示
@@ -349,6 +358,22 @@ const MAX_POINTS: u32 = 100;
 - 小于等于: >=
 - 大于等于: <=
 
+### 标准输出
+
+- 标准输出
+
+  ```rust
+  println!("输出内容");
+  println!("输出变量: {:?}", 变量名);
+  ```
+
+- 标准错误
+
+  ```rust
+  eprintln!("输出内容");
+  eprintln!("输出变量: {:?}", 变量名);
+  ```
+
 ## 函数
 
 ### 定义
@@ -404,6 +429,75 @@ let 变量名 = {
   let x = 3;
   x + 1
 };
+```
+
+## 闭包
+
+闭包是可以捕获其所在环境的匿名函数。闭包通常很短小，只在狭小的上下文中工作，闭包不要求标注参数和返回值的类型，编译器通常能推断出类型
+
+- 是匿名函数
+- 保存为变量、作为参数
+- 可在一个地方创建闭包，然后在另一个，上下文中调用闭包来完成运算
+- 可从其定义的作用域捕获值（会产生内存开销）
+
+### 定义闭包
+
+```rust
+let 闭包名 = |参数名| {
+
+};
+```
+
+### 使用闭包
+
+```rust
+闭包名(参数名);
+```
+
+### Fn Trait
+
+```rust
+struct Cacher<T>
+  where T: Fn(u32) -> u32 {
+  calculation: T,
+  value: Option<u32>,
+}
+
+impl<T> Cacher<T> where T: Fn(u32) -> u32 {
+  fn new(calculation: T) -> Cacher<T> {
+    Cacher { calculation, value: None }
+  }
+  fn value(&mut self, arg: u32) -> u32 {
+    match self.value {
+      Some(v) => v,
+      None => {
+        let v = (self.calculation)(arg);
+        self.value = Some(v);
+        v
+      }
+    }
+  }
+}
+```
+
+### 闭包从所在环境捕获值的方式
+
+创建闭包时，通过闭包对环境值的使用，Rust 推断出具体使用哪个 trait
+
+- 所有的闭包都实现了 FnOnce
+- 没有移动捕获变量的实现了 FnMut
+- 无需可变访问捕获变量的闭包实现了 Fn
+
+### move
+
+在参数列表前使用 move 关键字，可以强制闭包取得它所使用的环境值的所有权。
+
+- 当将闭包传递给新线程以移动数据使其归新线程所有时，此技术最为有用。
+
+```rust
+let 闭包名 = move |参数名| {
+
+}
 ```
 
 ## 所有权
@@ -1556,8 +1650,7 @@ mod tests {
 
 ### 集成测试
 
-集成测试完全位于被测试库的外部，目的是测试被测试库的多个部分是否能正确的一起工作（集成测试的覆盖率很重要
-）。
+集成测试完全位于被测试库的外部，目的是测试被测试库的多个部分是否能正确的一起工作（集成测试的覆盖率很重要）。
 
 ::: tip 提示
 
@@ -1587,7 +1680,7 @@ fn 测试函数名(){
 }
 ```
 
-## env模块
+## env 模块
 
 ### 访问环境变量
 
@@ -1618,13 +1711,73 @@ let args: Vec<String> = env::args().collect();
 println!("{:?}", args);
 ```
 
-## Json
+## 文件系统
 
-### 安装依赖
+### 打开文件
 
-Cargo.toml
+`open()`函数用于以**只读模式**打开一个已经存在的文件，如果文件不存在，则会抛出一个错误。如果文件不可读，那么也会抛出一个错误。
 
-```ini
-[dependencies]
-serde = "1.0.123"
+```rust
+let file = fs::File::open("文件路径").expect("文件打开失败");
+```
+
+### 创建文件
+
+`create()` 函数用于创建一个文件并返回创建的文件句柄。如果文件已经存在，则会内部调用 open() 打开文件。如果创建失败，比如目录不可写，则会抛出错误
+
+```rust
+let file = fs::File::create("文件路径").expect("文件创建失败");
+```
+
+### 读取文件
+
+`read_to_string()` 函数用于读取文件中的所有内容并追加到 buf 中，如果读取成功则返回读取的字节数，如果读取失败则抛出错误。
+
+```rust
+let file = fs::File::open("文件路径").expect("文件打开失败");
+let contents = file.read_to_string(文件路径).expect("读取文件失败");
+println!("{}", contents);
+```
+
+### 写入文件
+
+`write_all()` 用于向当前流写入 buf 中的内容。如果写入成功则返回写入的字节数，如果写入失败则抛出错误。
+
+```rust
+let mut file = fs::File::create("文件路径").expect("文件创建失败");
+file.write_all("文本内容".as_bytes()).expect("文件写入失败");
+```
+
+### 追加内容到文件末尾
+
+Rust 核心和标准库并没有提供直接的函数用于追加内容到文件的末尾。但提供了函数 `append()` 用于将文件的打开模式设置为 **追加**。
+
+```rust
+let mut file = OpenOptions::new().append(true).open("文件路径").expect("文件打开失败");
+file.write_all("文本内容".as_bytes()).expect("文件写入失败");
+```
+
+### 删除文件
+
+::: tip 提示
+删除可能会失败，即使返回结果为 OK，也有可能不会立即就删除。
+:::
+
+```rust
+fs::remove_file("文件路径").expect("文件删除失败");
+```
+
+## 多线程
+
+### 基本使用
+
+```rust
+use std::thread;
+
+let 线程名 = thread::spawn(move || {
+
+});
+
+// 等待线程结束
+线程名.join();
 ```
