@@ -137,7 +137,6 @@ module.exports = {
             text: "Python",
             items: [
               { text: "Python 基础", link: "/back-end/Python/" },
-              // { text: "Django", link: "/back-end/Python/Django/" },
               { text: "Flask", link: "/back-end/Python/Flask/" },
             ],
           },
@@ -145,7 +144,7 @@ module.exports = {
             text: "数据库",
             items: [
               { text: "MySQL", link: "/back-end/DataBase/MySQL/" },
-              // { text: "Oracle", link: "/back-end/DataBase/Oracle/" },
+              { text: "Redis", link: "/back-end/DataBase/Redis/" },
             ],
           },
           {
