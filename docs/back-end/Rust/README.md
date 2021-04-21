@@ -78,6 +78,10 @@
 - IDEA: `Rust`
 - Visual Studio Code: `Rust`
 
+### 标准库本地化文档
+
+(Rust 标准库本地化文档)[https://github.com/wtklbm/rust-library-i18n]
+
 ## cargo
 
 ### 脚手架
@@ -891,6 +895,9 @@ for item in 字符串.split("分隔符") {
 ```rust
 // 自动推导
 let 数组名 = [值, 值];
+
+// 指定初始值、个数
+let 数组名 = [值, 个数];
 
 // 指定数据类型
 let 数组名: [数据类型; 个数] = [值, 值];
@@ -1711,6 +1718,10 @@ let args: Vec<String> = env::args().collect();
 println!("{:?}", args);
 ```
 
+### 内部常量
+
+- 正在使用的 CPU 的体系结构: `env::consts::ARCH`
+
 ## 文件系统
 
 ### 打开文件
@@ -1766,6 +1777,120 @@ file.write_all("文本内容".as_bytes()).expect("文件写入失败");
 ```rust
 fs::remove_file("文件路径").expect("文件删除失败");
 ```
+
+## 迭代器
+
+::: tip 提示
+迭代器是零成本抽象，不会引入额外的运行时开销，实际性能比循环快。
+:::
+
+迭代器模式：对一系列项执行某些任务。迭代器负责遍历每个项并确定序列(遍历)何时完成。Rust 的迭代器是懒惰的，除非调用消费迭代器的方法，否则迭代器本身没有任何效果。
+
+迭代方法：
+
+- `iter()`: 在不可变引用上创建迭代器
+- `into_iter()`: 创建的迭代器会获得所有权
+- `iter_mut()`: 迭代可变的引用
+
+### 使用
+
+```rust
+pub fn main() {
+  let v1 = vec![1, 2, 3];
+  let v1_iter = v1.iter();
+
+  for val in v1_iter {
+    println!("{}", val);
+  }
+}
+```
+
+### Iterator Trait
+
+Iterator Trait 定义于标准库，所有迭代器都实现了 Iterator trait
+
+```rust
+let v1 = vec![1, 2, 3];
+let mut v1_iter = v1.iter();
+
+assert_eq!(v1_iter.next(), Some(&1));
+assert_eq!(v1_iter.next(), Some(&2));
+assert_eq!(v1_iter.next(), Some(&3));
+```
+
+### 消耗迭代器
+
+在标准库中，Iterator trait 有一些带默认实现的方法。其中有一些方法会调用 next 方法。实现 Iterator trait 时必须实现 next 方法的原因之一。调用 next 的方法叫做“消耗型适配器”，因为调用它们会把迭代器消耗尽。
+
+::: tip 提示
+使用`sum()`时需要显式声明指定类型
+:::
+
+```rust
+let v1 = vec![1, 2, 3];
+let mut v1_iter = v1.iter();
+
+let total: i32 = v1_iter.sum();
+assert_eq!(total, 6);
+```
+
+### 迭代器适配器
+
+- `map`迭代器：接收一个闭包，闭包作用于每个元素，产生一个新的迭代器。
+
+  ```rust
+  let v1 = vec![1, 2, 3];
+  let v2: Vec<_> = v1.iter().map(|item| item + 1).collect();
+  assert_eq!(v2, vec![2, 3, 4])
+  ```
+
+- `filter`迭代器: 接收一个闭包，闭包在遍历迭代器的每个元素时，返回 bool 类型。如果闭包返回 true 则当前元素将会包含在 filter 产生的迭代器中，如果闭包返回 false:当前元素将不会包含在 filter 产生的迭代器中。
+
+  ```rust
+  let v1 = vec![1, 2, 3];
+  let v2: Vec<_> = v1.into_iter().filter(|item| item >= &2).collect();
+  assert_eq!(v2, vec![2, 3]);
+  ```
+
+### 自定义迭代器
+
+- 定义
+
+  ```rust
+  struct Counter {
+      count: u32,
+  }
+
+  impl Counter {
+    fn new() -> Counter {
+        Counter { count: 0 }
+    }
+  }
+
+  impl Iterator for Counter {
+    type Item = u32;
+
+    fn next(&mut self) -> Option<Self::Item> {
+      if self.count < 5 {
+        self.count = self.count + 1;
+        Some(self.count)
+      } else {
+        None
+      }
+    }
+  }
+  ```
+
+- 使用
+
+  ```rust
+  let mut counter = Counter::new();
+  assert_eq!(counter.next(), Some(1));
+  assert_eq!(counter.next(), Some(2));
+  assert_eq!(counter.next(), Some(3));
+  assert_eq!(counter.next(), Some(4));
+  assert_eq!(counter.next(), Some(5));
+  ```
 
 ## 多线程
 
