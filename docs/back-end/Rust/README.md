@@ -214,7 +214,7 @@ panic = 'abort'
   :::
 
   ```rust
-  let mut c = "A";
+  let c = "A";
   ```
 
 - 数字型
@@ -248,18 +248,18 @@ panic = 'abort'
 
 - 强制类型转换
 
-  它只能用于原始类型(i32 、i64 、f32 、f64 、 u8 、 u32 、 char 等类型)，并且它是安全的
+  它只能用于原始类型(i32 、i64 、f32 、f64 、 u8 、 u32 、 char 等类型)，并且它是安全的。
 
   ```rust
-  let mut number1: i8 = 100;
-  let mut number2 = number1 as i32;
+  let number1: i8 = 100;
+  let number2 = number1 as i32;
   println!("number2={}", number2);
   ```
 
 - 转换字符串
   ```rust
-  let mut var1 = 10;
-  let mut var2 = var1.to_string();
+  let var1 = 10;
+  let var2 = var1.to_string();
   println!("var2={}", var2);
   ```
 
@@ -605,8 +605,8 @@ fn takes_and_gives_back(a_string: String) -> String {
 
   ```rust
   fn main() {
-    let mut s1 = String::from("hello");
-    let mut len = getLength(&s1);
+    let s1 = String::from("hello");
+    let len = getLength(&s1);
 
     println!("字符串={}, 长度={}", s1, len);
 
@@ -658,7 +658,7 @@ fn takes_and_gives_back(a_string: String) -> String {
 - 结合 let
 
   ```rust
-  let mut 变量名 = if 条件 {
+  let 变量名 = if 条件 {
     返回值
   } else {
     返回值
@@ -682,7 +682,7 @@ loop 表示一个无限循环
 - 结合 let
 
   ```rust
-  let mut 变量名 = loop {
+  let 变量名 = loop {
     if 条件 {
       break 值;
     }
@@ -730,7 +730,7 @@ match 值 {
 
 ### if let 匹配
 
-if let 处理只关心一种匹配而忽略其他匹配的情况。if let 放弃了穷举的可能，可以看作是 match 的语法糖
+if let 处理只关心一种匹配而忽略其他匹配的情况。if let 放弃了穷举的可能，可以看作是 match 的语法糖。
 
 ```rust
 if let 具体值 = 匹配值 {
@@ -750,8 +750,8 @@ if let 具体值 = 匹配值 {
 ### 创建
 
 ```rust
-let mut 字符串名 = String::from("内容");
-let mut 字符串名 = "内容".to_string();
+let 字符串名 = String::from("内容");
+let 字符串名 = "内容".to_string();
 ```
 
 ### 追加字符串
@@ -785,11 +785,11 @@ println!("{}", 字符串名);
 `format!()`不会获得参数的所有权
 
 ```rust
-let mut str1 = String::from("aa");
-let mut str2 = String::from("bb");
-let mut str3 = String::from("cc");
+let str1 = String::from("aa");
+let str2 = String::from("bb");
+let str3 = String::from("cc");
 
-let mut str = format!("{}{}{}", str1, str2, str3);
+let str = format!("{}{}{}", str1, str2, str3);
 println!("{}", str);
 ```
 
@@ -797,8 +797,8 @@ println!("{}", str);
 
 ::: tip 提示
 
-- 只有 String 才能使用`+`，&String 不能使用`+`
-- 使用`+`只能将&str 增加到 String
+- 只有`String`才能使用`+`，`&String`不能使用`+`
+- 使用`+`只能将`&str`增加到`String`
 
 :::
 
@@ -846,7 +846,7 @@ println!("{}", &字符串[开始索引..结束索引]);
 ```
 
 ```rust
-let mut s = String::from("Hello World");
+let s = String::from("Hello World");
 
 println!("Hello={}", &s[0..5]);
 println!("Hell={}", &s[..4]);
@@ -1820,7 +1820,10 @@ assert_eq!(v1_iter.next(), Some(&3));
 
 ### 消耗迭代器
 
-在标准库中，Iterator trait 有一些带默认实现的方法。其中有一些方法会调用 next 方法。实现 Iterator trait 时必须实现 next 方法的原因之一。调用 next 的方法叫做“消耗型适配器”，因为调用它们会把迭代器消耗尽。
+在标准库中，Iterator trait 有一些带默认实现的方法。其中有一些方法会调用 next 方法。
+
+- 实现 Iterator trait 时必须实现 next 方法的原因之一。
+- 调用 next 的方法叫做“消耗型适配器”，因为调用它们会把迭代器消耗尽。
 
 ::: tip 提示
 使用`sum()`时需要显式声明指定类型
@@ -1844,7 +1847,10 @@ assert_eq!(total, 6);
   assert_eq!(v2, vec![2, 3, 4])
   ```
 
-- `filter`迭代器: 接收一个闭包，闭包在遍历迭代器的每个元素时，返回 bool 类型。如果闭包返回 true 则当前元素将会包含在 filter 产生的迭代器中，如果闭包返回 false:当前元素将不会包含在 filter 产生的迭代器中。
+- `filter`迭代器: 接收一个闭包，闭包在遍历迭代器的每个元素时，返回 bool 类型。
+
+  - 如果闭包返回 true: 当前元素将会包含在 filter 产生的迭代器中。
+  - 如果闭包返回 false: 当前元素将不会包含在 filter 产生的迭代器中。
 
   ```rust
   let v1 = vec![1, 2, 3];
@@ -1891,6 +1897,30 @@ assert_eq!(total, 6);
   assert_eq!(counter.next(), Some(4));
   assert_eq!(counter.next(), Some(5));
   ```
+
+## 智能指针
+
+智能指针是这样一些数据结构：
+
+- 行为和指针相似
+- 有额外的元数据和功能
+
+### 引用和智能指针的其它不同
+
+- 引用: 只借用数据
+- 智能指针: 很多时候都拥有它所指向的数据
+
+### 引用计数 智能指针类型
+
+通过记录所有者的数量，使一份数据被多个所有者同时持有，并在没有任何所有者时自动清理数据。
+
+### 智能指针的实现
+
+智能指针通常使用`struct`实现，并且实现了:
+
+- `Deref`和`Drop`两个 trait
+  - Deref trait: 允许智能指针 struct 的实例像引用一样使用
+  - Drop trait: 允许自定义当智能指针实例走出作用域时的代码
 
 ## 多线程
 
