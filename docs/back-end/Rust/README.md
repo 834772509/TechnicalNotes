@@ -80,7 +80,7 @@
 
 ### 标准库本地化文档
 
-(Rust 标准库本地化文档)[https://github.com/wtklbm/rust-library-i18n]
+[Rust 标准库本地化文档](https://github.com/wtklbm/rust-library-i18n)
 
 ## cargo
 

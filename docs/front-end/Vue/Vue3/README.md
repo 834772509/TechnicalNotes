@@ -303,3 +303,114 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
     ```html
     <input type="text" @keyup.enter="事件名" />
     ```
+
+### 条件渲染
+
+#### v-if、v-else、v-else-if
+
+`v-if`、`v-else`、`v-else-if` 用于根据条件来渲染某一块的内容:
+
+- 这些内容只有在条件为 true 时,才会被渲染出来;
+- 这三个指令与 JavaScript 的条件语句 if、else、 else if 类似;
+
+::: tip 提示
+`v-if`渲染原理：
+
+- v-if 是惰性的;
+- 当条件为`false`时,其判断的内容完全不会被渲染或者会被销毁掉;
+- 当条件为`true`时,才会真正渲染条件块中的内容;
+- 适合切换频率低的环境;
+
+:::
+
+- 基本使用
+
+  true 为显现，false 为隐藏
+
+  ```html
+  <h2 v-if="true">内容</h2>
+  ```
+
+- 多个条件
+
+  ```html
+  <h2 v-if="变量 > 90">优秀</h2>
+  <h2 v-else-if="变量 > 60">良好</h2>
+  <h2 v-else>不及格</h2>
+  ```
+
+- 与`template`结合使用
+
+  ```html
+  <template v-if="true">
+    <h2>哈哈哈</h2>
+    <h2>哈哈哈</h2>
+  </template>
+
+  <template v-else>
+    <h2>呵呵呵</h2>
+    <h2>呵呵呵</h2>
+  </template>
+  ```
+
+#### v-show
+
+`v-show`元素无论是否需要显示到浏览器上,它的 DOM 实际都是有渲染的,只是通过 CSS 的 display 属性来进行切换。
+
+- v-show 不支持 `template`，不可以和 `v-else`一起使用;
+- 适合切换频率高的环境;
+
+```html
+<h2 v-show="true">哈哈哈</h2>
+```
+
+### 列表渲染
+
+v-for 的基本格式是"item in 数组":
+
+- 数组通常是来自`data`或者`prop`,也可以是其他方式;
+- `item`是我们给每项元素起的一个别名,这个别名可以自定义;
+
+- 基本使用
+
+  ```html
+  <li v-for="item in 数组">{{item}}</li>
+  <!--在遍历的过程中获取索引值-->
+  <li v-for="(item, index) in 数组">{{index}}: {{item}}</li>
+  ```
+
+- 绑定 key
+
+  绑定`key`用于更高效的更新虚拟 DOM 渲染。注意：`key`不能重复。
+
+  ```html
+  <li v-for="item in 数组" :key="item">{{item}}</li>
+  ```
+
+- 遍历对象
+
+  ```html
+  <li v-for="item in 对象">{{item}}</li>
+  <!--在遍历的过程中获取key和value及index-->
+  <li v-for="(value, key, index) in 对象">{{key}}: {{value}}</li>
+  ```
+
+- 遍历数字
+
+  ```html
+  <li v-for="item in 10">{{item}}</li>
+  ```
+
+- 与`template`结合使用
+
+  使用`template`来对多个元素进行包裹,而不是使用`div`来完成
+
+  ```html
+  <ul>
+    <template v-for="(value, key) in 对象">
+      <li>{{key}}</li>
+      <li>{{value}}</li>
+      <hr />
+    </template>
+  </ul>
+  ```

@@ -147,7 +147,7 @@ v-for 为循环，后接表达式：变量 in 列表
 
 ```HTML
 <ul>
-    <li v-for="item in textlist">{{item}}</li>
+  <li v-for="item in textlist">{{item}}</li>
 </ul>
 ```
 
