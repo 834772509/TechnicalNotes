@@ -88,8 +88,6 @@
 
 ### 关闭 Eslint 代码规范检测
 
-（神 TM 的各种奇葩规范）
-
 \config\index.js
 
 ```js
@@ -188,7 +186,7 @@ prevent 修饰符，用于阻止默认程序事件
 
 ```HTML
 <form>
-    <input type="submit" value="提交" @click.prevent="btnClick()">
+  <input type="submit" value="提交" @click.prevent="btnClick()">
 </form>
 ```
 
@@ -327,6 +325,7 @@ export default {
     事件名称(){
 
     },
+  }
 },
 ```
 
@@ -344,7 +343,6 @@ export default {
     }
   },
 }
-
 ```
 
 ### nextTick 函数
@@ -607,7 +605,7 @@ const 防抖函数名称 = this.debounce(需要进行防抖处理的函数名称
 ```
 
 ::: tip 提示
-”需要进行防抖处理的函数名称“不能加入()，否则会识别为函数的返回值
+需要进行防抖处理的函数名称“不能加入()，否则会识别为函数的返回值
 :::
 
 ## 常用组件使用实例
@@ -627,12 +625,10 @@ const 防抖函数名称 = this.debounce(需要进行防抖处理的函数名称
 <!--label标签作用：点击文字也能触发检查框-->
 <label><input type="checkbox" id="agree" v-model="isagerr">同意协议</label>
 <button :disabled="!isagerr">下一步</button>
-<!------------------------------------------------------------------------------------>
+
 <input type="checkbox" value="测试选项1" v-model="totalcheckbox">测试选项1
 <input type="checkbox" value="测试选项2" v-model="totalcheckbox">测试选项2
-<input type="checkbox" value="测试选项3" v-model="totalcheckbox">测试选项3
-<input type="checkbox" value="测试选项4" v-model="totalcheckbox">测试选项4
-<!------------------------------------------------------------------------------------>
+
 <label v-for="item in totealselect">
 <input type="checkbox" :value="item" v-model="totalcheckbox">{{item}}
 </label>
@@ -642,11 +638,8 @@ const 防抖函数名称 = this.debounce(需要进行防抖处理的函数名称
 
 ```HTML
 <select v-model="selectvalue">
-    <option>测试选项1</option>
-    <option>测试选项2</option>
-    <option>测试选项3</option>
-    <option>测试选项4</option>
-    <option>测试选项5</option>
+  <option>测试选项1</option>
+  <option>测试选项2</option>
 </select>
 ```
 
@@ -656,46 +649,46 @@ const 防抖函数名称 = this.debounce(需要进行防抖处理的函数名称
 
 ```HTML
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="zh-CN">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vue</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-        <h1>{{message}}</h1>
+      <h1>{{message}}</h1>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script>
-app = new Vue({
-    //声明要绑定的id
-    el: '#app',
-    //页面加载完毕后执行的方法（渲染前）
-    created(){
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    app = new Vue({
+      //声明要绑定的id
+      el: '#app',
+      //页面加载完毕后执行的方法（渲染前）
+      created(){
 
-    },
-    //页面加载完毕后执行的方法（渲染后）
-    mounted(){
+      },
+      //页面加载完毕后执行的方法（渲染后）
+      mounted(){
 
-    },
-    //数据对象
-    data: {
+      },
+      //数据对象
+      data: {
 
-    },
-    //计算属性：属性名称(){} （调用时不需要加小括号）
-    computed: {
+      },
+      //计算属性：属性名称(){} （调用时不需要加小括号）
+      computed: {
 
-    },
-    //定义方法：方法名称(){}
-    //当前对象内需要加this
-    methods: {
+      },
+      //定义方法：方法名称(){}
+      //当前对象内需要加this
+      methods: {
 
-    },
+      },
     })
-</script>
-</body>
+    </script>
+  </body>
 </html>
 ```
 
