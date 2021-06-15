@@ -86,13 +86,13 @@ v-once 用于指定元素或者组件**只渲染一次**:
 <div v-html="msg"></div>
 
 <script>
-  const App = {
+  Vue.createApp({
     data() {
       return {
         msg: "<span style='color: red; background: blue'>哈哈哈</span>",
       };
     },
-  };
+  }).mount("#app");
 </script>
 ```
 
@@ -144,14 +144,14 @@ v-pre 用于跳过元素和它的子元素的编译过程,显示原始的 Mustac
 <a :href="link">百度一下</a>
 
 <script>
-  const App = {
+  Vue.createApp({
     data() {
       return {
         imgUrl: "url",
         link: "https://www.baidu.com",
       };
     },
-  };
+  }).mount("#app");
 </script>
 ```
 
@@ -192,7 +192,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
   <div :style="[styleObj,style2Obj]">哈哈哈</div>
 
   <script>
-    const App = {
+    Vue.createApp({
       data() {
         return {
           styleObj: {
@@ -204,7 +204,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
           },
         };
       },
-    };
+    }).mount("#app");
   </script>
   ```
 
@@ -222,7 +222,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
 <div :="info">哈哈哈</div>
 
 <script>
-  const App = {
+  Vue.createApp({
     data() {
       return {
         info: {
@@ -232,7 +232,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
         },
       };
     },
-  };
+  }).mount("#app");
 </script>
 ```
 
@@ -273,7 +273,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
   <button @click="btnClick2($event,'coderwhy')">按钮2</button>
 
   <script>
-    const App = {
+    Vue.createApp({
       methods: {
         btnClick1(event) {
           console.log(event);
@@ -282,7 +282,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
           console.log(name, event);
         },
       },
-    };
+    }).mount("#app");
   </script>
   ```
 
@@ -370,6 +370,8 @@ v-for 的基本格式是"item in 数组":
 
 - 数组通常是来自`data`或者`prop`,也可以是其他方式;
 - `item`是我们给每项元素起的一个别名,这个别名可以自定义;
+- `(item, index)`中括号可省，但便于阅读最好加上;
+- `in`也可使用`of`，更接近 JAVaSript 迭代器语法;
 
 - 基本使用
 
@@ -414,3 +416,172 @@ v-for 的基本格式是"item in 数组":
     </template>
   </ul>
   ```
+
+## 计算属性 computed
+
+### 什么是计算属性？
+
+- 对于任何包含响应式数据的复杂逻辑,都应该使用计算属性;
+- 计算属性将被混入到组件实例中。所有 getter 和 setter 的 this 上下文自动地绑定为组件实例;
+- **计算属性是有缓存的， 当我们多次使用计算属性时，计算属性中的运算只会执行一次**;
+- 如果依赖的数据发生变化，在使用时，计算属性依然会重新进行计算;
+
+### 基本使用
+
+::: warning 注意
+计算属性调用时不能加括号入（如`firstName()`)
+:::
+
+```html
+<template id="my-app">
+  <h2>{{计算属性名}}</h2>
+</template>
+
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        firstName: "kobe",
+        lastName: "Bryant",
+      };
+    },
+    computed: {
+      计算属性名() {
+        return this.firstName + " " + this.lastName;
+      },
+    },
+  }).mount("#app");
+</script>
+```
+
+### 传入对象
+
+```JavaScript
+Vue.createApp({
+  data() {
+    return {
+      firstName: "kobe",
+      lastName: "Bryant",
+    };
+  },
+  computed: {
+    fullName: {
+      get: function() {
+        return this.firstName + " " + this.lastName;
+      },
+      set: function(value) {
+        this.firstName = value;
+      },
+    },
+  },
+}).mount("#app");
+```
+
+## 侦听器 watch
+
+### 什么是侦听器?
+
+- 开发中我们在 data 返回的对象中定义了数据,这个数据通过插值语法等方式绑定到 template 中;
+- 当数据变化时, template 会自动进行更新来显示最新的数据;
+- 但是在某些情况下,我们希望在代码逻辑中监听某个数据的变化, 这个时候就需要用侦听器 watch 来完成了;
+
+### 用法
+
+- 选项: watch
+- 类型: { [key: string]: string | Function | Object | Array}
+
+### 基本用法
+
+```html
+<template id="my-app">
+  <input type="text" v-model="变量名" />
+</template>
+
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        变量名: "Hello World",
+      };
+    },
+    watch: {
+      变量名(newValue, oldValue) {
+        console.log(`新值: ${newValue}, 旧值: ${oldValue}`);
+      },
+    },
+  }).mount("#app");
+</script>
+```
+
+### 配置选项
+
+- 深度侦听
+
+  默认情况下侦听器只会针对监听的数据本身的改变，内部发生的改变无法侦听（如直接修改对象内的数据）
+
+  ```JavaScript
+  Vue.createApp({
+    watch: {
+      变量名: {
+        handler(newValue, oldValue) {
+          console.log(`新值: ${newValue}, 旧值: ${oldValue}`);
+        },
+        deep: true,
+      },
+    },
+    methods: {
+      changeInfoName() {
+        this.变量名.属性 = 值;
+      },
+    },
+  }).mount("#app");
+  ```
+
+- 立即执行
+
+  在进入页面时立即执行一次
+
+  ```JavaScript
+  Vue.createApp({
+    watch: {
+      变量名: {
+        handler(newValue, oldValue) {
+          console.log(`新值: ${newValue}, 旧值: ${oldValue}`);
+        },
+        immediate: true,
+      },
+    },
+  }).mount("#app");
+  ```
+
+### 侦听器的其他方式
+
+- \$watch
+
+  ```JavaScript
+  Vue.createApp({
+    created() {
+      const unwatch = this.$watch("变量名", (newValue, oldValue) => {
+        console.log(newValue, oldValue);
+      }, {
+        deep: true,
+        immediate: true,
+      });
+
+      // 取消侦听
+      unwatch();
+    }
+  }).mount("#app");
+  ```
+
+- 字符串
+
+```JavaScript
+Vue.createApp({
+  watch: {
+    "变量名.属性名": function (newValue, oldValue) {
+      console.log(newValue, oldValue);
+    }
+  },
+}).mount("#app");
+```
