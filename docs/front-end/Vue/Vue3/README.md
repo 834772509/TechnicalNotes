@@ -417,6 +417,90 @@ v-for 的基本格式是"item in 数组":
   </ul>
   ```
 
+### v-model 指令
+
+v-model 指令可以在表单 input、 textarea 以及 select 元素上创建双向数据绑定;
+它会根据控件类型自动选取正确的方法来更新元素;
+
+#### 绑定 text 文本框
+
+```html
+<input type="text" v-model="变量名" />
+<h2>{{变量名}}</h2>
+```
+
+#### 绑定 textarea 多行输入框
+
+```html
+<textarea
+  name="intro"
+  id="intro"
+  cols="30"
+  rows="10"
+  v-model="变量名"
+></textarea>
+<h2>intro: {{变量名}}</h2>
+```
+
+#### 绑定 checkbox 多选框
+
+- 单选
+
+  ```html
+  <input id="组件id" type="checkbox" v-model="变量名" />
+  <h2>是否选中: {{变量名}}</h2>
+  ```
+
+- 多选
+
+  ```html
+  <input id="多选框1" type="checkbox" v-model="变量名(数组)" value="多选框1" />
+  <input id="多选框2" type="checkbox" v-model="变量名(数组)" value="多选框2" />
+  ```
+
+#### 绑定 radio 单选框
+
+```html
+<input id="组件id" type="radio" v-model="变量名" value="内容" />内容
+```
+
+#### 绑定 select 下拉框
+
+```html
+<select v-model="变量名">
+  <option value="option1">选项1</option>
+  <option value="option2">选项2</option>
+</select>
+<h2>{{变量名}}</h2>
+```
+
+#### v-model 修饰符
+
+- lazy 修饰符
+
+  - 默认情况下, v-model 在进行双向绑定时,绑定的是 input 事件, 那么会在每次内容输入后就将最新的值和绑定的属性进行同步;
+  - 如果使用 lazy 修饰符,那么会将绑定的事件切换为 change 事件,只有在提交时(比如回车)才会触发;
+
+  ```html
+  <input type="text" v-model.lazy="变量名" />
+  ```
+
+- number 修饰符
+
+  默认情况下，v-model 绑定的变量总是 String 类型，使用 number 修饰符可以转换为数字类型
+
+  ```html
+  <input type="text" v-model.number="变量名" />
+  ```
+
+- trim 修饰符
+
+  如果要自动过滤用户输入的守卫空白字符,可以给 v-model 添加 trim 修饰符
+
+  ```html
+  <input type="text" v-model.trim="变量名" />
+  ```
+
 ## 计算属性 computed
 
 ### 什么是计算属性？
@@ -576,12 +660,71 @@ Vue.createApp({
 
 - 字符串
 
-```JavaScript
-Vue.createApp({
-  watch: {
-    "变量名.属性名": function (newValue, oldValue) {
-      console.log(newValue, oldValue);
-    }
-  },
-}).mount("#app");
+  ```JavaScript
+  Vue.createApp({
+    watch: {
+      "变量名.属性名": function (newValue, oldValue) {
+        console.log(newValue, oldValue);
+      }
+    },
+  }).mount("#app");
+  ```
+
+## 组件化开发
+
+### 注册全局组件
+
+```html
+<template id="my-app">
+  <!-- 使用组件 -->
+  <组件名></组件名>
+</template>
+
+<!-- 定义组件内容 -->
+<template id="组件名">
+  <h2>组件名</h2>
+</template>
+
+<script>
+  const App = {
+    template: "#my-app",
+  };
+  const app = Vue.createApp(App);
+
+  // 注册组件
+  app.component("组件名", {
+    template: "#组件名",
+    data() {
+      return {};
+    },
+    methods: {},
+  });
+  app.mount("#app");
+</script>
+```
+
+### 注册局部组件
+
+```html
+<template id="my-app">
+  <组件名></组件名>
+</template>
+
+<template id="组件名">
+  <h2>组件名</h2>
+</template>
+
+<script>
+  const 组件名 = {
+    template: "#组件名"
+  };
+
+  const App = {
+    template: "#my-app",
+    components: {
+      组件名
+    },
+  };
+  Vue.createApp(App).mount("#app");
+</script>
 ```
