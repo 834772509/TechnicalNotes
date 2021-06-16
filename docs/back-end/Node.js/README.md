@@ -81,16 +81,15 @@ REPL 是 Read-Eval-Print Loop 的简称，翻译为“读取-求值-输出”循
 
 ## 环境搭建
 
-### 安装 Node.js
+::: tip 提示
 
-[下载 Node.js](https://nodejs.org/zh-cn/)
+- LTS 版本：相对稳定一些，推荐线上环境使用该版本；
+- Current 版本：最新的 Node 版本，包含很多新特性；
 
-LTS 版本：相对稳定一些，推荐线上环境使用该版本；
-Current 版本：最新的 Node 版本，包含很多新特性；
+:::
 
-### 配置淘宝镜像
-
-`npm config set registry https://registry.npm.taobao.org`
+1. 安装[Node.js](https://nodejs.org/zh-cn/)
+2. 配置淘宝镜像: `npm config set registry https://registry.npm.taobao.org`
 
 ## Node 程序传递参数
 
