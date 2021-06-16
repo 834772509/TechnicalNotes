@@ -227,7 +227,7 @@ console.log(变量名);
 
 require 是一个函数，可以帮助我们引入一个文件（模块）中导入的对象。
 
-```JavaScri-t
+```JavaScript
 require(X);
 ```
 

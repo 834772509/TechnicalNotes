@@ -23,7 +23,7 @@
 
 ### 一键连接 MUMU 模拟器
 
-```cmd
+```batch
 @echo off
 set adbPath=C:\Program Files (x86)\MuMu\emulator\nemu\vmonitor\bin
 cd /d %adbPath%
