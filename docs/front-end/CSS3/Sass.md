@@ -1,19 +1,19 @@
 # Sass
 
-Visual Studio Code 插件：``Live Sass Compiler``
+Visual Studio Code 插件：`Live Sass Compiler`
 
 ::: tip 提示
-一般使用Sass后缀名为``.scss``
+一般使用 Sass 后缀名为`.scss`
 :::
 
 ## 变量
 
-声明：``$变量名: 值; ``  
-使用：``$变量名``
+声明：`$变量名: 值;`  
+使用：`$变量名`
 
 ## 嵌套
 
-``` CSS
+```CSS
 .nav {
 
     /* 样式 */
@@ -38,7 +38,7 @@ Visual Studio Code 插件：``Live Sass Compiler``
 
 嵌套属性：
 
-``` CSS
+```CSS
 /* 简化设置字体 */
 body {
     font: {
@@ -53,7 +53,7 @@ body {
 
 混合用于使用重复的样式（混合内部可以嵌套）
 
-``` CSS
+```CSS
 @mixin 混合名称 {
     /* 样式 */
 }
@@ -65,7 +65,7 @@ body {
 
 使用：
 
-``` CSS
+```CSS
 .类名 {
     @include 混合名称;
 }
@@ -79,7 +79,7 @@ body {
 
 用于继承指定的样式
 
-``` CSS
+```CSS
 .类名 {
     @extend .继承类名;
 }
@@ -87,80 +87,80 @@ body {
 
 ## 导入样式
 
-创建``_base.scss``，内填写基本样式
+创建`_base.scss`，内填写基本样式
 
 导入：
 
-``` CSS
+```CSS
 @import "base";
 ```
 
 ## 取绝对值 abs 函数
 
-``` CSS
+```CSS
 abs(-10px)
 /* 结果：10px */
 ```
 
 ## 四舍五入 round 函数
 
-``` CSS
+```CSS
 round(3.5)
 /* 结果：4 */
 ```
 
 ## 四舍五入(强制进位) ceil 函数
 
-``` CSS
+```CSS
 ceil(3.5)
 /* 结果：4 */
 ```
 
 ## 四舍五入(强制退位) floor 函数
 
-``` CSS
+```CSS
 ceil(3.6)
 /* 结果：3 */
 ```
 
 ## 数字转百分比 percentage 函数
 
-``` CSS
+```CSS
 percentage(650px / 100px)
 /* 结果：65% */
 ```
 
 ## 取最小值
 
-``` CSS
+```CSS
 min(1, 2, 3)
 /* 结果：1 */
 ```
 
 ## 取最大值
 
-``` CSS
+```CSS
 max(1, 2, 3)
 /* 结果：3 */
 ```
 
 ## 将字母转大写
 
-``` CSS
+```CSS
 to-upper-case("abc")
 /* 结果：ABC */
 ```
 
 ## 将字母转小写
 
-``` CSS
+```CSS
 to-lower-case("ABC")
 /* 结果：abc */
 ```
 
 ## @if
 
-``` CSS
+```CSS
 .类名 {
     @if 条件 {
         样式
@@ -178,7 +178,7 @@ to-lower-case("ABC")
 
 ## @for
 
-``` CSS
+```CSS
 @for $var from 开始值 through 结束值 {
     .类名 {
         样式
@@ -188,7 +188,7 @@ to-lower-case("ABC")
 
 示例：
 
-``` CSS
+```CSS
 $columns=4;
 
 @for $n from 1 through $columns {
@@ -206,10 +206,10 @@ $columns=4;
 .col-2 {
   width: 50%;
 }
-.col-3 { 
+.col-3 {
   width: 75%;
 }
-.col-4 { 
+.col-4 {
   width:100%;
 }
 */
@@ -217,7 +217,7 @@ $columns=4;
 
 ## @each
 
-``` CSS
+```CSS
 $列表名=列表项1 列表项2 列表项3;
 
 @each $item in $ 列表名 {
@@ -229,7 +229,7 @@ $列表名=列表项1 列表项2 列表项3;
 
 示例：
 
-``` CSS
+```CSS
 $icons=success error warning;
 
 @each $item in $ icons {
@@ -257,11 +257,11 @@ $icons=success error warning;
 
 ## @while
 
-``` CSS
+```CSS
 @while 条件 {}
 ```
 
-``` CSS
+```CSS
 $n: 6;
 
 @while $n>0 {
@@ -276,7 +276,7 @@ $n: 6;
 输出：
 
 .item-6 {
-  width: 30px; 
+  width: 30px;
 }
 
 .item-4 {
@@ -290,7 +290,7 @@ $n: 6;
 
 ## 自定义函数
 
-``` CSS
+```CSS
 @function 函数名称 (参数1, 参数2) {
     @return 返回值;
 }

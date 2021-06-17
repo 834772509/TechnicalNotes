@@ -4,13 +4,13 @@ WOW.js 使得在页面滚动时展示动画效果，滚动条滚动到哪里就�
 
 ## 安装
 
-```npm install wowjs --save-dev```
+`npm install wowjs --save-dev`
 
 ## 配置
 
 \src\main.js
 
-``` JavaScript
+```JavaScript
 import wow from 'wowjs'
 import 'animate.css'
 
@@ -19,9 +19,9 @@ Vue.prototype.$wow = wow
 
 ## 使用
 
- .vue
+.vue
 
-``` Vue
+```Vue
 <template>
   <div>
     <div class="wow 动画样式名称 test_wow1" data-wow-duration="1s"></div>
@@ -43,8 +43,8 @@ Vue.prototype.$wow = wow
 
 常用动画样式：
 
-* 淡入：```fadeIn```
-* 上移：```slideInUp```
-* 下移：```slideInDown```
-* 左移：```slideInLeft```
-* 右移：```slideInRight```
+- 淡入：`fadeIn`
+- 上移：`slideInUp`
+- 下移：`slideInDown`
+- 左移：`slideInLeft`
+- 右移：`slideInRight`

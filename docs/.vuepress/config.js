@@ -94,11 +94,12 @@ module.exports = {
           {
             text: "前端框架",
             items: [
-              { text: "Vue", link: "/front-end/Vue/" },
               { text: "React", link: "/front-end/React/" },
-              { text: "微信小程序", link: "/front-end/WechatApplet/" },
-              { text: "Electron", link: "/front-end/Electron/" },
+              { text: "Vue2", link: "/front-end/Vue2/" },
+              { text: "Vue3", link: "/front-end/Vue3/" },
               { text: "Webpack", link: "/front-end/Webpack/" },
+              { text: "Electron", link: "/front-end/Electron/" },
+              { text: "微信小程序", link: "/front-end/WechatApplet/" },
             ],
           },
           {

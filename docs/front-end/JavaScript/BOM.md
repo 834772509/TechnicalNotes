@@ -46,7 +46,7 @@ window.onresize 是调整窗口大小加载事件，当触发时就调用的处�
 
 ```JavaScript
 window.addEventListener("resize", function() {
-    console.log(window.innerWidth);
+  console.log(window.innerWidth);
 }
 ```
 
@@ -203,15 +203,15 @@ console.log(navigator.userAgent);
 
 ```JavaScript
 if (
-    navigator.userAgent.match(
-    /(phone|padlpod|iPhone|iPod|ios|iPad|Android| Mobilel|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-    )
+  navigator.userAgent.match(
+  /(phone|padlpod|iPhone|iPod|ios|iPad|Android| Mobilel|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+  )
 ) {
-    //手机
-    window.location.href = "URL";
+  //手机
+  window.location.href = "URL";
 } else {
-    // 电脑
-    window.location.href = "URL";
+  // 电脑
+  window.location.href = "URL";
 }
 ```
 

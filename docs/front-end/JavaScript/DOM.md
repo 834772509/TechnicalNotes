@@ -95,8 +95,8 @@ document.getElementsByClassName("类名");
 
 ```JavaScript
 组件.onclick = function(event) {
-    //阻止默认事件（如提交按钮等）
-    event.preventDefault();
+  //阻止默认事件（如提交按钮等）
+  event.preventDefault();
 }
 ```
 
@@ -153,7 +153,7 @@ onkeydown 和 onkeyup 不区分字母大小写，onkeypress 区分字母大小�
 
   ```JavaScript
   组件.onkeypress = function(event) {
-      console.log("按键：", event.KeyCode,event.key);
+    console.log("按键：", event.KeyCode,event.key);
   }
   ```
 
@@ -161,8 +161,7 @@ onkeydown 和 onkeyup 不区分字母大小写，onkeypress 区分字母大小�
 
   ```JavaScript
   组件.onkeydown = function(event) {
-      console.log("按下的按键：", event.KeyCode,event.key);
-
+    console.log("按下的按键：", event.KeyCode,event.key);
   }
   ```
 
@@ -170,7 +169,7 @@ onkeydown 和 onkeyup 不区分字母大小写，onkeypress 区分字母大小�
 
   ```JavaScript
   组件.onkeyup = function(event) {
-      console.log("弹起的按键：", event.KeyCode,event.key);
+    console.log("弹起的按键：", event.KeyCode,event.key);
   }
   ```
 
@@ -178,9 +177,9 @@ onkeydown 和 onkeyup 不区分字母大小写，onkeypress 区分字母大小�
 
   ```JavaScript
   组件.onkeyup = function(event) {
-      if (event.key == "按键" && event.ctrlKey) {
+    if (event.key == "按键" && event.ctrlKey) {
 
-      }
+    }
   }
   ```
 
@@ -416,7 +415,8 @@ dataset 是一个集合，里面存放了所有以 data 开头的自定义属性
 
 1. 样式采取驼峰命名法比如 fontsize、backgroundColor
 2. JavaScript 修改 style 样式操作，产生的是行内样式，CSS 权重比较高
-   :::
+
+:::
 
 ```JavaScript
 // 行内样式操作

@@ -4,13 +4,13 @@
 
 ## 安装
 
-```npm install vue-lazyload -save```
+`npm install vue-lazyload -save`
 
 ## 配置
 
 main.js
 
-``` JavaScript
+```JavaScript
 import VueLazyLoad from 'Vue-lazyload'
 
 Vue.use(VueLazyLoad,{
@@ -22,9 +22,9 @@ Vue.use(VueLazyLoad,{
 
 .vue
 
-将src属性替换为v-lazy
+将 src 属性替换为 v-lazy
 
-``` HTML
+```HTML
 <!-- <img scr=""> -->
 <img v-lazy="">
 ```

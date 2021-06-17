@@ -1,29 +1,29 @@
 # Electron 笔记
 
-[Electron API参考文档](http://www.electronjs.org/docs/api)
+[Electron API 参考文档](http://www.electronjs.org/docs/api)
 
 ## 创建项目
 
-1. 创建项目：```vue init simulatedgreg/electron-vue 项目名称```
-2. 进入项目目录后```npm install```（优先使用```cnpm install```）
-3. 启动项目：```npm run dev```
+1. 创建项目：`vue init simulatedgreg/electron-vue 项目名称`
+2. 进入项目目录后`npm install`（优先使用`cnpm install`）
+3. 启动项目：`npm run dev`
 
 ## 生命周期
 
-* ready : 当Electron完成初始化时触发
-* activate : 首次激活
-* window-all-closed : 所有窗口被关闭
-* before-quit : 在应用程序开始关闭窗口之前触发
-* will-quit : 当所有窗口都已关闭并且应用程序将退出时发出
-* quit : 在应用程序退出时发出
+- ready : 当 Electron 完成初始化时触发
+- activate : 首次激活
+- window-all-closed : 所有窗口被关闭
+- before-quit : 在应用程序开始关闭窗口之前触发
+- will-quit : 当所有窗口都已关闭并且应用程序将退出时发出
+- quit : 在应用程序退出时发出
 
-## 进程API
+## 进程 API
 
 ::: tip 提示
-如出现```process is not defined```请加上```nodeIntegration: true```
+如出现`process is not defined`请加上`nodeIntegration: true`
 :::
 
-``` js
+```js
 data() {
   return {
     //electron版本
@@ -48,33 +48,33 @@ data() {
 }
 ```
 
-## 文件API
+## 文件 API
 
 ### 拖拽文件
 
-``` vue
+```vue
 <template>
-    <div @drop="drop($event)" @dragover="dragover($event)">
-      拖放文件测试
-    </div>
+  <div @drop="drop($event)" @dragover="dragover($event)">
+    拖放文件测试
+  </div>
 </template>
 
 <script>
 export default {
   methods: {
-    drop($event){
+    drop($event) {
       event.preventDefault();
       event.stopPropagation();
       for (const f of event.dataTransfer.files) {
-        console.log('拖拽的文件：' + f.path)
+        console.log("拖拽的文件：" + f.path);
       }
     },
-    dragover($event){
+    dragover($event) {
       event.preventDefault();
       event.stopPropagation();
-    }
+    },
   },
-}
+};
 </script>
 ```
 
@@ -82,7 +82,7 @@ export default {
 
 ### 打开文件对话框
 
-``` JavaScript
+```JavaScript
 const { dialog } = require('electron').remote
 
 let filePath =  dialog.showOpenDialog({
@@ -97,7 +97,7 @@ console.log(filePath)
 
 ### 保存文件对话框
 
-``` JavaScript
+```JavaScript
 const { dialog } = require('electron').remote
 
 let filePath =  dialog.showSaveDialog({
@@ -112,7 +112,7 @@ console.log(filePath)
 
 ### 选择对话框
 
-``` JavaScript
+```JavaScript
 const { dialog } = require('electron').remote
 
 let message = dialog.showMessageBox({
@@ -126,7 +126,7 @@ console.log(message);
 
 ### 错误对话框
 
-``` JavaScript
+```JavaScript
 dialog.showErrorBox("标题", "内容")
 ```
 
@@ -134,7 +134,7 @@ dialog.showErrorBox("标题", "内容")
 
 ### 注册
 
-``` JavaScript
+```JavaScript
 const { remote } = require('electron')
 
 remote.globalShortcut.register('CommandOrControl+Y', () => {
@@ -144,6 +144,6 @@ remote.globalShortcut.register('CommandOrControl+Y', () => {
 
 ### 取消注册
 
-``` JavaScript
+```JavaScript
 remote.globalShortcut.unregisterAll()
 ```

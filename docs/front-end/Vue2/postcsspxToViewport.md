@@ -1,14 +1,14 @@
-# css单位转换插件
+# css 单位转换插件
 
 ## 安装
 
-```npm install postcss-px-to-viewport --save-dev```
+`npm install postcss-px-to-viewport --save-dev`
 
 ## 使用
 
 创建\src\postcss.config
 
-``` JavaScript
+```JavaScript
 module.exports = {
   plugins: {
     "postcss-px-to-viewport": {

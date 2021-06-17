@@ -52,14 +52,20 @@ fn();
 
 ### 注释
 
-```JavaScript
-//单行注释
+- 单行注释
 
-/*
-    多行注释
-    多行注释
- */
-```
+  ```JavaScript
+  //注释内容
+  ```
+
+- 多行注释
+
+  ```JavaScript
+  /*
+    注释内容
+    注释内容
+  */
+  ```
 
 ### 声明变量
 
@@ -92,11 +98,11 @@ const 变量名;
 :::
 
 ```JavaScript
-// 结构 Object 对象
+// 解构 Object 对象
 let 变量 = {元素1: 值, 元素2: 值};
 const {元素1, 元素2} = 变量;
 
-// 结构数组
+// 解构数组
 let [元素1, 元素2, 元素3] = [1, 2, 3];
 console.log(元素1, 元素2, 元素3)
 
@@ -170,7 +176,7 @@ isNaN(值);
 ### 三元运算符
 
 ```JavaScript
-返回值 = 条件 ? 真 - 返回值 : 假 - 返回值;
+返回值 = 条件 ? 返回值-真 : 返回值-假;
 ```
 
 ```JavaScript
@@ -311,7 +317,7 @@ const 箭头函数 = (参数1, 参数2) => {
 
 ### 纯函数
 
-在程序设计中，若一个函数符合一下条件，那么这个函数被称为纯函数：
+在程序设计中，若一个函数符合以下条件，那么这个函数被称为纯函数：
 
 1. 确定的输入，一定会产生确定的输出
 2. 函数在执行过程中，不能产生副作用（不能修改原参数）
@@ -325,18 +331,18 @@ const 箭头函数 = (参数1, 参数2) => {
 ```JavaScript
 // 纯函数
 function sum(num1, num2) {
-    return num1 + num2;
+  return num1 + num2;
 }
 
 // 纯函数
 function pringInfo(info) {
-console.log(info.name, info.age);
+  console.log(info.name, info.age);
 }
 
 // 不是纯函数
 let foo = 10
 function add(num) {
-    return foo + num;
+  return foo + num;
 }
 
 add(5); //15
@@ -345,11 +351,11 @@ add(5); //25
 
 // 不是纯函数
 const baz = {
-    count: 10,
+  count: 10,
 }
 
 function add3(num) {
-    return bar.count + num;
+  return bar.count + num;
 }
 
 baz.count = 20;
@@ -361,14 +367,14 @@ baz.count = 20;
 
 ```JavaScript
 calss 类名 {
-    constructor(参数) {
-        //构造函数
-        this.属性 = 参数;
-        this.属性 = 属性值;
-    }
-    方法名() {
+  //构造函数
+  constructor(参数) {
+    this.属性 = 参数;
+    this.属性 = 属性值;
+  }
+  方法名() {
 
-    }
+  }
 }
 ```
 
@@ -376,7 +382,9 @@ calss 类名 {
 
 ```JavaScript
 let 对象 = new 类名();
+// 使用类属性
 console.log(对象.属性);
+// 调用类方法
 对象.方法名();
 ```
 
@@ -384,8 +392,8 @@ console.log(对象.属性);
 
 ```JavaScript
 calss 类名 extends 继承类名 {
-    // 子类中必须初始化父类对象
-    super();
+  // 子类中必须初始化父类对象
+  super();
 }
 ```
 
@@ -457,7 +465,7 @@ console.log(数组名.length);
 
   ```JavaScript
   for (let item of 数组名) {
-      console.log(item);
+    console.log(item);
   }
   ```
 
@@ -473,7 +481,7 @@ console.log(数组名.length);
 
   ```JavaScript
   for (let n in 数组名) {
-      console.log(数组名[n]);
+    console.log(数组名[n]);
   }
   ```
 
@@ -564,13 +572,13 @@ sort()方法默认按照转换为的字符串的诸个字符的 Unicode 位点�
 
 ```JavaScript
 function unique(arr) {
-    let newArr = [];
-    for(let i = 0; i < arr.length;i++){
-        if(newArr.indexOf(arr[i]) === -1){
-            newArr.push(arr[i]);
-        }
+  let newArr = [];
+  for(let i = 0; i < arr.length;i++){
+    if(newArr.indexOf(arr[i]) === -1){
+      newArr.push(arr[i]);
     }
-    return newArr;
+  }
+  return newArr;
 }
 ```
 
@@ -599,15 +607,15 @@ function unique(arr) {
 
 ```JavaScript
 let 对象名 = {
-    键名1: 值,
-    键名2: ["数组1", "数组2", "数组3"],
-    键名3: {
-        内嵌键名1: 值,
-        内嵌键名2: 值,
-    },
-    函数名: function() {
+  键名1: 值,
+  键名2: ["数组1", "数组2", "数组3"],
+  键名3: {
+    内嵌键名1: 值,
+    内嵌键名2: 值,
+  },
+  函数名: function() {
 
-    }
+  }
 };
 ```
 
@@ -905,7 +913,7 @@ Math.round(数字);
  * @param max 最大值
  */
 function randomNum(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min) + min);
 }
 ```
 
@@ -980,27 +988,27 @@ console.log(formatDate(date, 'yyyy-MM-dd hh-mm'));
  * @param {String} fmt 需要格式化的格式
  */
 export function formatDate(date, fmt) {
-    if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+  }
+  let o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds()
+  };
+  for (let k in o) {
+    if (new RegExp( `(${k})` ).test(fmt)) {
+      let str = o[k] + '';
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
     }
-    let o = {
-        'M+': date.getMonth() + 1,
-        'd+': date.getDate(),
-        'h+': date.getHours(),
-        'm+': date.getMinutes(),
-        's+': date.getSeconds()
-    };
-    for (let k in o) {
-        if (new RegExp( `(${k})` ).test(fmt)) {
-            let str = o[k] + '';
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
-        }
-    }
-    return fmt;
+  }
+  return fmt;
 };
 
 function padLeftZero(str) {
-    return ('00' + str).substr(str.length);
+  return ('00' + str).substr(str.length);
 };
 ```
 
@@ -1014,9 +1022,9 @@ Generator 是生成器函数，每一次使用迭代器的 next 方法便会返�
 
 ```JavaScript
 function* 生成器函数名() {
-    yield 返回值1;
-    yield 返回值2;
-    yield 返回值3;
+  yield 返回值1;
+  yield 返回值2;
+  yield 返回值3;
 }
 ```
 
@@ -1062,7 +1070,7 @@ let 新数组名 = 数组名.filter((item) => {
 //需求：过滤数组中小于50的数字
 let nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 let newnubs = nums.filter((item) => {
-    return item < 50;
+  return item < 50;
 });
 console.log(newnubs);
 //结果：[10, 20, 40, 50]
@@ -1090,7 +1098,7 @@ let 新数组名 = 数组.map((item) => {
 //需求：将数组中的左右数据都乘2
 newnubs = [10, 20, 40, 50];
 let new2nums = newnubs.map((item) => {
-    return item * 2;
+  return item * 2;
 });
 console.log(newnubs);
 //结果：[20, 40, 80, 100]
@@ -1110,7 +1118,7 @@ console.log(newnubs);
 //需求：将数组内的所有数字进行求和
 new2Nums = [20, 40, 80, 100];
 total = new2Nums.reduce((preValue, item) => {
-    return preValue + item;
+  return preValue + item;
 }, 0);
 console.log(total);
 //结果：240

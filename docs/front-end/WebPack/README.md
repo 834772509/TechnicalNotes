@@ -417,3 +417,10 @@ module.exports = {
      ],
    };
    ```
+
+## babel
+
+Babel 是什么？
+
+- Babel 是一个工具链，主要用于旧浏览器或者环境中将 ECMAScript 2015+代码转换为向后兼容版本的 JavaScript；
+- 包括：语法转换、源代码转换等；
