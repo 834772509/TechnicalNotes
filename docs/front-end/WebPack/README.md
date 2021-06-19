@@ -15,7 +15,9 @@ webpack 是一个静态的模块化打包工具，为现代的 JavaScript 应用
 2. 配置淘宝镜像: `npm config set registry https://registry.npm.taobao.org`
 3. 安装 Webpack、webpack-cli: `npm install webpack webpack-cli -g`
 
-## Mode 配置
+## Webpack 配置
+
+### Mode 配置
 
 Mode 配置选项，可以告知 webpack 使用响应模式的内置优化：
 
@@ -38,6 +40,85 @@ module.exports = {
   devtool: "source-map",
 };
 ```
+
+### 配置扩展名
+
+extensions 是解析到文件时自动添加扩展名：
+
+- 默认值是 ['.wasm', '.mjs', '.js', '.json']；
+- 所以如果我们代码中想要添加加载 .vue 或者 jsx 或者 ts 等文件时，我们必须自己写上扩展名；
+
+webpack.config.js
+
+```js
+module.exports = {
+  extensions: [".wasm", ".mjs", ".js", ".json"],
+};
+```
+
+### 配置别名
+
+webpack.config.js
+
+```js
+const path = require("path");
+
+module.exports = {
+  "@": path.resolve(__dirname, "./src"),
+};
+```
+
+### 分离配置
+
+1. 安装 webpack-merge: `npm install webpack-merge -D`
+2. 配置文件
+
+   - 公共配置
+
+     新建`\config\webpack.comm.config.js`
+
+     ```js
+     module.exports = {};
+     ```
+
+   - 开发配置
+
+     新建`\config\webpack.dev.config.js`
+
+     ```js
+     const { merge } = require("webpack-merge");
+     const commonConfig = require("./webpack.comm.config");
+
+     module.exports = merge(commonConfig, {
+       mode: "development",
+     });
+     ```
+
+   - 部署配置
+
+     新建`\config\webpack.prod.config.js`
+
+     ```js
+     const { merge } = require("webpack-merge");
+     const commonConfig = require("./webpack.comm.config");
+
+     module.exports = merge(commonConfig, {
+       mode: "production",
+     });
+     ```
+
+3. 修改配置
+
+   pagkage.json
+
+   ```json
+   {
+     "scripts": {
+       "server": "webpack server --config ./config/webpack.dev.config.js",
+       "build": "webpack --config ./config/webpack.prod.config.js"
+     }
+   }
+   ```
 
 ## 打包资源
 
@@ -416,4 +497,101 @@ module.exports = {
        }),
      ],
    };
+   ```
+
+## 搭建本地服务器
+
+### 为什么要搭建本地服务器？
+
+目前开发的代码，需要手动编译并打开 index.html 查看效果，本地服务器可以实现当**文件发生变化**时，可以**自动的完成** 编译 和 展示；
+
+### Webpack watch
+
+在该模式下，webpack 依赖图中的所有文件，只要有一个发生了更新，那么代码将被重新编译；
+
+::: tip 提示
+Webpack watch 可以监听到文件的变化，但是它本身并没有自动刷新浏览器的功能
+:::
+
+- Webpack 配置
+
+  webpack.config.js
+
+  ```JavaScript
+  module.exports = {
+    watch: true,
+  };
+  ```
+
+- 命令行配置
+
+  package.json
+
+  ```Json
+  {
+    "scripts": {
+      "build": "webpack --watch"
+    },
+  }
+  ```
+
+### webpack-dev-server
+
+::: tip 提示
+webpack-dev-server 在编译之后**不会写入到任何输出文件**，而是将 bundle 文件**保留在内存中**，提高开发效率
+:::
+
+1. 安装: `npm install webpack-dev-server -D`
+2. 配置:
+
+   - package.json
+
+   ```Json
+   {
+     "scripts": {
+       "server": "webpack server",
+       "build": "webpack"
+     },
+   }
+   ```
+
+   - webpack.config.js
+
+     ```JavaScript
+     module.exports = {
+       target: "web",
+       devServer: {
+         // 设置主机地址
+         host:"0.0.0.0",
+         // 设置端口
+         port: 8080,
+         // 是否打开浏览器
+         open: true,
+         // 配置备用目录，当 Webpack 资源不存在时请求 contentBase 目录的资源
+         contentBase: "./public",
+         // 配置模块热替换，应用程序运行过程中，替换、添加、删除模块，而无需重新刷新整个页面
+         hot: true,
+         // 是否为静态文件开启gzip compression
+         compress: false,
+         // 设置代理(常用解决跨域)
+         proxy: {
+           "/代理路径": {
+             target: "http://代理地址",
+             pathRewrite: {
+               "^/代理路径": "",
+             },
+             // 设置是否接受在HTTPS上运行且证书无效的后端服务器
+             secure: false,
+           },
+         },
+       },
+     }
+     ```
+
+3. 指定模块模块热替换(不常用)
+
+   ```JavaScript
+   if (module.hot) {
+     module.hot.accept("./模块路径");
+   }
    ```
