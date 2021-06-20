@@ -3,8 +3,8 @@
 
 常用MarkDown语法：
 
-插入图片：![图片介绍](./img/图片名)
-MarkDown 表格编辑：https://tableconvert.com/
+插入图片: ![图片介绍](./img/图片名)
+MarkDown表格编辑：https://tableconvert.com/
 
 Markdown 拓展：
 

@@ -61,15 +61,14 @@
 
 ### 创建项目
 
-1. 可视化创建项目： `vue ui`
+- 可视化创建项目： `vue ui`
+- 命令行创建项目：`vue create 项目名称`
 
-2. 命令行创建项目：`vue create 命令行项目目录`
-
-- Router:路由
-- Unit Tests:单元测试
-- Linter / Formatter:Eslint 代码规范检测（不推荐选择）
-- 选择 Runtime-only（性能更好，所使用的代码量更少）
-- 选择`dist-sass`，`node-sass`编译缓慢
+  - Router:路由
+  - Unit Tests:单元测试
+  - Linter / Formatter:Eslint 代码规范检测
+  - 推荐选择 Runtime-only（性能更好，所使用的代码量更少）
+  - 推荐选择`dist-sass`，`node-sass`编译缓慢
 
 ### 启动项目
 
@@ -81,10 +80,10 @@
 
 ### 项目结构
 
-- node_modules : 依赖文件目录
-- .gitignore : 记录 git 版本控制的排除文件
-- package.json : 记录各个依赖的版本（`^`表示可小版本迭代更新）
-- package-lock.json : 记录本地真实安装版本
+- `node_modules`: 依赖文件目录
+- `.gitignore`: 记录 git 版本控制的排除文件
+- `package.json`: 记录各个依赖的版本（`^`表示可小版本迭代更新）
+- `package-lock.json`: 记录本地真实安装版本
 
 ### 关闭 Eslint 代码规范检测
 
