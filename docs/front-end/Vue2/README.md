@@ -468,8 +468,8 @@ export default {
     btnClick([参数]){
       //发射事件：自定义事件
       this.$emit("事件名称" [,参数])
-      }
-      },
+    }
+  },
 }
 ```
 

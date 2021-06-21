@@ -5,6 +5,11 @@ Vue 是-套用于构建用户界面的渐进式框架。
 - 全程是 Vue.js 或者 Vuejs
 - 渐进式框架：表示我们可以在项目中一点点来引入和使用 Vue ,而不一定需要全部使用 Vue 来开发整个项目
 
+## Visual Studio Code 插件
+
+- Vetur: Vue 支持
+- Vue VSCode Snippets: Vue 代码片段(使用`vbase-css`初始化)
+
 ## 脚手架
 
 **脚手架让项目从搭建到开发,再到部署，整个流程变得快速和便捷**
@@ -761,3 +766,185 @@ Vue.createApp({
   Vue.createApp(App).mount("#app");
 </script>
 ```
+
+## 组件
+
+### 创建组件
+
+::: tip 提示
+代码片段: `vbase-css`
+:::
+
+组件名.vue
+
+```Vue
+<template>
+  <div>
+
+  </div>
+</template>
+
+<script>
+  export default {
+
+  }
+</script>
+
+<style scoped>
+
+</style>
+```
+
+### 组件传参
+
+::: tip 提示
+
+- HTML 中的 attribute 名是大小写不敏感的，所以浏览器会把所有大写字符解释为小写字符；
+- 这意味着当使用 DOM 中的模板时，camelCase (驼峰命名法) 的 prop 名需要使用其等价的 kebab-case (短横线分隔命名) 命名；
+- `.vue`中可以直接写驼峰命名法，因为`.vue`文件不被浏览器解析而是 vue-loader 解析；
+
+:::
+
+- 父传子
+
+  在开发中很常见的就是父子组件之间通信，比如父组件有一些数据，需要子组件来进行展示：
+
+  - 数组语法
+
+    ```JavaScript
+    export default {
+      props: ["参数1", "参数2"],
+    }
+    ```
+
+  - 对象语法
+
+    ::: tip 提示
+    支持验证的类型: `String`、`Number`、`Boolean`、`Array`、`Object`、`Date`、`Function`、`Symbol`
+    :::
+
+    ```JavaScript
+    export default {
+      props: {
+        // 限制数据类型
+        参数1: Array,
+        参数2: {
+          // 限制数据类型
+          type: String,
+          // 是否为必传参数
+          require: true,
+          // 默认值
+          default: "默认值"
+        },
+        // 对象或数组的默认值必须从一个工厂函数获取
+        参数3: {
+          type: Object,
+          default() {
+            return { 键: "值" };
+          },
+        }
+      },
+    }
+    ```
+
+  - 使用组件传参
+
+    ```HTML
+    <组件名 参数1="" [参数2=""]...></组件名>
+    ```
+
+  - 非 Prop 的 Attribute
+
+    **什么是非 Prop 的 Attribute？**
+
+    当传递给一个组件某个属性，但是该属性并没有定义对应的 props 或者 emits 时，就称之为 非 Prop 的 Attribute；
+
+    - 常见的包括 class、style、id 属性等；
+
+    **Attribute 继承**
+    当组件有单个根节点时，非 Prop 的 Attribute 将自动添加到根节点的 Attribute 中
+
+    **禁用 Attribute 继承和多根节点**
+
+    如果不希望组件的根元素继承 attribute，可以在组件中设置 `inheritAttrs: false`：
+
+    - 禁用 attribute 继承的常见情况是需要将 attribute 应用于根元素之外的其他元素；
+    - 可以通过 \$attrs 来访问所有的 非 props 的 attribute；
+
+    ```html
+    <组件名 class="参数"></组件名>
+    ```
+
+    ```html
+    <template>
+      <div>
+        <h2 v-bind="$attrs">内容</h2>
+      </div>
+    </template>
+
+    <script>
+      export default {
+        inheritAttrs: false,
+      };
+    </script>
+    ```
+
+- 子传父
+
+  什么情况下子组件需要传递内容到父组件？
+
+  - 当子组件有一些事件发生的时候，比如在组件中发生了点击，父组件需要切换内容；
+  - 子组件有一些内容想要传递给父组件的时候
+
+  - 子组件
+
+    ```html
+    <template>
+      <div>
+        <button @click="事件名"></button>
+      </div>
+    </template>
+
+    <script>
+      export default {
+        // 数组语法(常用)
+        emits: ["发射事件名"],
+        // 对象语法(验证参数)
+        emits: {
+          发射事件名: (参数1, 参数2) => {
+            return true;
+          },
+        },
+        methods: {
+          事件名() {
+            this.$emit("发射事件名");
+            // 携带参数
+            this.$emit("发射事件名", "参数1", "参数2");
+          },
+        },
+      };
+    </script>
+    ```
+
+  - 父组件
+
+    ```html
+    <template>
+      <div>
+        <子组件 @发射事件名="事件名"></子组件>
+      </div>
+    </template>
+
+    <script>
+    export default {
+      methods: {
+        事件名() {
+
+        },
+        事件名(参数) {
+
+        },
+      },
+    };
+    </script>
+    ```
