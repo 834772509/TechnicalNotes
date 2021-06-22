@@ -708,7 +708,33 @@ Vue.createApp({
   }).mount("#app");
   ```
 
-## 组件化开发
+## 组件
+
+### 创建组件
+
+::: tip 提示
+代码片段: `vbase-css`
+:::
+
+组件名.vue
+
+```Vue
+<template>
+  <div>
+
+  </div>
+</template>
+
+<script>
+  export default {
+
+  }
+</script>
+
+<style scoped>
+
+</style>
+```
 
 ### 注册全局组件
 
@@ -765,34 +791,6 @@ Vue.createApp({
   };
   Vue.createApp(App).mount("#app");
 </script>
-```
-
-## 组件
-
-### 创建组件
-
-::: tip 提示
-代码片段: `vbase-css`
-:::
-
-组件名.vue
-
-```Vue
-<template>
-  <div>
-
-  </div>
-</template>
-
-<script>
-  export default {
-
-  }
-</script>
-
-<style scoped>
-
-</style>
 ```
 
 ### 组件传参
@@ -948,3 +946,296 @@ Vue.createApp({
     };
     </script>
     ```
+
+- 非父子组件通信
+
+  比如有一些深度嵌套的组件，子组件想要获取父组件的部分内容；
+
+  - 在这种情况下，如果仍然将 props 沿着组件链逐级传递下去，就会非常的麻烦；
+
+  对于这种情况下，可以使用 Provide 和 Inject ：
+
+  - 无论层级结构有多深，父组件都可以作为其所有子组件的**依赖提供者**；
+  - 父组件有一个 provide 选项来提供数据；
+  - 子组件有一个 inject 选项来开始使用这些数据；
+
+  - 父组件
+
+    ```html
+    <script>
+      export default {
+        provide: {
+          return {
+            参数名: 值,
+            参数名: this.变量名,
+            // 响应式
+            参数名: computed(() => this.变量名),
+          }
+        },
+      };
+    </script>
+    ```
+
+  - 子孙组件
+
+    ```html
+    <template>
+      <div>
+        <h2>{{参数名}}</h2>
+        <h2>{{参数名}}</h2>
+        <!-- 响应式 -->
+        <h2>{{参数名.value}}</h2>
+      </div>
+    </template>
+
+    <script>
+      export default {
+        inject: ["参数名", "参数名", "参数名"],
+      };
+    </script>
+    ```
+
+### 事件总线 mitt 库
+
+Vue3 从实例中移除了 $on、$off 和 \$once 方法，所以我们如果希望继续使用全局事件总线，要通过第三方的库：
+
+- Vue3 官方有推荐一些库，例如 mitt 或 tiny-emitter；
+
+- 安装 mitt: `npm install mitt`
+
+- 封装事件总线工具
+
+  \utils\eventbus.js
+
+  ```js
+  import mitt from "mitt";
+
+  const emitter = mitt();
+  export default emitter;
+  ```
+
+- 触发事件
+
+```html
+<template>
+  <div>
+    <button @click="btnClick">触发事件</button>
+  </div>
+</template>
+
+<script>
+  import emmiter from "./utils/eventbus";
+
+  export default {
+    methods: {
+      btnClick() {
+        emmiter.emit("事件名", { 参数名: 值, 参数名: 值 });
+      },
+    },
+  };
+</script>
+
+<style scoped></style>
+```
+
+- 监听事件
+
+  ```html
+  <script>
+    import emmiter from "./utils/eventbus";
+
+    export default {
+      created() {
+        emmiter.on("事件名", (args) => {
+          console.log(args);
+        });
+      },
+    };
+  </script>
+  ```
+
+- 取消监听
+
+  - 取消所有监听: `emmiter.all.clear();`
+  - 取消指定监听:
+
+    ```js
+    function 函数名() {}
+    emmiter.on("事件名", 函数名);
+    emmiter.off("事件名", 函数名);
+    ```
+
+## 插槽
+
+- 插槽的使用过程其实是**抽取共性、预留不同**；
+- 会将**共同的元素、内容依然在组件内**进行封装；
+- 同时会将**不同的元素使用 slot 作为占位**，让外部决定到底显示什么样的元素；
+
+### 基本使用
+
+- 父组件
+
+  ```html
+  <template>
+    <div>
+      <子组件>插槽内容</子组件>
+    </div>
+  </template>
+  ```
+
+- 子组件
+
+  ```html
+  <template>
+    <div>
+      <h2>子组件</h2>
+      <slot>插槽默认内容</slot>
+    </div>
+  </template>
+  ```
+
+### 具名插槽
+
+具名插槽顾名思义就是给插槽起一个名字，`<slot>`元素有一个特殊的 attribute：name；
+
+::: tip 提示
+一个不带 name 的 slot，会带有隐含的名字 default；
+:::
+
+- 父组件
+
+  ```html
+  <template>
+    <div>
+      <子组件>
+        <template v-slot:插槽名称1>插槽内容</template>
+        <!-- 缩写 -->
+        <template #插槽名称2>插槽内容</template>
+      </子组件>
+    </div>
+  </template>
+  ```
+
+- 子组件
+
+  ```html
+  <template>
+    <div>
+      <slot name="插槽名称1"></slot>
+      <slot name="插槽名称2"></slot>
+    </div>
+  </template>
+  ```
+
+### 动态插槽名
+
+可以通过 v-slot:[dynamicSlotName]方式动态绑定一个名称
+
+- 父组件
+
+  ```html
+  <template>
+    <div>
+      <子组件 :name="name">
+        <template v-slot:[name]>插槽内容</template>
+      </子组件>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          name: "插槽名",
+        };
+      },
+    };
+  </script>
+  ```
+
+- 子组件
+
+  ```html
+  <template>
+    <div>
+      <slot :name="name"></slot>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      props: {
+        name: String,
+      },
+    };
+  </script>
+  ```
+
+### 作用域插槽
+
+如果希望插槽可以访问到子组件中的内容
+
+- 当一个组件被用来渲染一个数组元素时，我们使用插槽，并且希望插槽中没有显示每项的内容；
+- 这个 Vue 给我们提供了作用域插槽；
+
+- 父组件
+
+  ::: tip 提示
+  `slotProps`可以自由命名
+  :::
+
+  ```html
+  <template>
+    <div>
+      <子组件 :参数="变量名">
+        <template v-slot="slotProps">
+          <button>{{slotProps.index}}-{{slotProps.item}}</button>
+        </template>
+      </子组件>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    data() {
+      return {
+        变量名: ["why", "kobe", "james", "curry"],
+      };
+    },
+  };
+  </script>
+  ```
+
+- 子组件
+
+  ```html
+  <template>
+    <div>
+      <template v-for="(item, index) in 参数" :key="item">
+        <slot :item="item" :index="index"></slot>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      props: {
+        参数: {
+          type: Array,
+          default: () => [],
+        },
+      },
+    };
+  </script>
+  ```
+
+### 独占默认插槽的缩写
+
+如果插槽是默认插槽 default，那么在使用的时候可以简写
+
+- 如果有默认插槽和具名插槽，那么按照完整的 template 来编写；
+- 只要出现多个插槽，请始终为所有的插槽使用完整的基于 `<template>` 的语法；
+
+```html
+<组件名 v-slot="slotProps">插槽内容</组件名>
+```

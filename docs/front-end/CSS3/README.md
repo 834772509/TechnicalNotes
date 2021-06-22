@@ -40,6 +40,10 @@
 
 ### 引入 CSS
 
+::: tip 提示
+CSS正常是写在body前的,如果写在body中会导致CSS重新渲染一次页面,占用一定的时间
+:::
+
 ```HTML
 <link rel="stylesheet" href="CSS文件路径">
 ```
