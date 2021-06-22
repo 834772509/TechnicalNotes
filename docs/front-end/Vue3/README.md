@@ -41,7 +41,7 @@ Vue 是-套用于构建用户界面的渐进式框架。
 
 ### Vue CLI 运行原理
 
-![Vue-cli运行原理](./img/Vue-cli运行原理)
+![Vue-cli运行原理](./img/Vue-cli运行原理.png)
 
 ## 基本概念
 
