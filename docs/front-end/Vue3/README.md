@@ -3,7 +3,7 @@
 Vue 是-套用于构建用户界面的渐进式框架。
 
 - 全程是 Vue.js 或者 Vuejs
-- 渐进式框架：表示我们可以在项目中一点点来引入和使用 Vue ,而不一定需要全部使用 Vue 来开发整个项目
+- 渐进式框架：表示可以在项目中一点点来引入和使用 Vue ,而不一定需要全部使用 Vue 来开发整个项目
 
 ## Visual Studio Code 插件
 
@@ -14,7 +14,7 @@ Vue 是-套用于构建用户界面的渐进式框架。
 
 **脚手架让项目从搭建到开发,再到部署，整个流程变得快速和便捷**
 
-编程中提到的脚手架 (Scaffold) , 其实是一种工具，帮我们可以快速生成项目的工程化结构，并且已经将我们所需的工程环境配置好
+编程中提到的脚手架 (Scaffold) , 其实是一种工具，帮我们可以快速生成项目的工程化结构，并且已经将所需的工程环境配置好
 
 - 每个项目作出完成的效果不同，但是它们的基本工程化结构是相似的。既然相似，就没有必要每次都从零开始搭建，完全可以使用一些工具，帮助我们生产基本的工程化模板
 - 不同的项目，在这个模板的基础之上进行项目开发或者进行一些配置的简单修改即可
@@ -64,7 +64,7 @@ Vue 是-套用于构建用户界面的渐进式框架。
 
 ### Mustache 双大括号语法
 
-如果我们希望把数据显示到模板( template )中,使用最多的语法是"Mustache" 语法(双大括号)的文本插值。
+如果希望把数据显示到模板( template )中,使用最多的语法是"Mustache" 语法(双大括号)的文本插值。
 
 - 并且我们前端提到过，data 返回的对象是有添加到 Vue 的响应式系统中;
 - 当**data 中的数据发生改变时**,对应的内容也会发生更新。
@@ -248,7 +248,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
 
 #### 动态绑定属性
 
-在某些情况下,我们属性的名称可能也不是固定的:
+在某些情况下,属性的名称可能也不是固定的:
 
 - 无论绑定 src、href. class、 style,属性名称都是固定的;
 - 如果属性名称不是固定的,可以使用`:[属性名]="值"`的格式来定义;
@@ -407,7 +407,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
 v-for 的基本格式是"item in 数组":
 
 - 数组通常是来自`data`或者`prop`,也可以是其他方式;
-- `item`是我们给每项元素起的一个别名,这个别名可以自定义;
+- `item`是给每项元素起的一个别名,这个别名可以自定义;
 - `(item, index)`中括号可省，但便于阅读最好加上;
 - `in`也可使用`of`，更接近 JAVaSript 迭代器语法;
 
@@ -545,7 +545,7 @@ v-model 指令可以在表单 input、 textarea 以及 select 元素上创建双
 
 - 对于任何包含响应式数据的复杂逻辑,都应该使用计算属性;
 - 计算属性将被混入到组件实例中。所有 getter 和 setter 的 this 上下文自动地绑定为组件实例;
-- **计算属性是有缓存的， 当我们多次使用计算属性时，计算属性中的运算只会执行一次**;
+- **计算属性是有缓存的， 当多次使用计算属性时，计算属性中的运算只会执行一次**;
 - 如果依赖的数据发生变化，在使用时，计算属性依然会重新进行计算;
 
 ### 基本使用
@@ -603,9 +603,9 @@ Vue.createApp({
 
 ### 什么是侦听器?
 
-- 开发中我们在 data 返回的对象中定义了数据,这个数据通过插值语法等方式绑定到 template 中;
+- 开发中在 data 返回的对象中定义了数据,这个数据通过插值语法等方式绑定到 template 中;
 - 当数据变化时, template 会自动进行更新来显示最新的数据;
-- 但是在某些情况下,我们希望在代码逻辑中监听某个数据的变化, 这个时候就需要用侦听器 watch 来完成了;
+- 但是在某些情况下,希望在代码逻辑中监听某个数据的变化, 这个时候就需要用侦听器 watch 来完成了;
 
 ### 用法
 
@@ -997,7 +997,7 @@ Vue.createApp({
 
 ### 事件总线 mitt 库
 
-Vue3 从实例中移除了 $on、$off 和 \$once 方法，所以我们如果希望继续使用全局事件总线，要通过第三方的库：
+Vue3 从实例中移除了 $on、$off 和 \$once 方法，所以如果希望继续使用全局事件总线，要通过第三方的库：
 
 - Vue3 官方有推荐一些库，例如 mitt 或 tiny-emitter；
 
@@ -1064,6 +1064,185 @@ Vue3 从实例中移除了 $on、$off 和 \$once 方法，所以我们如果希�
     emmiter.on("事件名", 函数名);
     emmiter.off("事件名", 函数名);
     ```
+
+### 动态组件
+
+动态组件是使用 component 组件，通过一个特殊的 attribute is 来实现。
+
+- 基本使用
+
+  ```html
+  <template>
+    <div>
+      <compontent is="组件名" 参数="值"></compontent>
+    </div>
+  </template>
+  ```
+
+- keep-alive
+
+  keep-alive 用于保存组件的状态，默认情况下，在切换组件后，组件会被销毁掉，再次回来时会重新创建组件。
+
+  ```html
+  <keep-alive>
+    <compontent is="组件名" 参数="值"></compontent>
+  </keep-alive>
+  ```
+
+  keep-alive 属性
+
+  - `include` - string | RegExp | Array。只有名称匹配的组件会被缓存；
+
+    ```html
+    <keep-alive include="组件名,组件名"></keep-alive>
+    ```
+
+  - `exclude` - string | RegExp | Array。任何名称匹配的组件都不会被缓存；
+
+    ```html
+    <keep-alive include="组件名,组件名"></keep-alive>
+    ```
+
+  - `max` - number | string。最多可以缓存多少组件实例，一旦达到这个数字，那么缓存组件中最近没有被访问的实例会被销毁；
+
+### 异步组件
+
+如果项目过大了，对于某些组件希望通过异步的方式来进行加载（目的是可以对其进行分包处理），那么 Vue 中给提供了一个函数：`defineAsyncComponent`
+
+- 基本使用
+
+  ```js
+  import { defineAsyncComponent } from "vue";
+
+  const 组件名 = defineAsyncComponent(() => import("./组件路径"));
+  ```
+
+- 传入对象(不常用)
+
+  ```js
+  import { defineAsyncComponent } from "vue";
+
+  const AsyncCategory = defineAsyncComponent({
+    loader: () => import("./组件路径"),
+    // 显示Loading组件
+    loadingComonent: Loading,
+    // 显示Loading组件之前等待时间
+    delay: 2000,
+    /**
+     * @param {*} error 错误信息对象
+     * @param {*} retry 函数，调用retry尝试重新加载
+     * @param {*} fail  函数，指示加载程序结束退出
+     * @param {*} attempt 允许的最大重试次数
+     */
+    onError: function(error, retry, fail, attempt) {},
+  });
+  ```
+
+### Suspense
+
+Suspense 是一个内置的全局组件，该组件有两个插槽：
+
+- `default`：如果 default 可以显示，那么显示 default 的内容；
+- `fallback`：如果 default 无法显示，那么会显示 fallback 插槽的内容
+
+```html
+<suspense>
+  <template #default>内容1</template>
+  <template #fallback>内容2</template>
+</suspense>
+```
+
+### 组件的 v-model
+
+vue 支持在组件上使用 v-model：
+
+- `<组件名 :v-model="message"></组件名>`
+  相当于: `<组件名 :model-value="message" @update:model-value="message = $event"></组件名>`
+
+- 绑定单个属性
+
+  ```html
+  <组件名 v-model="变量名"></组件名>
+  ```
+
+  ```html
+  <template>
+    <div>
+      <!-- 默认绑定个事件处理 -->
+      <button @click="btnClick">按钮</button>
+
+      <!-- 通过input -->
+      <input type="text" v-model="value" />
+    </div>
+  </template>
+
+  <script>
+    export default {
+      props: {
+        modelValue: String,
+      },
+      emits: ["update:modelValue"],
+      computed: {
+        value: {
+          set(value) {
+            this.$emit("update:modelValue", value);
+          },
+          get() {
+            return this.modelValue;
+          },
+        },
+      },
+      methods: {
+        btnClick(event) {
+          this.$emit("update:modelValue", event.target.value);
+        },
+      },
+    };
+  </script>
+  ```
+
+- 绑定多个属性
+
+  ```html
+  <组件名 v-model="变量名" v-model:属性名="变量名"></组件名>
+  ```
+
+  ```html
+  <template>
+    <div>
+      <input type="text" v-model="value" />
+      <input type="text" v-model="属性名" />
+    </div>
+  </template>
+
+  <script>
+    export default {
+      props: {
+        modelValue: String,
+        属性名: String,
+      },
+      emits: ["update:modelValue", "update:属性名"],
+      computed: {
+        value: {
+          set(value) {
+            this.$emit("update:modelValue", value);
+          },
+          get() {
+            return this.modelValue;
+          },
+        },
+        属性名: {
+          set(value) {
+            this.$emit("update:属性名", value);
+          },
+          get() {
+            return this.属性名;
+          },
+        },
+      },
+    };
+  </script>
+  ```
 
 ## 插槽
 
@@ -1175,8 +1354,7 @@ Vue3 从实例中移除了 $on、$off 和 \$once 方法，所以我们如果希�
 
 如果希望插槽可以访问到子组件中的内容
 
-- 当一个组件被用来渲染一个数组元素时，我们使用插槽，并且希望插槽中没有显示每项的内容；
-- 这个 Vue 给我们提供了作用域插槽；
+- 当一个组件被用来渲染一个数组元素时，使用插槽，并且希望插槽中没有显示每项的内容；
 
 - 父组件
 
@@ -1238,4 +1416,139 @@ Vue3 从实例中移除了 $on、$off 和 \$once 方法，所以我们如果希�
 
 ```html
 <组件名 v-slot="slotProps">插槽内容</组件名>
+```
+
+## 引用元素和组件
+
+::: warning 注意
+Vue3 中已经移除了`$children`的属性，所以不可以使用了
+:::
+
+### Ref
+
+某些情况下，在组件中需要直接获取到元素对象或者子组件实例：
+
+- 在 Vue 开发中**不推荐进行 DOM 操作**；
+- 这个时候，可以**给元素或者组件绑定一个 ref 的 attribute 属性**
+
+- 绑定到元素
+
+  ```html
+  <h2 ref="ref名">内容</h2>
+  ```
+
+  使用: `this.$refs.ref名`
+
+- 绑定到组件实例
+
+  ```html
+  <template>
+    <div>
+      <组件名 ref="ref名"></组件名>
+      <button @click="btnClick">获取元素</button>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    methods: {
+      btnClick() {
+        console.log(this.$refs.ref名);
+        // 获取组件根元素
+        console.log(this.$refs.ref名.$el);
+        // 获取组件变量
+        console.log(this.$refs.ref名.变量名);
+        // 调用组件方法
+        this.$refs.ref名.方法名();
+      },
+    },
+  };
+  </script>
+  ```
+
+### parent
+
+`$parent`用于访问父元素
+
+```html
+<template>
+  <button @click="getParentAndRoot">获取父组件和根组件</button>
+</template>
+
+<script>
+  export default {
+    methods: {
+      getParentAndRoot() {
+        console.log(this.$parent);
+      },
+    },
+  };
+</script>
+```
+
+### root
+
+`$root`用于访问根元素
+
+```html
+<template>
+  <button @click="getParentAndRoot">获取根组件</button>
+</template>
+
+<script>
+  export default {
+    methods: {
+      getParentAndRoot() {
+        console.log(this.$root);
+      },
+    },
+  };
+</script>
+```
+
+## 生命周期
+
+### 什么是生命周期？
+
+- 每个组件都可能会经历从创建、挂载、更新、卸载等一系列的过程；
+- 在这个过程中的某一个阶段，用于可能会想要添加一些属于自己的代码逻辑（比如组件创建完后就请求一些服务器数据）；
+- 但是如何可以知道目前组件正在哪一个过程？Vue 提供了组件的生命周期函数；
+
+### 生命周期函数
+
+- 生命周期函数是一些钩子函数，在某个时间会被 Vue 源码内部进行回调；
+- 通过对生命周期函数的回调，可以知道目前组件正在经历什么阶段；
+- 那么就可以在该生命周期中编写属于自己的逻辑代码了；
+
+### 生命周期流程
+
+![生命周期图示](./img/生命周期图示.svg)
+
+```js
+export default {
+  beforeCreate() {
+    console.log("beforeCreate");
+  },
+  created() {
+    console.log("created");
+  },
+  beforeMount() {
+    console.log("beforeMount");
+  },
+  mounted() {
+    console.log("mounted");
+  },
+  beforeUnmount() {
+    console.log("beforeUnmount");
+  },
+  unmounted() {
+    console.log("unmounted");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
+  },
+};
 ```

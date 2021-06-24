@@ -12,7 +12,7 @@ Markdown 拓展：
 这是一个提示
 :::
 
-::: warning 警告
+::: warning 注意
 这是一个警告
 :::
 
