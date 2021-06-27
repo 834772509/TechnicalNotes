@@ -1577,4 +1577,297 @@ Vue 中为我们提供一些内置组件和对应的 API 来完成动画，利�
 ### class 的 name 命名规则
 
 - 如果使用的是一个没有 name 的 transition，那么所有的 class 是以`v-`作为默认前缀；
-- 如果添加了一个 name 属性，比如 <transtion name="why">，那么所有的 class 会以 why- 开头；
+- 如果添加了一个 name 属性，比如 <transtion name="why">，那么所有的 class 会以`why-`开头；
+
+### 过渡动画的使用
+
+- transition 动画
+
+  淡入淡出效果
+
+  ```html
+  <template>
+    <div>
+      <button @click="isShow = !isShow">显示/隐藏</button>
+      <transition name="transition1">
+        <h2 v-if="isShow">Hello</h2>
+      </transition>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          isShow: true,
+        };
+      },
+    };
+  </script>
+
+  <style scoped>
+    .transition1-enter-from,
+    .transition1-leave-to {
+      opacity: 0;
+    }
+
+    .transition1-enter-to,
+    .transition1-leave-from {
+      opacity: 1;
+    }
+
+    .transition1-enter-active,
+    .transition1-leave-active {
+      transition: opacity 2s ease;
+    }
+  </style>
+  ```
+
+- animation 动画
+
+  放大后缩小隐藏
+
+  ```html
+  <template>
+    <div class="app">
+      <div><button @click="isShow = !isShow">显示/隐藏</button></div>
+      <transition name="transition1">
+        <h2 class="title" v-if="isShow">Hello</h2>
+      </transition>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          isShow: true,
+        };
+      },
+    };
+  </script>
+
+  <style scoped>
+    .app {
+      width: 200px;
+      margin: 0 auto;
+    }
+    .title {
+      display: inline-block;
+    }
+    .transition1-enter-active {
+      animation: bounce 1s ease;
+    }
+    .transition1-leave-active {
+      animation: bounce 1s ease reverse;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+  ```
+
+- transition、animation 动画结合
+
+  ::: tip 提示
+  如果某一个动画执行结束时，另外一个动画还没有结束。则需要指定 type 属性为 animation 或者 transition 来明确的告知 Vue 监听的类型
+  :::
+
+  淡入淡出效果 + 放大后缩小隐藏
+
+  ```html
+  <template>
+    <div class="app">
+      <div>
+        <button @click="isShow = !isShow">显示/隐藏</button>
+      </div>
+
+      <transition name="transition1" type="transition">
+        <h2 class="title" v-if="isShow">Hello</h2>
+      </transition>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          isShow: true,
+        };
+      },
+    };
+  </script>
+
+  <style scoped>
+    .app {
+      width: 200px;
+      margin: 0 auto;
+    }
+    .title {
+      display: inline-block;
+    }
+    .transition1-enter-from,
+    .transition1-leave-to {
+      opacity: 0;
+    }
+
+    .transition1-enter-active,
+    .transition1-leave-active {
+      transition: opacity 1s ease;
+    }
+
+    .transition1-enter-active {
+      animation: bounce 1s ease;
+    }
+    .transition1-leave-active {
+      animation: bounce 1s ease reverse;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+  ```
+
+### 过渡的模式 mode
+
+如果不希望同时执行进入和离开动画，那么需要设置 transition 的过渡模式
+
+- in-out: 新元素先进行过渡，完成之后当前元素过渡离开；
+- out-in: 当前元素先进行过渡，完成之后新元素过渡进入；
+
+```html
+<transition name="transition" mode="in-out"></transition>
+```
+
+### 动态组件的切换
+
+```html
+<transition name="transition" mode="out-in">
+  <component :is="布尔值 ? '组件名1' : '组件名2'"></component>
+</transition>
+```
+
+### 首次渲染
+
+默认情况下，首次渲染的时候是没有动画的，如果我们希望给他添加上去动画，那么就可以增加另外一个属性 appear：
+
+```html
+<transition appear></transition>
+```
+
+### 结合 animate.css
+
+- 如果手动一个个来编写这些动画，那么效率是比较低的，所以在开发中我们可能会引用一些第三方库的动画库，比如 animate.css。
+- Animate.css 是一个已经准备好的、跨平台的动画库为我们的 web 项目，对于强调、主页、滑动、注意力引导非常有用；
+
+1. 安装 animate.css 库: `npm install animate.css`
+2. 导入 animate.css 库:
+
+main.js
+
+```js
+import "animate.css";
+```
+
+3. 使用 animate.css 动画
+
+::: tip 提示
+动画名可以在[animate.style](https://animate.style/)查看
+:::
+
+- 结合 transition 标签
+
+  ```html
+  <template>
+    <transition name="transition1" appear></transition>
+  </template>
+
+  <style scoped>
+    .transition1-enter-active {
+      animation: 动画名 1s ease;
+    }
+
+    .transition1-leave-active {
+      animation: 动画名 1s ease;
+    }
+  </style>
+  ```
+
+- 直接使用 animate 库提供的类
+
+  ```html
+  <transition
+    enter-active-class="animate__animated 动画名"
+    leave-active-class="animate__animated 动画名"
+    appear
+  >
+  </transition>
+  ```
+
+### 结合 gsap 库
+
+- GSAP 是 The GreenSock Animation Platform（GreenSock 动画平台）的缩写；
+- 它可以**通过 JavaScript 为 CSS 属性、SVG、Canvas**等设置动画，并且是浏览器兼容的；
+
+1. 安装装 gsap 库: `npm install gsap`
+2. 使用 gsap 库
+
+::: tip 提示
+[帮助文档](https://greensock.com/get-started/)
+:::
+
+```html
+<template>
+  <div class="app">
+    <div><button @click="isShow = !isShow">显示/隐藏</button></div>
+    <transition @enter="enter" @leave="leave" :css="false">
+      <h2 class="title" v-if="isShow">Hello World</h2>
+    </transition>
+  </div>
+</template>
+
+<script>
+  import gsap from "gsap";
+
+  export default {
+    data() {
+      return {
+        isShow: true,
+      };
+    },
+    methods: {
+      enter(el, done) {
+        gsap.from(el, {
+          scale: 0,
+          x: 200,
+        });
+      },
+
+      leave(el, done) {
+        gsap.to(el, {
+          scale: 0,
+          x: 200,
+        });
+      },
+    },
+  };
+</script>
+```

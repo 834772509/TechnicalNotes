@@ -432,50 +432,50 @@ components: {
 
 - 父传子
 
-```JS
-export default {
-  //传参：父传子，写法：["形参1"[,"形参2"]]
-  props: ["参数1", "参数2"],
-  //限制数据类型传参
-    props: {
-    参数1: Array,
-    参数2: String,
-    },
-  /*
-  支持验证以下类型：
-  String
-  Number
-  Boolean
-  Array
-  Object
-  Date
-  Function
-  Symbol
-  */
-}
-```
+  ```JS
+  export default {
+    //传参：父传子，写法：["形参1"[,"形参2"]]
+    props: ["参数1", "参数2"],
+    //限制数据类型传参
+      props: {
+      参数1: Array,
+      参数2: String,
+      },
+    /*
+    支持验证以下类型：
+    String
+    Number
+    Boolean
+    Array
+    Object
+    Date
+    Function
+    Symbol
+    */
+  }
+  ```
 
-```HTML
-<组件 参数1="" [参数2=""]...></组件>
-```
+  ```HTML
+  <组件 参数1="" [参数2=""]...></组件>
+  ```
 
 - 子传父
 
-```JS
-export default {
-  template: "#cpn",
-  methods: {
-    btnClick([参数]){
-      //发射事件：自定义事件
-      this.$emit("事件名称" [,参数])
-    }
-  },
-}
-```
+  ```JS
+  export default {
+    template: "#cpn",
+    methods: {
+      btnClick([参数]){
+        //发射事件：自定义事件
+        this.$emit("事件名称" [,参数])
+      }
+    },
+  }
+  ```
 
-```HTML
-<组件 @事件名称="事件方法()"></组件>
-```
+  ```HTML
+  <组件 @事件名称="事件方法()"></组件>
+  ```
 
 ::: tip 提示
 如提示`$emit`不是一个函数则将父函数写为箭头函数
