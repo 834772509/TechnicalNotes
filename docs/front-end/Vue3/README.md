@@ -1871,3 +1871,65 @@ import "animate.css";
   };
 </script>
 ```
+
+## 混入 Mixin
+
+有时候组件和组件之间有时候会存在相同的代码逻辑，我们希望对相同的代码逻辑进行抽取。
+在 Vue2 和 Vue3 中都支持的一种方式就是使用 Mixin 来完成：
+
+- Mixin 提供了一种非常灵活的方式，来**分发 Vue 组件中的可复用功能**；
+- 一个 Mixin 对象可以包含**任何组件选项**；
+- 当组件使用 Mixin 对象时，**所有 Mixin 对象的选项将被 混合 进入该组件本身的选项**中；
+
+### 基本使用
+
+- 声明
+
+  新建 src/mixins/Mixin 名.js
+
+  ```js
+  export const Mixin名 = {
+    data() {
+      return {
+        变量名: 值,
+      };
+    },
+    methods: {
+      方法名() {},
+    },
+  };
+  ```
+
+- 使用
+
+  ```html
+  <template>
+    <div>
+      <h2>{{ 变量名 }}</h2>
+      <button @click="方法名">按钮</button>
+    </div>
+  </template>
+
+  <script>
+    import { Mixin名 } from "./mixins/Mixin名";
+
+    export default {
+      mixins: [Mixin名],
+    };
+  </script>
+  ```
+
+### Mixin 的合并规则
+
+如果 Mixin 对象中的选项和组件对象中的选项发生了冲突，那么 Vue 会如何操作？这里分成不同的情况来进行处理
+
+- 情况一：如果是 data 函数的返回值对象
+  - 返回值对象默认情况下会**进行合并**；
+  - 如果 data 返回值对象的属性发生了冲突，那么会**保留组件自身的数据**；
+- 情况二：如何生命周期钩子函数
+  - 生命周期的钩子函数**会被合并到数组**中，都会被调用；
+- 情况三：值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。
+  - 比如都有**methods选项**，并且都定义了方法，那么**它们都会生效**；
+  - 但是如果**对象的key相同**，那么**会取组件对象的键值对**；
+
+## Composition API
