@@ -1929,7 +1929,189 @@ import "animate.css";
 - 情况二：如何生命周期钩子函数
   - 生命周期的钩子函数**会被合并到数组**中，都会被调用；
 - 情况三：值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。
-  - 比如都有**methods选项**，并且都定义了方法，那么**它们都会生效**；
-  - 但是如果**对象的key相同**，那么**会取组件对象的键值对**；
+
+  - 比如都有**methods 选项**，并且都定义了方法，那么**它们都会生效**；
+  - 但是如果**对象的 key 相同**，那么**会取组件对象的键值对**；
+
+- 定义 Mixins
+
+  新建 \mixins\Mixin 名.js
+
+  ```js
+  export const demoMixin = {
+    data() {
+      return {
+        变量名: 值,
+      };
+    },
+    methods: {
+      方法名() {},
+    },
+  };
+  ```
+
+- 使用 Mixins
+
+  ```html
+  <template>
+    <div>
+      <h2>{{ 变量名 }}</h2>
+      <button @click="方法名">按钮</button>
+    </div>
+  </template>
+
+  <script>
+    import { Mixin名 } from "./mixins/Mixin名";
+
+    export default {
+      mixins: [Mixin名],
+    };
+  </script>
+  ```
+
+- 全局 Mixin
+
+  src\main.js
+
+  ```js
+  import { createApp } from "vue";
+  import App from "./01_mixin和extends/App.vue";
+
+  const app = createApp(App);
+
+  app.mixin({
+    data() {
+      return {
+        变量名: 值,
+      };
+    },
+    methods() {},
+  });
+
+  app.mount("#app");
+  ```
 
 ## Composition API
+
+### Options API 的弊端
+
+在 Vue2 中，我们编写组件的方式是 Options API，但是这种代码有一个很大的弊端：
+
+- 当**实现某一个功能**时，这个功能**对应的代码逻辑**会被**拆分到各个属性**中；
+- 当**组件变得更大、更复杂**时，**逻辑关注点的列表**就会增长，那么**同一个功能的逻辑就会被拆分的很分散**；
+- 尤其对于那些一开始**没有编写这些组件的人**来说，这个组件的代码是**难以阅读和理解**的（阅读组件的其他人）；
+
+### setup 函数的参数
+
+::: warning 注意
+在`setup`中应该避免使用`this` ，因为它不会找到组件实例。`setup`的调用发生在`data` property、 `computed` property 或`methods`被解析之前，所以它们无法在`setup`中被获取。
+:::
+
+1. props，它其实就是父组件传递过来的属性会被放到 props 对象中，在 setup 中如果需要使用，那么就可以直接通过 props 参数获取：
+   - 对于**定义 props 的类型**，还是和之前的规则是一样的，在 props 选项中定义；
+   - 并且**在 template 中**依然是可以**正常去使用 props 中的属性**，比如 message；
+   - 如果**在 setup 函数中想要使用 props**，那么**不可以通过 this 去获取**；
+   - 因为 props 有直接**作为参数传递到 setup 函数中**，所以可以**直接通过参数**来使用即可；
+2. 另外一个参数是 context，也称之为是一个 SetupContext，它里面包含三个属性：
+   - `attrs`：所有的非 prop 的 attribute；
+   - `slots`：父组件传递过来的插槽（这个在以渲染函数返回时会有作用，后面会讲到）；
+   - `emit`：当我们组件内部需要发出事件时会用到 emit（因为不能访问 this，所以不可以通过 this.\$emit 发出事件）；
+
+```js
+setup(props, { attrs, slots, emit }) {
+  console.log(props);
+  console.log(attrs.id, attrs.class);
+  console.log(slots);
+  console.log(emit);
+},
+```
+
+### refAPI 使用
+
+ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应式的引用** 维护着它**内部的值**，这就是**ref 名称的来源**；
+
+- 它内部的值是**在 ref 的 value 属性**中被维护的；
+- 在**模板中引入 ref 的值**时，Vue 会**自动进行解包操作**，所以并不需要在模板中通过 ref.value 的方式来使用；
+- 但是在 **setup 函数内部**，它依然是一个 **ref 引用**， 所以对其进行操作时，依然需要**使用 ref.value 的方式**；
+- 模板中的解包是浅层的解包；
+
+```html
+<template>
+  <div>
+    <!-- 当在template模板中使用ref对象，它会自动进行解包 -->
+    <h2>{{ 变量名 }}</h2>
+    <button @click="函数名">按钮</button>
+  </div>
+</template>
+
+<script>
+  import { ref } from "vue";
+
+  export default {
+    setup() {
+      // 编程一个ref的可响应式的引用
+      const 变量名 = ref(值);
+
+      //局部函数
+      const 函数名 = () => {
+        console.log(变量名.value);
+      };
+
+      return {
+        变量名,
+        函数名,
+      };
+    },
+  };
+</script>
+```
+
+### readonly
+
+某些情况下，我们传入给其他地方（组件）的这个响应式对象希望在另外一个地方（组件）被使用，但是不能被修改，这个时候如何防止这种情况的出现？
+
+- Vue3 为我们提供了 readonly 的方法；
+- **readonly 会返回原生对象的只读代理**（也就是它依然是一个 Proxy，这是一个 proxy 的 set 方法被劫持，并且不能对其进行修改）
+
+* 普通对象
+
+  ```js
+  import { readonly } from "vue";
+
+  export default {
+    setup() {
+      // 普通对象
+      const 变量名 = { 键: 值 };
+      const 只读变量名 = readonly(变量名);
+
+      const updateState = () => {
+        只读变量名.键 = 值;
+      };
+
+      return {
+        updateState,
+      };
+    },
+  };
+  ```
+
+* 响应式的对象 ref
+
+  ```js
+  import { ref, readonly } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = ref(值);
+      const 只读变量名 = readonly(变量名);
+
+      const updateState = () => {
+        只读变量名.value = 值;
+      };
+
+      return {
+        updateState,
+      };
+    },
+  };
+  ```
