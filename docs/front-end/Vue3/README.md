@@ -2057,10 +2057,7 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
         console.log(变量名.value);
       };
 
-      return {
-        变量名,
-        函数名,
-      };
+      return { 变量名, 函数名 };
     },
   };
 </script>
@@ -2088,9 +2085,7 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
         只读变量名.键 = 值;
       };
 
-      return {
-        updateState,
-      };
+      return { updateState };
     },
   };
   ```
@@ -2109,9 +2104,337 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
         只读变量名.value = 值;
       };
 
-      return {
-        updateState,
-      };
+      return { updateState };
     },
   };
   ```
+
+### toRefs
+
+如果使用 ES6 的解构语法，对 reactive 返回的对象进行解构获取值，那么之后无论是修改结构后的变量，还是修改 reactive 返回的 state 对象，**数据都不再是响应式**。
+
+- Vue 提供了一个`toRefs`的函数，可以将**reactive 返回的对象中的属性都转成 ref**；
+- 那么再次进行结构出来的值本身都是 ref 的；
+- 这种做法相当于已经在`state.name`和`ref.value`之间建立了 链接，**任何一个修改都会引起另外一个变化**；
+
+```js
+import { reactive, toRefs } from "vue";
+
+export default {
+  setup() {
+    const info = reactive({ 属性名: 值 });
+    let { 属性名 } = toRefs(info);
+
+    const btnClick = () => {
+      info.属性名 = 值;
+    };
+    return { 属性名, btnClick };
+  },
+};
+```
+
+### toRef
+
+如果只希望转换一个 reactive 对象中的属性为 ref, 那么可以使用 toRef 的方法
+
+```js
+import { reactive, toRef } from "vue";
+
+export default {
+  setup() {
+    const info = reactive({ 属性名: 值, 属性名: 值 });
+    let 属性名 = toRef(info, "属性名");
+
+    const btnClick = () => {
+      info.属性名 = 值;
+    };
+    return { 属性名, btnClick };
+  },
+};
+```
+
+### customRef
+
+创建一个自定义的 ref，并对其依赖项跟踪和更新触发进行显示控制：
+
+- 它需要一个工厂函数，该函数接受 track 和 trigger 函数作为参数；
+- 并且应该返回一个带有 get 和 set 的对象
+
+* 自定义自定义 Ref
+
+  新建 \hooks\自定义 Ref 名.js
+
+  ```js
+  import { customRef } from "vue";
+
+  export default function(value) {
+    return customRef((track, trigger) => {
+      return {
+        get() {
+          track();
+          return value;
+        },
+        set(newValue) {
+          value = newValue;
+          trigger();
+        },
+      };
+    });
+  }
+  ```
+
+* 使用自定义 Ref
+
+  ```js
+  import 自定义Ref名 from "./hook/自定义Ref名";
+
+  export default {
+    setup() {
+      const 变量名 = 自定义Ref名(值);
+      return { 变量名 };
+    },
+  };
+  ```
+
+### computed
+
+当某些属性是依赖其他状态时，我们可以使用计算属性来处理。在 Composition API 中，可以在 setup 函数中使用 computed 方法来编写一个计算属性。
+
+::: tip 提示
+`computed`方法返回的是一个 ref 对象，因此改变值需要使用`computed名.value = 值;`
+:::
+
+- 传入 getter 函数
+
+  ```js
+  import { ref, computed } from "vue";
+
+  export default {
+    setup() {
+      const firstName = ref("Kobe");
+      const lastName = ref("Bryant");
+
+      const fullName = computed(() => firstName.value + " " + lastName.value);
+      return { fullName };
+    },
+  };
+  ```
+
+- 传入对象(包含 getter/setter)
+
+  ```js
+  import { ref, computed } from "vue";
+
+  export default {
+    setup() {
+      const firstName = ref("Kobe");
+      const lastName = ref("Bryant");
+
+      const fullName = computed({
+        get: () => firstName.value + " " + lastName.value,
+        set: (newValue) => {
+          const names = newValue.split(" ");
+          firstName.value = names[0];
+          lastName.value = names[1];
+        },
+      });
+
+      return { fullName };
+    },
+  };
+  ```
+
+### watchEffect
+
+在 Options API 中，可以通过 watch 选项来侦听 data 或者 props 的数据变化，当数据变化时执行某一些操作。
+
+- watchEffect 用于自动收集响应式数据的依赖；
+- watch 需要手动指定侦听的数据源；
+
+* 基本使用
+
+  ```js
+  import { ref, watchEffect } from "vue";
+
+  export default {
+    setup(props) {
+      const 变量名 = ref(值);
+
+      watchEffect(() => {
+        console.log("变量名: " + 变量名.value);
+      });
+
+      return { 变量名 };
+    },
+  };
+  ```
+
+* 停止监听
+
+  ```js
+  import { ref, watchEffect } from "vue";
+
+  export default {
+    setup(props) {
+      const 变量名 = ref(值);
+
+      cosnt stop = watchEffect(() => {
+        console.log("变量名: " + 变量名.value);
+      });
+
+      stop();
+
+      return { 变量名 };
+    },
+  };
+  ```
+
+* 清除副作用
+
+  如果在开发中需要在侦听函数中执行网络请求，但是在网络请求还没有达到的时候，停止了侦听器，或者侦听器侦听函数被再次执行了。那么上一次的网络请求应该被取消掉，这个时候就可以清除上一次的副作用；
+
+  ```js
+  import { ref, watchEffect } from "vue";
+
+  export default {
+    setup(props) {
+      const 变量名 = ref(值);
+
+      const stop = watchEffect((onInvalidate) => {
+        onInvalidate(() => {
+          console.log("onInvalidate");
+        });
+        console.log("变量名: " + 变量名.value);
+      });
+    },
+  };
+  ```
+
+### watch
+
+watch API 完全等同于组件 watch 选项的 Property：
+
+- watch 需要侦听特定的数据源，并在回调函数中执行副作用；
+- 默认情况下它是惰性的，只有当被侦听的源发生变化时才会执行回调；
+
+与 watchEffect 的比较，watch 允许我们：
+
+- 懒执行副作用（第一次不会直接执行）；
+- 更具体的说明当哪些状态发生变化时，触发侦听器的执行；
+- 访问侦听状态变化前后的值
+
+- 传入 getter 函数
+
+  ```js
+  import { ref, reactive, watch } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = reactive({ 属性名: 值 });
+
+      watch(
+        () => info.属性名,
+        (newValue, oldValue) => {
+          console.log("newValue: " + newValue, "oldValue: " + oldValue);
+        }
+      );
+
+      return { 变量名 };
+    },
+  };
+  ```
+
+- 传入可响应式对象
+
+  ```js
+  import { ref, reactive, watch } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = reactive({ 属性名: 值 });
+
+      watch(变量名, (newValue, oldValue) => {
+        console.log("newValue: " + newValue, "oldValue: " + oldValue);
+      });
+
+      return { 变量名 };
+    },
+  };
+  ```
+
+- 侦听多个数据源
+
+  ```js
+  import { ref, reactive, watch } from "vue";
+
+  export default {
+    setup() {
+      const 变量名1 = reactive({ 属性名: 值 });
+      const 变量名2 = ref(值);
+
+      watch(
+        [变量名1, 变量名2],
+        ([new变量名1, new变量名2], [old变量名1, old变量名2]) => {
+          console.log("new变量名1: " + new变量名1, "old变量名1: " + old变量名1);
+          console.log("new变量名2: " + new变量名2, "old变量名2: " + old变量名2);
+        }
+      );
+    },
+  };
+  ```
+
+- watch 选项
+
+  ```js
+  import { ref, reactive, watch } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = reactive({ 属性名: 值 });
+
+      watch(
+        变量名,
+        (newValue, oldValue) => {
+          console.log("newValue: " + newValue, "oldValue: " + oldValue);
+        },
+        {
+          // 是否深层侦听
+          deep: true,
+          // 是否立即执行
+          immediate: true,
+        }
+      );
+
+      return { 变量名 };
+    },
+  };
+  ```
+
+### setup 中使用 ref
+
+```html
+<template>
+  <div>
+    <h2 ref="Ref名">标题</h2>
+  </div>
+</template>
+
+<script>
+  import { ref, watchEffect } from "vue";
+
+  export default {
+    setup() {
+      const Ref名 = ref(null);
+
+      watchEffect(
+        () => {
+          console.log(Ref名.value);
+        },
+        { flush: "post" }
+      );
+
+      return { title };
+    },
+  };
+</script>
+```
