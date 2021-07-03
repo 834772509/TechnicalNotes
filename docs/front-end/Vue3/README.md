@@ -2438,3 +2438,115 @@ watch API 完全等同于组件 watch 选项的 Property：
   };
 </script>
 ```
+
+### 生命周期钩子
+
+::: tip 提示
+因为 `setup` 是围绕 `beforeCreate` 和 `created` 生命周期钩子运行的，所以不需要显式地定义它们。换句话说，在这些钩子中编写的任何代码都应该直接在 `setup` 函数中编写。
+:::
+
+| 选项式 API      | Hook inside setup |
+| --------------- | ----------------- |
+| beforeCreate    | Not needed\*      |
+| created         | Not needed\*      |
+| beforeMount     | onBeforeMount     |
+| mounted         | onMounted         |
+| beforeUpdate    | onBeforeUpdate    |
+| updated         | onUpdated         |
+| beforeUnmount   | onBeforeUnmount   |
+| unmounted       | onUnmounted       |
+| errorCaptured   | onErrorCaptured   |
+| renderTracked   | onRenderTracked   |
+| renderTriggered | onRenderTriggered |
+
+```js
+import { onMounted, onUpdated, onUnmounted } from "vue";
+
+export default {
+  setup() {
+    onMounted(() => {
+      console.log("App mounted");
+    });
+    onUpdated(() => {
+      console.log("App updated");
+    });
+    onUnmounted(() => {
+      console.log("App unmounted");
+    });
+  },
+};
+```
+
+### Provide Inject 函数
+
+- 父组件
+
+  ```js
+  import { ref, provide, readonly } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = ref(值);
+      provide("变量名", readonly(变量名));
+    },
+  };
+  ```
+
+- 子组件
+
+  ```js
+  import { inject } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = inject("变量名");
+    },
+  };
+  ```
+
+## h 函数
+
+Vue 推荐在绝大数情况下使用模板来创建你的 HTML，然后一些特殊的场景，如果**真的需要 JavaScript 的完全编程的能力**，这个时候可以使用 **渲染函数** ，它**比模板更接近编译器**；
+
+- Vue 在生成真实的 DOM 之前，会将**节点转换成 VNode**，而 VNode 组合在一起形成**一颗树结构**，就是**虚拟 DOM（VDOM）**；
+- template 中的 HTML 最终也是**使用渲染函数**生成**对应的 VNode**；
+- 那么，如果想充分的利用 JavaScript 的编程能力，可以自己来**编写 createVNode 函数**，生成**对应的 VNode**；
+
+- **h() 函数**是一个用于**创建 vnode 的一个函数**；
+- 其实更准备的命名是 **createVNode() 函数**，但是为了简便在 Vue 将之简化为 h() 函数；
+
+### 使用 h 函数
+
+```html
+<script>
+  import { h } from "vue";
+
+  export default {
+    render() {
+      return h("标签名", { 属性: "值" }, "内容");
+    },
+  };
+</script>
+
+<style scoped></style>
+```
+
+### JSX 的使用
+
+组件名.vue
+
+```html
+<script>
+export default {
+  render() {
+    return (
+      <div>
+        <h2>Hello World</h2>
+      </div>
+    );
+  },
+};
+</script>
+
+<style scoped></style>
+```
