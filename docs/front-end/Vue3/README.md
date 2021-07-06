@@ -539,6 +539,92 @@ v-model 指令可以在表单 input、 textarea 以及 select 元素上创建双
   <input type="text" v-model.trim="变量名" />
   ```
 
+### 自定义指令
+
+Vue 也允许自定义自己的指令，通常在某些情况下，需要对**DOM 元素进行底层操作**，这个时候就会用到自定义指令
+
+- 指令的生命周期
+
+- `created`：在绑定元素的 attribute 或事件监听器被应用之前调用；
+- `beforeMount`：当指令第一次绑定到元素并且在挂载父组件之前调用；
+- `mounted`：在绑定元素的父组件被挂载后调用；
+- `beforeUpdate`：在更新包含组件的 VNode 之前调用；
+- `updated`：在包含组件的 VNode 及其子组件的 VNode 更新后调用；
+- `beforeUnmount`：在卸载绑定元素的父组件之前调用；
+- `unmounted`：当指令与元素解除绑定且父组件已卸载时，只调用一次；
+
+- 自定义局部指令：组件中通过 directives 选项，只能在当前组件中使用
+
+  ```html
+  <template>
+    <div>
+      <input type="text" v-自定义指令名 />
+    </div>
+  </template>
+
+  <script>
+    export default {
+      directives: {
+        自定义指令名: {
+          mounted(el, bindings, vnode, preVnode) {},
+        },
+      },
+    };
+  </script>
+  ```
+
+- 自定义全局指令：app 的 directive 方法，可以在任意组件中被使用
+
+  \src\main.js
+
+  ```js
+  const app = createApp(App);
+
+  app.directive("自定义指令名", {
+    mounted(el, bindings, vnode, preVnode) {
+      el.focus();
+    },
+  });
+
+  app.mount("#app");
+  ```
+
+- 参数
+
+  ```js
+  export default {
+    directives: {
+      自定义指令名: {
+        mounted(el, bindings, vnode, preVnode) {
+          console.log(bindings.value);
+        },
+      },
+    },
+  };
+  ```
+
+  ```html
+  <input type="text" v-自定义指令名="'值'" />
+  ```
+
+- 修饰符
+
+  ```js
+  export default {
+    directives: {
+      自定义指令名: {
+        mounted(el, bindings, vnode, preVnode) {
+          console.log(bindings.modifiers);
+        },
+      },
+    },
+  };
+  ```
+
+  ```html
+  <input type="text" v-自定义指令名.修饰符1.修饰符2 />
+  ```
+
 ## 计算属性 computed
 
 ### 什么是计算属性？
@@ -1243,6 +1329,31 @@ vue 支持在组件上使用 v-model：
     };
   </script>
   ```
+
+### Teleport
+
+Teleport 是一个 Vue 提供的内置组件，类似于 react 的 Portals，可以将组件挂载到 vue app 的其他位置。它有两个属性：
+
+- `to`：指定将其中的内容移动到的目标元素，可以使用选择器；
+- `disabled`：是否禁用 teleport 的功能；
+
+```html
+<template>
+  <div>
+    <teleport to="#挂载ID名">
+      <h2>内容</h2>
+    </teleport>
+  </div>
+</template>
+```
+
+index.html
+
+```html
+<body>
+  <div id="挂载ID名"></div>
+</body>
+```
 
 ## 插槽
 
@@ -2537,15 +2648,15 @@ Vue 推荐在绝大数情况下使用模板来创建你的 HTML，然后一些�
 
 ```html
 <script>
-export default {
-  render() {
-    return (
-      <div>
-        <h2>Hello World</h2>
-      </div>
-    );
-  },
-};
+  export default {
+    render() {
+      return (
+        <div>
+          <h2>Hello World</h2>
+        </div>
+      );
+    },
+  };
 </script>
 
 <style scoped></style>
