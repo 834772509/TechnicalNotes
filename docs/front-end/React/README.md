@@ -144,137 +144,138 @@ const element = <h2>Hello World</h2>
 
 - 注释
 
-```jsx
-{
-  /* 注释 */
-}
-```
+  ```jsx
+  {
+    /* 注释 */
+  }
+  ```
 
 - 嵌入数据
 
-::: tip 提示
-对象不能作为 jsx 的子类，无法输出 Object 对象
-:::
+  ::: tip 提示
+  对象不能作为 jsx 的子类，无法输出 Object 对象
+  :::
 
-```jsx
-<h2>{this.state.变量名}</h2>
-```
+  ```jsx
+  <h2>{this.state.变量名}</h2>
+  ```
 
 - 嵌入表达式
 
-```jsx
-{/* 运算符表达式*/}
-<h2>{变量1 + " " + 变量2}</h2>
-<h2>{20 * 50}</h2>
+  ```jsx
+  {/* 运算符表达式*/}
+  <h2>{变量1 + " " + 变量2}</h2>
+  <h2>{20 * 50}</h2>
 
-{/* 函数调用 */}
-<h2>{this.函数名()}</h2>
-```
+  {/* 函数调用 */}
+  <h2>{this.函数名()}</h2>
+  ```
 
 - 内嵌表达式
 
-```jsx
-{
-  `字符串，${变量}`;
-}
-```
+  ```jsx
+  {
+    `字符串，${变量}`;
+  }
+  ```
 
 - 逻辑与算符
 
-如果条件成立则渲染某一个组件，否则不显示
+  如果条件成立则渲染某一个组件，否则不显示
 
-```jsx
-{
-  条件 && <h2>渲染内容</h2>;
-}
-```
+  ```jsx
+  {
+    条件 && <h2>渲染内容</h2>;
+  }
+  ```
 
 - 三元表达式
 
-```jsx
-<h2>{变量 ? true : false}</h2>
-```
+  ```jsx
+  <h2>{变量 ? true : false}</h2>
+  ```
 
 - 绑定属性
 
-```jsx
-const { title, imgUrl, link } = this.state
+  ```jsx
+  const { title, imgUrl, link } = this.state
 
-<h2 title={title}>我是标题</h2>
-<img src={imgUrl} />
-<a href={link}>百度一下</a>
-```
+  <h2 title={title}>我是标题</h2>
+  <img src={imgUrl} />
+  <a href={link}>百度一下</a>
+  ```
 
 - 绑定 class
 
-::: tip 提示
-jsx 中`class`为关键字，不能直接使用，需要使用`className`
-:::
+  ::: tip 提示
+  jsx 中`class`为关键字，不能直接使用，需要使用`className`
+  :::
 
-```jsx
-<div className="box title">div元素</div>
-<div className={"box title " + (active ? "active" : "")}>div元素</div>
-{/* 传入数组 */}
-<h2 className={["title", (isActive ? "active" : "")].join(" ")}></h2>
-```
+  ```jsx
+  <div className="box title">div元素</div>
+  <div className={"box title " + (active ? "active" : "")}>div元素</div>
+  {/* 传入数组 */}
+  <h2 className={["title", (isActive ? "active" : "")].join(" ")}></h2>
+  ```
 
 - 绑定 Style
 
-```jsx
-<div style={{color: "red", fontSize: "50px"}}>绑定Style属性</div>
+  ::: tip 提示
+  函数内访问 this 对象默认为 undefine，因为按钮的事件函数并不是我们主动调用，而是当 button 发生改变时，React 内部调用，当它内部调用时，并不知道要如何绑定正确的 this
 
-<h2 style={{ display: isLogin ? 'block' : "none" }}>绑定Style属性</h2>
-```
+  解决方法：
+
+  - （推荐）在 jsx 中直接传入一个箭头函数，在箭头函数中调用需要执行的函数
+  - 定义函数时，使用箭头函数
+  - 在构造方法中，`this.函数名 = this.函数名.bind(this)` 绑定 this 对象
+  - 绑定函数时增加`.bind(this)`绑定 this 对象
+
+  :::
+
+  ```jsx
+  <div style={{color: "red", fontSize: "50px"}}>绑定Style属性</div>
+
+  <h2 style={{ display: isLogin ? 'block' : "none" }}>绑定Style属性</h2>
+  ```
 
 - 绑定事件
 
-```jsx
-<button onClick={this.函数名}>按钮</button>;
+  ```jsx
+  <button onClick={this.函数名}>按钮</button>;
 
-{
-  /* 函数内访问this对象 */
-}
+  {
+    /* 函数内访问this对象 */
+  }
 
-{
-  /*（推荐） 直接传入一个箭头函数，在箭头函数中调用需要执行的函数 */
-}
-<button onClick={(e) => this.函数名()}>按钮</button>;
+  {
+    /*（推荐） 直接传入一个箭头函数，在箭头函数中调用需要执行的函数 */
+  }
+  <button onClick={(e) => this.函数名()}>按钮</button>;
 
-{
-  /* 使用bind绑定this对象 */
-}
-<button onClick={this.函数名.bind(this)}>按钮</button>;
-```
-
-::: tip 提示
-函数内访问 this 对象默认为 undefine，因为按钮的事件函数并不是我们主动调用，而是当 button 发生改变时，React 内部调用，当它内部调用时，并不知道要如何绑定正确的 this
-
-解决方法：
-
-- （推荐）在 jsx 中直接传入一个箭头函数，在箭头函数中调用需要执行的函数
-- 定义函数时，使用箭头函数
-- 在构造方法中，`this.函数名 = this.函数名.bind(this)` 绑定 this 对象
-- 绑定函数时增加`.bind(this)`绑定 this 对象
-  :::
+  {
+    /* 使用bind绑定this对象 */
+  }
+  <button onClick={this.函数名.bind(this)}>按钮</button>;
+  ```
 
 - 事件对象
 
-```JavaScript
-函数名(event) {
-  console.log(event);
-}
-```
+  ```JavaScript
+  函数名(event) {
+    console.log(event);
+  }
+  ```
 
 - JavaScript 字符串中 `\n` 转`<br>`
 
-```js
-const character = new RegExp("\n", "g");
-const 显示字符串 = 字符串.replace(character, "<br />");
-```
+  ```js
+  const character = new RegExp("\n", "g");
+  const 显示字符串 = 字符串.replace(character, "<br />");
+  ```
 
-```html
-<span dangerouslySetInnerHTML="{{" __html: 显示字符串 }}></span>
-```
+  ```html
+  <span dangerouslySetInnerHTML="{{" __html: 显示字符串 }}></span>
+  ```
 
 ### JSX 的本质
 
@@ -389,11 +390,11 @@ CSS Modules 确实解决了局部作用域的问题，也是很多人喜欢在 R
 
 - 安装依赖
 
-npm: `npm install styled-components --save`
+  npm: `npm install styled-components --save`
 
 - 安装插件
 
-vscode-styled-components
+  vscode-styled-components
 
 - 使用
 
@@ -442,80 +443,80 @@ export default App;
 
 - 动态设置 CSS 样式
 
-\index.js
+  \index.js
 
-```js
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      属性: "值",
-    };
+  ```js
+  class App extends PureComponent {
+    constructor(props) {
+      super(props);
+      this.state = {
+        属性: "值",
+      };
+    }
+
+    render() {
+      return (
+        <div>
+          <样式名 属性={this.state.属性} />
+        </div>
+      );
+    }
   }
+  ```
 
-  render() {
-    return (
-      <div>
-        <样式名 属性={this.state.属性} />
-      </div>
-    );
-  }
-}
-```
+  \style.js
 
-\style.js
-
-```js
-const 样式名 = styled.标签名`
-  /* CSS样式 */
-  属性: ${(props) => props.属性};
-`;
-```
+  ```js
+  const 样式名 = styled.标签名`
+    /* CSS样式 */
+    属性: ${(props) => props.属性};
+  `;
+  ```
 
 - 动态设置属性
 
-```js
-const 样式名 = styled.标签名.attrs({
-  属性: "值",
-  自定义属性: "值",
-})`
-  /* CSS样式 */
-  属性: ${(props) => props.自定义属性};
-`;
-```
+  ```js
+  const 样式名 = styled.标签名.attrs({
+    属性: "值",
+    自定义属性: "值",
+  })`
+    /* CSS样式 */
+    属性: ${(props) => props.自定义属性};
+  `;
+  ```
 
 - 继承样式
 
-\style.js
+  \style.js
 
-```js
-const 父样式 = styled.标签名`
-  /* CSS样式 */
-`;
+  ```js
+  const 父样式 = styled.标签名`
+    /* CSS样式 */
+  `;
 
-const 子样式 = styled(父样式)`
-  /* CSS样式 */
-`;
-```
+  const 子样式 = styled(父样式)`
+    /* CSS样式 */
+  `;
+  ```
 
 - 主题样式
 
-全局定制自己的主题，通过 Provider 进行共享
+  全局定制自己的主题，通过 Provider 进行共享
 
-```js
-import { ThemeProvider } from "styled-components";
+  ```js
+  import { ThemeProvider } from "styled-components";
 
-<ThemeProvider theme={{ 主题属性1: "值", 主题属性2: "值" }}>
-  <组件名></组件名>
-</ThemeProvider>;
-```
+  <ThemeProvider theme={{ 主题属性1: "值", 主题属性2: "值" }}>
+    <组件名></组件名>
+  </ThemeProvider>;
+  ```
 
-```js
-const 样式名 = styled.标签名`
-  属性: ${(props) => props.theme.主题属性1};
-  属性: ${(props) => props.theme.主题属性2};
-`;
-```
+  ```js
+  const 样式名 = styled.标签名`
+    属性: ${(props) => props.theme.主题属性1};
+    属性: ${(props) => props.theme.主题属性2};
+  `;
+  ```
 
 ## 组件
 
@@ -816,37 +817,34 @@ function 传参组件名() {
 - 安装依赖 ：`npm install events`
 
 - 发射事件
+
   ```js
   import { EventEmitter } from "events";
+
+  // 事件总线：event bus
+  const eventBus = new EventEmitter();
+
+  // 发射事件
+  eventBus.emit("事件名", 参数 1, 参数 2)
   ```
 
-// 事件总线：event bus
-const eventBus = new EventEmitter();
+- 监听事件
 
-// 发射事件
-eventBus.emit("事件名", 参数 1, 参数 2)
+  ```js
+  class 组件名 extends PureComponent {
+    componentDidMount() {
+      // 增加事件监听
+      eventBus.addListener("事件名", this.监听事件函数);
+    }
 
-````
+    componentWillUnmount() {
+      // 取消事件监听
+      eventBus.removeListener("事件名", this.监听事件函数);
+    }
 
-* 监听事件
-
-``` js
-class 组件名 extends PureComponent {
-  componentDidMount() {
-    // 增加事件监听
-    eventBus.addListener("事件名", this.监听事件函数)
+    监听事件函数(参数1, 参数2) {}
   }
-
-  componentWillUnmount() {
-    // 取消事件监听
-    eventBus.removeListener("事件名", this.监听事件函数)
-  }
-
-  监听事件函数(参数1,参数2) {
-
-  }
-}
-````
+  ```
 
 ### Portals 使用
 
@@ -1503,7 +1501,11 @@ class App extends PureComponent {
     return (
       <div>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <select name="fruits" onChange={(e) => this.handleChange(e)} value={this.state.fruits}>
+          <select
+            name="fruits"
+            onChange={(e) => this.handleChange(e)}
+            value={this.state.fruits}
+          >
             <option value="apple">苹果</option>
             <option value="banana">香蕉</option>
             <option value="orange">橘子</option>
