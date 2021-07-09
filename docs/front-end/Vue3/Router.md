@@ -85,3 +85,340 @@
   - 通过 HTML5 中的 history 模式修改 URL；
 
 - 当监听到 URL 发生变化时，我们可以通过自己判断当前的 URL，决定到底渲染什么样的内容。
+
+## 安装
+
+`npm install vue-router@4`
+
+## 基本使用
+
+### 创建路由页面
+
+\src\pages\页面名\页面名.vue
+
+```html
+<template>
+  <div>
+    <h2>页面名</h2>
+  </div>
+</template>
+
+<script>
+  export default {};
+</script>
+
+<style></style>
+```
+
+### 配置路由映射
+
+\src\router\index.js
+
+```js
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+} from "vue-router";
+
+// 普通加载
+import 页面名 from "../pages/页面名/页面名.vue";
+
+// 懒加载
+const 页面名 = () => import("../pages/页面名/页面名.vue");
+
+// 配置映射关系
+const routes = [
+  {
+    path: "/",
+    redirect: "/路径",
+  },
+  // 基本配置
+  {
+    path: "/路径",
+    component: 页面名,
+    }
+  },
+  // 其他属性
+  {
+    // 路由记录独一无二的名称
+    name: "页面名"
+    path: "/路径",
+    component: 页面名,
+    // 自定义的数据
+    meta: {
+      属性名: 值,
+    }
+  }
+];
+
+// 创建路由对象
+const router = createRouter({
+  routes,
+  history: createWebHistory(),
+});
+
+export default router;
+```
+
+### 展示路由
+
+\src\App.vue
+
+```html
+<template>
+  <div>
+    <router-view></router-view>
+  </div>
+</template>
+```
+
+## 路由标签
+
+### router-link 标签
+
+router-link 标签 会自动渲染为 a 标签
+
+```js
+<router-link to="/路径">链接</router-link>
+```
+
+::: tip 提示
+Vue3 起删除了`tag`属性
+:::
+
+router-link 属性:
+
+- `to`：设置路由路径，是一个字符串，或者是一个对象
+- `replace`: 设置 replace 属性的话，当点击时，会调用 `router.replace()`，而不是 `router.push()`；
+- `active-class`：设置激活 a 元素后应用的 class，默认是`router-link-active`
+- `exact-active-class`：链接精准激活时，应用于渲染的 `<a>` 的 class，默认是 `router-link-exact-active`；
+
+## 动态路由基本匹配
+
+很多时候需要将给定匹配模式的路由映射到同一个组件：
+
+- 例如，可能有一个 User 组件，它应该对所有用户进行渲染，但是用户的 ID 是不同的；
+- 在 Vue Router 中，可以在路径中使用一个动态字段来实现，称之为 **路径参数**；
+
+### 配置路由
+
+\src\router\index.js
+
+```js
+const routes = [
+  {
+    path: "/路径/:参数名",
+    component: 页面组件,
+  },
+];
+```
+
+### 获取动态路由的值
+
+- Template
+
+  ```html
+  <h3>{{ $route.params.参数名 }}</h3>
+  ```
+
+- Options API
+
+  ```js
+  console.log(this.$route.params.参数名);
+  ```
+
+- Composition API
+
+  ```js
+  import { useRoute } from "vue-router";
+
+  export default {
+    setup() {
+      const route = useRoute();
+      console.log(route.params.参数名);
+    },
+  };
+  ```
+
+### NotFound
+
+对于没有匹配到的路由，通常会匹配到固定的某个页面
+
+- 比如 NotFound 的错误页面中，可编写一个动态路由用于匹配所有的页面
+
+:: tip 提示
+如果在`/:pathMatch(.*)`后面加了一个`*`，那么表示在解析的时候，是否将`/`解析为数组。
+:::
+
+- \src\router\index.js
+
+  ```js
+  const NotFound = () => import("../pages/NotFound.vue");
+
+  const routes = [
+    {
+      path: "/:pathMatch(.*)",
+      component: NotFound,
+    },
+  ];
+  ```
+
+- 获取动态路由的值
+
+  ```html
+  <h3>{{ $route.params.pathMatch }}</h3>
+  ```
+
+## 嵌套路由
+
+路由的嵌套是什么？
+
+- 目前匹配的 Home、About 等都属于底层路由，在它们之间可以来回进行切换；
+- 但是，Home 页面本身，也可能会在多个组件之间来回切换：
+- 比如 Home 中包括 Product、Message，它们可以在 Home 内部来回切换；
+- 这个时候需要使用嵌套路由，在 Home 中也使用 router-view 来占位之后需要渲染的组件；
+
+\src\router\index.js
+
+```js
+const 页面组件 = () => import("../pages/页面组件/页面组件.vue");
+const 子页面组件 = () => import("../pages/页面组件/pages/子页面组件.vue");
+
+const routes = [
+  {
+    path: "/路径",
+    component: 页面组件,
+    children: [
+      // 默认路径
+      {
+        path: "",
+        redirect: "/路径/子路径",
+      },
+      {
+        path: "子路径",
+        component: 子页面组件,
+      },
+    ],
+  },
+];
+```
+
+## 编程式导航
+
+有时候希望通过代码来完成页面的跳转，比如点击的是一个按钮。
+
+### push
+
+使用 push 的特点是压入一个新的页面，那么在用户点击返回时，上一个页面还可以回退
+
+- Options API
+
+  ```js
+  // 基本使用
+  this.$router.push("/路径");
+
+  // 传入对象
+  this.$router.push({
+    path: "/路径",
+    query: {
+      参数名: "值",
+    },
+  });
+  ```
+
+- Composition API
+
+  ```js
+  import { useRouter } from "vue-router";
+
+  export default {
+    setup() {
+      const router = useRouter();
+
+      // 基本使用
+      router.push("/路径");
+
+      // 传入对象
+      router.push({
+        path: "/路径",
+        query: {
+          参数名: "值",
+        },
+      });
+    },
+  };
+  ```
+
+### replace
+
+如果希望当前页面是一个替换操作，那么可以使用 replace
+
+- Options API
+
+  ```js
+  // 基本使用
+  this.$router.replace("/路径");
+
+  // 传入对象
+  this.$router.replace({
+    path: "/路径",
+    query: {
+      参数名: "值",
+    },
+  });
+  ```
+
+- Composition API
+
+  ```js
+  import { useRouter } from "vue-router";
+
+  export default {
+    setup() {
+      const router = useRouter();
+
+      // 基本使用
+      router.replace("/路径");
+
+      // 传入对象
+      router.replace({
+        path: "/路径",
+        query: {
+          参数名: "值",
+        },
+      });
+    },
+  };
+  ```
+
+### 页面的前进后退
+
+- go
+
+  ```js
+  // 向前移动一条记录，与 router.forward() 相同
+  this.$router.go(1);
+
+  // 返回一条记录，与 router.back() 相同
+  this.$router.go(-1);
+
+  // 前进三条记录
+  this.$router.go(3);
+  ```
+
+- 后退
+
+  通过调用 history.back() 回溯历史。相当于 `router.go(-1)`；
+
+  ```js
+  this.$router.back();
+  ```
+
+- 前进
+
+  通过调用 history.forward() 在历史中前进。相当于 `router.go(1)`；
+
+  ```js
+  this.$router.back();
+  ```
