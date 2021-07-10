@@ -15,6 +15,7 @@
    ```
 
 2. 配置路由映射
+
    router\index.js
 
    ```js
@@ -55,61 +56,63 @@
 </keep-alive>
 ```
 
-排除指定页面不保持状态
+- 排除指定页面不保持状态
 
-```HTML
-<keep-aliv exclude="页面名称">
-  <router-view />
-</keep-alive>
-```
+  ```HTML
+  <keep-aliv exclude="页面名称">
+    <router-view />
+  </keep-alive>
+  ```
 
-指定页面需要指定页面名称：
+- 指定页面需要指定页面名称：
 
-```JavaScript
-export default {
-  name: '页面名称'
-}
-
-```
+  ```JavaScript
+  export default {
+    name: '页面名称'
+  }
+  ```
 
 ## 路由传参
 
-1. 方法一
-   XXX.vue:
+- 方法一
+  XXX.vue:
 
-   ```HTML
-   <router-link :to="'/XXX/'+变量名">用户</router-link>
-   ```
+  ```HTML
+  <router-link :to="'/XXX/'+变量名">用户</router-link>
+  ```
 
-   代码传参：
-   this.$router.push('/XXX' + this.变量名)  
-    访问参数：this.$route.params.XXX
+  代码传参：
 
-1. 方法二
+  - `this.$router.push('/XXX' + this.变量名)`
+  - 访问参数：`this.$route.params.XXX`
 
-   ```HTML
-   <router-link :to="{path: '/跳转页面',query: {参数1: 值1[,参数2: 值2]}}">页面名</router-link>
-   ```
+- 方法二
 
-   代码传参：
+  ```HTML
+  <router-link :to="{path: '/跳转页面',query: {参数1: 值1[,参数2: 值2]}}">
+    页面名
+  </router-link>
+  ```
 
-   ```HTML
-   <button @click="传参()">用户</button>
-   ```
+  代码传参：
 
-   ```js
-   传参() {
-     this.$router.push({
-       path: '/跳转页面',
-       query: {
-         参数1: 值1,
-         参数2: 值2,
-       }
-     })
-   }
-   ```
+  ```HTML
+  <button @click="传参()">用户</button>
+  ```
 
-   访问参数：{{$route.query.参数名}}
+  ```js
+  传参() {
+    this.$router.push({
+      path: '/跳转页面',
+      query: {
+        参数1: 值1,
+        参数2: 值2,
+      }
+    })
+  }
+  ```
+
+  访问参数：`{{$route.query.参数名}}`
 
 ## 导航守卫
 
@@ -127,9 +130,11 @@ const routes = [
     router.beforeEach((to, from, next) => {
      //从form跳转到to
      //改变网页标题
-     document.title=to.matched[0].meta.title
-     next()
+     document.title = to.matched[0].meta.title;
+     next();
     })
+  }
+]
 ```
 
 ## 阻止重复点击报错
@@ -142,6 +147,7 @@ const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch((err) => err);
 };
+
 //重写路由replace方法,阻止重复点击报错
 const originalReplace = VueRouter.prototype.replace;
 VueRouter.prototype.replace = function replace(location) {

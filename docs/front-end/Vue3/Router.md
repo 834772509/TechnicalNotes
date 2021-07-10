@@ -168,35 +168,78 @@ export default router;
 ```html
 <template>
   <div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 ```
 
 ## 路由标签
 
+### router-view 标签
+
+`<router-view>` 组件是一个 functional 组件，渲染路径匹配到的视图组件。
+
+因为它也是个组件，所以可以配合 `<transition>` 和 `<keep-alive>` 使用。如果两个结合一起用，要确保在内层使用 `<keep-alive>`：
+
+```html
+<router-view v-slot="props">
+  <transition name="transition1">
+    <keep-alive>
+      <component :is="props.Component"></component>
+    </keep-alive>
+  </transition>
+</router-view>
+```
+
 ### router-link 标签
 
 router-link 标签 会自动渲染为 a 标签
 
-```js
-<router-link to="/路径">链接</router-link>
-```
+- 基本使用
 
-::: tip 提示
-Vue3 起删除了`tag`属性
-:::
+  ```js
+  <router-link to="/路径">链接</router-link>
+  ```
 
-router-link 属性:
+- 渲染为其他元素
 
-- `to`：设置路由路径，是一个字符串，或者是一个对象
-- `replace`: 设置 replace 属性的话，当点击时，会调用 `router.replace()`，而不是 `router.push()`；
-- `active-class`：设置激活 a 元素后应用的 class，默认是`router-link-active`
-- `exact-active-class`：链接精准激活时，应用于渲染的 `<a>` 的 class，默认是 `router-link-exact-active`；
+  vue-router4.x 起移除了`tag`属性，如需将 router-link 标签渲染为其他元素可使用插槽
+
+  ```html
+  <router-link>
+    <标签名>内容</标签名>
+  </router-link>
+  ```
+
+- v-slot
+
+  ```html
+  <router-link to="/路径" v-slot="props">
+    <!-- 需要跳转的链接 -->
+    <h2>{{ props.href }}</h2>
+    <!-- route对象 -->
+    <h2>{{ props.route }}</h2>
+    <!-- 导航函数 -->
+    <h2 @click="props.navigate">内容</h2>
+    <!-- 是否处于活跃状态 -->
+    <h2>{{ props.isActive }}</h2>
+    <!-- 是否处于精确的活跃状态 -->
+    <h2>{{ props.isExActive }}</h2>
+  </router-link>
+  ```
+
+- router-link 属性:
+
+  - `to`：设置路由路径，是一个字符串，或者是一个对象
+  - `replace`: 设置 replace 属性的话，当点击时，会调用 `router.replace()`，而不是 `router.push()`；
+  - `active-class`：设置激活 a 元素后应用的 class，默认是`router-link-active`
+  - `exact-active-class`：链接精准激活时，应用于渲染的 `<a>` 的 class，默认是 `router-link-exact-active`；
 
 ## 动态路由基本匹配
 
-很多时候需要将给定匹配模式的路由映射到同一个组件：
+很多时候需要将给 定匹配模式的路由映射到同一个组件：
 
 - 例如，可能有一个 User 组件，它应该对所有用户进行渲染，但是用户的 ID 是不同的；
 - 在 Vue Router 中，可以在路径中使用一个动态字段来实现，称之为 **路径参数**；
@@ -310,7 +353,11 @@ const routes = [
 
 ### push
 
-使用 push 的特点是压入一个新的页面，那么在用户点击返回时，上一个页面还可以回退
+使用 push 的特点是压入一个新的页面，那么在用户点击返回时，上一个页面还可以回退。
+
+::: tip 提示
+使用`$route.query.参数名`可获取 query 参数值
+:::
 
 - Options API
 
@@ -352,7 +399,11 @@ const routes = [
 
 ### replace
 
-如果希望当前页面是一个替换操作，那么可以使用 replace
+如果希望当前页面是一个替换操作，那么可以使用 replace。
+
+::: tip 提示
+使用`$route.query.参数名`可获取 query 参数值
+:::
 
 - Options API
 
@@ -422,3 +473,95 @@ const routes = [
   ```js
   this.$router.back();
   ```
+
+## 动态配置路由
+
+### 动态增加路由
+
+- 增加一级路由
+
+  \src\router\index.js
+
+  ```js
+  router.addRoute({
+    path: "/路径",
+    component: 页面组件,
+  });
+  ```
+
+- 增加二级路由
+
+  \src\router\index.js
+
+  ```js
+  router.addRoute("一级路由name", {
+    path: "路径",
+    component: 二级页面组件,
+  });
+  ```
+
+### 动态删除路由
+
+- 增加 name 相同的路由
+
+  ```js
+  router.addRoute({
+    name: "路由名称",
+    path: "路径",
+    component: 页面组件,
+  });
+  ```
+
+- 通过 removeRoute 方法，传入路由的名称；
+
+  ```js
+  router.removeRoute("路由name");
+  ```
+
+- 通过 addRoute 方法的返回值回调；
+
+  ```js
+  const removeRoute = router.addRoute({
+    name: "路由名称",
+    path: "路径",
+    component: 页面组件,
+  });
+
+  removeRoute();
+  ```
+
+### 判断路由存在
+
+```js
+router.hasRoute();
+```
+
+### 获取所有路由记录
+
+```js
+router.getRoutes();
+```
+
+## 导航守卫
+
+vue-router 提供的导航守卫主要用来通过跳转或取消的方式守卫导航。
+
+- 比如需要一个功能，只有登录后才能看到其他页面
+
+\src\router\index.js
+
+```js
+router.beforeEach((to, from) => {
+  return true;
+});
+```
+
+- 参数：
+  1. to：即将进入的路由 Route 对象；
+  2. from：即将离开的路由 Route 对象；
+- 返回值：
+  - false：取消当前导航；
+  - 不返回或者 undefined：进行默认导航；
+  - 返回一个路由地址：
+    - 可以是一个 string 类型的路径；
+    - 可以是一个对象，对象中包含 path、query、params 等信息；
