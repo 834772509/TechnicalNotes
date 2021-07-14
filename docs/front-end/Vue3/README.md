@@ -1670,7 +1670,7 @@ export default {
 
 比如有下面的需求∶
 
-- 点击一个按钮，我们会修改在 h2 中显示的 message ;message 被修改后，获取 h2 的高度﹔
+- 点击一个按钮，会修改在 h2 中显示的 message，message 被修改后，获取 h2 的高度﹔
 
 有三种实现方式:
 
