@@ -40,9 +40,9 @@ Vuex 使用单一状态树：
 
 1. state: 保存状态（变量）
 2. getters: 保存需要经过变化后的状态（计算属性）
-3. mutations
-4. actions
-5. modules
+3. mutations: 更改状态（同步操作）
+4. actions: 提交 mutation(异步操作)
+5. modules: 模块化管理数据
 
 ## Vue devtool
 
@@ -150,14 +150,19 @@ vue 提供了一个 devtools，方便对组件或者 vuex 进行调试：
 
   ```js
   import { computed } from "vue";
-  import { mapState, useStore } from "vuex";
+  import { mapState, useStore, createNamespacedHelpers } from "vuex";
 
-  export default function(mapper) {
+  export default function(moduleName, mapper) {
+    let mapperFn = mapState;
+    if (typeof moduleName === "string" && moduleName.length > 0) {
+      mapperFn = createNamespacedHelpers(moduleName).mapState;
+    }
+
     // 拿到store独享
     const store = useStore();
 
     // 获取对应的对象的functions
-    const storeStateFns = mapState(mapper);
+    const storeStateFns = mapperFn(mapper);
 
     // 对数据进行转换
     const storeState = {};
@@ -277,14 +282,19 @@ export default store;
 
   ```js
   import { computed } from "vue";
-  import { useGetters, useStore } from "vuex";
+  import { useGetters, useStore, createNamespacedHelpers } from "vuex";
 
-  export default function(mapper) {
+  export default function(moduleName, mapper) {
+    let mapperFn = mapGetters;
+    if (typeof moduleName === "string" && moduleName.length > 0) {
+      mapperFn = createNamespacedHelpers(moduleName).mapGetters;
+    }
+
     // 拿到store独享
     const store = useStore();
 
     // 获取对应的对象的functions
-    const storeStateFns = useGetters(mapper);
+    const storeStateFns = mapperFn(mapper);
 
     // 对数据进行转换
     const storeState = {};
@@ -314,6 +324,15 @@ export default store;
 ## Mutation
 
 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+
+### Mutation 重要原则
+
+一条重要的原则就是要记住 **mutation 必须是同步函数**
+
+- 这是因为 devtool 工具会记录 mutation 的日记；
+- 每一条 mutation 被记录，devtools 都需要捕捉到前一状态和后一状态的快照；
+- 但是在 mutation 中执行异步操作，就无法追踪到数据的变化；
+- 所以 Vuex 的重要原则中要求 mutation 必须是同步函数；
 
 ### 基本使用
 
@@ -354,7 +373,7 @@ export default store;
   this.$store.commit("变量操作方法", { 参数名: 值, 参数名: 值 });
   ```
 
-- 接受参数
+- 接收参数
 
   ```js
   import { createStore } from "vuex";
@@ -465,11 +484,373 @@ this.$store.commit({
 
 #### Composition API
 
+- 数组类型
+
+  ```js
+  import { mapMutations } from "vuex";
+
+  export default {
+    setup() {
+      const storeMutations = mapMutations(["变量操作方法", "变量操作方法"]);
+      return { ...storeMutations };
+    },
+  };
+  ```
+
+- 对象类型
+
+  ```js
+  import { mapMutations } from "vuex";
+
+  export default {
+    setup() {
+      const storeMutations = mapMutations({
+        变量操作方法别名: "变量操作方法",
+      });
+      return { ...storeMutations };
+    },
+  };
+  ```
+
+## Actions
+
+Action 类似于 mutation，不同在于：
+
+- Action 提交的是 mutation，而不是直接变更状态；
+- Action 可以包含任意异步操作；
+
+### 基本使用
+
+- 创建 \src\store\index.js
+
+  ```js
+  import { createStore } from "vuex";
+
+  const store = createStore({
+    state() {
+      return {
+        变量: 值,
+      };
+    },
+
+    mutations: {
+      变量操作方法(state, payload) {
+        state.变量 = payload;
+      },
+    },
+
+    actions: {
+      Actions名(context) {
+        // 可在此进行网络请求再调用 mutation
+        context.commit("变量操作方法");
+      },
+    },
+  });
+
+  export default store;
+  ```
+
+- 分发
+
+  ```js
+  export default {
+    mounted() {
+      this.$store.dispatch("Actions名");
+    },
+  };
+  ```
+
+### 携带参数
+
+- 传递参数(分发)
+
+  ```js
+  this.$store.dispatch("Actions名", { 参数名: 值, 参数名: 值 });
+  ```
+
+- 接收参数
+
+  ```js
+  import { createStore } from "vuex";
+
+  const store = createStore({
+    state() {
+      return {
+        变量: 值,
+      };
+    },
+
+    mutations: {
+      变量操作方法(state, payload) {
+        state.变量 = payload;
+      },
+    },
+
+    actions: {
+      Actions名(context, payload) {
+        // 可在此进行网络请求再调用 mutation
+        console.log(payload.参数名);
+        context.commit("变量操作方法");
+      },
+    },
+  });
+
+  export default store;
+  ```
+
+### 对象风格分发
+
 ```js
+this.$store.dispatch({
+  type: "Actions名",
+  参数名: 值,
+  参数名: 值,
+});
+```
+
+### mapActions 辅助函数
+
+如果有很多个 Action 都需要使用的话，通过`$store.dispatch("Actions名")`表达式过长，可以使用 mapActions 的辅助函数，可以使得**Action 可以直接使用**。
+
+```html
+<button @click="Actions名">按钮</button>
+```
+
+#### Option API
+
+- 数组类型
+
+  ```js
+  import { mapActions } from "vuex";
+
+  export default {
+    methods: {
+      ...mapActions(["Actions名", "Actions名"]),
+    },
+  };
+  ```
+
+- 对象类型
+
+  ```js
+  import { mapActions } from "vuex";
+
+  export default {
+    methods: {
+      ...mapActions({
+        Actions别名: "Actions名",
+      }),
+    },
+  };
+  ```
+
+#### Composition API
+
+- 数组类型
+
+  ```js
+  import { mapActions } from "vuex";
+
+  export default {
+    setup() {
+      const actions = mapActions(["Actions名", "Actions名"]);
+      return { ...actions };
+    },
+  };
+  ```
+
+- 对象类型
+
+  ```js
+  import { mapActions } from "vuex";
+
+  export default {
+    setup() {
+      const actions = mapActions({
+        Actions别名: "Actions名",
+      });
+      return { ...actions };
+    },
+  };
+  ```
+
+## Modules
+
+### Module 是什么？
+
+- 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象，当应用变得非常复杂时，store 对象就有可能变得相当臃肿；
+- 为了解决以上问题，Vuex 允许将 store 分割成**模块（module）**；
+- 每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块；
+
+### module 的命名空间
+
+- 默认情况下，模块内部的 action 和 mutation 仍然是注册在**全局的命名空间**中：
+  - 这样使得多个模块能够对同一个 action 或 mutation 作出响应；
+  - Getter 同样也默认注册在全局命名空间，使用`$store.getters.getter名`进行访问；
+- 如果希望模块具有更高的封装度和复用性，可以添加 `namespaced: true` 的方式使其成为带命名空间的模块：
+  - 当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名；
+
+### 基本使用
+
+- 新建 \src\store\models\模块名.js
+
+  ```js
+  const 模块名 = {
+    namespaced: true,
+    state() {
+      return {
+        变量名: 值,
+      };
+    },
+    getters: {
+      getter名(state) {
+        return 1 + 1;
+      },
+    },
+    mutations: {
+      变量操作方法(state) {
+        state.变量名 = 值;
+      },
+    },
+    actions: {
+      Actions名(context) {
+        context.commit("变量操作方法");
+      },
+    },
+  };
+
+  export default 模块名;
+  ```
+
+- \src\index.js
+
+  ```js
+  import { createStore } from "vuex";
+  import 模块名 from "./modules/模块名";
+
+  const store = createStore({
+    modules: {
+      模块名,
+    },
+  });
+
+  export default store;
+  ```
+
+- 使用
+
+  ```html
+  <template>
+    <div>
+      <h2>{{ $store.state.模块名.变量名 }}</h2>
+      <h2>{{ $store.getters["模块名/getter名"] }}</h2>
+
+      <button @click="btn1">+1</button>
+      <button @click="btn2">+1</button>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      methods: {
+        btn1() {
+          this.$store.commit("模块名/变量操作方法");
+        },
+        btn2() {
+          this.$store.dispatch("模块名/Action名");
+        },
+      },
+    };
+  </script>
+  ```
+
+### module 的辅助函数
+
+#### Option API
+
+- 通过完整的模块空间名称来查找
+
+  ```js
+  import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+
+  export default {
+    computed: {
+      ...mapState({
+        变量别名: (state) => state.模块名.变量名,
+      }),
+      ...mapGetters({
+        getter别名: "/模块名/getter名",
+      }),
+    },
+    methods: {
+      ...mapMutations({
+        变量操作方法别名: "/模块名/变量操作方法",
+      }),
+      ...mapActions({
+        Action别名: "/模块名/Action名",
+      }),
+    },
+  };
+  ```
+
+- 第一个参数传入模块空间名称，后面写上要使用的属性；
+
+  ```js
+  import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+
+  export default {
+    computed: {
+      ...mapState("模块名", ["变量名"]),
+      ...mapGetters("模块名", ["getter名"]),
+    },
+    methods: {
+      ...mapMutations("模块名", ["变量操作方法"]),
+      ...mapActions("模块名", ["Action名"]),
+    },
+  };
+  ```
+
+- 通过 createNamespacedHelpers 生成一个模块的辅助函数（推荐）
+
+  ```js
+  import { createNamespacedHelpers } from "vuex";
+
+  const {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions,
+  } = createNamespacedHelpers("模块名");
+
+  export default {
+    computed: {
+      ...mapState(["变量名"]),
+      ...mapGetters(["getter名"]),
+    },
+    methods: {
+      ...mapMutations(["变量操作方法"]),
+      ...mapActions(["Action名"]),
+    },
+  };
+  ```
+
+#### Composition API
+
+```js
+import useState from "../hooks/useState";
+import useGetters from "../hooks/useGetters";
+
+const { mapMutations, mapActions } = createNamespacedHelpers("模块名");
+
 export default {
   setup() {
-    const storeMutations = mapMutations(["变量操作方法", "变量操作方法"]);
-    return { ...storeMutations };
+    const state = useState("模块名", ["变量名"]);
+    const getters = useGetters("模块名", ["getter名"]);
+    const mutations = mapMutations(["变量操作方法"]);
+    const actions = mapActions(["Action名"]);
+
+    return { ...state, ...getters, ...actions, ...mutations };
   },
 };
+</script>
 ```
