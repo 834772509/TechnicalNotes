@@ -156,6 +156,8 @@ vue 提供了一个 devtools，方便对组件或者 vuex 进行调试：
     let mapperFn = mapState;
     if (typeof moduleName === "string" && moduleName.length > 0) {
       mapperFn = createNamespacedHelpers(moduleName).mapState;
+    } else {
+      mapper = moduleName;
     }
 
     // 拿到store独享
@@ -288,6 +290,8 @@ export default store;
     let mapperFn = mapGetters;
     if (typeof moduleName === "string" && moduleName.length > 0) {
       mapperFn = createNamespacedHelpers(moduleName).mapGetters;
+    } else {
+      mapper = moduleName;
     }
 
     // 拿到store独享
