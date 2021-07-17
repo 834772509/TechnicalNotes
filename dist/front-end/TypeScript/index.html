@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TypeScript | 杉-技术笔记</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/technicalnotes/img/LOGO.ico">
+    <meta name="description" content="记录工作和学习过程中的笔记">
+    <link rel="preload" href="/technicalnotes/assets/css/0.styles.0c9014f9.css" as="style"><link rel="preload" href="/technicalnotes/assets/js/app.fbd414c4.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/2.1371b211.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/109.aadf3483.js" as="script"><link rel="preload" href="/technicalnotes/assets/js/9.b4a8099a.js" as="script"><link rel="prefetch" href="/technicalnotes/assets/js/10.0ebe4dd4.js"><link rel="prefetch" href="/technicalnotes/assets/js/100.1cd35fa2.js"><link rel="prefetch" href="/technicalnotes/assets/js/101.faa4dd12.js"><link rel="prefetch" href="/technicalnotes/assets/js/102.a56ad6f9.js"><link rel="prefetch" href="/technicalnotes/assets/js/103.ac53974d.js"><link rel="prefetch" href="/technicalnotes/assets/js/104.ed82a25b.js"><link rel="prefetch" href="/technicalnotes/assets/js/105.79790f26.js"><link rel="prefetch" href="/technicalnotes/assets/js/106.65c2564f.js"><link rel="prefetch" href="/technicalnotes/assets/js/107.475ee3ff.js"><link rel="prefetch" href="/technicalnotes/assets/js/108.ff91d2c4.js"><link rel="prefetch" href="/technicalnotes/assets/js/11.939ffc83.js"><link rel="prefetch" href="/technicalnotes/assets/js/110.1838c2ed.js"><link rel="prefetch" href="/technicalnotes/assets/js/111.0d5564be.js"><link rel="prefetch" href="/technicalnotes/assets/js/112.27bf1c7b.js"><link rel="prefetch" href="/technicalnotes/assets/js/113.997b2f65.js"><link rel="prefetch" href="/technicalnotes/assets/js/114.180e0b09.js"><link rel="prefetch" href="/technicalnotes/assets/js/115.6d87eb9c.js"><link rel="prefetch" href="/technicalnotes/assets/js/116.0be6e623.js"><link rel="prefetch" href="/technicalnotes/assets/js/117.f15b2344.js"><link rel="prefetch" href="/technicalnotes/assets/js/118.b21242e9.js"><link rel="prefetch" href="/technicalnotes/assets/js/119.1359634a.js"><link rel="prefetch" href="/technicalnotes/assets/js/12.090161b8.js"><link rel="prefetch" href="/technicalnotes/assets/js/120.b8edcdc1.js"><link rel="prefetch" href="/technicalnotes/assets/js/121.5bde37c5.js"><link rel="prefetch" href="/technicalnotes/assets/js/122.f9a3b658.js"><link rel="prefetch" href="/technicalnotes/assets/js/123.7e6192f6.js"><link rel="prefetch" href="/technicalnotes/assets/js/124.a9dc5c8c.js"><link rel="prefetch" href="/technicalnotes/assets/js/125.7855644d.js"><link rel="prefetch" href="/technicalnotes/assets/js/126.d7d43e80.js"><link rel="prefetch" href="/technicalnotes/assets/js/127.be2493f6.js"><link rel="prefetch" href="/technicalnotes/assets/js/13.e2480115.js"><link rel="prefetch" href="/technicalnotes/assets/js/14.001f1860.js"><link rel="prefetch" href="/technicalnotes/assets/js/15.219e4cfc.js"><link rel="prefetch" href="/technicalnotes/assets/js/16.12954282.js"><link rel="prefetch" href="/technicalnotes/assets/js/17.c51649b9.js"><link rel="prefetch" href="/technicalnotes/assets/js/18.d7414f82.js"><link rel="prefetch" href="/technicalnotes/assets/js/19.23836927.js"><link rel="prefetch" href="/technicalnotes/assets/js/20.0376e97c.js"><link rel="prefetch" href="/technicalnotes/assets/js/21.9e58162a.js"><link rel="prefetch" href="/technicalnotes/assets/js/22.0cd48abb.js"><link rel="prefetch" href="/technicalnotes/assets/js/23.4431b2e4.js"><link rel="prefetch" href="/technicalnotes/assets/js/24.0357dbe4.js"><link rel="prefetch" href="/technicalnotes/assets/js/25.3a494ae8.js"><link rel="prefetch" href="/technicalnotes/assets/js/26.5ee187da.js"><link rel="prefetch" href="/technicalnotes/assets/js/27.0c728083.js"><link rel="prefetch" href="/technicalnotes/assets/js/28.9aa86d2c.js"><link rel="prefetch" href="/technicalnotes/assets/js/29.de41c1b9.js"><link rel="prefetch" href="/technicalnotes/assets/js/3.61e70d37.js"><link rel="prefetch" href="/technicalnotes/assets/js/30.3434c0a2.js"><link rel="prefetch" href="/technicalnotes/assets/js/31.39ea4145.js"><link rel="prefetch" href="/technicalnotes/assets/js/32.c548c167.js"><link rel="prefetch" href="/technicalnotes/assets/js/33.13e028a1.js"><link rel="prefetch" href="/technicalnotes/assets/js/34.1964e9a5.js"><link rel="prefetch" href="/technicalnotes/assets/js/35.47708931.js"><link rel="prefetch" href="/technicalnotes/assets/js/36.3bdb79f2.js"><link rel="prefetch" href="/technicalnotes/assets/js/37.9dfda5c1.js"><link rel="prefetch" href="/technicalnotes/assets/js/38.ad44616c.js"><link rel="prefetch" href="/technicalnotes/assets/js/39.3e64e61a.js"><link rel="prefetch" href="/technicalnotes/assets/js/4.c9f247be.js"><link rel="prefetch" href="/technicalnotes/assets/js/40.34ec381d.js"><link rel="prefetch" href="/technicalnotes/assets/js/41.6de9d323.js"><link rel="prefetch" href="/technicalnotes/assets/js/42.ce6003fa.js"><link rel="prefetch" href="/technicalnotes/assets/js/43.c890e276.js"><link rel="prefetch" href="/technicalnotes/assets/js/44.458c838f.js"><link rel="prefetch" href="/technicalnotes/assets/js/45.b9d369b5.js"><link rel="prefetch" href="/technicalnotes/assets/js/46.c7fd8c53.js"><link rel="prefetch" href="/technicalnotes/assets/js/47.8942a506.js"><link rel="prefetch" href="/technicalnotes/assets/js/48.d7af05de.js"><link rel="prefetch" href="/technicalnotes/assets/js/49.97edc224.js"><link rel="prefetch" href="/technicalnotes/assets/js/5.956dbf66.js"><link rel="prefetch" href="/technicalnotes/assets/js/50.4a4c3f9a.js"><link rel="prefetch" href="/technicalnotes/assets/js/51.228dbf5b.js"><link rel="prefetch" href="/technicalnotes/assets/js/52.def01d90.js"><link rel="prefetch" href="/technicalnotes/assets/js/53.e401f356.js"><link rel="prefetch" href="/technicalnotes/assets/js/54.2f502382.js"><link rel="prefetch" href="/technicalnotes/assets/js/55.edb2f836.js"><link rel="prefetch" href="/technicalnotes/assets/js/56.1612e200.js"><link rel="prefetch" href="/technicalnotes/assets/js/57.bb2048ea.js"><link rel="prefetch" href="/technicalnotes/assets/js/58.26a26a9a.js"><link rel="prefetch" href="/technicalnotes/assets/js/59.ef3fc12e.js"><link rel="prefetch" href="/technicalnotes/assets/js/6.2b0c1172.js"><link rel="prefetch" href="/technicalnotes/assets/js/60.5798c5e5.js"><link rel="prefetch" href="/technicalnotes/assets/js/61.6439f136.js"><link rel="prefetch" href="/technicalnotes/assets/js/62.8f55bbd5.js"><link rel="prefetch" href="/technicalnotes/assets/js/63.7fcdce1c.js"><link rel="prefetch" href="/technicalnotes/assets/js/64.8ad63852.js"><link rel="prefetch" href="/technicalnotes/assets/js/65.a7e118da.js"><link rel="prefetch" href="/technicalnotes/assets/js/66.4a045e99.js"><link rel="prefetch" href="/technicalnotes/assets/js/67.9ea087f7.js"><link rel="prefetch" href="/technicalnotes/assets/js/68.e4dafa63.js"><link rel="prefetch" href="/technicalnotes/assets/js/69.9ef50070.js"><link rel="prefetch" href="/technicalnotes/assets/js/7.4eca256e.js"><link rel="prefetch" href="/technicalnotes/assets/js/70.85291f7f.js"><link rel="prefetch" href="/technicalnotes/assets/js/71.e9d0134e.js"><link rel="prefetch" href="/technicalnotes/assets/js/72.25cd384b.js"><link rel="prefetch" href="/technicalnotes/assets/js/73.c2242aba.js"><link rel="prefetch" href="/technicalnotes/assets/js/74.c8a6eb28.js"><link rel="prefetch" href="/technicalnotes/assets/js/75.497372fb.js"><link rel="prefetch" href="/technicalnotes/assets/js/76.ee6395d3.js"><link rel="prefetch" href="/technicalnotes/assets/js/77.6e4adf26.js"><link rel="prefetch" href="/technicalnotes/assets/js/78.2407b3f1.js"><link rel="prefetch" href="/technicalnotes/assets/js/79.eb96cb24.js"><link rel="prefetch" href="/technicalnotes/assets/js/8.b86ca6d6.js"><link rel="prefetch" href="/technicalnotes/assets/js/80.96a82533.js"><link rel="prefetch" href="/technicalnotes/assets/js/81.9d8cc416.js"><link rel="prefetch" href="/technicalnotes/assets/js/82.70045d54.js"><link rel="prefetch" href="/technicalnotes/assets/js/83.79887a78.js"><link rel="prefetch" href="/technicalnotes/assets/js/84.5f811a83.js"><link rel="prefetch" href="/technicalnotes/assets/js/85.2ec827ba.js"><link rel="prefetch" href="/technicalnotes/assets/js/86.589bc793.js"><link rel="prefetch" href="/technicalnotes/assets/js/87.3c0fd583.js"><link rel="prefetch" href="/technicalnotes/assets/js/88.8e4a15ef.js"><link rel="prefetch" href="/technicalnotes/assets/js/89.5ac5f6a5.js"><link rel="prefetch" href="/technicalnotes/assets/js/90.dad7e91a.js"><link rel="prefetch" href="/technicalnotes/assets/js/91.b7dc5815.js"><link rel="prefetch" href="/technicalnotes/assets/js/92.ae4a23f8.js"><link rel="prefetch" href="/technicalnotes/assets/js/93.ceef6c45.js"><link rel="prefetch" href="/technicalnotes/assets/js/94.22719886.js"><link rel="prefetch" href="/technicalnotes/assets/js/95.54004610.js"><link rel="prefetch" href="/technicalnotes/assets/js/96.510b288f.js"><link rel="prefetch" href="/technicalnotes/assets/js/97.291fd319.js"><link rel="prefetch" href="/technicalnotes/assets/js/98.73e33d80.js"><link rel="prefetch" href="/technicalnotes/assets/js/99.8aa70f43.js">
+    <link rel="stylesheet" href="/technicalnotes/assets/css/0.styles.0c9014f9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><!----></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/technicalnotes/" class="home-link router-link-active"><!----> <span class="site-name">杉-技术笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Web 开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/CSS3/" class="nav-link">
+  CSS3
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li></ul></li><li class="dropdown-item"><h4>
+          前端框架
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Vue2/" class="nav-link">
+  Vue2
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Vue3/" class="nav-link">
+  Vue3
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/WechatApplet/" class="nav-link">
+  微信小程序
+</a></li></ul></li><li class="dropdown-item"><h4>
+          移动端开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Andorid/" class="nav-link">
+  Andorid
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Java
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/" class="nav-link">
+  Java 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Mybatis/" class="nav-link">
+  Mybatis
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Spring/" class="nav-link">
+  Spring
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringMVC/" class="nav-link">
+  SpringMVC
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringBoot/" class="nav-link">
+  SpringBoot
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/JVM/" class="nav-link">
+  JVM
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Rust
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Rust/" class="nav-link">
+  Rust
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Node.js
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Node.js/" class="nav-link">
+  Node.js
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Python
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/Flask/" class="nav-link">
+  Flask
+</a></li></ul></li><li class="dropdown-item"><h4>
+          数据库
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/MySQL/" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/Redis/" class="nav-link">
+  Redis
+</a></li></ul></li><li class="dropdown-item"><h4>
+          PHP
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/ThinkPHP/" class="nav-link">
+  ThinkPHP
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Photoshop/" class="nav-link">
+  Photoshop
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/technicalnotes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Web 开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/HTML5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/CSS3/" class="nav-link">
+  CSS3
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/JavaScript/" class="nav-link">
+  JavaScript
+</a></li></ul></li><li class="dropdown-item"><h4>
+          前端框架
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Vue2/" class="nav-link">
+  Vue2
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Vue3/" class="nav-link">
+  Vue3
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Electron/" class="nav-link">
+  Electron
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/WechatApplet/" class="nav-link">
+  微信小程序
+</a></li></ul></li><li class="dropdown-item"><h4>
+          移动端开发
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Andorid/" class="nav-link">
+  Andorid
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/front-end/Flutter/" class="nav-link">
+  Flutter
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          Java
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/" class="nav-link">
+  Java 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/JavaWeb/" class="nav-link">
+  JavaWeb
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Mybatis/" class="nav-link">
+  Mybatis
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/Spring/" class="nav-link">
+  Spring
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringMVC/" class="nav-link">
+  SpringMVC
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/SpringBoot/" class="nav-link">
+  SpringBoot
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Java/JVM/" class="nav-link">
+  JVM
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Rust
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Rust/" class="nav-link">
+  Rust
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Node.js
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Node.js/" class="nav-link">
+  Node.js
+</a></li></ul></li><li class="dropdown-item"><h4>
+          Python
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/" class="nav-link">
+  Python 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/Python/Flask/" class="nav-link">
+  Flask
+</a></li></ul></li><li class="dropdown-item"><h4>
+          数据库
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/MySQL/" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/DataBase/Redis/" class="nav-link">
+  Redis
+</a></li></ul></li><li class="dropdown-item"><h4>
+          PHP
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/" class="nav-link">
+  PHP 基础
+</a></li><li class="dropdown-subitem"><a href="/technicalnotes/back-end/PHP/ThinkPHP/" class="nav-link">
+  ThinkPHP
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Photoshop/" class="nav-link">
+  Photoshop
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/Git/" class="nav-link">
+  Git
+</a></li><li class="dropdown-item"><!----> <a href="/technicalnotes/Other/WinPE/" class="nav-link">
+  WinPE
+</a></li></ul></div></div><div class="nav-item"><a href="https://firpe.cn/about" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://firpe.cn/donate" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  投食 
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>TypeScript</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/technicalnotes/front-end/TypeScript/" aria-current="page" class="active sidebar-link">TypeScript</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#基本概念" class="sidebar-link">基本概念</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#javascript-是一门优秀的编程语言吗？" class="sidebar-link">JavaScript 是一门优秀的编程语言吗？</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#著名的-atwood-定律" class="sidebar-link">著名的 Atwood 定律</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#javascript-的痛点" class="sidebar-link">JavaScript 的痛点</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#类型带来的问题" class="sidebar-link">类型带来的问题</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#typescript-的特点" class="sidebar-link">TypeScript 的特点</a></li></ul></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#环境搭建" class="sidebar-link">环境搭建</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#使用-ts-node" class="sidebar-link">使用 ts-node</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#webpack" class="sidebar-link">Webpack</a></li></ul></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#基本语法" class="sidebar-link">基本语法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#定义变量" class="sidebar-link">定义变量</a></li><li class="sidebar-sub-header"><a href="/technicalnotes/front-end/TypeScript/#定义常量" class="sidebar-link">定义常量</a></li></ul></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="typescript"><a href="#typescript" class="header-anchor">#</a> TypeScript</h1> <p>TypeScript 是拥有类型的<strong>JavaScript 超集</strong>，它可以编译成<strong>普通、干净、完整</strong>的 JavaScript 代码。</p> <ul><li>可以将 TypeScript 理解成<strong>加强版的 JavaScript</strong>。</li> <li>JavaScript 所拥有的特性，TypeScript 全部都是支持的，并且它紧随 ECMAScript 的标准，所以 ES6、ES7、ES8 等新语法标准，它都是支持的；</li> <li>并且在语言层面上，不仅仅增加了类型约束，而且包括一些语法的扩展，比如枚举类型（Enum）、元组类型（Tuple）等；</li> <li>TypeScript 在实现新特性的同时，总是保持和 ES 标准的同步甚至是领先；</li> <li>并且 TypeScript 最终会被编译成 JavaScript 代码，所以并不需要担心它的兼容性问题，在编译时也不需要借助于 Babel 这样的工具；</li> <li>所以，可以把 TypeScript 理解成更加强大的 JavaScript，不仅让 JavaScript 更加安全，而且给它带来了诸多好用的好用特性；</li></ul> <h2 id="基本概念"><a href="#基本概念" class="header-anchor">#</a> 基本概念</h2> <h3 id="javascript-是一门优秀的编程语言吗？"><a href="#javascript-是一门优秀的编程语言吗？" class="header-anchor">#</a> JavaScript 是一门优秀的编程语言吗？</h3> <ul><li>每个人可能观点并不完全一致，但是从很多角度来看，JavaScript 是一门<strong>非常优秀的编程语言</strong>；</li> <li>而且，可以说在很长一段时间内<strong>这个语言不会被代替</strong>，并且会在<strong>更多的领域</strong>被大家广泛使用；</li></ul> <h3 id="著名的-atwood-定律"><a href="#著名的-atwood-定律" class="header-anchor">#</a> 著名的 Atwood 定律</h3> <ul><li>Stack Overflow 的创立者之一的 Jeff Atwood 在 2007 年提出了著名的 Atwood 定律。</li> <li>any application that can be written in JavaScript, will eventually be written in JavaScript.</li> <li>任何可以使用 JavaScript 来实现的应用都最终都会使用 JavaScript 实现</li></ul> <h3 id="javascript-的痛点"><a href="#javascript-的痛点" class="header-anchor">#</a> JavaScript 的痛点</h3> <ul><li>比如 ES5 以及之前的使用的 var 关键字关于作用域的问题；</li> <li>比如最初 JavaScript 设计的数组类型并不是连续的内存空间；</li> <li>比如直到今天 JavaScript 也没有加入类型检测这一机制；</li></ul> <h3 id="类型带来的问题"><a href="#类型带来的问题" class="header-anchor">#</a> 类型带来的问题</h3> <p>首先你需要知道，编程开发中我们有一个共识：<strong>错误出现的越早越好</strong></p> <ul><li>能在<strong>写代码的时候</strong>发现错误，就不要在<strong>代码编译时</strong>再发现（IDE 的优势就是在代码编写过程中帮助我们发现错误）。</li> <li>能在<strong>代码编译期间</strong>发现错误，就不要在<strong>代码运行期间</strong>再发现（类型检测就可以很好的帮助我们做到这一点）。</li> <li>能在开发阶段发现错误，就不要在测试期间发现错误，能在测试期间发现错误，就不要在上线后发现错误。</li></ul> <p>现在我们想探究的就是如何在 <strong>代码编译期间</strong> 发现代码的错误：</p> <ul><li>JavaScript 可以做到吗？不可以，来看下面这段经常可能出现的代码问题。</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token parameter">message</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token string">&quot;Hello World&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 永远执行不到</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;===================&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="typescript-的特点"><a href="#typescript-的特点" class="header-anchor">#</a> TypeScript 的特点</h3> <p><strong>始于 JavaScript，归于 JavaScript</strong></p> <ul><li>TypeScript 从今天数以百万计的 JavaScript 开发者所熟悉的语法和语义开始。使用现有的 JavaScript 代码，包括流行的 JavaScript 库，
+并从 JavaScript 代码中调用 TypeScript 代码；</li> <li>TypeScript 可以编译出纯净、 简洁的 JavaScript 代码，并且可以运行在任何浏览器上、Node.js 环境中和任何支持 ECMAScript 3（或更高版本）的 JavaScript 引擎中；</li></ul> <p><strong>TypeScript 是一个强大的工具，用于构建大型项目</strong></p> <ul><li>类型允许 JavaScript 开发者在开发 JavaScript 应用程序时使用高效的开发工具和常用操作比如静态检查和代码重构；</li> <li>类型是可选的，类型推断让一些类型的注释使你的代码的静态验证有很大的不同。类型让你定义软件组件之间的接口和洞察现有 JavaScript 库的行为；</li></ul> <p><strong>拥有先进的 JavaScript</strong></p> <ul><li>TypeScript 提供最新的和不断发展的 JavaScript 特性，包括那些来自 2015 年的 ECMAScript 和未来的提案中的特性，比如异步功能和 Decorators，以帮助建立健壮的组件；</li> <li>这些特性为高可信应用程序开发时是可用的，但是会被编译成简洁的 ECMAScript3（或更新版本）的 JavaScript；</li></ul> <h2 id="环境搭建"><a href="#环境搭建" class="header-anchor">#</a> 环境搭建</h2> <p><code>npm install typescript -g</code></p> <h3 id="使用-ts-node"><a href="#使用-ts-node" class="header-anchor">#</a> 使用 ts-node</h3> <ol><li><code>npm install ts-node -g</code></li> <li><code>npm install tslib @types/node -g</code></li></ol> <p>运行 TypeScript 代码: <code>ts-node ts文件路径</code></p> <h3 id="webpack"><a href="#webpack" class="header-anchor">#</a> Webpack</h3> <ol><li><p>安装依赖：</p> <ul><li><code>npm install webpack webpack-cli -D</code></li> <li><code>npm install webpack-dev-server -D</code></li> <li><code>npm install html-webpack-plugin -D</code></li> <li><code>npm install ts-loader typescript -D</code></li></ul></li> <li><p>Webpack 配置文件</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;path&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;html-webpack-plugin&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  mode<span class="token operator">:</span> <span class="token string">&quot;development&quot;</span><span class="token punctuation">,</span>
+  entry<span class="token operator">:</span> <span class="token string">&quot;./src/index.ts&quot;</span><span class="token punctuation">,</span>
+  output<span class="token operator">:</span> <span class="token punctuation">{</span>
+    path<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;./dist&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    filename<span class="token operator">:</span> <span class="token string">&quot;bundle.js&quot;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  resolve<span class="token operator">:</span> <span class="token punctuation">{</span>
+    extensions<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;.ts&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;.js&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  module<span class="token operator">:</span> <span class="token punctuation">{</span>
+    rules<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        test<span class="token operator">:</span> <span class="token regex">/\.ts$/</span><span class="token punctuation">,</span>
+        loader<span class="token operator">:</span> <span class="token string">&quot;ts-loader&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      template<span class="token operator">:</span> <span class="token string">&quot;./index.html&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p>package.json 运行配置</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;build&quot;</span><span class="token operator">:</span> <span class="token string">&quot;webpack&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;serve&quot;</span><span class="token operator">:</span> <span class="token string">&quot;webpack serve&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li> <li><p>初始化 TypeScript 配置文件: <code>tsc --init</code></p></li></ol> <h2 id="基本语法"><a href="#基本语法" class="header-anchor">#</a> 基本语法</h2> <h3 id="定义变量"><a href="#定义变量" class="header-anchor">#</a> 定义变量</h3> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token comment">// 类型推导</span>
+<span class="token keyword">let</span> 变量名 <span class="token operator">=</span> 值<span class="token punctuation">;</span>
+<span class="token comment">// 类型注解</span>
+<span class="token keyword">let</span> 变量名<span class="token operator">:</span> 数据类型 <span class="token operator">=</span> 值<span class="token punctuation">;</span>
+</code></pre></div><h3 id="定义常量"><a href="#定义常量" class="header-anchor">#</a> 定义常量</h3> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token comment">// 类型推导</span>
+<span class="token keyword">const</span> 变量名 <span class="token operator">=</span> 值<span class="token punctuation">;</span>
+<span class="token comment">// 类型注解</span>
+<span class="token keyword">const</span> 变量名<span class="token operator">:</span> 数据类型 <span class="token operator">=</span> 值<span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新:</span> <span class="time">2021/7/17 下午7:39:03</span></div></footer> <!----> </main></div> <div class="footer" data-v-35b17a59><div id="footer-info" data-v-35b17a59><div class="footer-left" data-v-35b17a59>
+      © 2020-2021
+      <!----></div> <div class="footer-right" data-v-35b17a59>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <div class="busuanzi" data-v-35b17a59><span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量
+    <span id="busuanzi_value_site_pv"></span>次
+    <span class="post-meta-divider">|</span></span> <span id="busuanzi_container_site_uv" style="display:none">
+    本站访客数
+    <span id="busuanzi_value_site_uv"></span>人
+  </span></div></div></main><div class="global-ui"><!----><!----></div></div>
+    <script src="/technicalnotes/assets/js/app.fbd414c4.js" defer></script><script src="/technicalnotes/assets/js/2.1371b211.js" defer></script><script src="/technicalnotes/assets/js/109.aadf3483.js" defer></script><script src="/technicalnotes/assets/js/9.b4a8099a.js" defer></script>
+  </body>
+</html>
