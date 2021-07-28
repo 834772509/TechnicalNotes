@@ -114,16 +114,17 @@ console.log(元素1, 元素2, 元素3, 元素4)
 
 ::: tip 提示
 
-- ture 参与加法运算当 1 来看， false 参与加法运算当 0 来看。
-- Undefined 和 数字相加 最后的结果是 NaN (Not a number)
-  :::
+- ture 参与加法运算当 1 来看， false 参与加法运算当 0 来看；
+- Undefined 和 数字相加 最后的结果是 NaN (Not a number)；
 
-- Nubmer : 数值
-  - Float : 浮点型
-- String : 字符串
-- Boolean : 布尔值
-- Undefined : 声明了变量但没有赋值，此时变量的值为 Undefined
-- Null : 声明的变量为空值
+:::
+
+- nubmer : 数值
+  - float : 浮点型
+- string : 字符串
+- boolean : 布尔值
+- undefined : 声明了变量但没有赋值，此时变量的值为 Undefined
+- null : 声明的变量为空值
 - object : 对象
 
 ### 数据类型转换
