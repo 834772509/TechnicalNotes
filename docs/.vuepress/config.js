@@ -89,17 +89,17 @@ module.exports = {
               { text: "HTML5", link: "/front-end/HTML5/" },
               { text: "CSS3", link: "/front-end/CSS3/" },
               { text: "JavaScript", link: "/front-end/JavaScript/" },
+              { text: "TypeScript", link: "/front-end/TypeScript/" },
             ],
           },
           {
             text: "前端框架",
             items: [
-              { text: "React", link: "/front-end/React/" },
               { text: "Vue2", link: "/front-end/Vue2/" },
               { text: "Vue3", link: "/front-end/Vue3/" },
+              { text: "React", link: "/front-end/React/" },
               { text: "Webpack", link: "/front-end/Webpack/" },
               { text: "Electron", link: "/front-end/Electron/" },
-              { text: "微信小程序", link: "/front-end/WechatApplet/" },
             ],
           },
           {
@@ -107,6 +107,7 @@ module.exports = {
             items: [
               { text: "Andorid", link: "/front-end/Andorid/" },
               { text: "Flutter", link: "/front-end/Flutter/" },
+              { text: "微信小程序", link: "/front-end/WechatApplet/" },
             ],
           },
         ],
