@@ -1973,6 +1973,24 @@ impl Drop for 自定义智能指针 {
 
 ## 多线程
 
+### 实现线程的方式
+
+1. 通过调用系统的 API 来创建线程：1:0 模型
+
+   - 需要较小的运行时
+
+2. 语言自己实现的线程（绿色线程）: M:N 模型
+
+   - 需要更大的运行时
+
+Rust: 需要权衡运行时的支持，Rust 标准库仅提供 1:1 模型的线程
+
+### move 闭包
+
+move 闭包通常和 threadspawn 函数一起使用，允许使用其它线程的数据。
+
+- 创建线程时，把值的所有权从一个线程转移到另一个线程
+
 ### 基本使用
 
 ```rust
@@ -1985,3 +2003,92 @@ let 线程名 = thread::spawn(move || {
 // 等待线程结束
 线程名.join();
 ```
+
+### 使用消息传递跨线程传递数据
+
+- send 方法: 返回`Result<T, E>`，如果有问题(例如接收端已经被丢弃)，就返回一个错误
+- recv 方法: 阻止当前线程执行，直到 Channel 中有值被送来，一旦有值收到就返回 `Result<T, E>`
+- try_recv 方法: 不会阻塞，立即返回`Result<T, E>`。
+
+  - 有数据达到: 返回 Ok，里面包含着数据。否则，返回错误
+  - 通常会使用循环调用来检查 try_recv 的结果
+
+- 发送单个值
+
+  ```rust
+  let (tx, rx) = mpsc::channel();
+
+  thread::spawn(move || {
+      tx.send(发送值).unwrap();
+  });
+
+  let 接受值 = rx.recv().unwrap();
+  println!("{}", 接受值);
+  ```
+
+- 发送多个值
+
+  ```rust
+  let (tx,rx) = mpsc::channel();
+  let tx1  = mpsc::Sender::clone(&tx);
+
+  thread::spawn(move || {
+    tx.send(发送值).unwrap();
+  });
+
+  thread::spawn(move || {
+    tx1.send(发送值).unwrap();
+  });
+
+  for received in rx {
+    println!("{}", received);
+  }
+  ```
+
+### 使用共享状态实现并发
+
+互斥锁 Mutex(mutual exclusion) 在同一时刻，Mutex 只允许一个线程来访问某些数据。
+
+想要访问数据
+
+- 线程必须首先获取互斥锁(lock)
+  - lock 数据结构是 mutex 的一部分，它能跟踪谁对数据拥有独占访问权
+- mutex 通常被描述为: 通过锁定系统来保护它所持有的数据
+
+Mutex 的两条规则
+
+1. 在使用数据之前，必须尝试获取锁(lock) 。
+2. 使用完 mutex 所保护的数据，必须对数据进行解锁，以便其它线程可以获取锁。
+
+- 基本使用
+
+  ```rust
+  let 变量名 = Mutex::new(值);
+  {
+    let mut sum = 变量名.lock().unwrap();
+    *sum = 值;
+  }
+  println!("{}", 变量名.into_inner().unwrap());
+  ```
+
+- 线程中使用
+
+  ```rust
+  let 变量名 = Arc::new(Mutex::new(值));
+  let mut handles = vec![];
+
+  for _ in 0..10 {
+    let 变量名 = Arc::clone(&变量名);
+    let handle = thread::spawn(move || {
+      let mut num = 变量名.lock().unwrap();
+      *num += 1;
+    });
+    handles.push(handle);
+  }
+
+  for handle in handles {
+    handle.join().unwrap();
+  }
+
+  println!("变量: {}", *变量名.lock().unwrap());
+  ```
