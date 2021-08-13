@@ -47,6 +47,7 @@ function foo(message) {
 
 foo("Hello World");
 
+// 未传递参数，执行过程报错
 foo();
 
 // 永远执行不到
@@ -164,7 +165,9 @@ const 变量名 = 值;
 const 变量名: 数据类型 = 值;
 ```
 
-### 数据类型
+## 数据类型
+
+### 基本类型
 
 - number 类型
 
@@ -249,6 +252,21 @@ const 变量名: 数据类型 = 值;
 
   unknown 是 TypeScript 中比较特殊的一种类型，它用于描述类型不确定的变量。
 
+  ```ts
+  const flag = true;
+  let result = unknown;
+
+  if (flag) {
+    result = "foo";
+  } else {
+    result = 123;
+  }
+
+  if (typeof result === "string") {
+    console.log(result.length);
+  }
+  ```
+
 - void 类型
 
   void 通常用来指定一个函数是没有返回值的，那么它的返回值就是 void 类型。
@@ -319,12 +337,192 @@ const 变量名: 数据类型 = 值;
   const 元组名: [数据类型, 数据类型] = [值, 值];
   ```
 
-- 类型别名
+### 类型别名
 
-  当需要多次在其他地方使用时类型时，就要编写多次，可以给对象类型起一个别名。
+当需要多次在其他地方使用时类型时，就要编写多次，可以给对象类型起一个别名。
+
+```ts
+type 类型别名 = 数据类型 | 数据类型;
+```
+
+### 类型断言
+
+有时候 TypeScript 无法获取具体的类型信息，这个时候需要使用类型断言（Type Assertions）。
+
+- 比如通过 document.getElementById，TypeScript 只知道该函数会返回 HTMLElement ，但并不知道它具体的类型：
 
   ```ts
-  type 类型别名 = 数据类型 | 数据类型;
+  const el = document.getElementById("id") as HTMLImageElement;
+  el.src = "url地址";
+  ```
+
+- TypeScript 只允许类型断言转换为 更具体 或者 不太具体 的类型版本，此规则可防止不可能的强制转换：
+
+  ```ts
+  const message = "Hello world";
+  const num: number = (message as unknown) as number;
+  ```
+
+### 非空类型断言
+
+非空断言使用的是`!` ，表示可以确定某个标识符是有值的(默认 undefined)，跳过 ts 在编译阶段对它的检测。
+
+```ts
+function 函数名(参数名?: 参数类型) {
+  console.log(参数名!);
+}
+```
+
+### 可选链
+
+可选链事实上并不是 TypeScript 独有的特性，它是 ES11（ES2020）中增加的特性：
+
+- 可选链使用可选链操作符 `?.`；
+- 它的作用是当对象的属性不存在时，会短路，直接返回 undefined，如果存在，那么才会继续执行；
+- 虽然可选链操作是 ECMAScript 提出的特性，但是和 TypeScript 一起使用更版本；
+
+```ts
+type Person = {
+  name: string;
+  friend?: {
+    name: string;
+    age?: number;
+  };
+};
+
+const info: Person = {
+  name: "why",
+  friend: {
+    name: "kobe",
+  },
+};
+
+console.log(info.friend?.name);
+console.log(info.friend?.age);
+```
+
+### ??和!!的作用
+
+- `!!`操作符：
+
+  - 将一个其他类型转换成 boolean 类型；
+  - 类似于 Boolean(变量)的方式；
+
+  ```ts
+  // true
+  console.log(!!"Hello world");
+  ```
+
+- `??`操作符：
+
+  - 它是 ES11 增加的新特性；
+  - **空值合并操作符（??）是一个逻辑操作符，当操作符的左侧是 null 或者 undefined 时，返回其右侧操作数，否则返回左侧操作数**；
+
+  ```ts
+  let message: string | null = null;
+  const content = message ?? "Hello world";
+
+  // "Hello world"
+  console.log(content);
+  ```
+
+### 字面量类型
+
+字面量类型的意义：必须结合联合类型。
+
+```ts
+type 联合类型名 = "值1" | "值2" | "值3";
+let 变量名: 联合类型名;
+变量名 = "值1";
+变量名 = "值2";
+```
+
+### 类型缩小
+
+什么是类型缩小(Type Narrowing)？
+
+- 可以通过类似于 typeof padding === "number" 的判断语句，来改变 TypeScript 的执行路径；
+- 在给定的执行路径中，可以缩小比声明时更小的类型，这个过程称之为 缩小;
+- 而编写的 typeof padding === "number 可以称之为 类型保护（type guards）；
+
+常见的类型保护有如下几种：
+
+- typeof
+
+  在 TypeScript 中，检查返回的值 typeof 是一种类型保护：因为 TypeScript 对如何 typeof 操作不同的值进行编码。
+
+  ```ts
+  function 函数名(参数名: 数据类型 | 数据类型) {
+    if (typeof 参数名 === "数据类型") {
+      console.log(参数名);
+    } else {
+      console.log(参数名);
+    }
+  }
+  ```
+
+- 平等缩小
+
+  可以使用 Switch 或者相等的一些运算符来表达相等性（比如===, !==, ==, and != ）：
+
+  ```ts
+  function 函数名(参数名: "值1" | "值2") {
+    // if判断
+    if (参数名 === "值1") {
+      console.log(参数名);
+    }
+
+    // switch判断
+    switch (参数名) {
+      case "值1":
+        console.log(参数名);
+        break;
+      case "值2":
+        console.log(参数名);
+        break;
+    }
+  }
+  ```
+
+- instanceof
+
+  JavaScript 有一个运算符来检查一个值是否是另一个值的“实例”：
+
+  ```ts
+  function 函数名(参数名: 数据类型 | 数据类型) {
+    if (time instanceof 数据类型) {
+      console.log(参数名);
+    } else {
+      console.log(参数名);
+    }
+  }
+  ```
+
+- in
+
+  in 运算符用于确定对象是否具有带名称的属性：
+
+  - 如果指定的属性在指定的对象或其原型链中，则 in 运算符返回 true；
+
+  ```ts
+  type Fish = { swimming: () => void };
+  type Dog = { running: () => void };
+
+  function walk(animal: Fish | Dog) {
+    if ("swimming" in animal) {
+      animal.swimming();
+    } else {
+      animal.running();
+    }
+  }
+
+  const fish: Fish = {
+    swimming() {
+      console.log("swimming");
+    },
+  };
+
+  walk(fish);
   ```
 
 ## 函数
