@@ -2160,19 +2160,65 @@ Mutex 的两条规则
 
 **手动实现 Send 和 Sync 是不安全的**
 
-## 模式
+## 宏 macro
 
-- 模式是 Rust 中的一种特殊语法，用于匹配复杂和简单类型的结构；
-- 将模式与匹配表达式和其他构造结合使用，可以更好地控制程序的控制；
+### 基本概念
 
-模式由以下元素（的一些组合）组成:
+宏在 Rust 里指的是一组相关特性的集合称谓:
 
-- 字面值
-- 解构的数组、enum、struct 和 tuple
-- 变量
-- 通配符
-- 占位符
+- 使用 macro_rules!构建的声明宏（declarative macro)
+- 三种过程宏
+  1. 自定义#[derive]宏，用于 struct 或 enum，可以为其指定随 derive 属性添加的代码
+  2. 属性宏，在任何条目上添加自定义属性
+  3. 函数宏，看起来像函数调用，对其指定为参数的 token 进行操作
 
-想要使用模式，需要将其与某个值进行比较:
+### 函数与宏的差别
 
-- 如果模式匹配，就可以在代码中使用这个值的相应部分
+- 本质上，宏是用来编写可以生成其它代码的代码（元编程，metaprogramming)；
+- 函数在定义签名时，必须声明参数的个数和类型，宏可处理可变的参数；
+- 编译器会在解释代码前展开宏；
+- 宏的定义比函数复杂得多，难以阅读、理解、维护；
+
+### 声明宏
+
+```rust
+macro_rules! 宏名 {
+  ($x:expr) => {x * x}
+}
+```
+
+### 过程宏
+
+- 派生宏
+
+  ```rust
+  #[proc_macro_derive(Builder)]
+  fn derive_builder(input: TokenStream) -> TokenStream {
+    let _ = input;
+
+    unimplemented!()
+  }
+  ```
+
+- 属性宏
+
+  ```rust
+  #[proc_macro_attribute]
+  fn sorted(args: TokenStream, input: TokenStream) -> TokenStream {
+    let _ = args;
+    let _ = input;
+
+    unimplemented!()
+  }
+  ```
+
+- 函数宏
+
+  ```rust
+  #[proc_macro]
+  pub fn seq(input: TokenStream) -> TokenStream {
+    let _ = input;
+
+    unimplemented!()
+  }
+  ```
