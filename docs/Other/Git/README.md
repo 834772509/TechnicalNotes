@@ -1,5 +1,7 @@
 # Git 笔记
 
+[Git 大全](https://gitee.com/all-about-git)
+
 ## 基本概念
 
 ### 什么是版本控制
@@ -47,8 +49,7 @@ Git 是目前世界上最先进的分布式版本控制系统。
 Git 官网 在国内下载有难度，建议使用阿里云镜像下载
 :::
 
-[Git 官网](https://git-scm.com/)  
-[Git 阿里云镜像下载](https://npm.taobao.org/mirrors/git-for-windows)
+[Git 官网](https://git-scm.com/) [Git 阿里云镜像下载](https://npm.taobao.org/mirrors/git-for-windows)
 
 ### 配置环境变量
 
@@ -61,7 +62,16 @@ Git 官网 在国内下载有难度，建议使用阿里云镜像下载
 
 ### 记住用户名和密码
 
+::: tip 提示
+如密码输入错误可在 控制面板-凭证管理器-Windows 凭据，修改 Git 网址的用户名和密码
+:::
+
 `git config --global credential.helper store`
+
+### 配置 SSH 公钥
+
+1. 生成公钥: 进入`C:\Users\用户名`，执行命令 `ssh-keygen -t rsa`（输入内容一律回车）
+2. 增加公钥: 将`C:\Users\用户名\.ssh\id_rsa.pub`文件中的内容填入远程仓库账户
 
 ## Git 基本理论
 
@@ -121,11 +131,10 @@ git init
 git clone Git远程地址
 ```
 
-### 增加远程仓库
+### 增加并关联远程仓库
 
-```
-git remote add origin Git远程地址
-```
+- 增加仓库: `git remote add origin Git远程地址`
+- 关联仓库: `git branch --set-upstream-to=origin master`
 
 ## Git 文件操作
 
@@ -155,21 +164,9 @@ git remote add origin Git远程地址
 
 ### 提交到本地仓库
 
-```
-git commit -m "提交信息"
-```
-
-### 提交到远程仓库
-
-```
-git push
-```
-
-### 拉取文件
-
-```
-git pull
-```
+- 提交暂存区到仓库区: `git commit -m "提交信息"`
+- 提交暂存区的指定文件到仓库区: `git commit 文件路径 -m 提交信息`
+- 提交工作区自上次 commit 之后的变化，直接到仓库区: `git commit -a`
 
 ### 忽略文件
 
@@ -216,29 +213,47 @@ doc/*.txt    # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 
 - 列出所有本地分支: `git branch`
 - 列出所有远程分支: `git branch -r`
+- 列出所有本地分支和远程分支: `git branch -a`
 
 ### 新建分支
 
-- 新建分支停留当前分支: `git branch 分支名`
-- 新建一个分支并切换: `git checkout -b 分支名`
+- 新建分支并停留当前分支: `git branch 分支名`
+- 新建分支并切换到该分支: `git checkout -b 分支名`
+- 新建分支并指向指定 commit: `git branch 分支名 commit名称`
+- 新建分支并与指定的远程分支建立追踪关系: `git branch --track 分支名 远程分支名`
 
 ### 合并分支
 
 - 合并指定分支到当前分支: `git merge 分支名`
+- 指定 commit 合并到当前分支: `git cherry-pick commit名`
+
+### 关联远程分支
+
+`git branch --set-upstream-to=远程分支名 本地分支名`
 
 ### 删除分支
 
 - 删除本地分支: `git branch -d 分支名`
 - 删除远程分支: `git push origin --delete 分支名`
 
+## Git 远程同步
+
+### 列出远程仓库
+
+`git remote -v`
+
+### 同步至本地仓库
+
+- 下载远程仓库的所有变动(不合并): `git fetch [远程主机名]`
+- 取回远程仓库的变化，并与本地分支合并: `git pull [远程主机名] [远程分支名]`
+
+### 提交到远程仓库
+
+- 上传本地指定分支到远程仓库: `git push [远程主机名] [远程分支名]`
+- 强行推送当前分支到远程仓库，即使有冲突: `git push [远程主机名] --force`
+- 推送所有分支到远程仓库: `git push [远程主机名] --all`
+
 ## 常用技巧
-
-### 配置 SSH 公钥
-
-1. 生成公钥
-   进入`C:\Users\用户名`，执行 `ssh-keygen -t rsa`（输入内容一律回车）
-2. 增加公钥
-   将`C:\Users\用户名\.ssh\id_rsa.pub`文件中的内容填入远程仓库账户
 
 ### 修复 push 失败
 
