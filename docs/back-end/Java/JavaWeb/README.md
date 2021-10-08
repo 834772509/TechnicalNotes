@@ -24,6 +24,12 @@ Idea：
 2. idea64.exe.vmoptions : 末尾加上 `-Dfile.encoding=UTF-8`
    Tomcat 运行配置：虚拟机选项： `-Dfile.encoding=UTF-8`
 
+## 创建项目
+
+1. Idea-菜单-文件-新建-项目
+2. 选择 Java Enterprise，选中`Web Application`
+3. 点击确定
+
 ## 脚本元素
 
 ### 脚本段

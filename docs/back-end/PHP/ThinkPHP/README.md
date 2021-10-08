@@ -1,6 +1,6 @@
 # ThinkPHP
 
-(ThinkPHP6 帮助文档)[https://www.kancloud.cn/manual/thinkphp6_0]
+[ThinkPHP6 帮助文档](https://www.kancloud.cn/manual/thinkphp6_0)
 
 ## 配置环境
 

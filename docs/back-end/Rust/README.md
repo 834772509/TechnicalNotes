@@ -18,7 +18,7 @@
 
 自定义安装路径（以管理员身份运行 cmd）：`visualcppbuildtools_full.exe /CustomInstallPath 安装路径`
 
-<!-- (Visuals Studio 安装程序)[https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16]
+<!-- [Visuals Studio 安装程序](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16)
 
 1. 勾选 C++生成工具
 2. 仅选择 生成工具 （MSVC v142 - VS 2019 C++ x64/x86 生成工具 ）

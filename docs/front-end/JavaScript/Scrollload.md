@@ -6,7 +6,7 @@ Scrollload 是一个无依赖，体积极小（压缩+gzip 后不到 3k），可
 
 `npm install scrollload --save`
 
-(GitHub 链接)[https://github.com/fa-ge/Scrollload]
+[GitHub 链接](https://github.com/fa-ge/Scrollload)
 
 ## Demo
 

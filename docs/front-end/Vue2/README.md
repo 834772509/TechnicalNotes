@@ -127,8 +127,9 @@ module.exports = {
 
 ### 解决 build 后路由跳转 404
 
-index.js  
 取消 history
+
+index.js
 
 ```js
 const router = new VueRouter({
@@ -604,7 +605,7 @@ const 防抖函数名称 = this.debounce(需要进行防抖处理的函数名称
 ```
 
 ::: tip 提示
-需要进行防抖处理的函数名称“不能加入()，否则会识别为函数的返回值
+需要进行防抖处理的函数名称不能加入()，否则会识别为函数的返回值
 :::
 
 ## 常用组件使用实例

@@ -52,7 +52,7 @@
 
 ## 环境搭建
 
-(MySQL 下载)[https://dev.mysql.com/downloads/mysql/]
+[MySQL 下载](https://dev.mysql.com/downloads/mysql/)
 
 ## 终端操作数据库
 
