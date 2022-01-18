@@ -1708,7 +1708,7 @@ Vue 中为我们提供一些内置组件和对应的 API 来完成动画，利�
 ### class 的 name 命名规则
 
 - 如果使用的是一个没有 name 的 transition，那么所有的 class 是以`v-`作为默认前缀；
-- 如果添加了一个 name 属性，比如 <transtion name="why">，那么所有的 class 会以`why-`开头；
+- 如果添加了一个 name 属性，比如 `<transtion name="why">`，那么所有的 class 会以`why-`开头；
 
 ### 过渡动画的使用
 

@@ -193,3 +193,7 @@ imapi2.DLL
 以下目录保留一份：
 `amd64*microsoft-windows-servicingstack*`
 `x86*microsoft-windows-servicingstack*`
+
+## 修复 任务管理器进程栏不显示
+
+点击”CPU“栏后再次点击“进程”栏

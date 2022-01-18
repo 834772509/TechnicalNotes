@@ -60,7 +60,7 @@ module.exports = {
     ["@vuepress/medium-zoom"],
     // 显示最后更新时间
     ["@vuepress/last-updated"],
-    // PWA
+    // PWA支持
     [
       "@vuepress/pwa",
       {
@@ -165,6 +165,7 @@ module.exports = {
           { text: "Photoshop", link: "/Other/Photoshop/" },
           { text: "Git", link: "/Other/Git/" },
           { text: "WinPE", link: "/Other/WinPE/" },
+          { text: "Minecraft", link: "/Other/Minecraft/" },
         ],
       },
       { text: "关于", link: "https://firpe.cn/about" },

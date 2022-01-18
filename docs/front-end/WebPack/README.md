@@ -212,7 +212,7 @@ file-loader 的作用就是帮助我们处理 import/require(方式引入的一�
    | [name]          | 处理文件的名称                                                                    |
    | [hash]          | 文件的内容，使用 MD4 的散列函数处理，生成的一个 128 位的 hash 值（32 个十六进制） |
    | [contentHash]   | 在 file-loader 中和[hash]结果是一致的                                             |
-   | [hash:<length>] | 截图 hash 的长度（默认 32 个字符）                                                |
+   | [`hash:<length>`] | 截图 hash 的长度（默认 32 个字符）                                                |
    | [path]          | 文件相对于 webpack 配置文件的路径                                                 |
 
 3. 引用图片
