@@ -441,7 +441,10 @@ TNT 用于产生爆炸。
   | 数量 | 4   | 3    | 1     | 1     | 4   | 3  | 10         | 32 | 6  | 2  | 20   | 2    |
 - 3D视图
 
-  <vr-view  moduleName="HighSpeedFurnace" modulePath="/models/Minecraft/SurvivalUtilityCircuits/HighSpeedFurnace"></vr-view>
+  <ClientOnly>
+    <vr-view  moduleName="HighSpeedFurnace" modulePath="/models/Minecraft/SurvivalUtilityCircuits/HighSpeedFurnace"></vr-view>
+  </ClientOnly>
+
 - 使用
 
   1. 将燃料（如煤炭）放置于左箱子并拉下拉杆
