@@ -12,5 +12,5 @@ features:
     details: Web前端开发笔记、Java 后端开发笔记等
   - title: 技术博客
     details: 将深入探讨相关技术，包括行业动态，设计模式，框架使用等
-#footer: MIT Licensed | Copyright © 2020-present Evan You
+#footer: MIT Licensed | Copyright © 2020-2022-present Evan You
 ---

@@ -2,7 +2,7 @@
 
 ## 红石元件
 
-https://minecraft.fandom.com/zh/wiki/%E7%BA%A2%E7%9F%B3%E5%85%83%E4%BB%B6%E5%88%97%E8%A1%A8#.E7.94.B5.E6.BA.90
+<!-- https://minecraft.fandom.com/zh/wiki/%E7%BA%A2%E7%9F%B3%E5%85%83%E4%BB%B6%E5%88%97%E8%A1%A8#.E7.94.B5.E6.BA.90 -->
 
 ### 电源
 
@@ -419,34 +419,55 @@ TNT 用于产生爆炸。
 
 ## 传输电路
 
+### 横向传输
+
 ### 纵向传输
 
 #### 纵向数字传输
 
 - 红石楼梯
+
   > 向上或向下  
-    1xNxN，1格宽，静音  
-    电路延迟：每15格1刻
-  
-  红石粉能够在没有非透明方块切断信号的前提下，对毗邻的高于或低于1格的红石粉传导信号。这样就是最简单的纵向传输方案。  
-  替代方案（螺旋楼梯）：每次传导到下一层时朝相同时针方向转向90度的话，可以创建螺旋楼梯，占地面积2x2。顺时针与逆时针皆适用。
+  >  1xNxN，1 格宽，静音  
+  >  电路延迟：每 15 格 1 刻
+
+  红石粉能够在没有非透明方块切断信号的前提下，对毗邻的高于或低于 1 格的红石粉传导信号。这样就是最简单的纵向传输方案。  
+  替代方案（螺旋楼梯）：每次传导到下一层时朝相同时针方向转向 90 度的话，可以创建螺旋楼梯，占地面积 2x2。顺时针与逆时针皆适用。
 
 ## 生存红石电路
 
 ### 高速熔炉
 
 - 材料
-  | 名称 | 红石粉 | 红石火把 | 红石比较器 | 红石中继器 | 投掷器 | 拉杆 | 熔炉         | 漏斗 | 箱子 | 铁轨 | 充能铁轨 | 漏斗矿车 |
+  | 名称 | 红石粉 | 红石火把 | 红石比较器 | 红石中继器 | 投掷器 | 拉杆 | 熔炉 | 漏斗 | 箱子 | 铁轨 | 充能铁轨 | 漏斗矿车 |
   |:---:|:---:|:----:|:-----:|:-----:|:---:|:---:|:----------:|:---:|:---:|:---:|:----:|:----:|
-  | 数量 | 4   | 3    | 1     | 1     | 4   | 3  | 10         | 32 | 6  | 2  | 20   | 2    |
-- 3D视图
-
+  | 数量 | 4 | 3 | 1 | 1 | 4 | 3 | 10 | 32 | 6 | 2 | 20 | 2 |
+- 3D 视图
   <ClientOnly>
-    <vr-view  moduleName="HighSpeedFurnace" modulePath="/models/Minecraft/SurvivalUtilityCircuits/HighSpeedFurnace"></vr-view>
+    <vr-view  moduleName="HighSpeedFurnace" modulePath="/technicalnotes/models/Minecraft/SurvivalUtilityCircuits/HighSpeedFurnace"></vr-view>
   </ClientOnly>
+- Worldedit 建筑文件
 
+  - 下载: [HighSpeedFurnace.schem](/technicalnotes/models/Minecraft/schems/HighSpeedFurnace.schem)
+  - 存放在`.minecraft\config\worldedit\schematics`目录
+  - 指令放置: `/schematic load HighSpeedFurnace`、`//paste`
 - 使用
 
   1. 将燃料（如煤炭）放置于左箱子并拉下拉杆
   2. 将需烧制的物品放置于中间箱子并拉下拉杆
   3. 等待物品烧制完成后物品将自动存放于又右箱子
+
+### 2×2隐藏门
+
+- 材料
+
+- 3D 视图
+
+  <ClientOnly>
+    <vr-view  moduleName="2x2HideDoor" modulePath="/technicalnotes/models/Minecraft/SurvivalUtilityCircuits/2x2HideDoor"></vr-view>
+  </ClientOnly>
+- Worldedit 建筑文件
+
+  - 下载: [2x2HideDoor.schem](/technicalnotes/models/Minecraft/schems/2x2HideDoor.schem)
+  - 存放在`.minecraft\config\worldedit\schematics`目录
+  - 指令放置: `/schematic load 2x2HideDoor`、`//paste`

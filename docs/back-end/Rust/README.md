@@ -73,6 +73,19 @@
 
 [使用 Rustup 安装 Rsut](https://www.rust-lang.org/zh-CN/tools/install)
 
+### 配置编译缓存
+
+1. 安装sccache: `cargo install sccache`
+2. 配置`C:\users\用户名\.cargo\config`
+
+  ```ini
+  # 编译缓存
+  [build]
+  rustc-wrapper = "sccache.exe"
+  ```
+3. 设置环境变量
+  - `SCCACHE_DIR`: `D:\Program Files\Rust\.cargo\sccache`
+
 ### 集成开发环境插件
 
 - IDEA: `Rust`

@@ -1,5 +1,5 @@
 /*
-每次更新码云技术笔记时，需要在重新部署Gitee Page刷新
+每次更新码云技术笔记时，都需要在重新部署Gitee Page刷新
 
 常用MarkDown语法：
 
@@ -75,6 +75,14 @@ module.exports = {
       md.use(require("markdown-it-disable-url-encode"));
     },
   },
+  // 配置路径别名
+  configureWebpack: {
+    resolve: {
+      alias: {
+        // 'models': '/technicalnotes/' + 'models',
+      }
+    }
+  },
   themeConfig: {
     // 添加导航栏
     nav: [
@@ -90,6 +98,7 @@ module.exports = {
               { text: "CSS3", link: "/front-end/CSS3/" },
               { text: "JavaScript", link: "/front-end/JavaScript/" },
               { text: "TypeScript", link: "/front-end/TypeScript/" },
+              { text: "数据结构与算法", link: "/front-end/DataInterface/" },
             ],
           },
           {
