@@ -98,7 +98,6 @@ module.exports = {
               { text: "CSS3", link: "/front-end/CSS3/" },
               { text: "JavaScript", link: "/front-end/JavaScript/" },
               { text: "TypeScript", link: "/front-end/TypeScript/" },
-              { text: "数据结构与算法", link: "/front-end/DataInterface/" },
             ],
           },
           {
@@ -108,7 +107,6 @@ module.exports = {
               { text: "Vue3", link: "/front-end/Vue3/" },
               { text: "React", link: "/front-end/React/" },
               { text: "Webpack", link: "/front-end/Webpack/" },
-              { text: "Electron", link: "/front-end/Electron/" },
             ],
           },
           {
@@ -117,6 +115,13 @@ module.exports = {
               { text: "Andorid", link: "/front-end/Andorid/" },
               { text: "Flutter", link: "/front-end/Flutter/" },
               { text: "微信小程序", link: "/front-end/WechatApplet/" },
+            ],
+          },
+          {
+            text: "其他",
+            items: [
+              { text: "Electron", link: "/front-end/Electron/" },
+              { text: "数据结构与算法", link: "/front-end/DataInterface/" },
             ],
           },
         ],

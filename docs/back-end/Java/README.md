@@ -1,16 +1,19 @@
 # Java 笔记
 
-## IDEA
+## IDEA 编辑器
 
-[IntelliJ IDEA 便携增强版](https://www.ghpym.com/idea.html)
+[IntelliJ IDEA 官方网站](https://www.jetbrains.com.cn) [IntelliJ IDEA 便携增强版](https://www.ghpym.com/idea.html)
 
-[IDEA 正版激活码](http://idea.medeming.com/jets/) [IDEA 正版激活码](http://idea.94goo.com/key) (验证码: 666)
+[IDEA 正版激活码](http://idea.medeming.com/jets/) [IDEA 正版激活码](http://idea.94goo.com/key)
 
-[IDEA 破解补丁](https://tech.souyunku.com/?p=30970)
+[IDEA 破解补丁](https://github.com/ja-netfilter/ja-netfilter) [IDEA 破解补丁 网站](https://jetbra.in/52c2a991-6278-42fa-8e91-aaa649bbdb7b.html)
 
 ### 插件推荐
 
+- Chinese ​(Simplified)​ Language Pack: 中文语言包
+- Material Theme UI: 主题插件
 - TabNine : 更好的代码提示
+- Statistic: 代码统计
 - Lombok : 自动生成 getter 和 setter 方法
 - Translation : 翻译插件
 - ChinesePinyin-CodeCompletionHelper : 中文代码拼音补全
@@ -46,6 +49,12 @@
 
 ## 基础语法
 
+### 声明变量
+
+```java
+类型名 变量名 = 初始值;
+```
+
 ### 关系运算符
 
 - 等于 : ==
@@ -63,6 +72,10 @@
 | 同一个包（邻居）       | Yes    | Yes       | Yes     | No      |
 | 不同包子类（儿子）     | Yes    | Yes       | No      | No      |
 | 不同包非子类（陌生人） | Yes    | No        | No      | No      |
+
+## 控制流
+
+
 
 ## 类与对象
 

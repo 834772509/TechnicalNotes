@@ -977,7 +977,12 @@ let 元组名: (数据类型, 数据类型) = (值, 值);
 ### 访问元素
 
 ```rust
-println!("{}", 元组名.索引号);
+println!("{}", 元组名.下标);
+```
+
+```rust
+println!("{}", 元组名.0);
+println!("{}", 元组名.1);
 ```
 
 ### 元组的结构
@@ -1748,6 +1753,7 @@ fn 测试函数名(){
 
 - `CARGO_PKG_VERSION`: Cargo.toml 版本号
 - `CARGO_PKG_AUTHORS`: Cargo.toml 作者
+- `CARGO_PKG_AUTHORS`: Cargo.toml 作者
 - `WINDIR`: `C:\Windows`
 - `PROGRAMFILES`: `C:\Program Files`
 - `PROGRAMFILES(X86)`: `C:\Program Files (x86)`
@@ -1769,6 +1775,12 @@ for (key, value) in env::vars() {
 ```rust
 let args: Vec<String> = env::args().collect();
 println!("{:?}", args);
+```
+
+### 获取当前运行目录
+
+```rust
+println!("{:?}", env::current_dir());
 ```
 
 ### 内部常量

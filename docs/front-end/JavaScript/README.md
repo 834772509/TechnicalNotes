@@ -220,6 +220,47 @@ location.assign("URL");
 需要补充的数字.padStart(位数,填充数字)
 ```
 
+## 控制流
+
+### if 语句
+
+```js
+if (条件) {
+} else {
+}
+```
+
+### switch 语句
+
+```js
+switch (值) {
+  case 值1:
+    break;
+  case 值2:
+    break;
+  default:
+    break;
+}
+```
+
+### for 循环语句
+
+实现条件循环，当条件成立时，执行语句集，否则跳出循环体。
+
+```js
+for(let 变量=初始值；条件；变量++){
+
+}
+```
+
+### while 循环语句
+
+while 语句是带条件判断的循环语句。如果条件满足，则持续循环执行结果语句块。
+
+```js
+while (条件) {}
+```
+
 ## 函数
 
 ### 声明写法
@@ -562,11 +603,30 @@ splice()方法会改变原数组
 sort()方法默认按照转换为的字符串的诸个字符的 Unicode 位点进行排序，因此需要指定一个排序函数。
 :::
 
+- 升序的顺序
+
+  ```JavaScript
+  数组名.sort(function (a, b) {
+    return a - b;
+  });
+  ```
+
+- 降序的顺序
+
+  ```JavaScript
+  数组名.sort(function (a, b) {
+    return b - a;
+  });
+  ```
+
+### 拼接数组
+
+`concat()`方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
+
 ```JavaScript
-数组名.sort(function (a, b) {
-  return a - b; // 升序的顺序排列
-  //return b - a; // 降序的顺序排列
-});
+const array1 = ['a', 'b', 'c'];
+const array2 = ['d', 'e', 'f'];
+const array3 = array1.concat(array2);
 ```
 
 ### 数组去重
@@ -638,6 +698,14 @@ console.log(对象名["键名"]);
 
 ```JavaScript
 对象名.键名 = 值;
+```
+
+### 遍历元素
+
+```JavaScript
+for (const key in 对象名) {
+  console.log(对象名[key]);
+}
 ```
 
 ## Set 集合
@@ -751,18 +819,18 @@ let 字符串 = "文本" + ture; // 文本ture
 - 找到则返回字符串所在的位置，否则返回-1
 
   ```JavaScript
-  位置 = 字符串.indexOf(寻找的字符串,[起始位置]);
+  let 位置 = 字符串.indexOf(寻找的字符串,[起始位置]);
   ```
 
 - 从后往前寻找字符串，找到则返回字符串所在的位置，否则返回-1
 
   ```JavaScript
-  位置 = 字符串.lastIndexOf(寻找的字符串,[起始位置]);
+  let 位置 = 字符串.lastIndexOf(寻找的字符串,[起始位置]);
   ```
 
 ### 根据位置返回字符
 
-- 返回指定位置的字符
+- 返回指定位置的字符（从 0 开始）
 
   ```JavaScript
   字符串.charAt(位置);
@@ -783,34 +851,34 @@ let 字符串 = "文本" + ture; // 文本ture
 ### 获取字符串长度
 
 ```JavaScript
-长度 = 字符串.length("字符串");
+let 长度 = 字符串.length("字符串");
 ```
 
 ### 分割字符串
 
 ```JavaScript
-集合 = 字符串.split("需要分割的文本");
+let 集合 = 字符串.split("需要分割的文本");
 ```
 
 ### 截取字符串
 
 - 截取指定个数
 
-```JavaScript
-字符串.substr(起始位置,字符个数);
-```
+  ```JavaScript
+  字符串.substr(起始位置,字符个数);
+  ```
 
 - 截取指定位置，区间：`[起始位置,结束位置)`
 
-```JavaScript
-字符串.slice(起始位置,结束位置);
-```
+  ```JavaScript
+  字符串.slice(起始位置,结束位置);
+  ```
 
 - 截取指定位置，不接受负值，区间：`[起始位置,结束位置)`
 
-```JavaScript
-字符串.substring(起始位置,结束位置);
-```
+  ```JavaScript
+  字符串.substring(起始位置,结束位置);
+  ```
 
 ### 替换字符串
 
@@ -834,6 +902,35 @@ function replaceString(str, subStr, replacement) {
   return result;
 }
 ```
+
+### 遍历字符串
+
+- for 循环
+
+  ```JavaScript
+  let str = "abcd";
+  for (let i = 0; i < str.length; i++) {
+    console.log(str[i]);
+  }
+  ```
+
+- for of
+
+  ```JavaScript
+  let str = "abcd";
+  for (let char of str) {
+    console.log(char);
+  }
+  ```
+
+- for in
+
+  ```JavaScript
+  let str = "abcd";
+  for (let i in str) {
+    console.log(str[i]);
+  }
+  ```
 
 ## Json
 
@@ -901,6 +998,13 @@ Math.min(1,10,20)
 
 ```JavaScript
 Math.round(数字);
+```
+
+### 幂函数
+
+```JavaScript
+// x^y
+Math.pow(x,y);
 ```
 
 ### 生成随机数
