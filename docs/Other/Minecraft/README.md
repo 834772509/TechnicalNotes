@@ -444,30 +444,32 @@ TNT 用于产生爆炸。
   | 数量 | 4 | 3 | 1 | 1 | 4 | 3 | 10 | 32 | 6 | 2 | 20 | 2 |
 - 3D 视图
   <ClientOnly>
-    <vr-view  moduleName="HighSpeedFurnace" modulePath="/technicalnotes/models/Minecraft/SurvivalUtilityCircuits/HighSpeedFurnace"></vr-view>
+  <vr-view  moduleName="HighSpeedFurnace" modulePath="/technicalnotes/models/Minecraft/SurvivalUtilityCircuits/HighSpeedFurnace"></vr-view>
   </ClientOnly>
 - Worldedit 建筑文件
 
   - 下载: [HighSpeedFurnace.schem](/technicalnotes/models/Minecraft/schems/HighSpeedFurnace.schem)
   - 存放在`.minecraft\config\worldedit\schematics`目录
   - 指令放置: `/schematic load HighSpeedFurnace`、`//paste`
+
 - 使用
 
   1. 将燃料（如煤炭）放置于左箱子并拉下拉杆
   2. 将需烧制的物品放置于中间箱子并拉下拉杆
   3. 等待物品烧制完成后物品将自动存放于又右箱子
 
-### 2×2隐藏门
+### 2×2 隐藏门
 
 - 材料
 
 - 3D 视图
 
   <ClientOnly>
-    <vr-view  moduleName="2x2HideDoor" modulePath="/technicalnotes/models/Minecraft/SurvivalUtilityCircuits/2x2HideDoor"></vr-view>
+    <vr-view  moduleName="twoXtwoHideDoor" modulePath="/technicalnotes/models/Minecraft/SurvivalUtilityCircuits/twoXtwoHideDoor"></vr-view>
   </ClientOnly>
+
 - Worldedit 建筑文件
 
-  - 下载: [2x2HideDoor.schem](/technicalnotes/models/Minecraft/schems/2x2HideDoor.schem)
+  - 下载: [twoXtwoHideDoor.schem](/technicalnotes/models/Minecraft/schems/twoXtwoHideDoor.schem)
   - 存放在`.minecraft\config\worldedit\schematics`目录
-  - 指令放置: `/schematic load 2x2HideDoor`、`//paste`
+  - 指令放置: `/schematic load twoXtwoHideDoor`、`//paste`

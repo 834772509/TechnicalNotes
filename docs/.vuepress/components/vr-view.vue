@@ -1,5 +1,5 @@
 <template>
-  <div id="container"></div>
+  <div :id="moduleName"></div>
 </template>
 
 <script>
@@ -73,7 +73,7 @@ export default {
       this.renderer.setClearColor(this.backgroundColor, 1);
 
       document
-        .querySelector("#container")
+        .querySelector(`#${this.moduleName}`)
         .appendChild(this.renderer.domElement);
       window.addEventListener("resize", () => this.onWindowResize());
 

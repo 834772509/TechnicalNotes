@@ -408,7 +408,7 @@ baz.count = 20;
 ### 声明类
 
 ```JavaScript
-calss 类名 {
+class 类名 {
   //构造函数
   constructor(参数) {
     this.属性 = 参数;
@@ -433,7 +433,7 @@ console.log(对象.属性);
 ### 继承类
 
 ```JavaScript
-calss 类名 extends 继承类名 {
+class 类名 extends 继承类名 {
   // 子类中必须初始化父类对象
   super();
 }
@@ -931,6 +931,14 @@ function replaceString(str, subStr, replacement) {
     console.log(str[i]);
   }
   ```
+### 获取字符Unicode 编码
+
+`string.charCodeAt(index)`
+
+```JavaScript
+let str = "Hello World";
+let unicode = str.charCodeAt(0);
+```
 
 ## Json
 

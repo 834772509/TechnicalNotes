@@ -19,4 +19,4 @@
 
 强制设备重新连接到网络
 
-- 攻击三次: `aireplay-ng -0 3 -a 路由 Mac wlam0mon`
+- 攻击三次: `aireplay-ng -0 3 -a 路由Mac wlam0mon`

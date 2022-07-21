@@ -1399,6 +1399,10 @@ println!("{}", sum);
     let value = *list.get(3).ok_or("发生错误".to_owned())?;
     Ok(value)
   }
+
+  fn 函数名() -> Result<i32, Box<dyn Error>> {
+    Err(String::from("发生错误").into())
+  }
   ```
 
 ### 不可恢复错误
