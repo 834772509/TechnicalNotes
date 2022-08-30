@@ -107,6 +107,7 @@ module.exports = {
               { text: "Vue3", link: "/front-end/Vue3/" },
               { text: "React", link: "/front-end/React/" },
               { text: "Webpack", link: "/front-end/Webpack/" },
+              { text: "Vite", link: "/front-end/Vite/" },
             ],
           },
           {

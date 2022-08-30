@@ -3,6 +3,7 @@
 ## 配置环境
 
 [Python 下载](https://www.python.org/downloads/windows)
+[Python 淘宝镜像 下载](https://npm.taobao.org/mirrors/python/)
 [Python 中文文档](https://yiyibooks.cn/xx/python_352/index.html)
 
 ### 配置环境变量

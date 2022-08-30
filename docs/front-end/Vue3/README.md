@@ -82,7 +82,9 @@ Vue 是-套用于构建用户界面的渐进式框架。
 <h2>{{isShow ? "哈哈哈" : ""}}</h2>
 ```
 
-注意：以下为错误语法
+::: warning 注意
+以下为错误语法
+:::
 
 ```html
 <h2>{{var name="abc"}}</h2>
@@ -149,7 +151,7 @@ v-pre 用于跳过元素和它的子元素的编译过程,显示原始的 Mustac
 
 这个指令保持在元素上直到关联组件实例结束编译。
 
-- 和 CSS 规则如 [v-cloak] { display: none } 一起用时,这个指令可以隐藏未编译的 Mustache 标签直到组件实例准备完毕。
+- 和 CSS 规则如 `[v-cloak] { display: none }` 一起用时,这个指令可以隐藏未编译的 Mustache 标签直到组件实例准备完毕。
 
 ```html
 <style>
@@ -254,25 +256,47 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
 - 如果属性名称不是固定的,可以使用`:[属性名]="值"`的格式来定义;
 - 这种绑定的方式称之为`动态绑定属性`;
 
-```html
-<div v-bind="info">哈哈哈</div>
-<!-- 语法糖 -->
-<div :="info">哈哈哈</div>
+- 动态绑定属性
 
-<script>
-  Vue.createApp({
-    data() {
-      return {
-        info: {
-          name: "why",
-          age: 18,
-          height: 1.88,
-        },
-      };
-    },
-  }).mount("#app");
-</script>
-```
+  ```html
+  <div :[name]="value"></div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          info: {
+            name: "why",
+            age: 18,
+            height: 1.88,
+          },
+        };
+      },
+    }).mount("#app");
+  </script>
+  ```
+
+- 动态绑定对象
+
+  ```html
+  <div v-bind="info">哈哈哈</div>
+  <!-- 语法糖（阅读性较差不推荐） -->
+  <div :="info">哈哈哈</div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          info: {
+            name: "why",
+            age: 18,
+            height: 1.88,
+          },
+        };
+      },
+    }).mount("#app");
+  </script>
+  ```
 
 ### v-on 指令
 
@@ -302,7 +326,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
 
   - 如果该方法不需要额外参数,那么方法后的()可以不添加。
     - 注意: 如果方法本身中有一个参数,那么会默认将原生事件 event 参数传递进去
-  - 如果需要同时传入某个参数,同时需要 event 时,可以通过\$event 传入事件。
+  - 如果需要同时传入某个参数,同时需要 event 时,可以通过 **$event** 传入事件。
 
   ```html
   <!-- 默认传入event对象，可以在方法中获取 -->
@@ -404,7 +428,7 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
 
 ### 列表渲染
 
-v-for 的基本格式是"item in 数组":
+v-for 的基本格式是`item in 数组`:
 
 - 数组通常是来自`data`或者`prop`,也可以是其他方式;
 - `item`是给每项元素起的一个别名,这个别名可以自定义;
@@ -415,7 +439,7 @@ v-for 的基本格式是"item in 数组":
 
   ```html
   <li v-for="item in 数组">{{item}}</li>
-  <!--在遍历的过程中获取索引值-->
+  <!-- 在遍历的过程中获取索引值 -->
   <li v-for="(item, index) in 数组">{{index}}: {{item}}</li>
   ```
 
@@ -431,7 +455,7 @@ v-for 的基本格式是"item in 数组":
 
   ```html
   <li v-for="item in 对象">{{item}}</li>
-  <!--在遍历的过程中获取key和value及index-->
+  <!-- 在遍历的过程中获取key和value及index -->
   <li v-for="(value, key, index) in 对象">{{key}}: {{value}}</li>
   ```
 
@@ -1220,7 +1244,7 @@ Vue3 从实例中移除了 $on、$off 和 \$once 方法，所以如果希望继�
      * @param {*} fail  函数，指示加载程序结束退出
      * @param {*} attempt 允许的最大重试次数
      */
-    onError: function(error, retry, fail, attempt) {},
+    onError: function (error, retry, fail, attempt) {},
   });
   ```
 
@@ -1668,7 +1692,7 @@ export default {
 
 官方解释：将回调推迟到下一个 DOM 更新周期之后执行，在更改了一些数据以等待 DOM 更新后立即使用它。
 
-比如有下面的需求∶
+比如有下面的需求 ∶
 
 - 点击一个按钮，会修改在 h2 中显示的 message，message 被修改后，获取 h2 的高度﹔
 
@@ -2298,7 +2322,7 @@ export default {
   ```js
   import { customRef } from "vue";
 
-  export default function(value) {
+  export default function (value) {
     return customRef((track, trigger) => {
       return {
         get() {
