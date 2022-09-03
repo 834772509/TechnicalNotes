@@ -22,15 +22,27 @@ Vue 是-套用于构建用户界面的渐进式框架。
 
 ### 依赖
 
-1. 安装 Node.js：[Node.js 官网](https://nodejs.org/zh-cn/)
-2. 安装 WebPack：`npm install webpack -g`
+安装 Node.js：[Node.js 官网](https://nodejs.org/zh-cn/)
 
-### 安装
+### create-vue
+
+create-vue 基于 Vite。Vite 开箱即用地支持 Vue CLI 项目中的大多数配置约定，并且由于其极快的启动和热模块更换速度，提供了明显更好的开发体验。
+
+- 创建项目
+
+  - 创建 Vue3 项目： `npm init vue@3`
+  - 创建 Vue2 项目：`npm init vue@2`
+
+### vue-cli
+
+Vue CLI 基于 webpack
+
+1. 安装
 
 - 全局安装：`npm install @vue/cli -g`
 - 升级 CLI: `npm update @vue-cli -g`
 
-### 创建项目
+2. 创建项目
 
 - 可视化创建项目： `vue ui`
 - 命令行创建项目：`vue create 项目名称`
@@ -39,7 +51,7 @@ Vue 是-套用于构建用户界面的渐进式框架。
   - `Unit Tests`: 单元测试
   - `Linter/Formatter`: 代码规范检测
 
-### Vue CLI 运行原理
+3. Vue CLI 运行原理
 
 ![Vue-cli运行原理](./img/Vue-cli运行原理.png)
 
@@ -1073,6 +1085,8 @@ Vue.createApp({
 
     ```html
     <script>
+      import { computed } from "vue";
+
       export default {
         provide: {
           return {
@@ -1688,6 +1702,24 @@ export default {
 };
 ```
 
+### 缓存组件的生命周期
+
+对于缓存的组件来说，再次进入时，不会执行 created 或者 mounted 等生命周期函数：
+
+- 但是有时候确实希望监听到何时重新进入到了组件，何时离开了组件；
+- 这个时候可以使用**activated**和**deactivated**这两个生命周期钩子函数来监听；
+
+```js
+export default {
+  activated() {
+    console.log("activated");
+  },
+  deactivated() {
+    console.log("deactivated");
+  },
+};
+```
+
 ### nextTick
 
 官方解释：将回调推迟到下一个 DOM 更新周期之后执行，在更改了一些数据以等待 DOM 更新后立即使用它。
@@ -2130,7 +2162,7 @@ import "animate.css";
 
   ```js
   import { createApp } from "vue";
-  import App from "./01_mixin和extends/App.vue";
+  import App from "./App.vue";
 
   const app = createApp(App);
 
@@ -2181,7 +2213,83 @@ setup(props, { attrs, slots, emit }) {
 },
 ```
 
-### refAPI 使用
+### 组件
+
+- 注册组件
+
+  - 在使用 <script setup> 的单文件组件中，导入的组件可以直接在模板中使用，无需注册：
+
+    ```js
+    <script setup>
+    import ComponentA from './ComponentA.vue'
+    </script>
+
+    <template>
+      <ComponentA />
+    </template>
+    ```
+    
+  - 如果没有使用 <script setup>，则需要使用 components 选项来显式注册：
+
+    ```js
+    import ComponentA from './ComponentA.js'
+
+    export default {
+      components: {
+        ComponentA
+      },
+      setup() {
+        // ...
+      }
+    }
+    ```
+- 组件传参
+
+  - 在使用 <script setup> 的单文件组件中，props 可以使用 defineProps() 宏来声明：
+
+    ```js 
+    <script setup>
+    // 数组语法
+    const props = defineProps(["参数1", "参数2"]);
+    // 对象语法
+    const props = defineProps({
+      // 限制数据类型
+      参数1: Array,
+      参数2: {
+        // 限制数据类型
+        type: String,
+        // 是否为必传参数
+        require: true,
+        // 默认值
+        default: "默认值"
+      },
+      // 对象或数组的默认值必须从一个工厂函数获取
+      参数3: {
+        type: Object,
+        default() {
+          return { 键: "值" };
+        },
+      }
+    });
+
+    console.log(props.参数1);
+    </script>
+    ```
+
+  - 在没有使用 <script setup> 的组件中，prop 可以使用 props 选项来声明：
+
+    ```js
+    export default {
+      props: ["参数1, 参数2"],
+      setup(props) {
+        // setup() 接收 props 作为第一个参数
+        console.log(props.参数1);
+      }
+    }
+    ```
+
+
+### refAPI
 
 ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应式的引用** 维护着它**内部的值**，这就是**ref 名称的来源**；
 
@@ -2218,6 +2326,23 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
 </script>
 ```
 
+### reactive
+
+如果想为了setup中定义的数据踢欧冠呢过响应式的特特性，可以使用reactive的函数。
+
+```html
+<template>
+  <h2>{{ state.变量名 }}</h2>
+</template>
+
+<script setup>
+import { reactive } from "vue";
+
+const state = reactive({ 变量名: 值 });
+console.log(state.变量名)
+</script>
+```
+
 ### readonly
 
 某些情况下，我们传入给其他地方（组件）的这个响应式对象希望在另外一个地方（组件）被使用，但是不能被修改，这个时候如何防止这种情况的出现？
@@ -2232,7 +2357,6 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
 
   export default {
     setup() {
-      // 普通对象
       const 变量名 = { 键: 值 };
       const 只读变量名 = readonly(变量名);
 
@@ -2243,6 +2367,25 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
       return { updateState };
     },
   };
+  ```
+* 响应式的对象
+
+  ```js
+  import { reactive, readonly } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = ref({键: 值});
+      const 只读变量名 = readonly(变量名);
+
+      const updateState = () => {
+        只读变量名.键 = 值;
+      };
+
+      return { updateState };
+    },
+  };
+
   ```
 
 * 响应式的对象 ref
