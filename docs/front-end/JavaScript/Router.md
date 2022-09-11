@@ -15,9 +15,9 @@
     <div id="app">
       <a href="#/home">首页</a>
       <a href="#/about">关于</a>
-    </div>
 
-    <div class="router-view"></div>
+      <div class="router-view"></div>
+    </div>
 
     <script>
       // 获取 router-view 的DOM
@@ -25,7 +25,7 @@
 
       // 监听URL的改变
       window.addEventListener("hashchange", () => {
-        console.log("aaa", location.hash);
+        console.log(location.hash);
         switch (location.hash) {
           case "#/home":
             routerViewEL.innerHTML = "首页";
@@ -58,9 +58,9 @@
     <div id="app">
       <a href="/home">首页</a>
       <a href="/about">关于</a>
-    </div>
 
-    <div class="router-view"></div>
+      <div class="router-view"></div>
+    </div>
 
     <script>
       // 获取 router-view 的DOM

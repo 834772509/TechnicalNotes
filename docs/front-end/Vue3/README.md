@@ -609,6 +609,16 @@ Vue 也允许自定义自己的指令，通常在某些情况下，需要对**DO
   </script>
   ```
 
+  Composition API:
+
+  ```html
+  <script setup>
+    const v自定义指令名 = {
+      mounted: (el) => {},
+    };
+  </script>
+  ```
+
 - 自定义全局指令：app 的 directive 方法，可以在任意组件中被使用
 
   \src\main.js
@@ -2228,51 +2238,52 @@ setup(props, { attrs, slots, emit }) {
       <ComponentA />
     </template>
     ```
-    
+
   - 如果没有使用 <script setup>，则需要使用 components 选项来显式注册：
 
     ```js
-    import ComponentA from './ComponentA.js'
+    import ComponentA from "./ComponentA.js";
 
     export default {
       components: {
-        ComponentA
+        ComponentA,
       },
       setup() {
         // ...
-      }
-    }
+      },
+    };
     ```
-- 组件传参
+
+- 组件传参-父传子
 
   - 在使用 <script setup> 的单文件组件中，props 可以使用 defineProps() 宏来声明：
 
-    ```js 
+    ```html
     <script setup>
-    // 数组语法
-    const props = defineProps(["参数1", "参数2"]);
-    // 对象语法
-    const props = defineProps({
-      // 限制数据类型
-      参数1: Array,
-      参数2: {
+      // 数组语法
+      const props = defineProps(["参数1", "参数2"]);
+      // 对象语法
+      const props = defineProps({
         // 限制数据类型
-        type: String,
-        // 是否为必传参数
-        require: true,
-        // 默认值
-        default: "默认值"
-      },
-      // 对象或数组的默认值必须从一个工厂函数获取
-      参数3: {
-        type: Object,
-        default() {
-          return { 键: "值" };
+        参数1: Array,
+        参数2: {
+          // 限制数据类型
+          type: String,
+          // 是否为必传参数
+          require: true,
+          // 默认值
+          default: "默认值",
         },
-      }
-    });
+        // 对象或数组的默认值必须从一个工厂函数获取
+        参数3: {
+          type: Object,
+          default() {
+            return { 键: "值" };
+          },
+        },
+      });
 
-    console.log(props.参数1);
+      console.log(props.参数1);
     </script>
     ```
 
@@ -2284,10 +2295,44 @@ setup(props, { attrs, slots, emit }) {
       setup(props) {
         // setup() 接收 props 作为第一个参数
         console.log(props.参数1);
-      }
-    }
+      },
+    };
     ```
 
+- 组件传参-子传父
+
+  - 父组件
+
+  ```html
+  <template>
+    <div>
+      <子组件 @发射事件名="事件名"></子组件>
+    </div>
+  </template>
+  ```
+
+  - 在使用 <script setup> 的单文件组件中，emit 可以使用 defineEmits() 宏来声明：
+
+    ```js
+    import { defineEmits } from "vue";
+
+    const emit = defineEmits(["发射事件名"]);
+
+    emit("发射事件名");
+    emit("发射事件名", "参数1", "参数2");
+    ```
+
+  - 在没有使用 <script setup> 的组件中，emit 可以使用 emits 选项来声明：
+
+    ```js
+    export default {
+      emits: ["发射事件名"],
+      setup(props, ctx) {
+        ctx.emit("发射事件名");
+        ctx.emit("发射事件名", "参数1", "参数2");
+      },
+    };
+    ```
 
 ### refAPI
 
@@ -2328,7 +2373,7 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
 
 ### reactive
 
-如果想为了setup中定义的数据踢欧冠呢过响应式的特特性，可以使用reactive的函数。
+如果想为了 setup 中定义的数据踢欧冠呢过响应式的特特性，可以使用 reactive 的函数。
 
 ```html
 <template>
@@ -2336,10 +2381,10 @@ ref 会返回一个**可变的响应式对象**，该对象作为一个 **响应
 </template>
 
 <script setup>
-import { reactive } from "vue";
+  import { reactive } from "vue";
 
-const state = reactive({ 变量名: 值 });
-console.log(state.变量名)
+  const state = reactive({ 变量名: 值 });
+  console.log(state.变量名);
 </script>
 ```
 
@@ -2368,6 +2413,7 @@ console.log(state.变量名)
     },
   };
   ```
+
 * 响应式的对象
 
   ```js
@@ -2375,7 +2421,7 @@ console.log(state.变量名)
 
   export default {
     setup() {
-      const 变量名 = ref({键: 值});
+      const 变量名 = ref({ 键: 值 });
       const 只读变量名 = readonly(变量名);
 
       const updateState = () => {
@@ -2385,7 +2431,6 @@ console.log(state.变量名)
       return { updateState };
     },
   };
-
   ```
 
 * 响应式的对象 ref
@@ -2621,6 +2666,24 @@ watch API 完全等同于组件 watch 选项的 Property：
 - 更具体的说明当哪些状态发生变化时，触发侦听器的执行；
 - 访问侦听状态变化前后的值
 
+- 传入可响应式对象
+
+  ```js
+  import { ref, reactive, watch } from "vue";
+
+  export default {
+    setup() {
+      const 变量名 = reactive({ 属性名: 值 });
+
+      watch(变量名, (newValue, oldValue) => {
+        console.log("newValue: " + newValue, "oldValue: " + oldValue);
+      });
+
+      return { 变量名 };
+    },
+  };
+  ```
+
 - 传入 getter 函数
 
   ```js
@@ -2642,24 +2705,6 @@ watch API 完全等同于组件 watch 选项的 Property：
   };
   ```
 
-- 传入可响应式对象
-
-  ```js
-  import { ref, reactive, watch } from "vue";
-
-  export default {
-    setup() {
-      const 变量名 = reactive({ 属性名: 值 });
-
-      watch(变量名, (newValue, oldValue) => {
-        console.log("newValue: " + newValue, "oldValue: " + oldValue);
-      });
-
-      return { 变量名 };
-    },
-  };
-  ```
-
 - 侦听多个数据源
 
   ```js
@@ -2673,8 +2718,8 @@ watch API 完全等同于组件 watch 选项的 Property：
       watch(
         [变量名1, 变量名2],
         ([new变量名1, new变量名2], [old变量名1, old变量名2]) => {
-          console.log("new变量名1: " + new变量名1, "old变量名1: " + old变量名1);
-          console.log("new变量名2: " + new变量名2, "old变量名2: " + old变量名2);
+          console.log("new变量名1: ", new变量名1, "old变量名1: ", old变量名1);
+          console.log("new变量名2: ", new变量名2, "old变量名2: ", old变量名2);
         }
       );
     },
@@ -2718,20 +2763,17 @@ watch API 完全等同于组件 watch 选项的 Property：
 </template>
 
 <script>
-  import { ref, watchEffect } from "vue";
+  import { ref, onMounted } from "vue";
 
   export default {
     setup() {
       const Ref名 = ref(null);
 
-      watchEffect(
-        () => {
-          console.log(Ref名.value);
-        },
-        { flush: "post" }
-      );
+      onMounted(() => {
+        console.log(Ref名.value);
+      });
 
-      return { title };
+      return { Ref名 };
     },
   };
 </script>
