@@ -161,6 +161,20 @@ const router = createRouter({
 export default router;
 ```
 
+### 使用路由
+
+\src\main.js
+
+```js
+import { createApp } from "vue";
+import router from "./router";
+import App from "./App.vue";
+
+const app = createApp(App);
+app.use(router);
+app.mount("#app");
+```
+
 ### 展示路由
 
 \src\App.vue
