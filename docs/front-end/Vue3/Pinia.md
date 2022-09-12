@@ -100,7 +100,7 @@ Store 在它被使用之前是不会创建的，可以通过调用 use 函数来
 </template>
 
 <script setup>
-  import useStore名 from "../stores/Store名.js";
+  import useStore名 from "@/stores/Store名.js";
 
   const Store名 = useStore名();
 </script>
@@ -116,7 +116,7 @@ const { 变量名 } = useStore名();
 
 ```js
 import { storeToRefs } from "pinia";
-import useStore名 from "../stores/Store名.js";
+import useStore名 from "@/stores/Store名.js";
 
 const { 变量名 } = storeToRefs(useStore名());
 ```
@@ -126,7 +126,7 @@ const { 变量名 } = storeToRefs(useStore名());
 - 默认情况下，您可以通过 store 实例访问状态来直接写入状态；
 
   ```js
-  import useStore名 from "../stores/Store名.js";
+  import useStore名 from "@/stores/Store名.js";
 
   const Store名 = useStore名();
 
@@ -143,7 +143,7 @@ const { 变量名 } = storeToRefs(useStore名());
 - 重置 State：你可以通过调用 store 上的 $reset() 方法将状态 重置 到其初始值；
 
   ```js
-  import useStore名 from "../stores/Store名.js";
+  import useStore名 from "@/stores/Store名.js";
 
   const Store名 = useStore名();
   Store名.$reset();
@@ -152,7 +152,7 @@ const { 变量名 } = storeToRefs(useStore名());
 - 替换 State：您可以通过将其 $state 属性设置为新对象来替换 Store 的整个状态：
 
   ```js
-  import useStore名 from "../stores/Store名.js";
+  import useStore名 from "@/stores/Store名.js";
 
   const Store名 = useStore名();
 
@@ -255,7 +255,7 @@ const { 变量名 } = storeToRefs(useStore名());
 </template>
 
 <script setup>
-  import useStore名 from "../stores/Store名.js";
+  import useStore名 from "@/stores/Store名.js";
 
   const Store名 = useStore名();
 </script>
@@ -303,7 +303,7 @@ const { 变量名 } = storeToRefs(useStore名());
   </template>
 
   <script setup>
-    import useStore名 from "../stores/Store名.js";
+    import useStore名 from "@/stores/Store名.js";
 
     const Store名 = useStore名();
     function changeState() {
@@ -342,7 +342,7 @@ Actions 中是支持异步操作的，并且我们可以编写异步函数，在
 
   ```html
   <script setup>
-    import useStore名 from "../stores/Store名.js";
+    import useStore名 from "@/stores/Store名.js";
 
     const Store名 = useStore名();
     Store名.Actions名().then((res) => {

@@ -49,7 +49,7 @@
 # Full terrainExt.png path: D:\Program Files\mineways\terrainExt.png
 # Full current path: D:\Program Files\mineways
 
-mtllib 2x2HideDoor.mtl
+mtllib twoXtwoHideDoor.mtl
 
 o __-2_18_4_to_3_255_7
 vn -1 0 0

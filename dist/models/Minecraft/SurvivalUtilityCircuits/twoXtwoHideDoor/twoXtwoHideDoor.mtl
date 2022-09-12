@@ -6,10 +6,10 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0 0 0
-map_Ka 2x2HideDoor-RGB.png
+map_Ka twoXtwoHideDoor-RGB.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGB.png
+map_Kd twoXtwoHideDoor-RGB.png
 illum 2
 # d 1
 # Tr 0
@@ -19,10 +19,10 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0 0 0
-map_Ka 2x2HideDoor-RGB.png
+map_Ka twoXtwoHideDoor-RGB.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGB.png
+map_Kd twoXtwoHideDoor-RGB.png
 illum 2
 # d 1
 # Tr 0
@@ -32,11 +32,11 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0 0 0
-map_Ka 2x2HideDoor-RGBA.png
+map_Ka twoXtwoHideDoor-RGBA.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGBA.png
-#map_d 2x2HideDoor-Alpha.png
+map_Kd twoXtwoHideDoor-RGBA.png
+#map_d twoXtwoHideDoor-Alpha.png
 illum 2
 # d 1
 # Tr 0
@@ -46,11 +46,11 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0 0 0
-map_Ka 2x2HideDoor-RGBA.png
+map_Ka twoXtwoHideDoor-RGBA.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGBA.png
-#map_d 2x2HideDoor-Alpha.png
+map_Kd twoXtwoHideDoor-RGBA.png
+#map_d twoXtwoHideDoor-Alpha.png
 illum 2
 # d 1
 # Tr 0
@@ -60,10 +60,10 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0 0 0
-map_Ka 2x2HideDoor-RGB.png
+map_Ka twoXtwoHideDoor-RGB.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGB.png
+map_Kd twoXtwoHideDoor-RGB.png
 illum 2
 # d 1
 # Tr 0
@@ -73,10 +73,10 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0 0 0
-map_Ka 2x2HideDoor-RGB.png
+map_Ka twoXtwoHideDoor-RGB.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGB.png
+map_Kd twoXtwoHideDoor-RGB.png
 illum 2
 # d 1
 # Tr 0
@@ -86,10 +86,10 @@ Ns 209.1
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0.164 0.164 0.164
-map_Ka 2x2HideDoor-RGB.png
+map_Ka twoXtwoHideDoor-RGB.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGB.png
+map_Kd twoXtwoHideDoor-RGB.png
 illum 2
 # d 1
 # Tr 0
@@ -99,11 +99,11 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0.03 0.03 0.03
-map_Ka 2x2HideDoor-RGBA.png
+map_Ka twoXtwoHideDoor-RGBA.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGBA.png
-#map_d 2x2HideDoor-Alpha.png
+map_Kd twoXtwoHideDoor-RGBA.png
+#map_d twoXtwoHideDoor-Alpha.png
 illum 4
 # d 0.7
 # Tr 0.3
@@ -114,10 +114,10 @@ Ns 0
 Ka 0.2 0.2 0.2
 Kd 1 1 1
 Ks 0 0 0
-map_Ka 2x2HideDoor-RGB.png
+map_Ka twoXtwoHideDoor-RGB.png
 # for G3D, to make textures look blocky:
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
-map_Kd 2x2HideDoor-RGB.png
+map_Kd twoXtwoHideDoor-RGB.png
 illum 2
 # d 1
 # Tr 0
