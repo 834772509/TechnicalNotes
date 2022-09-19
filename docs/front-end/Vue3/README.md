@@ -2227,9 +2227,9 @@ setup(props, { attrs, slots, emit }) {
 
 - 注册组件
 
-  - 在使用 <script setup> 的单文件组件中，导入的组件可以直接在模板中使用，无需注册：
+  - 在使用 `<script setup>` 的单文件组件中，导入的组件可以直接在模板中使用，无需注册：
 
-    ```js
+    ```html
     <script setup>
     import ComponentA from './ComponentA.vue'
     </script>
@@ -2239,7 +2239,7 @@ setup(props, { attrs, slots, emit }) {
     </template>
     ```
 
-  - 如果没有使用 <script setup>，则需要使用 components 选项来显式注册：
+  - 如果没有使用 `<script setup>`，则需要使用 components 选项来显式注册：
 
     ```js
     import ComponentA from "./ComponentA.js";
@@ -2256,7 +2256,7 @@ setup(props, { attrs, slots, emit }) {
 
 - 组件传参-父传子
 
-  - 在使用 <script setup> 的单文件组件中，props 可以使用 defineProps() 宏来声明：
+  - 在使用 `<script setup>` 的单文件组件中，props 可以使用 defineProps() 宏来声明：
 
     ```html
     <script setup>
@@ -2287,7 +2287,7 @@ setup(props, { attrs, slots, emit }) {
     </script>
     ```
 
-  - 在没有使用 <script setup> 的组件中，prop 可以使用 props 选项来声明：
+  - 在没有使用 `<script setup>` 的组件中，prop 可以使用 props 选项来声明：
 
     ```js
     export default {
@@ -2311,7 +2311,7 @@ setup(props, { attrs, slots, emit }) {
   </template>
   ```
 
-  - 在使用 <script setup> 的单文件组件中，emit 可以使用 defineEmits() 宏来声明：
+  - 在使用 `<script setup>` 的单文件组件中，emit 可以使用 defineEmits() 宏来声明：
 
     ```js
     import { defineEmits } from "vue";
@@ -2322,7 +2322,7 @@ setup(props, { attrs, slots, emit }) {
     emit("发射事件名", "参数1", "参数2");
     ```
 
-  - 在没有使用 <script setup> 的组件中，emit 可以使用 emits 选项来声明：
+  - 在没有使用 `<script setup>` 的组件中，emit 可以使用 emits 选项来声明：
 
     ```js
     export default {

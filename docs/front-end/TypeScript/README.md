@@ -196,8 +196,8 @@ const 变量名: 数据类型 = 值;
 
 - array 类型
 
-  - 泛型写法: `const 数组名: Array<数据类型> = [];`
   - 推荐写法: `const 数组名: 数据类型[] = [];`
+  - 泛型写法(React jsx 中有冲突): `const 数组名: Array<数据类型> = [];`
 
 - object 类型
 
@@ -364,7 +364,7 @@ type 类型别名 = 数据类型 | 数据类型;
 
   ```ts
   const message = "Hello world";
-  const num: number = (message as unknown) as number;
+  const num: number = message as unknown as number;
   ```
 
 ### 非空类型断言
@@ -712,6 +712,23 @@ class 类名 extends 父类名 {
 }
 ```
 
+### 类的多态
+
+多态的目的是为了写出更加具备通用性的代码
+
+```ts
+class 父类名 {
+  方法名1() {}
+}
+
+class 类名1 extends 父类名 {
+  方法名1() {}
+}
+class 类名2 extends 父类名 {
+  方法名1() {}
+}
+```
+
 ### 类的成员修饰符
 
 在 TypeScript 中，类的属性和方法支持三种修饰符： public、private、protected
@@ -719,6 +736,14 @@ class 类名 extends 父类名 {
 - public: 修饰的是在任何地方可见、公有的属性或方法，默认编写的属性就是 public；
 - private: 修饰的是仅在同一类中可见、私有的属性或方法；
 - protected: 修饰的是仅在类自身及子类中可见、受保护的属性或方法；
+
+```ts
+class 类名 {
+  public 属性名: 属性类型;
+  private 属性名: 属性类型;
+  protected 属性名: 属性类型;
+}
+```
 
 ### 只读属性 readonly
 
@@ -1158,6 +1183,8 @@ TypeScript 支持两种方式来控制作用域：
 
   ```ts
   declare module "*.jpg";
+  declare module "*.png";
+  declare module "*.gif";
   ```
 
 - 声明命名空间
