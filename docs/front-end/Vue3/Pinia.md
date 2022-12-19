@@ -189,6 +189,24 @@ const { 变量名 } = storeToRefs(useStore名());
   export default useStore名;
   ```
 
+- 传递参数
+
+  ```js
+  import { defineStore } from "pinia";
+
+  const useStore名 = defineStore("Store名", {
+    getters: {
+      Getters名(state) {
+        return function (参数名) {
+          return state.变量名 + 参数名;
+        };
+      },
+    },
+  });
+
+  export default useStore名;
+  ```
+
 - 引入另外的 getter
 
   ```js
@@ -203,24 +221,6 @@ const { 变量名 } = storeToRefs(useStore名());
         return this.Getters名1 + 1;
       }
     }
-  });
-
-  export default useStore名;
-  ```
-
-- 返回函数
-
-  ```js
-  import { defineStore } from "pinia";
-
-  const useStore名 = defineStore("Store名", {
-    getters: {
-      Getters名(state) {
-        return function (参数名) {
-          return state.变量名 + 参数名;
-        };
-      },
-    },
   });
 
   export default useStore名;

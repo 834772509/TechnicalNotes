@@ -7,7 +7,7 @@ Vue 是-套用于构建用户界面的渐进式框架。
 
 ## Visual Studio Code 插件
 
-- Vetur: Vue 支持
+- Volar: Vue 支持
 - Vue VSCode Snippets: Vue 代码片段(使用`vbase-css`初始化)
 
 ## 脚手架
@@ -2200,6 +2200,10 @@ import "animate.css";
 
 ### setup 函数的参数
 
+::: tip 提示
+使用 `<script setup>` 的组件，可以通过 `defineExpose({变量名, 函数名})` 编译器宏来显式指定在组件中要暴露出去的属性。
+:::
+
 ::: warning 注意
 在`setup`中应该避免使用`this` ，因为它不会找到组件实例。`setup`的调用发生在`data` property、 `computed` property 或`methods`被解析之前，所以它们无法在`setup`中被获取。
 :::
@@ -2231,7 +2235,7 @@ setup(props, { attrs, slots, emit }) {
 
     ```html
     <script setup>
-    import ComponentA from './ComponentA.vue'
+      import ComponentA from "./ComponentA.vue";
     </script>
 
     <template>

@@ -379,6 +379,18 @@ INSERT INTO `表名` (`字段名`,`字段名`) VALUES (值,值);
   ```sql
   SELECT * FROM `表名` WHERE 字段名 IN (值,值);
   ```
+### 排序查询
+
+- 顺序排序
+
+  ```sql
+  SELECT * FROM `表名` ORDER BY `排序字段`;
+  ```
+- 逆向排序
+
+  ```sql
+  SELECT * FROM `表名` ORDER BY `排序字段` desc;
+  ``` 
 
 ### 分页查询
 

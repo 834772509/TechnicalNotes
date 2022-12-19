@@ -181,6 +181,7 @@ module.exports = {
           { text: "Git", link: "/Other/Git/" },
           { text: "WinPE", link: "/Other/WinPE/" },
           { text: "Minecraft", link: "/Other/Minecraft/" },
+          { text: "FL Studio", link: "/Other/FL Studio/" },
         ],
       },
       { text: "关于", link: "https://firpe.cn/about" },
