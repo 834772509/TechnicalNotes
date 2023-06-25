@@ -184,6 +184,14 @@ isNaN(值);
 let a = x > 10 ? 'red' : 'blue';
 ```
 
+### 取余运算符
+
+在 JavaScript 中可以通过取余运算符`%`实现数值取余
+
+```JavaScript
+const result = 6 % 2;
+```
+
 ### 四舍五入
 
 将数字四舍五入，转为指定小数位的数字，返回字符串。
@@ -1358,5 +1366,46 @@ async、awai 是 Promise 的一个语法糖:
 async function 函数名() {
   console.log(1)
   await console.log(2)
+}
+```
+
+## 原型
+
+### 基本概念
+
+原型链是以对象为基准，以`__proto__`为链接的这条链条一直到`Object.prototype`的链叫做原型链。
+
+- `prototype`: 原型。函数的一个属性：对象。
+- `__proto__`: 原型链（链接点）。对象Object的一个属性：对象。
+
+对象的`__proto__`保存着该对象的构造函数的`prototype`。
+
+### 原型链
+
+```js
+function fn() { 
+  this.a = 1;
+}
+
+fn.prototype.b = 2;
+console.log(fn.b);    // 2
+
+Object.prototype.c = 3
+console.log(fn.c);    // 3
+
+// 判断属性是否存在
+fn.hasOwnProperty("a");   // true
+console.log("c" in fn);   // true
+```
+
+对应原型链结构：
+
+```js
+fn {
+  a: 1;
+  b: 2;
+  __proto__: Object.prototype = {
+    c: 3;
+  }
 }
 ```

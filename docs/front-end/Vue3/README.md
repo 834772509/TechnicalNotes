@@ -178,7 +178,7 @@ v-pre 用于跳过元素和它的子元素的编译过程,显示原始的 Mustac
 
 某些属性可以动态绑定，比如动态绑定 a 元素的 href 属性、动态绑定 img 元奈 src 属性;
 
-- 缩写: `::`
+- 缩写: `:`
 - 预期: any (with argument) | Object (without argument)
 - 参数: attrOrProp (optional)
 - 修饰符: `.camel` -将 kebab-case attribute 名转换为 camelCase。
@@ -442,10 +442,10 @@ CSS property 名可以用驼峰式(camelCase)或短横线分隔(kebab-case ,记�
 
 v-for 的基本格式是`item in 数组`:
 
-- 数组通常是来自`data`或者`prop`,也可以是其他方式;
-- `item`是给每项元素起的一个别名,这个别名可以自定义;
-- `(item, index)`中括号可省，但便于阅读最好加上;
-- `in`也可使用`of`，更接近 JAVaSript 迭代器语法;
+  - 数组通常是来自`data`或者`prop`,也可以是其他方式;
+  - `item`是给每项元素起的一个别名,这个别名可以自定义;
+  - `(item, index)`中括号可省，但便于阅读最好加上;
+  - `in`也可使用`of`，更接近 JavaSript 迭代器语法;
 
 - 基本使用
 
@@ -486,7 +486,6 @@ v-for 的基本格式是`item in 数组`:
     <template v-for="(value, key) in 对象">
       <li>{{key}}</li>
       <li>{{value}}</li>
-      <hr />
     </template>
   </ul>
   ```

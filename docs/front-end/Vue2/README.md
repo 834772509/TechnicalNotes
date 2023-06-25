@@ -573,40 +573,97 @@ export default {
 ```
 
 ```js
-thsi.$ref.元素标识;
+this.$ref.元素标识;
 ```
 
 ::: tip 提示
-ref 如果是绑定在组件中的,那么通过 this.$refs.refname获取到的是一个组件对象
-ref如果是绑定在普通的元素中,那么通过this.$refs.refname 获取到的是一个元素对象
+- ref 如果是绑定在组件中的，那么通过`this.$refs.refname`获取到的是一个组件对象；
+- ref 如果是绑定在普通的元素中，那么通过`this.$refs.refname`获取到的是一个元素对象。
 :::
 
-## 防抖函数（节流）
+## 防抖函数
 
-作用是将频繁执行的函数减缓次数，理想情况下只执行一次
+触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。  
+**效果**：短时间内多次触发同个事件，只会执行一次函数。
 
-```js
-debounce(func,delay){
-  let timer = null;
-  return function(...args){
-    if(timer) clearTimeout(timer)
-    timer = setTimeout(()=>{
-      func.apply(this,args)
-    }, delay)
+- 实现
+
+  ```js
+  /**
+   * @param {Function} 欲防抖函数
+   * @param {number} 防抖时间
+   * @return {Function} 防抖函数
+   */
+  function debounce(func, delay){
+    let timer = null;
+    return function(...args){
+      if(timer) clearTimeout(timer);
+      timer = setTimeout(()=>func.apply(this,args), delay);
+    }
   }
-}
-```
+  ```
 
-使用防抖函数:
+- 使用
 
-```js
-const 防抖函数名称 = this.debounce(需要进行防抖处理的函数名称, 200);
-防抖函数名称();
-```
+  ::: tip 提示
+  需要进行防抖处理的函数名称不能加入()，否则会识别为函数的返回值
+  :::
 
-::: tip 提示
-需要进行防抖处理的函数名称不能加入()，否则会识别为函数的返回值
-:::
+  ```js
+  const log = debounce(console.log, 100);
+  log('Hello'); // 取消执行
+  log('Hello'); // 取消执行
+  log('Hello'); // 在100ms时执行
+  ```
+
+## 节流函数
+
+连续触发事件但是在 n 秒中只执行一次函数，所以节流稀释了函数执行的频率。
+**效果**：n秒内多次触发同个事件，只会执行一次函数，直到下一个n秒才会重新生效。
+
+- 实现
+
+  ```js
+  /**
+   * @param {Function} 欲节流函数
+   * @param {number} 节流时间
+   * @return {Function} 节流函数
+   */
+  function throttle(fn, t) {
+    // 正在运行的函数启动时间
+    let start
+    // 等待运行存储最新的函数
+    let timer
+    return function(...args) {
+        // 调用函数当前时间
+        let now = new Date();
+        // 当前函数没有启动过start为undefined，则可以立即启动
+        if (!start) {
+            // 存储函数的启动时间
+            start = new Date();
+            fn.apply(this, args);
+        } else if (now - start >= t) { // 超过tms间隔则可以立即运行
+            start = new Date()
+            fn.apply(this, args)
+        } else {   // 没有超过tms则需要存储函数，等tms结束后立即运行
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                start = new Date();
+                fn.apply(this, args);
+            }, t - (now - start));
+        /* now-start: 距离tms已经过了多久，t-(now-start): 还需要等待多久才能运行 */
+        }
+    }
+  }
+  ```
+
+- 使用
+
+  ```js
+  const throttled = throttle(console.log, 100);
+  throttled("log"); // 立即执行
+  throttled("log"); // 在100ms时执行
+  ```
 
 ## 常用组件使用实例
 
