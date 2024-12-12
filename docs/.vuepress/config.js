@@ -80,8 +80,8 @@ module.exports = {
     resolve: {
       alias: {
         // 'models': '/technicalnotes/' + 'models',
-      }
-    }
+      },
+    },
   },
   themeConfig: {
     // 添加导航栏
@@ -177,9 +177,11 @@ module.exports = {
       {
         text: "其他",
         items: [
-          { text: "Photoshop", link: "/Other/Photoshop/" },
+          { text: "Linux", link: "/Other/Linux/" },
+          { text: "Docker", link: "/Other/Docker/" },
           { text: "Git", link: "/Other/Git/" },
           { text: "WinPE", link: "/Other/WinPE/" },
+          { text: "Photoshop", link: "/Other/Photoshop/" },
           { text: "Minecraft", link: "/Other/Minecraft/" },
           { text: "FL Studio", link: "/Other/FL Studio/" },
         ],

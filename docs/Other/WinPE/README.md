@@ -9,6 +9,29 @@
 - （推荐）business(商业版）: 专业版 企业版 教育版 专业教育版 专业工作站版
 - consumer（消费者版）： 专业版 家庭版 家庭单语言版 教育版 专业教育版 专业工作站版
 
+## 微软自带 WinPE 工具
+
+- winpeshl.exe
+
+  微软自带，有自己的脚本 winpeshl.ini 用于初始化 winpe ，程序名称是 WinPE Shell, 应该是用于初始化 winpe 外壳用的。核心是调用 wpeinit.exe 。
+
+- wpeinit.exe
+  微软自带，用于初始化 winpe ,程序名称是 WinPE Initialization Program。
+
+- wpeutil.exe
+  微软自带，用于设置 winpe ,程序名称：WinPE Utilities (Console) 。
+  功能：初始化网络组件和驱动，设置页面文件，语言设置，重启，关机，更新注册表中关于启动信息的一些内容，关闭或开启网络防火墙等
+
+  wpeutil.exe InitializeNetwork [/NoWait]
+  初始化网络组件和驱动程序，并将计算机名称设置为随机选择的值。如果省略 "/NoWait"，将阻止此命令，直至获取网络地址。
+
+- netcfg.exe
+  微软自带，用于设置 网络，程序名称：WinPE network installer。
+  主要功能是附带参数 -winpe ，为 Windows 预安装环境安装 TCP/IP、NetBIOS 和 Microsoft 客户端，还有安装网络服务。
+
+- pecmd init 指令，
+  pecmd.exe 自带的指令，用于初始化 winpe ,如果紧跟 shel explorer.exe 指令，就可以得到一个 最简单的 winpe 桌面环境。
+
 ## 设备管理器（替换原版系统的文件）
 
 System32\zh-CN\compmgmt.msc

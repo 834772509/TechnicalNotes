@@ -29,7 +29,7 @@
 1. 设置环境变量
    - `RUSTUP_DIST_SERVER`: `https://mirrors.ustc.edu.cn/rust-static`
    - `RUSTUP_UPDATE_ROOT`: `https://mirrors.ustc.edu.cn/rust-static/rustup`
-2. 创建 `C:\users\用户名\.cargo\config`文件
+2. 创建 `C:\users\用户名\.cargo\config.toml`文件
 
    ::: tip 提示
    编码为 UTF-8
@@ -90,10 +90,6 @@
 
 - IDEA: `Rust`
 - Visual Studio Code: `Rust`
-
-### 标准库本地化文档
-
-[Rust 标准库本地化文档](https://github.com/wtklbm/rust-library-i18n)
 
 ## cargo
 
