@@ -20,7 +20,7 @@ Docker 容器完全使用沙箱机制，相互之间不会有任何接口。
 
 ## 结构
 
-![img](/img/kuangstudyebb6ebca-b5f3-45ce-ae06-ee9899fa0398.png)
+![img](./img/kuangstudyebb6ebca-b5f3-45ce-ae06-ee9899fa0398.png)
 
 - **镜像**（image）：Docker 镜像好比一个模板，可以用来创建**容器**（container），一个镜像可以创建多个容器。
 - **容器**（container）：容器可以理解为一个微型的系统。
@@ -34,7 +34,7 @@ Docker 的守护进程运行在主机上，通过 Socket 从客户端访问。
 
 Docker Server 接受 **Docker-Client** 的指令。
 
-![img](/img/kuangstudy5375096a-4612-4fae-a76c-83c4e82d817b.png)
+![img](./img/kuangstudy5375096a-4612-4fae-a76c-83c4e82d817b.png)
 
 ## 和虚拟机的区别
 
@@ -44,7 +44,7 @@ Docker所使用的**容器化技术**本质上属于**虚拟化技术**。
 
 > 虚拟机原理示意图
 
-![img](/img/kuangstudy2c1ac099-6cb4-48f4-9e18-356538ee7b40.png)
+![img](./img/kuangstudy2c1ac099-6cb4-48f4-9e18-356538ee7b40.png)
 
 它有以下明显的缺点：
 
@@ -54,7 +54,7 @@ Docker所使用的**容器化技术**本质上属于**虚拟化技术**。
 
 > 容器化原理示意图
 
-![img](/img/kuangstudy55c24afc-de22-4028-aa3c-aeb6cf6a6f9f.png)
+![img](./img/kuangstudy55c24afc-de22-4028-aa3c-aeb6cf6a6f9f.png)
 
 它不是模拟的完整操作系统，而是基于操作系统封装成了一个个小的运行环境。
 
@@ -68,7 +68,7 @@ Docker所使用的**容器化技术**本质上属于**虚拟化技术**。
 
 > Docker 为什么比 VM 快
 
-![img](/img/kuangstudyb69524e7-a8fc-4517-b7ba-c8ac22752ae7.png)
+![img](./img/kuangstudyb69524e7-a8fc-4517-b7ba-c8ac22752ae7.png)
 
 Docker 有着比 VM 更少的抽象层。
 
@@ -138,9 +138,7 @@ yum -y install docker-ce docker-ce-cli containerd.io
 
 ## 命令
 
-![img](C:\Users\vision\Desktop\docker\img\kuangstudy3a77ae60-28ce-4866-b706-c0270f72aaff.png)
-
-
+![img](./img/kuangstudy3a77ae60-28ce-4866-b706-c0270f72aaff.png)
 
 # 基本命令
 
@@ -428,7 +426,7 @@ docker.io/library/redis:5.0
 
 版本来自于官网，版本库 https://hub.docker.com/_/redis
 
-![img](img\kuangstudy739b8422-fc80-4425-bda9-fccb3cf5d06d.png)
+![img](./img/kuangstudy739b8422-fc80-4425-bda9-fccb3cf5d06d.png)
 
 > 这里输入的标签必须是官网版本库存在的标签，否则无法拉取镜像。
 
@@ -913,22 +911,22 @@ docker.io/library/redis:5.0
 
 Docker 使用联合文件系统对镜像做了分层，如下图所示：
 
-![img](img\kuangstudyf272761f-94ea-4876-911b-e799cbe9ffc7.png)
+![img](./img/kuangstudyf272761f-94ea-4876-911b-e799cbe9ffc7.png)
 
 - **bootfs**（boot file system）：启动文件系统。
 - **rootfs**：root file system：基础文件系统。
 
-![img](img\kuangstudy30e38d90-d7a3-42d2-bf41-6960671faade.png)
+![img](./img/kuangstudy30e38d90-d7a3-42d2-bf41-6960671faade.png)
 
-![img](img\kuangstudybe416430-40e9-4246-8799-a221a1a034dd.png)
+![img](./img/kuangstudybe416430-40e9-4246-8799-a221a1a034dd.png)
 
-![img](img\kuangstudy8f77faaf-727e-4acb-a9da-5da10c5417cc.png)
+![img](./img/kuangstudy8f77faaf-727e-4acb-a9da-5da10c5417cc.png)
 
 Docker 镜像都是**只读**的，当容器启动时，一个新的可写层被加到镜像的顶部。
 
 这一层就是我们通常说的**容器层**，容器层之下的都叫**镜像层**。
 
-![img](img\kuangstudy8d1de69f-280f-4372-99d5-6c0e145e24f0.png)
+![img](./img/kuangstudy8d1de69f-280f-4372-99d5-6c0e145e24f0.png)
 
 ## 自定义镜像
 
@@ -1001,7 +999,7 @@ admin  f2  f3  sail  test.java
 
 > 新开一个窗口查看容器详情。
 
-![img](img\kuangstudy96df1ea0-f246-4f02-a47b-900d870790e7.png)
+![img](./img/kuangstudy96df1ea0-f246-4f02-a47b-900d870790e7.png)
 
 **Mounts** 下的 **Source** 即为设置的主机目录、**Destination** 即为设置的容器目录，他们已经绑定在了一起。
 
@@ -1239,7 +1237,7 @@ a016e564d977550e475474556cfd033fb1c731002381bc9f9544c63fccb7f60c
 
 > 使用`docker inspect`查看挂载情况。
 
-![img](img\kuangstudy37de2e6a-c038-41b1-90ec-c8e4c36a46f5.png)
+![img](./img/kuangstudy37de2e6a-c038-41b1-90ec-c8e4c36a46f5.png)
 
 已经生成了两个目录的挂载。
 
@@ -1262,7 +1260,7 @@ conf  data
 
 ## 简介
 
-![img](img\kuangstudybd744e77-1e24-41e0-9737-d169690f30cf.png)
+![img](./img/kuangstudybd744e77-1e24-41e0-9737-d169690f30cf.png)
 
 Dockerfile 是用来构建 Docker 镜像的文件，可以理解为**命令参数脚本**。
 
@@ -1278,21 +1276,21 @@ Dockerfile 是面向开发的，想要打包项目，就要编写 Dockerfile 文
 
 > 在 [Docker Hub](https://hub.docker.com/) 搜索 centos 镜像，选择官方镜像。
 
-![img](img\kuangstudy07af1e35-15eb-4529-8d12-ef5ea0c1ea8e.png)
+![img](./img/kuangstudy07af1e35-15eb-4529-8d12-ef5ea0c1ea8e.png)
 
 > 点击 **The CentOS Project** 。
 
-![img](img\kuangstudyaa509032-be45-4ece-ad06-ab89df41112f.png)
+![img](./img/kuangstudyaa509032-be45-4ece-ad06-ab89df41112f.png)
 
 > 选择版本分支。这里以 **CentOS-7.6.1810** 为例。
 
-![img](img\kuangstudyb7697c68-22ef-4905-9170-62378aef5f0b.png)
+![img](./img/kuangstudyb7697c68-22ef-4905-9170-62378aef5f0b.png)
 
 > 查看 Dockerfile。
 
-![img](img\kuangstudy55cc0f0a-1230-46df-a5dc-771be68096e0.png)
+![img](./img/kuangstudy55cc0f0a-1230-46df-a5dc-771be68096e0.png)
 
-![img](img\kuangstudy62bf47da-a420-4fd3-90db-035c70d5280c.png)
+![img](./img/kuangstudy62bf47da-a420-4fd3-90db-035c70d5280c.png)
 
 > 可以看出官方的 Dockerfile 是很简洁的，这就是 Docker 极致精简的原因。
 
@@ -2045,11 +2043,11 @@ You need to restart docker to take effect: sudo systemctl restart docker
 
 > 去 Docker Hub 上以 **账号名/镜像名** 搜索我们刚发布的镜像，发现是可以搜索到的。
 
-![img](img\kuangstudy5d0bfcf4-7830-42d9-a019-6b3fdbf9d82c.png)
+![img](./img/kuangstudy5d0bfcf4-7830-42d9-a019-6b3fdbf9d82c.png)
 
 > 查看详情也可以镜像的具体信息。
 
-![img](img\kuangstudyc57c1644-bd6a-4e74-8d90-764c3a279b6c.png)
+![img](./img/kuangstudyc57c1644-bd6a-4e74-8d90-764c3a279b6c.png)
 
 DIGEST 的值正是刚才发布后返回值 `ecefaae6c5a2cab84693175ea3b18d0d0a7aa0160e33a0bf3eb4ab626b10f0f1` 的缩写。
 
@@ -2116,9 +2114,9 @@ asailing/centos   1.0       d58be7785771   29 hours ago   323MB
 
 > 登录阿里云，点击**我的阿里云**
 
-![img](img\kuangstudy42018025-d25d-4838-815f-cd683749715b.png)
+![img](./img/kuangstudy42018025-d25d-4838-815f-cd683749715b.png)
 
-![img](img\kuangstudy76398d1b-d43b-4d2c-8960-ab9c66e02182.png)
+![img](./img/kuangstudy76398d1b-d43b-4d2c-8960-ab9c66e02182.png)
 
 > 创建实例
 
@@ -2126,33 +2124,33 @@ asailing/centos   1.0       d58be7785771   29 hours ago   323MB
 
 我这里已经创建好了，如果没有创建点击创建即可。
 
-![img](img\kuangstudyf40bb3ef-d6e3-4fcf-b2cf-56a68f3a3936.png)
+![img](./img/kuangstudyf40bb3ef-d6e3-4fcf-b2cf-56a68f3a3936.png)
 
 > 进入镜像仓库
 
 创建好个人实例后，点击进入。
 
-![img](img\kuangstudy599e3dcd-15a1-4996-bb6d-4c25e60a9344.png)
+![img](./img/kuangstudy599e3dcd-15a1-4996-bb6d-4c25e60a9344.png)
 
 > 创建命名空间
 
-![img](img\kuangstudycb118d7b-e673-46f3-8fc8-963b8a26a5d8.png)
+![img](./img/kuangstudycb118d7b-e673-46f3-8fc8-963b8a26a5d8.png)
 
 一个账号只能创建 3 个命名空间，需要谨慎创建。
 
 创建好后就是这样。
 
-![img](img\kuangstudy7f2b0bf2-190f-4272-b2a3-857d1c65abc2.png)
+![img](./img/kuangstudy7f2b0bf2-190f-4272-b2a3-857d1c65abc2.png)
 
 > 创建镜像仓库
 
-![img](img\kuangstudy33cd03cb-bfd7-4ca8-8d1e-59b87b1370dd.png)
+![img](./img/kuangstudy33cd03cb-bfd7-4ca8-8d1e-59b87b1370dd.png)
 
 > 点击下一步，创建本地仓库
 
-![img](img\kuangstudya3427a43-12f3-4d21-a579-6336f884034b.png)
+![img](./img/kuangstudya3427a43-12f3-4d21-a579-6336f884034b.png)
 
-![img](img\kuangstudy8a8bbfee-29b9-46a0-9644-f8788e2804d0.png)
+![img](./img/kuangstudy8a8bbfee-29b9-46a0-9644-f8788e2804d0.png)
 
 至此，我们就创建好了阿里云的镜像仓库，具体的操作步骤上图也写得非常清楚。
 
@@ -2199,7 +2197,7 @@ de70c523870b: Pushed
 
 > 查看提交的镜像
 
-![img](C:\Users\vision\Desktop\docker\img\kuangstudyfb28acbd-766d-4818-b6df-2fb889ef1072.png)
+![img](./img/kuangstudyfb28acbd-766d-4818-b6df-2fb889ef1072.png)
 
 提交的镜像可以在这里查看。
 
